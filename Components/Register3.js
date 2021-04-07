@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {View, Text, SafeAreaView, Image, StyleSheet, TextInput, TouchableOpacity, Touchable} from 'react-native'
+import {View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity} from 'react-native'
 import { Icon } from 'react-native-elements'
 export default class Register3 extends Component {
     render() {
@@ -29,37 +29,52 @@ export default class Register3 extends Component {
                     </View>
                     <Text style={styler.text}>ARE YOU READY?</Text>
                     <Text style={styler.textSmall}>Connect with a trained listener to {'\n'} talk about anything</Text>
-
-                    <TouchableOpacity>
-
-                        </TouchableOpacity>
+                    
+                    <View style={styler.findMyListnerBox}>
+<TouchableOpacity>
+                    <View style={styler.find}>
+                        <Text style={{color:'white',textAlign:'center',fontSize:20}}>FIND MY{'\n'}LISTENER</Text>
+                        </View>
+</TouchableOpacity>
+                        </View>
+                    
                     
                     <View style={[styler.head,{justifyContent:'space-evenly'}]}>
+                    <View style={{flexDirection:'column',alignItems:'center'}}>
                     <TouchableOpacity>
                     <Icon
                       reverse
-                     name='person-outline'
+                     name='gift'
                     type='ionicon'
                    color='#7AC141'
                      />
                         </TouchableOpacity>
+                        <Text>Rewards</Text>
+                        
+                        </View>
+                        <View style={{flexDirection:'column',alignItems:'center'}}>
                         <TouchableOpacity>
                     <Icon
                       reverse
-                     name='person-outline'
+                     name='list'
                     type='ionicon'
                    color='#7AC141'
                      />
                         </TouchableOpacity>
-                      
+                        <Text>Requests</Text>
+                        </View>
+
+                        <View style={{flexDirection:'column',alignItems:'center'}}>
                         <TouchableOpacity>
                     <Icon
                       reverse
-                     name='chatbox-ellipses-outline'
+                     name='journal-outline'
                     type='ionicon'
                    color='#7AC141'
                      />
                         </TouchableOpacity>
+                        <Text>Journal</Text>
+                        </View>
                         
                     </View>
                 
@@ -72,7 +87,7 @@ const styler=StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'space-between',
-        marginTop:40
+        marginTop:20
     },
     text:{
         fontSize:24,
@@ -86,5 +101,21 @@ const styler=StyleSheet.create({
         margin:10,
         textAlign:'center'
         
+    },
+    find:{
+        backgroundColor:'#7AC141',
+        width:135,
+        height:135,
+        borderRadius:100,
+        alignItems:'center',
+        justifyContent:'center'
+        
+        
+    },
+    findMyListnerBox:{
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'center',
+        margin:50
     }
 })
