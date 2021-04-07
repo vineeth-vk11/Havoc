@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import {View, Text, SafeAreaView, Image, StyleSheet, TextInput, TouchableOpacity, Touchable} from 'react-native'
-import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace'
+import {View, Text, SafeAreaView, Image, StyleSheet, TextInput, TouchableOpacity} from 'react-native'
+import { Icon } from 'react-native-elements'
 export default class Register1 extends Component {
     render() {
         return (
@@ -22,16 +22,49 @@ export default class Register1 extends Component {
                    <View style = {styler.lineStylew} />
                    <View style = {styler.lineStyle} />
                    </View>
+                   <TouchableOpacity
+                   >
                    <Text 
                    style={styler.continueWithEmail}
                    >Countinue With Email</Text>
+                 </TouchableOpacity>
+                 <View style={styler.authentication}>
+                     <TouchableOpacity
+                     style={{marginLeft:8,marginRight:8}}>
+                     <Icon
+  reverse
+  name='logo-google'
+  type='ionicon'
+  color='#517fa4'
+/>
+                         </TouchableOpacity>
+                         <TouchableOpacity
+                         style={{marginLeft:8,marginRight:8}}>
+                     <Icon
+  reverse
+  name='logo-facebook'
+  type='ionicon'
+  color='#517fa4'
+/>
+                         </TouchableOpacity>
+                         <TouchableOpacity
+                         style={{marginLeft:8,marginRight:8}}>
+                     <Icon
+  reverse
+  name='logo-linkedin'
+  type='ionicon'
+  color='#517fa4'
+/>
+                         </TouchableOpacity>
+                     </View>
+
                 </SafeAreaView>
         )
     }
 }
 const styler= StyleSheet.create({
     register:{
-        alignItems: 'center'
+ flex:1
     },
     phoneNumber:{
         padding:10,
@@ -40,7 +73,8 @@ const styler= StyleSheet.create({
         borderWidth:0.5,
         width:310,
         height:52,
-        color:'#828282'
+        color:'#828282',
+        justifyContent:'center'
         
     },
     sendOtp:{
@@ -82,5 +116,11 @@ continueWithEmail:{
     textAlign:'center',
     textAlignVertical:'center',
     fontSize:16
+},
+authentication:{
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'space-around'
+
 }
 })
