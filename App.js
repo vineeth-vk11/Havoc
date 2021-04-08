@@ -9,10 +9,22 @@ import PickTopic from './Components/PickTopic';
 import AgeOfListner from './Components/AgeOfListner';
 import MatchingListener from './Components/MatchingListener';
 import Leaving from './Components/Leaving';
+import Review from './Components/Review';
+import MyRequests from './Components/MyRequests';
+import MyJournal from './Components/MyJournal';
+import Conversation from './Components/Conversation';
+import Profile from './Components/Profile';
+import CallHistory from './Components/CallHistory';
+import Therapies from './Components/Therapies';
+import TherapyProduct from './Components/TherapyProduct';
+import TherapyBooking from './Components/TherapyBooking';
+import MyTherapies from './Components/MyTherapies';
+import BookCall from './Components/BookCall';
+import Booking from './Components/Booking'
 export default function App() {
   return (
     <SafeAreaView>
-      <Leaving/>
+      <Booking/>
     </SafeAreaView>
   );
 }
