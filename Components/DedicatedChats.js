@@ -3,39 +3,13 @@ import {View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity, TextInput
 import { ListItem, Avatar,Icon } from 'react-native-elements'
 const list = [
     {
-      date:'14 March 2021',
-      time:'4:14 PM',
-      price:'₹250'
-    },
-    {
-        date:'14 March 2021',
-        time:'4:14 PM',
-        price:'₹250'
-      },
-      {
-        date:'14 March 2021',
-        time:'4:14 PM',
-        price:'₹250'
-      },
-      {
-        date:'14 March 2021',
-        time:'4:14 PM',
-        price:'₹250'
-      },
-
-      {
-        date:'14 March 2021',
-        time:'4:14 PM',
-        price:'₹250'
-      },
-      {
-        date:'14 March 2021',
-        time:'4:14 PM',
-        price:'₹250'
-      },
+      name: 'Shreya',
+      avatar_url: 'https://i.pravatar.cc/300',
+      subtitle: 'Career listening',
+    }
     
   ]
-export default class CallHistory extends Component {
+export default class DedicatedChats extends Component {
     render() {
         return (
             <SafeAreaView style={styler.screen}>
@@ -47,7 +21,7 @@ export default class CallHistory extends Component {
            color='#979797'
            size={30}
              />
-                <Text style={{fontSize:30,fontWeight:'bold'}}>Call History</Text>
+                <Text style={{fontSize:30,fontWeight:'bold'}}>Dedicated chats</Text>
                 <Icon
               style={{margin:5}}
              name='arrow-back'
@@ -59,19 +33,21 @@ export default class CallHistory extends Component {
             <View style={styler.listView}>
   {
     list.map((l, i) => (
-      <View style={{padding:3,paddingRight:5,paddingLeft:5}}>
-      <ListItem key={i} containerStyle={{backgroundColor:'#F8F8F8',height:61}}
+      <View key={i} style={{padding:3,paddingRight:5,paddingLeft:5}}>
+      <ListItem key={i}  containerStyle={{backgroundColor:'#F8F8F8',height:57}}
 >
+          <Avatar source={{uri: l.avatar_url}} />
         <ListItem.Content>
-        <ListItem.Subtitle>{l.date}</ListItem.Subtitle>
-          <ListItem.Subtitle>{l.time}</ListItem.Subtitle>
+          <ListItem.Title>{l.name}</ListItem.Title>
+          <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
         </ListItem.Content>
-        <ListItem.Subtitle>{l.price}</ListItem.Subtitle>
+        <ListItem.Chevron size={35}/>
       </ListItem>
       </View>
     ))
   }
 </View>
+
             </SafeAreaView>
         )
     }

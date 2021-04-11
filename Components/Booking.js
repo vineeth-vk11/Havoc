@@ -5,9 +5,9 @@ import { Icon } from 'react-native-elements';
 export default class Booking extends Component {
     render() {
         return (
-            <SafeAreaView>
-               
-            <View style={styler.head}>
+            <SafeAreaView style={styler.screen}>
+                <View style={styler.headView}>
+                <View style={styler.head}>
             <TouchableOpacity>
             <Icon
               
@@ -26,14 +26,18 @@ export default class Booking extends Component {
              />
                 </TouchableOpacity>  
             </View>
-            <View style={styler.bookingSuccessfull}>
+                    </View>
+                    <View style={styler.bookingView}>
+                    <View style={styler.bookingSuccessfull}>
                 <Icon 
                 name='check-circle'
                 type='fontAwesome'
                 color='#7AC141'/>
                 <Text style={{fontSize:24,color:'#80B852'}}>  Booking Successfull</Text>
                 </View>
-            <Text style={{fontSize:18,fontWeight:'bold',margin:10}}>Summary</Text>
+                    </View>
+                    <View style={styler.summaryView}>
+                    <Text style={{fontSize:18,fontWeight:'bold',margin:10}}>Summary</Text>
             <View style = {styler.lineStyle} />
                 <View style={styler.medicationView}>
                     <Text style={{fontSize:15,fontWeight:'bold'}}>Paid Amount</Text>
@@ -41,11 +45,19 @@ export default class Booking extends Component {
                     </View>
                     <Text style={{margin:10,width:160}}>Your booking is confirmed on 5PM, 5th Match. You will receive a call on +918978117894.</Text>
                     <View style = {styler.lineStyle} />
-                <TouchableOpacity>
+                    </View>
+                    <View style={styler.footView}>
+                    <TouchableOpacity>
                    <Text 
                    style={styler.finish}
                    >FINISH</Text>
                    </TouchableOpacity>
+                    </View>
+               
+           
+            
+            
+               
             </SafeAreaView>
         )
     }
@@ -55,7 +67,7 @@ const styler=StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'space-between',
-        marginTop:20,
+        marginTop:35,
         margin:10
     },
 medicationView:{
@@ -70,8 +82,7 @@ finish:{
     width:310,
     height:52,
     backgroundColor:'#7AC141',
-    color:'white', 
-    margin:20,
+    color:'white',
     textAlign:'center',
     textAlignVertical:'center',
     fontSize:20,
@@ -88,5 +99,17 @@ bookingSuccessfull:{
     justifyContent:'center',
     marginTop:80,
     marginBottom:80
-}
+},screen:{ flex:1},
+headView:{
+    flex:0.15
+},
+bookingView:{
+    flex:0.25,
+    alignItems:'center',
+    justifyContent:'center'
+},
+summaryView:{
+    flex:0.3
+},
+footView:{ flex:0.3,alignItems:'center',justifyContent:'flex-end',marginBottom:50},
 })

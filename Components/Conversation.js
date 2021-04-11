@@ -1,22 +1,24 @@
 import React, { Component } from 'react'
-import {View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity, TextInput,ScrollView} from 'react-native'
-import { ListItem, Avatar,Icon } from 'react-native-elements'
+import {View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity} from 'react-native'
+import {Icon } from 'react-native-elements'
 
 export default class MyRequests extends Component {
     render() {
         return (
-            <SafeAreaView style={styler.main}>
+            <SafeAreaView style={styler.screen}>
                 
-            <View style={styler.head}>
+                <View style={styler.headView}>
+                <View style={styler.head}>
                 <TouchableOpacity>
             <Icon
               style={{margin:5}}
              name='arrow-back'
             type='ionicon'
            color='#979797'
+           size={30}
              />
              </TouchableOpacity>
-                <Text style={{fontSize:30,fontWeight:'bold',margin:40}}>Conversation</Text>
+                <Text style={{fontSize:30,fontWeight:'bold'}}>Conversation</Text>
                 <Icon
               style={{margin:5}}
              name='arrow-back'
@@ -24,7 +26,9 @@ export default class MyRequests extends Component {
            color='#ffffff'
              />
             </View>
-            <View style={styler.container}>
+                    </View>
+                    <View style={styler.profileView}>
+                    <View style={styler.container}>
                 <View style={styler.texts}>
                     <Text style={{fontSize:30}}>Mahesh</Text>
                     <Text style={{color:'#828282'}}>Career listening</Text>
@@ -37,14 +41,14 @@ export default class MyRequests extends Component {
       />
                         </View>
                 </View>
-                <View>
+                    </View>
+                    <View style={styler.footView}>
                 <TouchableOpacity>
                    <Text 
                    style={styler.viewTheChat}
                    >VIEW THE CHAT</Text>
                    </TouchableOpacity>
                    </View>
-
             </SafeAreaView>
         )
     }
@@ -55,7 +59,7 @@ const styler=StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'space-between',
-        marginTop:20
+        marginTop:35
     },
     container:{
         flexDirection:'row',
@@ -73,11 +77,20 @@ const styler=StyleSheet.create({
         width:310,
         height:52,
         backgroundColor:'#7AC141',
-        color:'white', 
-        margin:20,
+        color:'white',
         textAlign:'center',
         textAlignVertical:'center',
         fontSize:20,
+    },
+    screen:{flex:1},
+    headView:{flex:0.15},
+    profileView:{flex:0.25,
+    justifyContent:'center'},
+    footView:{
+        flex:0.6,
+        marginBottom:50,
+        justifyContent:'flex-end',
+        alignItems:'center'
     }
 
 

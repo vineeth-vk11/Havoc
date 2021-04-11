@@ -5,9 +5,9 @@ import { Button } from 'react-native-elements';
 export default class TherapyProduct extends Component {
     render() {
         return (
-            <SafeAreaView>
-               
-            <View style={styler.head}>
+            <SafeAreaView style={styler.screen}>
+               <View style={styler.headView}>
+               <View style={styler.head}>
             <TouchableOpacity>
             <Icon
               
@@ -26,24 +26,30 @@ export default class TherapyProduct extends Component {
              />
                 </TouchableOpacity>  
             </View>
+                   </View>
+         
            
-      <View style={styler.container}>
+      <View style={styler.imageView}>
                     <Image
-        style={styler.medication}
+        style={styler.meditation}
         source={require('../assets/Images/Medication.png')}
       />
                         
                 </View>
-                <View style={styler.medicationView}>
+                <View style={styler.meditationView}>
+                <View style={styler.meditationTexts}>
                     <Text style={{fontSize:22}}>Meditation</Text>
                     <Text style={{fontSize:22}}s>₹ 250</Text>
                     </View>
-                    <View style={styler.medicationView}>
-                        <Text> Meditation is a practice where an individual uses a technique – such as mindfulness, or focusing the mind on a particular object, thought, or activity – to train attention and awareness, and achieve a mentally clear and emotionally calm and stable state.
+                    <View style={{margin:10}}>
+                        <Text>Meditation is a practice where an individual uses a technique – such as mindfulness, or focusing the mind on a particular object, thought, or activity – to train attention and awareness, and achieve a mentally clear and emotionally calm and stable state.
+                            
                             </Text>
+                            <Text style={{fontSize:15, marginTop:10}}>Duration: 25 minutes per day</Text>
                         </View>
-                        <Text style={{fontSize:15, margin:10}}>Duration: 25 minutes per day</Text>
-            <View style={styler.promo}>
+                    </View>
+                    <View style={styler.promoView}>
+                    <View style={styler.promo}>
             <TextInput 
                style={styler.applyCoupon}
                placeholder={"Got a promo code?"}
@@ -57,11 +63,14 @@ export default class TherapyProduct extends Component {
   type="outline"
 />
                 </View>
+                        </View>
+           <View style={styler.footView}>
                 <TouchableOpacity>
                    <Text 
                    style={styler.bookNow}
                    >BOOK NOW</Text>
                    </TouchableOpacity>
+                   </View>
             </SafeAreaView>
         )
     }
@@ -71,25 +80,19 @@ const styler=StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'space-between',
-        marginTop:20,
+        marginTop:35,
         margin:10
     },
-    medication:{
+    meditation:{
         width:258,
         height:172
-    }
-,container:{
-    flexDirection:'row',
-    alignItems:'center',
-    justifyContent:'center',
-    margin:10
-},
+    },
 tinyLogo:{
     width:114,
     height:114,
     borderRadius:100
 },
-medicationView:{
+meditationTexts:{
     flexDirection:'row',
     alignItems:'center',
     justifyContent:'space-between',
@@ -119,10 +122,23 @@ bookNow:{
     width:310,
     height:52,
     backgroundColor:'#7AC141',
-    color:'white', 
-    margin:20,
+    color:'white',
     textAlign:'center',
     textAlignVertical:'center',
     fontSize:20,
-}
+},screen:{ flex:1},
+headView:{
+    flex:0.15
+},
+imageView:{
+    flex:0.25,
+    alignItems:'center',
+    justifyContent:'center'
+},
+meditationView:{
+    flex:0.25,paddingTop:10
+},
+promoView:{ flex:0.2,justifyContent:'center'},
+footView:{ flex:0.15,alignItems:'center',justifyContent:'flex-end',marginBottom:50},
+
 })

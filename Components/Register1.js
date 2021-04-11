@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import {View, Text, SafeAreaView, Image, StyleSheet, TextInput, TouchableOpacity} from 'react-native'
-import { Icon } from 'react-native-elements'
+import { Icon } from 'react-native-elements';
+import { SocialIcon } from 'react-native-elements'
 export default class Register1 extends Component {
     render() {
         return (
-            <SafeAreaView style={styler.register}>
+            <SafeAreaView style={styler.screen}>
+                <View style={styler.havoc}>
                <Image
-               style={{margin:50}} 
                source={require('../assets/Images/HavocTherapy.png')} />
+               </View>
                <TextInput 
                style={styler.phoneNumber}
                placeholder={"Phone Number"}
@@ -22,6 +24,7 @@ export default class Register1 extends Component {
                    <View style = {styler.lineStylew} />
                    <View style = {styler.lineStyle} />
                    </View>
+                   <View>
                    <TouchableOpacity
                    >
                    <Text 
@@ -31,39 +34,35 @@ export default class Register1 extends Component {
                  <View style={styler.authentication}>
                      <TouchableOpacity
                      style={{marginLeft:8,marginRight:8}}>
-                     <Icon
-  reverse
-  name='logo-google'
-  type='ionicon'
-  color='#517fa4'
-/>
+                     <SocialIcon
+                     type='google'
+                     />
+                         </TouchableOpacity>
+                         <TouchableOpacity
+                         style={{marginLeft:8,marginRight:8}}>
+                     <SocialIcon
+                     type='facebook'
+                     />
                          </TouchableOpacity>
                          <TouchableOpacity
                          style={{marginLeft:8,marginRight:8}}>
                      <Icon
-  reverse
-  name='logo-facebook'
+  name='logo-apple'
   type='ionicon'
-  color='#517fa4'
-/>
-                         </TouchableOpacity>
-                         <TouchableOpacity
-                         style={{marginLeft:8,marginRight:8}}>
-                     <Icon
-  reverse
-  name='logo-linkedin'
-  type='ionicon'
-  color='#517fa4'
+  color='#000'
+  size={50}
 />
                          </TouchableOpacity>
                      </View>
+                       </View>
 
                 </SafeAreaView>
         )
     }
 }
 const styler= StyleSheet.create({
-    register:{
+    screen:{
+        alignItems:'center',
  flex:1
     },
     phoneNumber:{
@@ -122,5 +121,9 @@ authentication:{
     alignItems:'center',
     justifyContent:'space-around'
 
-}
+},
+havoc:{
+    justifyContent:'center',
+    margin:50
+},
 })

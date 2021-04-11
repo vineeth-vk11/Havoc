@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity, TextInput,ScrollView} from 'react-native'
-import { Icon } from 'react-native-elements'
-import RadioForm from 'react-native-simple-radio-button';
+import RadioForm , {RadioButton, RadioButtonInput, RadioButtonLabel}from 'react-native-simple-radio-button';
 import { Rating, AirbnbRating } from 'react-native-elements';
 var radio_props = [
     {label: 'Yes', value: 0 },
@@ -21,28 +20,60 @@ export default class AgeOfListner extends Component {
 
     render() {
         return (
-            <SafeAreaView>
-            <View style={styler.head}>
-                <Text style={{fontSize:30,fontWeight:'bold',margin:40}}>Review</Text>
+            <SafeAreaView style={styler.screen}>
+                <View style={styler.headView}>
+                <View style={styler.head}>
+                <Text style={{fontSize:30,fontWeight:'bold'}}>Review</Text>
             </View>
+                    </View>
+                    <View style={styler.formView}>
             <Text style={styler.better}>Are you feeling better now</Text>
-            <View style={{margin:10}}>
-        <RadioForm
-          radio_props={radio_props}
-          initial={0}
-          buttonColor={'#7AC141'}
-          selectedButtonColor={'#7AC141'}
-          onPress={(value) => {this.setState({value:value})}}
-          
+                <RadioForm
+  formHorizontal={false}
+  animation={true}
+>
+  {
+    radio_props.map((obj, i) => (
+      <RadioButton labelHorizontal={true} key={i} >
+       
+        <View style={{flexDirection:'row'}}>
+        <RadioButtonInput
+          obj={obj}
+          index={i}
+          isSelected={this.state.value === i}
+         onPress={(value) => {this.setState({value:value})}}
+          borderWidth={2}
+          buttonInnerColor={'#7AC141'}
+          buttonOuterColor={this.state.value === i ? '#7AC141' : '#DADADA'}
+          buttonSize={16}
+          buttonOuterSize={28}
+          buttonStyle={{marginRight:20,marginBottom:10}}
+          buttonWrapStyle={{marginLeft: 10}}
         />
+        <RadioButtonLabel
+          obj={obj}
+          index={i}
+          labelHorizontal={true}
+         onPress={(value) => {this.setState({value:value})}}
+          labelStyle={{fontSize: 20, color: 'rgba(18, 18, 18, 0.5)'}}
+          labelWrapStyle={{}}
+        />
+          </View>
+      </RadioButton>
+    ))
+  }  
+</RadioForm>
       </View>
-      <Text style={styler.better}>Rate the listener</Text>
+                    <View style={styler.rateView}>
+                    <Text style={styler.better}>Rate the listener</Text>
       <Rating
   
   onFinishRating={this.ratingCompleted}
   style={{ paddingVertical: 10 }}
 />
-<Text style={styler.better}>Review</Text>
+                    </View>
+                    <View style={styler.reviewView}>
+                    <Text style={styler.better}>Review</Text>
 <View style={{flexDirection:'column',
 alignItems:'center',
         justifyContent:'flex-end'}}>
@@ -51,12 +82,20 @@ alignItems:'center',
                 placeholderTextColor='rgba(122, 193, 65, 1);'
                 style={styler.review}
                 ></TextInput>
+                
+                </View>
+                </View>
+                <View style={styler.footView}>
                 <TouchableOpacity>
                    <Text 
                    style={styler.complete}
                    >Complete</Text>
                    </TouchableOpacity>
-                </View>
+                    </View>
+                    
+           
+      
+
       
             </SafeAreaView>
         )
@@ -83,7 +122,6 @@ const styler=StyleSheet.create({
         height:52,
         backgroundColor:'#7AC141',
         color:'white', 
-        margin:50,
         textAlign:'center',
         textAlignVertical:'center',
         fontSize:20
@@ -100,5 +138,30 @@ const styler=StyleSheet.create({
         backgroundColor:'#f5f6fa',
         margin:15
     }
+    ,screen:{
+        flex:1
+      },
+      headView:{
+        flex:0.2,
+        justifyContent:'center',
+        alignItems:'center'
+      },
+      formView:{
+        flex:0.3,
+        margin:5
+      },
+      rateView:{
+        flex:0.2,
+      },
+      reviewView:{
+        flex:0.2,
+      },
+      footView:{
+        flex:0.1,
+        justifyContent:'flex-end',
+        marginBottom:50,
+        justifyContent:'flex-end',
+        alignItems:'center'
+      }, 
 
 })

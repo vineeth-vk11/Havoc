@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity, TextInput,ScrollView} from 'react-native'
+import {View, Text, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native'
 import { ListItem, Avatar,Icon } from 'react-native-elements'
 const list = [
     {
@@ -13,14 +13,29 @@ const list = [
 export default class MyRequests extends Component {
     render() {
         return (
-            <SafeAreaView>
+            <SafeAreaView style={styler.screen}>
+
             <View style={styler.head}>
-                <Text style={{fontSize:30,fontWeight:'bold',margin:40}}>My Requests</Text>
+            <Icon
+              style={{margin:5}}
+             name='arrow-back'
+            type='ionicon'
+           color='#979797'
+           size={30}
+             />
+                <Text style={{fontSize:30,fontWeight:'bold'}}>My Requests</Text>
+                <Icon
+              reverse
+             name='person'
+            type='ionicon'
+           color='#ffff'
+             />
             </View>
-            <View>
+            <View style={styler.listView}>
   {
     list.map((l, i) => (
-      <ListItem key={i} bottomDivider
+      <View key={i} style={{padding:3,paddingRight:5,paddingLeft:5}}>
+      <ListItem key={i}  containerStyle={{backgroundColor:'#F8F8F8',height:79}} 
 >
           <Avatar source={{uri: l.avatar_url}} />
         <ListItem.Content>
@@ -28,10 +43,15 @@ export default class MyRequests extends Component {
           <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
         </ListItem.Content>
         <TouchableOpacity>
-        <Icon name={'close'} />
+        <Icon name={'close'}
+        color='red' />
         </TouchableOpacity>
-        <Icon name={'checkmark'} type='ionicon' />
+        <TouchableOpacity>
+        <Icon name={'checkmark'} type='ionicon'
+        color='green' />
+        </TouchableOpacity>
       </ListItem>
+      </View>
     ))
   }
 </View>
@@ -41,10 +61,17 @@ export default class MyRequests extends Component {
 }
 const styler=StyleSheet.create({
     head:{
+      flex:0.15,
         flexDirection:'row',
         alignItems:'center',
-        justifyContent:'center',
+        justifyContent:'space-between',
         marginTop:20
+    },
+    listView:{
+      flex:0.85
+    },
+    screen:{
+      flex:1
     }
 
 })

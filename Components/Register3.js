@@ -4,14 +4,16 @@ import { Icon } from 'react-native-elements'
 export default class Register3 extends Component {
     render() {
         return (
-            <SafeAreaView>
+            <SafeAreaView style={styler.screen}>
+                <View style={styler.headerView}>
                 <View style={styler.head}>
-                    <TouchableOpacity>
+                    <TouchableOpacity >
                     <Icon
                       reverse
-                     name='person-outline'
+                     name='person'
                     type='ionicon'
                    color='#7AC141'
+                   size={24}
                      />
                         </TouchableOpacity>
                         <Image
@@ -20,26 +22,29 @@ export default class Register3 extends Component {
                         <TouchableOpacity>
                     <Icon
                       reverse
-                     name='chatbox-ellipses-outline'
+                     name='chatbox-ellipses'
                     type='ionicon'
                    color='#7AC141'
+                   size={24}
                      />
                         </TouchableOpacity>
                         
                     </View>
+                    </View>
+                    <View style={styler.textView}>
                     <Text style={styler.text}>ARE YOU READY?</Text>
                     <Text style={styler.textSmall}>Connect with a trained listener to {'\n'} talk about anything</Text>
-                    
-                    <View style={styler.findMyListnerBox}>
+
+                    </View>
+                    <View style={styler.findMyListnerView}>
 <TouchableOpacity>
                     <View style={styler.find}>
                         <Text style={{color:'white',textAlign:'center',fontSize:20}}>FIND MY{'\n'}LISTENER</Text>
                         </View>
 </TouchableOpacity>
                         </View>
-                    
-                    
-                    <View style={[styler.head,{justifyContent:'space-evenly'}]}>
+                    <View style={styler.footerView}>
+                    <View style={[styler.foot,{justifyContent:'space-evenly'}]}>
                     <View style={{flexDirection:'column',alignItems:'center'}}>
                     <TouchableOpacity>
                     <Icon
@@ -47,6 +52,7 @@ export default class Register3 extends Component {
                      name='gift'
                     type='ionicon'
                    color='#7AC141'
+                   size={24}
                      />
                         </TouchableOpacity>
                         <Text>Rewards</Text>
@@ -59,6 +65,7 @@ export default class Register3 extends Component {
                      name='list'
                     type='ionicon'
                    color='#7AC141'
+                   size={24}
                      />
                         </TouchableOpacity>
                         <Text>Requests</Text>
@@ -68,30 +75,38 @@ export default class Register3 extends Component {
                         <TouchableOpacity>
                     <Icon
                       reverse
-                     name='journal-outline'
+                     name='journal'
                     type='ionicon'
                    color='#7AC141'
+                   size={24}
                      />
                         </TouchableOpacity>
                         <Text>Journal</Text>
                         </View>
                         
                     </View>
-                
+                    </View>
                 </SafeAreaView>
         )
     }
 }
 const styler=StyleSheet.create({
+    screen:{
+        flex:1
+    },
     head:{
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'space-between',
-        marginTop:20
+        marginTop:35
+    },
+    foot:{
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'space-between',
     },
     text:{
         fontSize:24,
-        marginTop:100,
         fontWeight:'bold',
         textAlign:'center'
         
@@ -112,10 +127,19 @@ const styler=StyleSheet.create({
         
         
     },
-    findMyListnerBox:{
-        flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'center',
-        margin:50
+    headerView:{
+        flex:0.3,
+    },
+    textView:{
+        flex:0.2,
+    },
+    findMyListnerView:{
+        flex:0.3,justifyContent:'center',
+        alignItems:'center'
+    },
+    footerView:{
+        flex:0.2,
+justifyContent:'flex-end',
+paddingBottom:50
     }
 })

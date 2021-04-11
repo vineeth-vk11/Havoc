@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import {View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity, TextInput,ScrollView} from 'react-native'
 import { Icon } from 'react-native-elements'
-import RadioForm from 'react-native-simple-radio-button';
+import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 var radio_props = [
     {label: '18 - 24 Years', value: 0 },
     {label: '25 - 34 Years', value: 1 },
     {label: '35 - 50 Years', value: 2 },
-    {label: '51 - years or more', value: 3 }
+    {label: '51 years or more', value: 3 }
   ];
 export default class AgeOfListner extends Component {
     constructor(props){
@@ -18,35 +18,72 @@ export default class AgeOfListner extends Component {
 
     render() {
         return (
-            <SafeAreaView>
-            <View style={styler.head}>
+            <SafeAreaView style={styler.screen}>
+              <View style={styler.headView}>
+              <View style={styler.head}>
             <TouchableOpacity>
             <Icon
-              style={{margin:5}}
+         
              name='arrow-back'
             type='ionicon'
            color='#979797'
+           size={30}
              />
-                </TouchableOpacity>
+            </TouchableOpacity>
+            
             </View>
+                </View>
+            
+            <View style={styler.textView}>
             <Text style={styler.age}>Age of listener</Text>
             <Text style={styler.set}>(Set Your Preference)</Text>
-            <View style={{margin:10}}>
-        <RadioForm
-          radio_props={radio_props}
-          initial={0}
-          buttonColor={'#7AC141'}
-          selectedButtonColor={'#7AC141'}
-          onPress={(value) => {this.setState({value:value})}}
-          
+            </View>
+            <View style={styler.formView}>
+            <RadioForm
+  formHorizontal={false}
+  animation={true}
+>
+  {
+    radio_props.map((obj, i) => (
+      <RadioButton labelHorizontal={true} key={i} >
+       
+        <View style={{flexDirection:'row'}}>
+        <RadioButtonInput
+          obj={obj}
+          index={i}
+          isSelected={this.state.value === i}
+         onPress={(value) => {this.setState({value:value})}}
+          borderWidth={2}
+          buttonInnerColor={'#7AC141'}
+          buttonOuterColor={this.state.value === i ? '#7AC141' : '#DADADA'}
+          buttonSize={16}
+          buttonOuterSize={28}
+          buttonStyle={{marginRight:20,marginBottom:10}}
+          buttonWrapStyle={{marginLeft: 10}}
         />
+        <RadioButtonLabel
+          obj={obj}
+          index={i}
+          labelHorizontal={true}
+         onPress={(value) => {this.setState({value:value})}}
+          labelStyle={{fontSize: 20, color: 'rgba(18, 18, 18, 0.5)'}}
+          labelWrapStyle={{}}
+        />
+          </View>
+      </RadioButton>
+    ))
+  }  
+</RadioForm>
       </View>
+      <View style={styler.footView}>
       <TouchableOpacity>
                    <Text 
                    style={styler.continue}
-                   >Get Started</Text>
+                   >CONTINUE</Text>
                    </TouchableOpacity>
+                   </View>
             </SafeAreaView>
+            
         )
     }
 }
@@ -55,7 +92,7 @@ const styler=StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'flex-start',
-        marginTop:20
+        marginTop:35
     },
     age:{
         fontSize:20,
@@ -82,5 +119,25 @@ const styler=StyleSheet.create({
         textAlignVertical:'center',
         fontSize:20
     },
+    screen:{
+      flex:1
+    },
+    headView:{
+      flex:0.1,
+    },
+    textView:{
+      flex:0.1,
+      marginLeft:10,
+
+    },
+    formView:{
+      flex:0.3,
+      margin:5
+    },
+    footView:{
+      flex:0.5,
+      justifyContent:'flex-end',
+      marginBottom:50
+    }
 
 })

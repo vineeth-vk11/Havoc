@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import {View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity, TextInput,ScrollView} from 'react-native'
-import { ListItem, Avatar,Icon } from 'react-native-elements'
+import {View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity} from 'react-native'
+import { ListItem,Icon } from 'react-native-elements'
 const list = [
     {
       title: 'Call history',
@@ -31,26 +31,30 @@ const list = [
 export default class Profile extends Component {
     render() {
         return (
-            <SafeAreaView style={styler.main}>
-                
-            <View style={styler.head}>
+            <SafeAreaView style={styler.screen}>
+                <View style={styler.headView}>
+                <View style={styler.head}>
                 <TouchableOpacity>
             <Icon
               style={{margin:5}}
              name='arrow-back'
             type='ionicon'
            color='#979797'
+           size={30}
              />
              </TouchableOpacity>
-                <Text style={{fontSize:30,fontWeight:'bold',margin:40}}>Profile</Text>
+                <Text style={{fontSize:30,fontWeight:'bold'}}>Profile</Text>
                 <Icon
               style={{margin:5}}
              name='settings'
             type='ionicon'
            color='#000'
+           size={30}
              />
             </View>
-            <View style={styler.container}>
+                  </View>
+                  <View style={styler.headView}>
+                  <View style={styler.container}>
             <View style={styler.image}>
                     <Image
         style={styler.dp}
@@ -65,16 +69,19 @@ export default class Profile extends Component {
                     </View>
                     
                 </View>
-                <View>
+                  </View>            
+                <View style={styler.listView}>
   {
     list.map((item, i) => (
-      <ListItem key={i} bottomDivider >
+      <View key={i} style={{padding:3,paddingRight:5,paddingLeft:5}}>
+      <ListItem key={i} containerStyle={{backgroundColor:'#F8F8F8',height:53}} >
         <Icon name={item.icon} type='ionicon' />
         <ListItem.Content>
           <ListItem.Title>{item.title}</ListItem.Title>
         </ListItem.Content>
         <ListItem.Chevron />
       </ListItem>
+      </View>
     ))
   }
 </View>
@@ -89,7 +96,7 @@ const styler=StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'space-between',
-        marginTop:20
+        marginTop:35
     },
     container:{
         flexDirection:'row',
@@ -100,6 +107,15 @@ const styler=StyleSheet.create({
         width:109,
         height:109,
         borderRadius:100
+    },
+    screen:{flex:1},
+    headView:{flex:0.15},
+    profileView:{
+      flex:0.3
+  },  
+    listView:{
+        flex:0.55,
+        justifyContent:'flex-end'
     }
 
 

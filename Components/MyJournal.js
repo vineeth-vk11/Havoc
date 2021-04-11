@@ -13,15 +13,28 @@ const list = [
 export default class MyRequests extends Component {
     render() {
         return (
-            <SafeAreaView>
-                <ScrollView>
+            <SafeAreaView style={styler.screen}>
             <View style={styler.head}>
-                <Text style={{fontSize:30,fontWeight:'bold',margin:40}}>My Journal</Text>
+            <Icon
+              style={{margin:5}}
+             name='arrow-back'
+            type='ionicon'
+           color='#979797'
+           size={30}
+             />
+                <Text style={{fontSize:30,fontWeight:'bold'}}>My Journal</Text>
+                <Icon
+              reverse
+             name='person'
+            type='ionicon'
+           color='#ffff'
+             />
             </View>
-            <View>
+            <View style={styler.listView}>
   {
     list.map((l, i) => (
-      <ListItem key={i} bottomDivider
+      <View key={i} style={{padding:3,paddingRight:5,paddingLeft:5}}>
+      <ListItem key={i}  containerStyle={{backgroundColor:'#F8F8F8',height:79}}
 >
           <Avatar source={{uri: l.avatar_url}} />
         <ListItem.Content>
@@ -29,22 +42,29 @@ export default class MyRequests extends Component {
           <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
           <ListItem.Subtitle>{l.date}</ListItem.Subtitle>
         </ListItem.Content>
-        <ListItem.Chevron/>
+        <ListItem.Chevron size={35}/>
       </ListItem>
+      </View>
     ))
   }
 </View>
-</ScrollView>
+
             </SafeAreaView>
         )
     }
 }
 const styler=StyleSheet.create({
-    head:{
-        flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'center',
-        marginTop:20
-    }
-
+  head:{
+    flex:0.15,
+      flexDirection:'row',
+      alignItems:'center',
+      justifyContent:'space-between',
+      marginTop:20
+  },
+  listView:{
+    flex:0.85
+  },
+  screen:{
+    flex:1
+  }
 })

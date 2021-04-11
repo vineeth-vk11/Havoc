@@ -1,38 +1,40 @@
 import React, { Component } from 'react'
-import {View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity, TextInput,ScrollView} from 'react-native'
+import {View, Text, SafeAreaView, StyleSheet, TouchableOpacity,ScrollView} from 'react-native'
 import { Icon } from 'react-native-elements'
 import { SearchBar } from 'react-native-elements';
-import { ListItem, Avatar } from 'react-native-elements'
+import { ListItem } from 'react-native-elements'
 const list = [
-    {
-      therapy: 'Medication',
-      price: '₹ 250'
-    },
-    {
-      therapy: 'Medication',
-      price: '₹ 250'
-    }
-    ,
-    {
-      therapy: 'Medication',
-      price: '₹ 250'
-    }
-    ,
-    {
-      therapy: 'Medication',
-      price: '₹ 250'
-    }
-    
-    
-  ]
+  {
+    therapy: 'Medication',
+    price: '₹ 250'
+  },
+  {
+    therapy: 'Medication',
+    price: '₹ 250'
+  }
+  ,
+  {
+    therapy: 'Medication',
+    price: '₹ 250'
+  }
+  ,
+  {
+    therapy: 'Medication',
+    price: '₹ 250'
+  }
+  
+  
+]
 
 export default class Therapies extends Component {
     constructor(props){
         super(props);
         this.state={
-            search: ''
+            search: '',
+
         }
     }
+
     updateSearch = (search) => {
         this.setState({ search });
       };
@@ -49,6 +51,7 @@ export default class Therapies extends Component {
              name='arrow-back'
             type='ionicon'
            color='#979797'
+           size={30}
              />
                 </TouchableOpacity>
           <Text style={{fontSize:24,fontWeight:'bold'}}>Therapies</Text>
@@ -61,11 +64,11 @@ export default class Therapies extends Component {
              />
                 </TouchableOpacity>  
             </View>
-            <View style={{margin:10}}>
+            <View style={{padding:10}}>
             <SearchBar
-            containerStyle={{backgroundColor:'white',borderWidth:1,padding:3,borderRadius:15,borderColor:'#7AC141',borderTopWidth:1,borderTopColor:'#7AC141',borderBottomColor:'#7AC141'}}
-            inputContainerStyle={{backgroundColor:'white'}}
-        placeholder="Enter your Message here"
+            containerStyle={{backgroundColor:'white',borderWidth:1,borderRadius:15,borderColor:'#7AC141',borderTopWidth:1,borderTopColor:'#7AC141',borderBottomColor:'#7AC141',height:48}}
+            inputContainerStyle={{backgroundColor:'white',height:32}}
+        placeholder="Search therapy name"
         onChangeText={this.updateSearch}
         value={search}
       />
@@ -73,13 +76,16 @@ export default class Therapies extends Component {
                 <View>
   {
     list.map((l, i) => (
-      <ListItem key={i} bottomDivider>
+      <View key={i} style={{padding:3,paddingRight:5,paddingLeft:5}}>
+      <ListItem key={i}
+      containerStyle={{backgroundColor:'#F8F8F8',height:55}} >
         <ListItem.Content>
           <ListItem.Title>{l.therapy}</ListItem.Title>
           <ListItem.Subtitle>{l.price}</ListItem.Subtitle>
         </ListItem.Content>
-        <ListItem.Chevron />
+        <ListItem.Chevron size={35} />
       </ListItem>
+      </View>
     ))
   }
 </View>
@@ -93,7 +99,7 @@ const styler=StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'space-between',
-        marginTop:20
+        marginTop:30
     }
 
 })

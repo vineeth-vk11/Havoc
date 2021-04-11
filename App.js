@@ -20,12 +20,16 @@ import TherapyProduct from './Components/TherapyProduct';
 import TherapyBooking from './Components/TherapyBooking';
 import MyTherapies from './Components/MyTherapies';
 import BookCall from './Components/BookCall';
-import Booking from './Components/Booking'
+import Booking from './Components/Booking';
+import JoinTheChat from './Components/JoinTheChat';
+import Chat from './Components/Chat';
+import BookCallDateTime from './Components/BookCallDateTime';
+import DedicatedChats from './Components/DedicatedChats'
+
 export default function App() {
   return (
-    <SafeAreaView>
-      <Booking/>
-    </SafeAreaView>
+    
+      <MatchingListener/>
   );
 }
 

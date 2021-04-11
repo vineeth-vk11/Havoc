@@ -5,8 +5,8 @@ import { Button } from 'react-native-elements';
 export default class BookCall extends Component {
     render() {
         return (
-            <SafeAreaView>
-               
+            <SafeAreaView style={styler.screen}>
+            <View style={styler.headView}>
             <View style={styler.head}>
             <TouchableOpacity>
             <Icon
@@ -26,15 +26,19 @@ export default class BookCall extends Component {
              />
                 </TouchableOpacity>  
             </View>
-                <View style={styler.medicationView}>
+            </View>
+            <View style={styler.meditationView}>
+                <View style={styler.callView}>
                     <Text style={{fontSize:22}}>Call</Text>
                     <Text style={{fontSize:22}}>₹ 250</Text>
                     </View>
-                    <View style={styler.medicationView}>
+                    <View style={{margin:10}}>
                         <Text> Meditation is a practice where an individual uses a technique – such as mindfulness, or focusing the mind on a particular object, thought, or activity – to train attention and awareness, and achieve a mentally clear and emotionally calm and stable state.
                             </Text>
-                        </View>
                         <Text style={{fontSize:15, margin:10}}>Duration: 25 minutes per day</Text>
+                        </View>
+                        </View>
+                        <View style={styler.promoView}>
             <View style={styler.promo}>
             <TextInput 
                style={styler.applyCoupon}
@@ -49,11 +53,14 @@ export default class BookCall extends Component {
   type="outline"
 />
                 </View>
+                </View>
+                <View style={styler.footView}>
                 <TouchableOpacity>
                    <Text 
                    style={styler.bookNow}
                    >BOOK NOW</Text>
                    </TouchableOpacity>
+                   </View>
             </SafeAreaView>
         )
     }
@@ -63,7 +70,7 @@ const styler=StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'space-between',
-        marginTop:20,
+        marginTop:35,
         margin:10
     },
     medication:{
@@ -81,7 +88,7 @@ tinyLogo:{
     height:114,
     borderRadius:100
 },
-medicationView:{
+callView:{
     flexDirection:'row',
     alignItems:'center',
     justifyContent:'space-between',
@@ -111,10 +118,17 @@ bookNow:{
     width:310,
     height:52,
     backgroundColor:'#7AC141',
-    color:'white', 
-    margin:20,
+    color:'white',
     textAlign:'center',
     textAlignVertical:'center',
     fontSize:20,
-}
+},screen:{ flex:1},
+headView:{
+    flex:0.15
+},
+meditationView:{
+    flex:0.55
+},
+promoView:{ flex:0.1,justifyContent:'center'},
+footView:{ flex:0.2,alignItems:'center',justifyContent:'flex-end',marginBottom:50},
 })
