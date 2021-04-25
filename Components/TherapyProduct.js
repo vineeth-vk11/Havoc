@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import {View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity, TextInput,ScrollView} from 'react-native'
 import { Icon } from 'react-native-elements';
 import { Button } from 'react-native-elements';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 export default class TherapyProduct extends Component {
     render() {
         return (
             <SafeAreaView style={styler.screen}>
+                <ScrollView>
                <View style={styler.headView}>
                <View style={styler.head}>
             <TouchableOpacity>
@@ -56,6 +58,7 @@ export default class TherapyProduct extends Component {
                placeholderTextColor='#000'
                ></TextInput>
                     <Button
+                    titleStyle={{color:'#7AC141'}}
                     raised
                     containerStyle={{width:100,margin:10}}
                     buttonStyle={{padding:5,borderColor:'#7AC141',borderWidth:1,borderRadius:5}}
@@ -71,6 +74,7 @@ export default class TherapyProduct extends Component {
                    >BOOK NOW</Text>
                    </TouchableOpacity>
                    </View>
+                   </ScrollView>
             </SafeAreaView>
         )
     }

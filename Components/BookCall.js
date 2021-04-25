@@ -47,6 +47,7 @@ export default class BookCall extends Component {
                ></TextInput>
                     <Button
                     raised
+                    titleStyle={{color:'#7AC141'}}
                     containerStyle={{width:100,margin:10}}
                     buttonStyle={{padding:5,borderColor:'#7AC141',borderWidth:1,borderRadius:5}}
   title="APPLY"
