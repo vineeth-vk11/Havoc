@@ -1,9 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity} from 'react-native'
 import {Icon } from 'react-native-elements'
 
-export default class MyRequests extends Component {
-    render() {
+const Conversation =()=> {
         return (
             <SafeAreaView style={styler.screen}>
                 
@@ -52,7 +51,9 @@ export default class MyRequests extends Component {
             </SafeAreaView>
         )
     }
-}
+
+export default Conversation;
+
 const styler=StyleSheet.create({
 
     head:{

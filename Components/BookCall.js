@@ -1,9 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity, TextInput,ScrollView} from 'react-native'
 import { Icon } from 'react-native-elements';
 import { Button } from 'react-native-elements';
-export default class BookCall extends Component {
-    render() {
+const BookCall =()=> {
         return (
             <SafeAreaView style={styler.screen}>
             <View style={styler.headView}>
@@ -65,7 +64,9 @@ export default class BookCall extends Component {
             </SafeAreaView>
         )
     }
-}
+
+export default BookCall;
+
 const styler=StyleSheet.create({
     head:{
         flexDirection:'row',

@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import {View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity, TextInput,ScrollView} from 'react-native'
 
-export default class Chat extends Component {
-    render() {
+const Chat=()=> {
         return (
             <SafeAreaView>
                <Text>Chattttttttttttttttttttttttttt</Text>
             </SafeAreaView>
         )
     }
-}
+
+    export default Chat;
 

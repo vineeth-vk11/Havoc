@@ -1,38 +1,32 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import {View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity} from 'react-native'
 import { Icon } from 'react-native-elements'
 import Carousel from 'react-native-snap-carousel';
-export default class SelectTopic extends Component {
+const SelectTopic =()=> {
     
-    constructor(props){
-        super(props);
-        this.state = {
-          activeIndex:0,
-          carouselItems: [
-          {
-              title:"Hey",
-              text: "Text 1",
-          },
-          {
-              title:"Item 2",
-              text: "Text 2",
-          },
-          {
-              title:"Item 3",
-              text: "Text 3",
-          },
-          {
-              title:"Item 4",
-              text: "Text 4",
-          },
-          {
-              title:"Item 5",
-              text: "Text 5",
-          },
-        ]
-      }
-    }
-    _renderItem({item,index}){
+       const carouselItems=[
+            {
+                title:"Hey",
+                text: "Text 1",
+            },
+            {
+                title:"Item 2",
+                text: "Text 2",
+            },
+            {
+                title:"Item 3",
+                text: "Text 3",
+            },
+            {
+                title:"Item 4",
+                text: "Text 4",
+            },
+            {
+                title:"Item 5",
+                text: "Text 5",
+            },
+          ]
+    const renderItem=({item,index})=>{
         return (
           <View style={{
               backgroundColor:'purple',
@@ -48,9 +42,8 @@ export default class SelectTopic extends Component {
             <Text style={{color:'white'}}>{item.text}</Text>
           </View>
 
-        )
+        );
     }
-    render() {
         return (
             <SafeAreaView>
                 <View style={styler.head}>
@@ -77,12 +70,11 @@ export default class SelectTopic extends Component {
                     <View style={{  flexDirection:'row', justifyContent: 'center', }}>
                 <Carousel
                   layout={"default"}
-                  ref={ref => this.carousel = ref}
-                  data={this.state.carouselItems}
+                  data={carouselItems}
                   sliderWidth={300}
                   itemWidth={300}
-                  renderItem={this._renderItem}
-                  onSnapToItem = { index => this.setState({activeIndex:index}) } />
+                  renderItem={renderItem}
+                   />
             </View>
             <TouchableOpacity style={{justifyContent:'flex-end'}}>
                 <View style={styler.selectTopic}>
@@ -98,7 +90,8 @@ export default class SelectTopic extends Component {
                 </SafeAreaView>
         )
     }
-}
+
+    export default SelectTopic;
 const styler=StyleSheet.create({
     head:{
         flexDirection:'row',

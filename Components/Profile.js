@@ -28,8 +28,7 @@ const list = [
       }
     
   ]
-export default class Profile extends Component {
-    render() {
+ const Profile =()=> {
         return (
             <SafeAreaView style={styler.screen}>
                 <View style={styler.headView}>
@@ -89,7 +88,9 @@ export default class Profile extends Component {
             </SafeAreaView>
         )
     }
-}
+
+export default Profile;
+
 const styler=StyleSheet.create({
 
     head:{

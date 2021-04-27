@@ -1,13 +1,6 @@
 import React, { Component } from 'react'
 import {View, Text, SafeAreaView, StyleSheet, TextInput, TouchableOpacity} from 'react-native'
-export default class Register2 extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            age: '14'
-        }
-    }
-    render() {
+const Register2 =()=> {
         return (
             <SafeAreaView style={styler.screen}>
                 <View style={styler.addtionalInfoView}>
@@ -39,7 +32,9 @@ export default class Register2 extends Component {
                 </SafeAreaView>
         )
     }
-}
+
+export default Register2;
+
 const styler= StyleSheet.create({
     screen:{
         flex:1,

@@ -1,9 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {View, Text, SafeAreaView, Image, StyleSheet, TextInput, TouchableOpacity} from 'react-native'
 import { Icon } from 'react-native-elements';
 import { SocialIcon } from 'react-native-elements'
-export default class Register1 extends Component {
-    render() {
+const Register1 = ()=> {
         return (
             <SafeAreaView style={styler.screen}>
                 <View style={styler.havoc}>
@@ -59,7 +58,8 @@ export default class Register1 extends Component {
                 </SafeAreaView>
         )
     }
-}
+
+    export default Register1;
 const styler= StyleSheet.create({
     screen:{
         alignItems:'center',
