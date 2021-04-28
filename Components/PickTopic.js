@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {useState, useCallback} from 'react'
 import {View, Text, SafeAreaView, StyleSheet, TouchableOpacity,ScrollView} from 'react-native'
 import { Icon } from 'react-native-elements'
 import { SearchBar } from 'react-native-elements';
@@ -31,21 +31,13 @@ const list = [
     
   ]
 
-export default class PickTopic extends Component {
-    constructor(props){
-        super(props);
-        this.state={
-            search: '',
+const PickTopic=()=> {
+    const [search,setsearch]=useState('');
 
-        }
-    }
+      const updateSearch= useCallback((event)=>{
+            setsearch(event)
+      },[setsearch])
 
-    updateSearch = (search) => {
-        this.setState({ search });
-      };
-      
-    render() {
-        const { search } = this.state;
         return (
             <SafeAreaView>
                 <ScrollView>
@@ -74,7 +66,7 @@ export default class PickTopic extends Component {
             containerStyle={{backgroundColor:'white',borderWidth:1,borderRadius:15,borderColor:'#7AC141',borderTopWidth:1,borderTopColor:'#7AC141',borderBottomColor:'#7AC141',height:48}}
             inputContainerStyle={{backgroundColor:'white',height:32}}
         placeholder="Enter topic name"
-        onChangeText={this.updateSearch}
+        onChangeText={updateSearch}
         value={search}
       />
                 </View>
@@ -98,7 +90,9 @@ export default class PickTopic extends Component {
             </SafeAreaView>
         )
     }
-}
+
+export default PickTopic;
+
 const styler=StyleSheet.create({
     head:{
         flexDirection:'row',

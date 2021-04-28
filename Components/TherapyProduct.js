@@ -3,8 +3,7 @@ import {View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity, TextInput
 import { Icon } from 'react-native-elements';
 import { Button } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-export default class TherapyProduct extends Component {
-    render() {
+const TherapyProduct =()=> {
         return (
             <SafeAreaView style={styler.screen}>
                 <ScrollView>
@@ -78,7 +77,9 @@ export default class TherapyProduct extends Component {
             </SafeAreaView>
         )
     }
-}
+
+export default TherapyProduct;
+
 const styler=StyleSheet.create({
     head:{
         flexDirection:'row',

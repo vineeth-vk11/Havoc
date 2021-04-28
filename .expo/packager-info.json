@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "packagerPort": 19000,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "packagerPort": 19001,
+  "packagerPid": 14448,
+  "expoServerNgrokUrl": "https://yf-k35.hiphop-head.havoc.exp.direct",
+  "packagerNgrokUrl": "https://packager.yf-k35.hiphop-head.havoc.exp.direct",
+  "ngrokPid": 8276,
   "webpackServerPort": null
 }

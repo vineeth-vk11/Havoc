@@ -1,9 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {View, Text, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native'
 import { Icon } from 'react-native-elements'
 
-export default class MatchingListener extends Component {
-    render() {
+const MatchingListener =()=>{
         return (
             <SafeAreaView style={styler.screen}>
             <View style={styler.headView}>
@@ -36,7 +35,8 @@ export default class MatchingListener extends Component {
             </SafeAreaView>
         )
     }
-}
+
+    export default MatchingListener;
 const styler=StyleSheet.create({
     head:{
         flexDirection:'row',

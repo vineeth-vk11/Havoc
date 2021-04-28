@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import {View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity} from 'react-native'
 import { Icon } from 'react-native-elements'
-export default class Register3 extends Component {
-    render() {
+const Register3=()=> {
         return (
             <SafeAreaView style={styler.screen}>
                 <View style={styler.headerView}>
@@ -89,7 +88,9 @@ export default class Register3 extends Component {
                 </SafeAreaView>
         )
     }
-}
+
+export default Register3;
+
 const styler=StyleSheet.create({
     screen:{
         flex:1

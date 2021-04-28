@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {useState } from 'react'
 import {View, Text, SafeAreaView, StyleSheet, TouchableOpacity,ScrollView} from 'react-native'
 import { Icon } from 'react-native-elements'
 import { SearchBar } from 'react-native-elements';
@@ -26,21 +26,8 @@ const list = [
   
 ]
 
-export default class Therapies extends Component {
-    constructor(props){
-        super(props);
-        this.state={
-            search: '',
-
-        }
-    }
-
-    updateSearch = (search) => {
-        this.setState({ search });
-      };
-      
-    render() {
-        const { search } = this.state;
+const Therapies =()=> {
+  const [search,setsearch]=useState();
         return (
             <SafeAreaView>
                 <ScrollView>
@@ -69,7 +56,7 @@ export default class Therapies extends Component {
             containerStyle={{backgroundColor:'white',borderWidth:1,borderRadius:15,borderColor:'#7AC141',borderTopWidth:1,borderTopColor:'#7AC141',borderBottomColor:'#7AC141',height:48}}
             inputContainerStyle={{backgroundColor:'white',height:32}}
         placeholder="Search therapy name"
-        onChangeText={this.updateSearch}
+        onChangeText={value=>setsearch(value)}
         value={search}
       />
                 </View>
@@ -93,7 +80,9 @@ export default class Therapies extends Component {
             </SafeAreaView>
         )
     }
-}
+
+export default Therapies;
+
 const styler=StyleSheet.create({
     head:{
         flexDirection:'row',

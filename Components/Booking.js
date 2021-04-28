@@ -1,9 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity, TextInput,ScrollView} from 'react-native'
 import { Icon } from 'react-native-elements';
 
-export default class Booking extends Component {
-    render() {
+const Booking =()=> {
         return (
             <SafeAreaView style={styler.screen}>
                 <View style={styler.headView}>
@@ -61,7 +60,8 @@ export default class Booking extends Component {
             </SafeAreaView>
         )
     }
-}
+
+    export default Booking;
 const styler=StyleSheet.create({
     head:{
         flexDirection:'row',

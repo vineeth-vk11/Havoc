@@ -9,8 +9,7 @@ const list = [
     }
     
   ]
-export default class DedicatedChats extends Component {
-    render() {
+ const DedicatedChats =()=>{
         return (
             <SafeAreaView style={styler.screen}>
             <View style={styler.head}>
@@ -51,7 +50,9 @@ export default class DedicatedChats extends Component {
             </SafeAreaView>
         )
     }
-}
+
+export default DedicatedChats;
+
 const styler=StyleSheet.create({
   head:{
     flex:0.15,

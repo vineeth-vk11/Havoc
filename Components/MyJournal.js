@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity, TextInput,ScrollView} from 'react-native'
 import { ListItem, Avatar,Icon } from 'react-native-elements'
 const list = [
@@ -10,8 +10,7 @@ const list = [
     }
     
   ]
-export default class MyRequests extends Component {
-    render() {
+const MyJournal =()=>{
         return (
             <SafeAreaView style={styler.screen}>
             <View style={styler.head}>
@@ -52,7 +51,9 @@ export default class MyRequests extends Component {
             </SafeAreaView>
         )
     }
-}
+
+export default MyJournal;
+
 const styler=StyleSheet.create({
   head:{
     flex:0.15,

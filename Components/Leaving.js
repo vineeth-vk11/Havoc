@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import {View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity, TextInput,ScrollView} from 'react-native'
 import { Icon } from 'react-native-elements'
 import RadioForm , {RadioButton, RadioButtonInput, RadioButtonLabel}from 'react-native-simple-radio-button';
@@ -6,14 +6,8 @@ var radio_props = [
     {label: 'I’ve been waiting for long', value: 0 },
     {label: 'I’m Nervous', value: 1 }
   ];
-export default class Leaving extends Component {
-    constructor(props){
-        super(props);
-        this.state={
-            value: ''
-        }
-    }
-    render() {
+const Leaving =()=>{
+   const [value,setvalue]=useState();
         return (
             <SafeAreaView style={styler.screen}>
                 <View style={styler.sadFaceView}>
@@ -39,11 +33,11 @@ export default class Leaving extends Component {
         <RadioButtonInput
           obj={obj}
           index={i}
-          isSelected={this.state.value === i}
-         onPress={(value) => {this.setState({value:value})}}
+          isSelected={value === i}
+         onPress={(value) => {setvalue(value)}}
           borderWidth={2}
           buttonInnerColor={'#7AC141'}
-          buttonOuterColor={this.state.value === i ? '#7AC141' : '#DADADA'}
+          buttonOuterColor={value === i ? '#7AC141' : '#DADADA'}
           buttonSize={16}
           buttonOuterSize={28}
           buttonStyle={{marginRight:20,marginBottom:10}}
@@ -53,7 +47,7 @@ export default class Leaving extends Component {
           obj={obj}
           index={i}
           labelHorizontal={true}
-         onPress={(value) => {this.setState({value:value})}}
+         onPress={(value) => {setvalue(value)}}
           labelStyle={{fontSize: 20, color: 'rgba(18, 18, 18, 0.5)'}}
           labelWrapStyle={{}}
         />
@@ -75,7 +69,8 @@ export default class Leaving extends Component {
                 </SafeAreaView>
         )
     }
-}
+
+    export default Leaving;
 const styler = StyleSheet.create({
     sadFace:{
         alignItems:'center'

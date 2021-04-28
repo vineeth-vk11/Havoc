@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import {View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity, TextInput,ScrollView} from 'react-native'
 import { Icon } from 'react-native-elements';
 
-export default class TherapyBooking extends Component {
-    render() {
+const TherapyBooking =()=>{
         return (
             <SafeAreaView style={styler.screen}>
                <View style={styler.headView}>
@@ -56,7 +55,8 @@ export default class TherapyBooking extends Component {
             </SafeAreaView>
         )
     }
-}
+
+    export default TherapyBooking;
 const styler=StyleSheet.create({
     head:{
         flexDirection:'row',

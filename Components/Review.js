@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React,{useState} from 'react'
 import {View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity, TextInput,ScrollView} from 'react-native'
 import RadioForm , {RadioButton, RadioButtonInput, RadioButtonLabel}from 'react-native-simple-radio-button';
 import { Rating, AirbnbRating } from 'react-native-elements';
@@ -7,18 +7,12 @@ var radio_props = [
     {label: 'Not Sure', value: 1 },
     {label: 'NO', value: 2 }
   ];
-export default class AgeOfListner extends Component {
-    constructor(props){
-        super(props);
-        this.state={
-            value: ''
-        }
-    }
-    ratingCompleted(rating) {
-        console.log("Rating is: " + rating)
-      }
-
-    render() {
+const AgeOfListner =()=>{
+  const [value,setvalue]=useState();
+  const [rating,setrating]=useState();
+  const updateRating=(rating)=>{
+    setrating(rating+=rating);
+  }
         return (
             <SafeAreaView style={styler.screen}>
                 <View style={styler.headView}>
@@ -40,11 +34,11 @@ export default class AgeOfListner extends Component {
         <RadioButtonInput
           obj={obj}
           index={i}
-          isSelected={this.state.value === i}
-         onPress={(value) => {this.setState({value:value})}}
+          isSelected={value === i}
+         onPress={(value) => {setvalue(value)}}
           borderWidth={2}
           buttonInnerColor={'#7AC141'}
-          buttonOuterColor={this.state.value === i ? '#7AC141' : '#DADADA'}
+          buttonOuterColor={value === i ? '#7AC141' : '#DADADA'}
           buttonSize={16}
           buttonOuterSize={28}
           buttonStyle={{marginRight:20,marginBottom:10}}
@@ -54,7 +48,7 @@ export default class AgeOfListner extends Component {
           obj={obj}
           index={i}
           labelHorizontal={true}
-         onPress={(value) => {this.setState({value:value})}}
+         onPress={(value) => {setvalue(value)}}
           labelStyle={{fontSize: 20, color: 'rgba(18, 18, 18, 0.5)'}}
           labelWrapStyle={{}}
         />
@@ -68,7 +62,7 @@ export default class AgeOfListner extends Component {
                     <Text style={styler.better}>Rate the listener</Text>
       <Rating
   
-  onFinishRating={this.ratingCompleted}
+  onFinishRating={updateRating}
   style={{ paddingVertical: 10 }}
 />
                     </View>
@@ -100,7 +94,9 @@ alignItems:'center',
             </SafeAreaView>
         )
     }
-}
+
+export default AgeOfListner;
+
 const styler=StyleSheet.create({
     head:{
         flexDirection:'row',

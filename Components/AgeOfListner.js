@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React,{useState}from 'react'
 import {View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity, TextInput,ScrollView} from 'react-native'
 import { Icon } from 'react-native-elements'
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
@@ -8,15 +8,9 @@ var radio_props = [
     {label: '35 - 50 Years', value: 2 },
     {label: '51 years or more', value: 3 }
   ];
-export default class AgeOfListner extends Component {
-    constructor(props){
-        super(props);
-        this.state={
-            value: ''
-        }
-    }
-
-    render() {
+const AgeOfListner =()=> {
+    
+const [value,setvalue]=useState();
         return (
             <SafeAreaView style={styler.screen}>
               <View style={styler.headView}>
@@ -51,11 +45,11 @@ export default class AgeOfListner extends Component {
         <RadioButtonInput
           obj={obj}
           index={i}
-          isSelected={this.state.value === i}
-         onPress={(value) => {this.setState({value:value})}}
+          isSelected={value === i}
+         onPress={(value) => {setvalue(value)}}
           borderWidth={2}
           buttonInnerColor={'#7AC141'}
-          buttonOuterColor={this.state.value === i ? '#7AC141' : '#DADADA'}
+          buttonOuterColor={value === i ? '#7AC141' : '#DADADA'}
           buttonSize={16}
           buttonOuterSize={28}
           buttonStyle={{marginRight:20,marginBottom:10}}
@@ -65,7 +59,7 @@ export default class AgeOfListner extends Component {
           obj={obj}
           index={i}
           labelHorizontal={true}
-         onPress={(value) => {this.setState({value:value})}}
+         onPress={(value) => {setvalue(value)}}
           labelStyle={{fontSize: 20, color: 'rgba(18, 18, 18, 0.5)'}}
           labelWrapStyle={{}}
         />
@@ -86,7 +80,9 @@ export default class AgeOfListner extends Component {
             
         )
     }
-}
+
+export default AgeOfListner;
+
 const styler=StyleSheet.create({
     head:{
         flexDirection:'row',

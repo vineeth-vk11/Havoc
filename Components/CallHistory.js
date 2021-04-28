@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity, TextInput,ScrollView} from 'react-native'
 import { ListItem, Avatar,Icon } from 'react-native-elements'
 const list = [
@@ -35,8 +35,7 @@ const list = [
       },
     
   ]
-export default class CallHistory extends Component {
-    render() {
+const CallHistory =()=> {
         return (
             <SafeAreaView style={styler.screen}>
             <View style={styler.head}>
@@ -75,7 +74,9 @@ export default class CallHistory extends Component {
             </SafeAreaView>
         )
     }
-}
+
+export default CallHistory;
+
 const styler=StyleSheet.create({
   head:{
     flex:0.15,

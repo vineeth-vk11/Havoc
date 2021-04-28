@@ -10,8 +10,7 @@ const list = [
     }
     
   ]
-export default class MyRequests extends Component {
-    render() {
+const MyRequests=()=> {
         return (
             <SafeAreaView style={styler.screen}>
 
@@ -58,7 +57,9 @@ export default class MyRequests extends Component {
             </SafeAreaView>
         )
     }
-}
+
+    export default MyRequests;
+
 const styler=StyleSheet.create({
     head:{
       flex:0.15,
