@@ -1,6 +1,13 @@
-import React, { Component } from 'react'
-import {View, Text, SafeAreaView, StyleSheet, TextInput, TouchableOpacity} from 'react-native'
+import React, {  useState } from 'react'
+import {View, Text, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
+import {TextInput} from 'react-native-paper';
+import RadioForm , {RadioButton, RadioButtonInput, RadioButtonLabel}from 'react-native-simple-radio-button';
 const Register2 =()=> {
+    var radio_props = [
+        {label: 'Male', value: 0 },
+        {label: 'Female', value: 1 }
+      ];
+      const [value,setvalue]=useState();
         return (
             <SafeAreaView style={styler.screen}>
                 <View style={styler.addtionalInfoView}>
@@ -10,16 +17,57 @@ const Register2 =()=> {
                     </View>
                     <View style={styler.inputsView}>
                     <TextInput
-                placeholder="What do we call you/ Enter your Name"
-                placeholderTextColor='rgba(122, 193, 65, 0.75);'
+                    mode='flat'
+                label="What do we call you/ Enter your Name"
                 style={styler.name}
+                theme={{colors:{primary:"#7AC141"}}}
                 ></TextInput>
 
                 <TextInput
-                placeholder="Age"
-                placeholderTextColor='rgba(122, 193, 65, 0.75);'
+                mode='flat'
+                label="Age"
                 style={styler.name}
+                theme={{colors:{primary:"#7AC141"}}}
+                keyboardType='number-pad'
                 ></TextInput>
+                <View style={styler.genderView}>
+                    <Text style={styler.genderText}>
+                        Select Your Gender
+                    </Text>
+                </View>
+                 <RadioForm formHorizontal={false} animation={true}>
+  {
+    radio_props.map((obj, i) => (
+      <RadioButton labelHorizontal={true} key={i} >
+       
+        <View style={{flexDirection:'row'}}>
+        <RadioButtonInput
+          obj={obj}
+          index={i}
+          isSelected={value === i}
+         onPress={(value) => {setvalue(value)}}
+          borderWidth={2}
+          buttonInnerColor={'#7AC141'}
+          buttonOuterColor={value === i ? '#7AC141' : '#DADADA'}
+          buttonSize={16}
+          buttonOuterSize={28}
+          buttonStyle={{marginRight:20,marginBottom:10}}
+          buttonWrapStyle={{marginLeft: 10}}
+        />
+        <RadioButtonLabel
+          obj={obj}
+          index={i}
+          labelHorizontal={true}
+         onPress={(value) => {setvalue(value)}}
+          labelStyle={{fontSize: 20, color: 'rgba(18, 18, 18, 0.5)'}}
+          labelWrapStyle={{}}
+        />
+          </View>
+      </RadioButton>
+    ))
+  }  
+</RadioForm>
+
                     </View>
                     <View style={styler.getStartedView}>
                     <TouchableOpacity>
@@ -28,7 +76,6 @@ const Register2 =()=> {
                    >Get Started</Text>
                    </TouchableOpacity>
                     </View>
-
                 </SafeAreaView>
         )
     }
@@ -54,7 +101,8 @@ const styler= StyleSheet.create({
         margin:20,
         textAlign:'center',
         textAlignVertical:'center',
-        fontSize:20
+        fontSize:20,
+        elevation: 5
     },
     name:{
         
@@ -83,5 +131,12 @@ flex:0.2
 flex:0.5,
 justifyContent:'flex-end',
 marginBottom:50
+    },
+    genderView:{
+        marginHorizontal: 10,
+        marginVertical: 20
+    },
+    genderText:{
+        fontSize:25
     }
 })

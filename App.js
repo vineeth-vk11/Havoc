@@ -24,11 +24,12 @@ import Booking from './Components/Booking';
 import JoinTheChat from './Components/JoinTheChat';
 import Chat from './Components/Chat';
 import BookCallDateTime from './Components/BookCallDateTime';
-import DedicatedChats from './Components/DedicatedChats'
+import DedicatedChats from './Components/DedicatedChats';
+import EnterOTP from './Components/EnterOTP';
 
 export default function App() {
   return (
-      <SelectTopic/>
+      <EnterOTP/>
   );
 }
 
