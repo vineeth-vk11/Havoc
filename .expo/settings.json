@@ -1,10 +1,8 @@
 {
-  "urlRandomness": "yf-k35",
   "hostType": "lan",
   "lanType": "ip",
   "dev": true,
   "minify": false,
-  "https": false,
-  "scheme": null,
-  "devClient": false
+  "urlRandomness": "wn-tej",
+  "https": false
 }

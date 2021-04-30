@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { ScrollView } from "react-native";
+import { KeyboardAvoidingView } from "react-native";
 import {
   View,
   Text,
@@ -12,13 +14,14 @@ import RadioForm, {
   RadioButtonInput,
   RadioButtonLabel,
 } from "react-native-simple-radio-button";
-const Register2 = () => {
+const Register2 = ({navigation}) => {
   var radio_props = [
     { label: "Male", value: 0 },
     { label: "Female", value: 1 },
   ];
   const [value, setvalue] = useState();
   return (
+   
     <SafeAreaView style={styler.screen}>
       <View style={styler.addtionalInfoView}>
         <Text style={styler.text}>Additional Information</Text>
@@ -38,13 +41,15 @@ const Register2 = () => {
           theme={{ colors: { primary: "#7AC141" } }}
           keyboardType="number-pad"
         ></TextInput>
+        </View>
         <View style={styler.genderView}>
           <Text style={styler.genderText}>Select Your Gender</Text>
         </View>
         <RadioForm formHorizontal={false} animation={true}>
           {radio_props.map((obj, i) => (
             <RadioButton labelHorizontal={true} key={i}>
-              <View style={{ flexDirection: "row" }}>
+              <View style={{width:'100%', height:'100%',paddingHorizontal: 10}}>
+              <View style={styler.radioButtons}>
                 <RadioButtonInput
                   obj={obj}
                   index={i}
@@ -67,16 +72,16 @@ const Register2 = () => {
                   onPress={(value) => {
                     setvalue(value);
                   }}
-                  labelStyle={{ fontSize: 20, color: "rgba(18, 18, 18, 0.5)" }}
+                  labelStyle={{ fontSize: 20, color: "black" }}
                   labelWrapStyle={{}}
                 />
+              </View>
               </View>
             </RadioButton>
           ))}
         </RadioForm>
-      </View>
       <View style={styler.getStartedView}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('Register3')}>
           <Text style={styler.getStarted}>Get Started</Text>
         </TouchableOpacity>
       </View>
@@ -89,7 +94,7 @@ export default Register2;
 const styler = StyleSheet.create({
   screen: {
     flex: 1,
-    alignItems: "center",
+    alignItems:'center',
     marginTop: 20,
   },
   text: {
@@ -101,7 +106,7 @@ const styler = StyleSheet.create({
     height: 52,
     backgroundColor: "#7AC141",
     color: "white",
-    margin: 20,
+    marginHorizontal: 10,
     textAlign: "center",
     textAlignVertical: "center",
     fontSize: 20,
@@ -128,17 +133,26 @@ const styler = StyleSheet.create({
   },
   inputsView: {
     flex: 0.2,
+    marginBottom: 60
   },
   getStartedView: {
-    flex: 0.5,
-    justifyContent: "flex-end",
-    marginBottom: 50,
+    flex:0.2,
+    justifyContent: "center",
   },
   genderView: {
+    flex:0.1,
+    width: '100%',
     marginHorizontal: 10,
-    marginVertical: 20,
+    marginVertical: 30,
+    justifyContent:'center',
+    alignItems:'flex-start',
+    paddingHorizontal: 12,
   },
   genderText: {
     fontSize: 25,
   },
+   radioButtons:{
+     flexDirection: "row",
+     alignItems:'flex-end',
+   }
 });

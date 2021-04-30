@@ -26,6 +26,7 @@ import Chat from "./Components/Chat";
 import BookCallDateTime from "./Components/BookCallDateTime";
 import DedicatedChats from "./Components/DedicatedChats";
 import EnterOTP from "./Components/EnterOTP";
+import ListenerDB from "./Components/ListenerDB";
 
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -71,6 +72,7 @@ function App() {
         <Stack.Screen name="EnterOTP" component={EnterOTP} />
         <Stack.Screen name="Register2" component={Register2} />
         <Stack.Screen name="Register3" component={Register3} />
+        <Stack.Screen name="ListenerDB" component={ListenerDB} />
         <Stack.Screen name="PickTopic" component={PickTopic} />
         <Stack.Screen name="AgeOfListener" component={AgeOfListner} />
         <Stack.Screen name="MatchingListener" component={MatchingListener} />

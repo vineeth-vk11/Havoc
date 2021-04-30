@@ -13,6 +13,8 @@ const EnterOTP = ({
 }) => {
   const [verificationCode, setVerificationCode] = useState();
 
+
+const EnterOTP = ({navigation}) => {
   return (
     <View style={styler.screen}>
       <View style={styler.havoc}>
