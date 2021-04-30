@@ -8,33 +8,26 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Icon } from "react-native-elements";
-const Register3 = () => {
+const Register3 = ({navigation}) => {
   return (
     <SafeAreaView style={styler.screen}>
       <View style={styler.headerView}>
         <View style={styler.head}>
           <TouchableOpacity>
             <Icon
-              reverse
-              name="person"
+            reverse
+              name="person-circle"
               type="ionicon"
               color="#7AC141"
               size={24}
             />
           </TouchableOpacity>
+          </View>
+          <View style={styler.imageView}>
           <Image
             style={{ width: 107, height: 68 }}
             source={require("../assets/Images/HavocTherapy.png")}
           />
-          <TouchableOpacity>
-            <Icon
-              reverse
-              name="chatbox-ellipses"
-              type="ionicon"
-              color="#7AC141"
-              size={24}
-            />
-          </TouchableOpacity>
         </View>
       </View>
       <View style={styler.textView}>
@@ -52,34 +45,25 @@ const Register3 = () => {
           </View>
         </TouchableOpacity>
       </View>
+      <View style={styler.talkingNow}>
+        <Text style={styler.tnText}>Talking Now : 033</Text>
+      </View>
       <View style={styler.footerView}>
-        <View style={[styler.foot, { justifyContent: "space-evenly" }]}>
           <View style={{ flexDirection: "column", alignItems: "center" }}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>navigation.navigate('ListenerDB')}>
               <Icon
                 reverse
-                name="gift"
-                type="ionicon"
+                name="user-friends"
+                type="font-awesome-5"
                 color="#7AC141"
                 size={24}
+                reverseColor='white'
               />
             </TouchableOpacity>
-            <Text>Rewards</Text>
+            <Text>Become</Text>
+            <Text>Listener</Text>
           </View>
-          <View style={{ flexDirection: "column", alignItems: "center" }}>
-            <TouchableOpacity>
-              <Icon
-                reverse
-                name="list"
-                type="ionicon"
-                color="#7AC141"
-                size={24}
-              />
-            </TouchableOpacity>
-            <Text>Requests</Text>
-          </View>
-
-          <View style={{ flexDirection: "column", alignItems: "center" }}>
+          <View style={{ flexDirection: "column", alignItems: "center", marginBottom: 20}}>
             <TouchableOpacity>
               <Icon
                 reverse
@@ -91,7 +75,18 @@ const Register3 = () => {
             </TouchableOpacity>
             <Text>Journal</Text>
           </View>
-        </View>
+          <View style={{ flexDirection: "column", alignItems: "center",marginBottom: 20}}>
+            <TouchableOpacity>
+              <Icon
+                reverse
+                name="chat"
+                type="material-icons"
+                color="#7AC141"
+                size={24}
+              />
+            </TouchableOpacity>
+            <Text>Dedicated</Text>
+          </View>
       </View>
     </SafeAreaView>
   );
@@ -104,15 +99,10 @@ const styler = StyleSheet.create({
     flex: 1,
   },
   head: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    width:'35%',
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
     marginTop: 35,
-  },
-  foot: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
   },
   text: {
     fontSize: 24,
@@ -134,18 +124,33 @@ const styler = StyleSheet.create({
   },
   headerView: {
     flex: 0.3,
+    flexDirection: 'row',
+    padding:10
   },
   textView: {
-    flex: 0.2,
+    flex: 0.1,
   },
   findMyListnerView: {
-    flex: 0.3,
+    flex: 0.4,
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: 20,
   },
   footerView: {
+    flexDirection:'row',
     flex: 0.2,
-    justifyContent: "flex-end",
-    paddingBottom: 50,
+    marginTop:80,
+    justifyContent: "space-around",
+    alignItems:'center',
   },
+  imageView:{
+     marginTop: 35
+  },
+  talkingNow:{
+    justifyContent:'center',
+    alignItems:'center',
+  },
+  tnText:{
+    fontSize: 25
+  }
 });
