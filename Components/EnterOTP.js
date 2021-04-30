@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { TextInput } from "react-native-paper";
 import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { showMessage, hideMessage } from "react-native-flash-message";
 
-const EnterOTP = () => {
+import * as firebase from "firebase";
+
+const EnterOTP = ({
+  route: {
+    params: { verificationId },
+  },
+  navigation,
+}) => {
+  const [verificationCode, setVerificationCode] = useState();
+
   return (
     <View style={styler.screen}>
       <View style={styler.havoc}>
@@ -17,10 +27,28 @@ const EnterOTP = () => {
           }}
           keyboardType="number-pad"
           style={styler.name}
+          onChangeText={(text) => setVerificationCode(text)}
+          value={verificationCode}
         />
       </View>
       <View style={styler.getStartedView}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={async () => {
+            try {
+              const credential = firebase.auth.PhoneAuthProvider.credential(
+                verificationId,
+                verificationCode
+              );
+              await firebase.auth().signInWithCredential(credential);
+              navigation.navigate("MyJournal");
+            } catch (err) {
+              showMessage({
+                message: "OTP validation failed",
+                type: "info",
+              });
+            }
+          }}
+        >
           <Text style={styler.getStarted}>VERIFY</Text>
         </TouchableOpacity>
       </View>

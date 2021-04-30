@@ -41,21 +41,14 @@ const Profile = () => {
         <View style={styler.head}>
           <TouchableOpacity>
             <Icon
-              style={{ margin: 5 }}
+              style={{ marginTop: 10, marginLeft: 20 }}
               name="arrow-back"
               type="ionicon"
               color="#979797"
               size={30}
             />
           </TouchableOpacity>
-          <Text style={{ fontSize: 30, fontWeight: "bold" }}>Profile</Text>
-          <Icon
-            style={{ margin: 5 }}
-            name="settings"
-            type="ionicon"
-            color="#000"
-            size={30}
-          />
+          <Text style={{ fontSize: 24 }}>Profile</Text>
         </View>
       </View>
       <View style={styler.headView}>

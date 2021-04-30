@@ -9,18 +9,37 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
-
 import { Icon } from "react-native-elements";
 import { SocialIcon } from "react-native-elements";
 import { TextInput, TouchableRipple } from "react-native-paper";
-
+import { showMessage, hideMessage } from "react-native-flash-message";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import FlashMessage from "react-native-flash-message";
+
+import {
+  FirebaseRecaptchaVerifierModal,
+  FirebaseRecaptchaBanner,
+} from "expo-firebase-recaptcha";
+import * as firebase from "firebase";
 
 const Register1 = ({ navigation }) => {
-  const [phoneNo, setphoneNo] = useState();
+  const recaptchaVerifier = React.useRef(null);
+  const [phoneNumber, setPhoneNumber] = useState();
+  const [verificationId, setVerificationId] = useState();
+  const firebaseConfig = firebase.apps.length
+    ? firebase.app().options
+    : undefined;
+
+  const attemptInvisibleVerification = true;
+
   return (
     <SafeAreaView style={styler.screen}>
+      <FirebaseRecaptchaVerifierModal
+        ref={recaptchaVerifier}
+        firebaseConfig={firebaseConfig}
+        attemptInvisibleVerification={attemptInvisibleVerification}
+      />
       <View style={styler.havoc}>
         <Image source={require("../assets/Images/HavocTherapy.png")} />
       </View>
@@ -31,11 +50,29 @@ const Register1 = ({ navigation }) => {
         theme={{
           colors: { primary: "#7AC141", underlineColor: "transparent" },
         }}
-        keyboardType="number-pad"
-        onChangeText={(text) => setphoneNo(text)}
-        value={phoneNo}
+        keyboardType="phone-pad"
+        onChangeText={(text) => setPhoneNumber(text)}
+        value={phoneNumber}
       ></TextInput>
-      <TouchableOpacity onPress={() => navigation.navigate("EnterOTP")}>
+      <TouchableOpacity
+        onPress={async () => {
+          try {
+            const phoneProvider = new firebase.auth.PhoneAuthProvider();
+            const verificationId = await phoneProvider.verifyPhoneNumber(
+              phoneNumber,
+              recaptchaVerifier.current
+            );
+            setVerificationId(verificationId);
+            navigation.navigate("EnterOTP", { verificationId: verificationId });
+          } catch (err) {
+            showMessage({
+              message: "Enter mobile number with country code",
+              type: "info",
+            });
+            console.log(err);
+          }
+        }}
+      >
         <Text style={styler.sendOtp}>Get OTP</Text>
       </TouchableOpacity>
       <View style={{ flexDirection: "row" }}>
@@ -57,6 +94,7 @@ const Register1 = ({ navigation }) => {
           </View>
         </TouchableOpacity>
       </View>
+      <FlashMessage position="bottom" />
     </SafeAreaView>
   );
 };

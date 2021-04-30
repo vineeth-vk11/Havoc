@@ -9,21 +9,32 @@ import {
 } from "react-native";
 import { Icon } from "react-native-elements";
 
-const Conversation = () => {
+const Conversation = ({ navigation, route }) => {
+  const { name, topic, date } = route.params;
+
   return (
     <SafeAreaView style={styler.screen}>
       <View style={styler.headView}>
         <View style={styler.head}>
           <TouchableOpacity>
             <Icon
-              style={{ margin: 5 }}
+              style={{ marginTop: 10, marginLeft: 32 }}
               name="arrow-back"
               type="ionicon"
               color="#979797"
               size={30}
             />
           </TouchableOpacity>
-          <Text style={{ fontSize: 30, fontWeight: "bold" }}>Conversation</Text>
+          <Text
+            style={{
+              fontSize: 24,
+              fontWeight: "bold",
+              marginTop: 10,
+              alignContent: "center",
+            }}
+          >
+            Conversation
+          </Text>
           <Icon
             style={{ margin: 5 }}
             name="arrow-back"
@@ -35,14 +46,18 @@ const Conversation = () => {
       <View style={styler.profileView}>
         <View style={styler.container}>
           <View style={styler.texts}>
-            <Text style={{ fontSize: 30 }}>Mahesh</Text>
-            <Text style={{ color: "#828282" }}>Career listening</Text>
-            <Text style={{ color: "#828282" }}>14 March Sunday</Text>
+            <Text style={{ fontSize: 24 }}>{name}</Text>
+            <Text style={{ color: "#828282", fontSize: 16, marginTop: 5 }}>
+              {topic}
+            </Text>
+            <Text style={{ color: "#828282", fontSize: 16, marginTop: 5 }}>
+              {date}
+            </Text>
           </View>
           <View style={styler.image}>
             <Image
               style={styler.tinyLogo}
-              source={require("../assets/Images/Conversation.png")}
+              source={require("../assets/profilepic.png")}
             />
           </View>
         </View>
@@ -71,8 +86,8 @@ const styler = StyleSheet.create({
     justifyContent: "space-around",
   },
   tinyLogo: {
-    width: 114,
-    height: 114,
+    width: 100,
+    height: 100,
     borderRadius: 100,
   },
   viewTheChat: {

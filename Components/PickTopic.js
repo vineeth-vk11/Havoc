@@ -12,32 +12,78 @@ import { SearchBar } from "react-native-elements";
 import { ListItem } from "react-native-elements";
 const list = [
   {
-    name: "No Topic",
+    key: "1",
+    name: "Work and Productivity",
+    subtitle: "66 Talking",
+  },
+  {
+    key: "2",
+    name: "Academic Pressure",
+    subtitle: "53 Talking",
+  },
+  {
+    key: "3",
+    name: "Relationships",
+    subtitle: "72 Talking",
+  },
+  {
+    key: "4",
+    name: "LGBTQ & Identity",
+    subtitle: "32 Talking",
+  },
+  {
+    key: "5",
+    name: "I just want to talk",
     subtitle: "96 Talking",
   },
   {
-    name: "Education",
-    subtitle: "104 Talking",
+    key: "6",
+    name: "COVID 19",
+    subtitle: "49 Talking",
   },
   {
-    name: "No Topic",
-    subtitle: "96 Talking",
+    key: "7",
+    name: "Health Issues",
+    subtitle: "43 Talking",
   },
   {
-    name: "Education",
-    subtitle: "104 Talking",
+    key: "8",
+    name: "Parenting",
+    subtitle: "34 Talking",
   },
   {
-    name: "No Topic",
-    subtitle: "96 Talking",
+    key: "9",
+    name: "Bullying",
+    subtitle: "24 Talking",
   },
   {
-    name: "Education",
-    subtitle: "104 Talking",
+    key: "10",
+    name: "Loneliness",
+    subtitle: "25 Talking",
+  },
+  {
+    key: "11",
+    name: "Motivation and Confidence",
+    subtitle: "36 Talking",
+  },
+  {
+    key: "12",
+    name: "Overthinking",
+    subtitle: "21 Talking",
+  },
+  {
+    key: "13",
+    name: "Sleep",
+    subtitle: "15 Talking",
+  },
+  {
+    key: "14",
+    name: "Low Energy",
+    subtitle: "12 Talking",
   },
 ];
 
-const PickTopic = () => {
+const PickTopic = ({ navigation }) => {
   const [search, setsearch] = useState("");
 
   const updateSearch = useCallback(
@@ -53,14 +99,18 @@ const PickTopic = () => {
         <View style={styler.head}>
           <TouchableOpacity>
             <Icon
-              style={{ margin: 5 }}
+              style={{ marginLeft: 32 }}
               name="arrow-back"
               type="ionicon"
               color="#979797"
               size={30}
             />
           </TouchableOpacity>
-          <Text style={{ fontSize: 24, fontWeight: "bold" }}>Pick Topic</Text>
+          <Text
+            style={{ fontSize: 24, fontWeight: "bold", alignSelf: "center" }}
+          >
+            Pick Topic
+          </Text>
           <TouchableOpacity>
             <Icon reverse name="person" type="ionicon" color="#ffff" />
           </TouchableOpacity>
@@ -85,18 +135,27 @@ const PickTopic = () => {
         </View>
         <View>
           {list.map((l, i) => (
-            <View style={{ padding: 3, paddingRight: 5, paddingLeft: 5 }}>
-              <ListItem
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("AgeOfListener");
+              }}
+            >
+              <View
                 key={i}
-                containerStyle={{ backgroundColor: "#F8F8F8", height: 55 }}
+                style={{ padding: 3, paddingRight: 5, paddingLeft: 5 }}
               >
-                <ListItem.Content>
-                  <ListItem.Title>{l.name}</ListItem.Title>
-                  <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
-                </ListItem.Content>
-                <ListItem.Chevron size={35} />
-              </ListItem>
-            </View>
+                <ListItem
+                  key={l.key.toString()}
+                  containerStyle={{ backgroundColor: "#F8F8F8", height: 55 }}
+                >
+                  <ListItem.Content>
+                    <ListItem.Title>{l.name}</ListItem.Title>
+                    <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
+                  </ListItem.Content>
+                  <ListItem.Chevron size={35} />
+                </ListItem>
+              </View>
+            </TouchableOpacity>
           ))}
         </View>
       </ScrollView>

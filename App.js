@@ -30,6 +30,26 @@ import EnterOTP from "./Components/EnterOTP";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
+import * as firebase from "firebase";
+
+// Initialize Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyBQAMKTj8n5N6RTHtSHQfZ4099O6CdwTqA",
+  authDomain: "wehearyou-c9eb8.firebaseapp.com",
+  databaseURL: "https://wehearyou-c9eb8-default-rtdb.firebaseio.com",
+  projectId: "wehearyou-c9eb8",
+  storageBucket: "wehearyou-c9eb8.appspot.com",
+  messagingSenderId: "349911897247",
+  appId: "1:349911897247:web:2e6aa662b347126f967eaa",
+  measurementId: "G-RNGPYQKKFC",
+};
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+} else {
+  firebase.app();
+}
+
 const Stack = createStackNavigator();
 
 const MyTheme = {
@@ -44,7 +64,7 @@ function App() {
   return (
     <NavigationContainer theme={MyTheme}>
       <Stack.Navigator
-        initialRouteName="Register1"
+        initialRouteName="Profile"
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="Register1" component={Register1} />
