@@ -2,7 +2,7 @@ import React from "react";
 import { TextInput } from "react-native-paper";
 import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 
-const EnterOTP = () => {
+const EnterOTP = ({navigation}) => {
   return (
     <View style={styler.screen}>
       <View style={styler.havoc}>
@@ -20,7 +20,7 @@ const EnterOTP = () => {
         />
       </View>
       <View style={styler.getStartedView}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('Register2')}>
           <Text style={styler.getStarted}>VERIFY</Text>
         </TouchableOpacity>
       </View>
