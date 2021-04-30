@@ -21,14 +21,20 @@ var radio_props = [
   { label: "35 - 50 Years", value: 2 },
   { label: "51 years or more", value: 3 },
 ];
-const AgeOfListner = () => {
+const AgeOfListner = ({ navigation }) => {
   const [value, setvalue] = useState();
   return (
     <SafeAreaView style={styler.screen}>
       <View style={styler.headView}>
         <View style={styler.head}>
           <TouchableOpacity>
-            <Icon name="arrow-back" type="ionicon" color="#979797" size={30} />
+            <Icon
+              name="arrow-back"
+              type="ionicon"
+              color="#979797"
+              size={30}
+              style={{ marginLeft: 32, marginTop: 20 }}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -73,7 +79,11 @@ const AgeOfListner = () => {
         </RadioForm>
       </View>
       <View style={styler.footView}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("MatchingListener");
+          }}
+        >
           <Text style={styler.continue}>CONTINUE</Text>
         </TouchableOpacity>
       </View>
@@ -94,13 +104,14 @@ const styler = StyleSheet.create({
     fontSize: 20,
     textAlign: "left",
     fontWeight: "bold",
-    margin: 5,
+    marginTop: 50,
+    marginLeft: 24,
     marginBottom: 0,
   },
   set: {
     fontSize: 15,
     textAlign: "left",
-    margin: 2,
+    marginLeft: 24,
   },
   continue: {
     justifyContent: "flex-end",
@@ -116,6 +127,7 @@ const styler = StyleSheet.create({
   },
   screen: {
     flex: 1,
+    flexDirection: "column",
   },
   headView: {
     flex: 0.1,
@@ -126,7 +138,8 @@ const styler = StyleSheet.create({
   },
   formView: {
     flex: 0.3,
-    margin: 5,
+    marginTop: 50,
+    marginLeft: 24,
   },
   footView: {
     flex: 0.5,

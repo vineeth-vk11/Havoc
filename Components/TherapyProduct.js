@@ -12,18 +12,24 @@ import {
 import { Icon } from "react-native-elements";
 import { Button } from "react-native-elements";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-const TherapyProduct = () => {
+
+const TherapyProduct = ({ navigation, route }) => {
+  const { name, description, cost, image } = route.params;
+
   return (
     <SafeAreaView style={styler.screen}>
       <ScrollView>
         <View style={styler.headView}>
           <View style={styler.head}>
             <TouchableOpacity>
-              <Icon name="arrow-back" type="ionicon" color="#979797" />
+              <Icon
+                name="arrow-back"
+                type="ionicon"
+                color="#979797"
+                style={{ marginTop: 10, marginLeft: 20 }}
+              />
             </TouchableOpacity>
-            <Text style={{ fontSize: 24, fontWeight: "bold" }}>
-              Therapy Product
-            </Text>
+            <Text style={{ fontSize: 24, marginTop: 10 }}>Therapy Product</Text>
             <TouchableOpacity>
               <Icon name="arrow-back" type="ionicon" color="#ffff" />
             </TouchableOpacity>
@@ -31,28 +37,15 @@ const TherapyProduct = () => {
         </View>
 
         <View style={styler.imageView}>
-          <Image
-            style={styler.meditation}
-            source={require("../assets/Images/Medication.png")}
-          />
+          <Image style={styler.meditation} source={{ uri: image[0] }} />
         </View>
         <View style={styler.meditationView}>
           <View style={styler.meditationTexts}>
-            <Text style={{ fontSize: 22 }}>Meditation</Text>
-            <Text style={{ fontSize: 22 }} s>
-              ₹ 250
-            </Text>
+            <Text style={{ fontSize: 22 }}>{name}</Text>
+            <Text style={{ fontSize: 22 }}>{"₹ " + cost}</Text>
           </View>
           <View style={{ margin: 10 }}>
-            <Text>
-              Meditation is a practice where an individual uses a technique –
-              such as mindfulness, or focusing the mind on a particular object,
-              thought, or activity – to train attention and awareness, and
-              achieve a mentally clear and emotionally calm and stable state.
-            </Text>
-            <Text style={{ fontSize: 15, marginTop: 10 }}>
-              Duration: 25 minutes per day
-            </Text>
+            <Text>{description}</Text>
           </View>
         </View>
         <View style={styler.promoView}>
@@ -148,6 +141,7 @@ const styler = StyleSheet.create({
     flex: 0.25,
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 24,
   },
   meditationView: {
     flex: 0.25,

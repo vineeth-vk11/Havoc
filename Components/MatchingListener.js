@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Icon } from "react-native-elements";
+import LottieView from "lottie-react-native";
 
 const MatchingListener = () => {
   return (
@@ -20,23 +21,26 @@ const MatchingListener = () => {
               type="ionicon"
               color="#979797"
               size={30}
+              style={{ marginRight: 32, marginTop: 20 }}
             />
           </TouchableOpacity>
         </View>
       </View>
       <View style={styler.textView}>
         <Text style={styler.textHeading}>Matching you with a Listener</Text>
-        <View style={styler.loaderView}></View>
+        <View style={styler.loaderView}>
+          <LottieView
+            style={{ width: 150, height: 150 }}
+            source={require("../assets/loading.json")}
+            autoPlay
+            loop
+          />
+        </View>
       </View>
       <View style={styler.footView}>
         <Text style={styler.text}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+          Our algorithm is finding you the perfect Listener. Our listener will
+          connect with you soon!
         </Text>
       </View>
     </SafeAreaView>
@@ -60,7 +64,7 @@ const styler = StyleSheet.create({
   text: {
     fontSize: 18,
     textAlign: "center",
-    margin: 5,
+    margin: 20,
   },
   screen: {
     flex: 1,
@@ -73,11 +77,12 @@ const styler = StyleSheet.create({
     marginLeft: 10,
   },
   loaderView: {
-    flex: 0.2,
+    flex: 0.1,
     margin: 5,
+    alignItems: "center",
   },
   footView: {
-    flex: 0.4,
+    flex: 0.3,
     justifyContent: "flex-end",
     marginBottom: 50,
   },

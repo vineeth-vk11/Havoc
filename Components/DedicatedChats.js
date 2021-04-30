@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,31 +8,66 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
 import { ListItem, Avatar, Icon } from "react-native-elements";
-const list = [
-  {
-    name: "Shreya",
-    avatar_url: "https://i.pravatar.cc/300",
-    subtitle: "Career listening",
-  },
-];
+import firebase from "firebase";
+import { FlatList } from "react-native-gesture-handler";
+require("firebase/firestore");
+
 const DedicatedChats = () => {
+  const [list, setList] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  var currentUser;
+
+  if (firebase.auth().currentUser) {
+    currentUser = firebase.auth().currentUser.uid;
+    console.log(currentUser);
+  }
+  const db = firebase.firestore();
+
+  useEffect(() => {
+    const dedicatedChats = db
+      .collection("users")
+      .doc(currentUser)
+      .collection("DedicatedChats")
+      .onSnapshot((querySnapshot) => {
+        const dedicatedChatList = [];
+
+        querySnapshot.forEach((documentSnapshot) => {
+          dedicatedChatList.push({
+            ...documentSnapshot.data(),
+            key: documentSnapshot.id,
+          });
+        });
+
+        setList(dedicatedChatList);
+        setLoading(false);
+      });
+
+    return () => dedicatedChats();
+  }, []);
+
+  if (loading) {
+    return <ActivityIndicator />;
+  }
+
   return (
     <SafeAreaView style={styler.screen}>
       <View style={styler.head}>
         <Icon
-          style={{ margin: 5 }}
+          style={{ marginTop: 10, marginLeft: 32 }}
           name="arrow-back"
           type="ionicon"
           color="#979797"
           size={30}
         />
-        <Text style={{ fontSize: 30, fontWeight: "bold" }}>
+        <Text style={{ fontSize: 24, fontWeight: "bold", marginTop: 10 }}>
           Dedicated chats
         </Text>
         <Icon
-          style={{ margin: 5 }}
+          style={{ marginTop: 10, marginLeft: 32 }}
           name="arrow-back"
           type="ionicon"
           color="#fff"
@@ -40,21 +75,28 @@ const DedicatedChats = () => {
         />
       </View>
       <View style={styler.listView}>
-        {list.map((l, i) => (
-          <View key={i} style={{ padding: 3, paddingRight: 5, paddingLeft: 5 }}>
-            <ListItem
-              key={i}
-              containerStyle={{ backgroundColor: "#F8F8F8", height: 57 }}
-            >
-              <Avatar source={{ uri: l.avatar_url }} />
-              <ListItem.Content>
-                <ListItem.Title>{l.name}</ListItem.Title>
-                <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
-              </ListItem.Content>
-              <ListItem.Chevron size={35} />
-            </ListItem>
-          </View>
-        ))}
+        <FlatList
+          data={list}
+          renderItem={({ item }) => (
+            <TouchableOpacity>
+              <View style={{ padding: 3, paddingRight: 5, paddingLeft: 5 }}>
+                <ListItem
+                  containerStyle={{ backgroundColor: "#F8F8F8", height: 57 }}
+                >
+                  <Avatar
+                    source={require("../assets/profilepic.png")}
+                    size={30}
+                  />
+                  <ListItem.Content>
+                    <ListItem.Title>{item.listenerName}</ListItem.Title>
+                    <ListItem.Subtitle>{item.topic}</ListItem.Subtitle>
+                  </ListItem.Content>
+                  <ListItem.Chevron size={35} />
+                </ListItem>
+              </View>
+            </TouchableOpacity>
+          )}
+        />
       </View>
     </SafeAreaView>
   );
