@@ -32,6 +32,9 @@ import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import * as firebase from "firebase";
+import { LogBox } from "react-native";
+
+LogBox.ignoreLogs(["Setting a timer"]);
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -65,7 +68,7 @@ function App() {
   return (
     <NavigationContainer theme={MyTheme}>
       <Stack.Navigator
-        initialRouteName="Profile"
+        initialRouteName="Register1"
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="Register1" component={Register1} />

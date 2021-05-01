@@ -9,6 +9,7 @@ import {
   TextInput,
   ScrollView,
   ActivityIndicator,
+  ImageBackground,
 } from "react-native";
 import { ListItem, Avatar, Icon } from "react-native-elements";
 import firebase from "firebase";
@@ -55,52 +56,90 @@ const MyJournal = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styler.screen}>
-      <View style={styler.head}>
-        <Icon
-          style={{ marginLeft: 32, marginTop: 10 }}
-          name="arrow-back"
-          type="ionicon"
-          color="#979797"
-          size={30}
-        />
-        <Text style={{ fontSize: 24, fontWeight: "bold", marginTop: 10 }}>
-          My Journal
-        </Text>
-        <Icon reverse name="person" type="ionicon" color="#ffff" />
-      </View>
-      <View style={styler.listView}>
-        <FlatList
-          data={list}
-          renderItem={({ item }) => (
+      <ImageBackground
+        source={require("../assets/ss.png")}
+        style={styler.image}
+      >
+        <View style={styler.head}>
+          <View
+            style={{
+              flex: 0.4,
+              alignItems: "flex-start",
+            }}
+          >
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("Conversation", {
-                  name: item.listenerName,
-                  topic: item.topic,
-                  date: item.date,
-                });
+                navigation.goBack(null);
               }}
             >
-              <View style={{ padding: 3, paddingRight: 5, paddingLeft: 5 }}>
-                <ListItem
-                  containerStyle={{ backgroundColor: "#F8F8F8", height: 79 }}
-                >
-                  <Avatar
-                    source={require("../assets/profilepic.png")}
-                    size={30}
-                  />
-                  <ListItem.Content>
-                    <ListItem.Title>{item.listenerName}</ListItem.Title>
-                    <ListItem.Subtitle>{item.topic}</ListItem.Subtitle>
-                    <ListItem.Subtitle>{item.date}</ListItem.Subtitle>
-                  </ListItem.Content>
-                  <ListItem.Chevron size={35} />
-                </ListItem>
-              </View>
+              <Icon
+                name="arrow-back"
+                type="ionicon"
+                color="#000000"
+                size={30}
+                style={{ marginLeft: 32 }}
+              />
             </TouchableOpacity>
-          )}
-        />
-      </View>
+          </View>
+          <View style={{ flex: 0.6 }}>
+            <Text
+              style={{
+                fontSize: 24,
+                fontWeight: "bold",
+                textAlign: "left",
+              }}
+            >
+              My Journal
+            </Text>
+          </View>
+        </View>
+        <View style={styler.listView}>
+          <FlatList
+            data={list}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("Conversation", {
+                    name: item.listenerName,
+                    topic: item.topic,
+                    date: item.date,
+                  });
+                }}
+              >
+                <View
+                  style={{
+                    padding: 3,
+                    paddingRight: 5,
+                    paddingLeft: 5,
+                    marginLeft: 8,
+                    marginRight: 8,
+                  }}
+                >
+                  <ListItem
+                    containerStyle={{
+                      backgroundColor: "#F8F8F8",
+                      height: 79,
+                      borderRadius: 5,
+                      elevation: 5,
+                    }}
+                  >
+                    <Avatar
+                      source={require("../assets/profilepic.png")}
+                      size={30}
+                    />
+                    <ListItem.Content>
+                      <ListItem.Title>{item.listenerName}</ListItem.Title>
+                      <ListItem.Subtitle>{item.topic}</ListItem.Subtitle>
+                      <ListItem.Subtitle>{item.date}</ListItem.Subtitle>
+                    </ListItem.Content>
+                    <ListItem.Chevron size={35} />
+                  </ListItem>
+                </View>
+              </TouchableOpacity>
+            )}
+          />
+        </View>
+      </ImageBackground>
     </SafeAreaView>
   );
 };
@@ -112,8 +151,13 @@ const styler = StyleSheet.create({
     flex: 0.15,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    textAlign: "center",
     marginTop: 20,
+  },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
   },
   listView: {
     flex: 0.85,
