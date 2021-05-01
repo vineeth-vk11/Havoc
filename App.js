@@ -33,6 +33,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import * as firebase from "firebase";
 import { LogBox } from "react-native";
+import HowYouFeel from "./Components/HowYouFeel";
 
 LogBox.ignoreLogs(["Setting a timer"]);
 
@@ -66,7 +67,8 @@ const MyTheme = {
 
 function App() {
   return (
-    <NavigationContainer theme={MyTheme}>
+
+    /*<NavigationContainer theme={MyTheme}>
       <Stack.Navigator
         initialRouteName="Register1"
         screenOptions={{ headerShown: false }}
@@ -97,7 +99,8 @@ function App() {
         <Stack.Screen name="BookCallDateTime" component={BookCallDateTime} />
         <Stack.Screen name="DedicatedChats" component={DedicatedChats} />
       </Stack.Navigator>
-    </NavigationContainer>
+    </NavigationContainer> */
+    <HowYouFeel/>
   );
 }
 
