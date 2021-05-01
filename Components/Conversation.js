@@ -16,31 +16,39 @@ const Conversation = ({ navigation, route }) => {
     <SafeAreaView style={styler.screen}>
       <View style={styler.headView}>
         <View style={styler.head}>
-          <TouchableOpacity>
-            <Icon
-              style={{ marginTop: 10, marginLeft: 32 }}
-              name="arrow-back"
-              type="ionicon"
-              color="#979797"
-              size={30}
-            />
-          </TouchableOpacity>
-          <Text
+          <View
             style={{
-              fontSize: 24,
-              fontWeight: "bold",
-              marginTop: 10,
-              alignContent: "center",
+              flex: 0.3,
+              alignItems: "flex-start",
             }}
           >
-            Conversation
-          </Text>
-          <Icon
-            style={{ margin: 5 }}
-            name="arrow-back"
-            type="ionicon"
-            color="#ffffff"
-          />
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack(null);
+              }}
+            >
+              <Icon
+                style={{ marginTop: 20, marginLeft: 32 }}
+                name="arrow-back"
+                type="ionicon"
+                color="#000000"
+                size={30}
+              />
+            </TouchableOpacity>
+          </View>
+
+          <View style={{ flex: 0.7 }}>
+            <Text
+              style={{
+                fontSize: 24,
+                fontWeight: "bold",
+                marginTop: 20,
+                alignContent: "center",
+              }}
+            >
+              Conversation
+            </Text>
+          </View>
         </View>
       </View>
       <View style={styler.profileView}>
@@ -77,7 +85,6 @@ const styler = StyleSheet.create({
   head: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
     marginTop: 35,
   },
   container: {

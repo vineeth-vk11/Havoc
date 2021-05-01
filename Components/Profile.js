@@ -39,16 +39,27 @@ const Profile = () => {
     <SafeAreaView style={styler.screen}>
       <View style={styler.headView}>
         <View style={styler.head}>
-          <TouchableOpacity>
-            <Icon
-              style={{ marginTop: 10, marginLeft: 20 }}
-              name="arrow-back"
-              type="ionicon"
-              color="#979797"
-              size={30}
-            />
-          </TouchableOpacity>
-          <Text style={{ fontSize: 24 }}>Profile</Text>
+          <View
+            style={{
+              flex: 0.4,
+              alignItems: "flex-start",
+              marginTop: 10,
+            }}
+          >
+            <TouchableOpacity>
+              <Icon
+                style={{ marginTop: 10, marginLeft: 20 }}
+                name="arrow-back"
+                type="ionicon"
+                color="#000000"
+                size={30}
+              />
+            </TouchableOpacity>
+          </View>
+
+          <View style={{ flex: 0.6, marginTop: 10 }}>
+            <Text style={{ fontSize: 24 }}>Profile</Text>
+          </View>
         </View>
       </View>
       <View style={styler.headView}>
@@ -56,18 +67,11 @@ const Profile = () => {
           <View style={styler.image}>
             <Image
               style={styler.dp}
-              source={require("../assets/Images/Conversation.png")}
+              source={require("../assets/profilepic.png")}
             />
           </View>
           <View style={{ marginBottom: 10 }}>
-            <Text style={{ fontSize: 30, margin: 2 }}>Mahesh</Text>
-            <Text style={{ color: "#828282", margin: 2 }}>9981756898</Text>
-            <Text style={{ color: "#828282", margin: 2 }}>
-              mahesh@dclabs.co.in
-            </Text>
-            <Text style={{ color: "#828282", margin: 2 }}>
-              Member since,14 March Sunday
-            </Text>
+            <Text style={{ fontSize: 30, margin: 2 }}></Text>
           </View>
         </View>
       </View>

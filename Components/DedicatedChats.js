@@ -9,13 +9,14 @@ import {
   TextInput,
   ScrollView,
   ActivityIndicator,
+  ImageBackground,
 } from "react-native";
 import { ListItem, Avatar, Icon } from "react-native-elements";
 import firebase from "firebase";
 import { FlatList } from "react-native-gesture-handler";
 require("firebase/firestore");
 
-const DedicatedChats = () => {
+const DedicatedChats = ({ navigation }) => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -55,49 +56,80 @@ const DedicatedChats = () => {
 
   return (
     <SafeAreaView style={styler.screen}>
-      <View style={styler.head}>
-        <Icon
-          style={{ marginTop: 10, marginLeft: 32 }}
-          name="arrow-back"
-          type="ionicon"
-          color="#979797"
-          size={30}
-        />
-        <Text style={{ fontSize: 24, fontWeight: "bold", marginTop: 10 }}>
-          Dedicated chats
-        </Text>
-        <Icon
-          style={{ marginTop: 10, marginLeft: 32 }}
-          name="arrow-back"
-          type="ionicon"
-          color="#fff"
-          size={30}
-        />
-      </View>
-      <View style={styler.listView}>
-        <FlatList
-          data={list}
-          renderItem={({ item }) => (
-            <TouchableOpacity>
-              <View style={{ padding: 3, paddingRight: 5, paddingLeft: 5 }}>
-                <ListItem
-                  containerStyle={{ backgroundColor: "#F8F8F8", height: 57 }}
-                >
-                  <Avatar
-                    source={require("../assets/profilepic.png")}
-                    size={30}
-                  />
-                  <ListItem.Content>
-                    <ListItem.Title>{item.listenerName}</ListItem.Title>
-                    <ListItem.Subtitle>{item.topic}</ListItem.Subtitle>
-                  </ListItem.Content>
-                  <ListItem.Chevron size={35} />
-                </ListItem>
-              </View>
+      <ImageBackground
+        source={require("../assets/ss.png")}
+        style={styler.image}
+      >
+        <View style={styler.head}>
+          <View
+            style={{
+              flex: 0.3,
+              alignItems: "flex-start",
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack(null);
+              }}
+            >
+              <Icon
+                style={{ marginTop: 10, marginLeft: 32 }}
+                name="arrow-back"
+                type="ionicon"
+                color="#000000"
+                size={30}
+              />
             </TouchableOpacity>
-          )}
-        />
-      </View>
+          </View>
+          <View
+            style={{
+              flex: 0.7,
+              alignItems: "flex-start",
+            }}
+          >
+            <Text style={{ fontSize: 24, fontWeight: "bold", marginTop: 10 }}>
+              Dedicated chats
+            </Text>
+          </View>
+        </View>
+        <View style={styler.listView}>
+          <FlatList
+            data={list}
+            renderItem={({ item }) => (
+              <TouchableOpacity>
+                <View
+                  style={{
+                    padding: 3,
+                    paddingRight: 5,
+                    paddingLeft: 5,
+                    marginLeft: 8,
+                    marginRight: 8,
+                  }}
+                >
+                  <ListItem
+                    containerStyle={{
+                      backgroundColor: "#F8F8F8",
+                      height: 60,
+                      borderRadius: 5,
+                      elevation: 5,
+                    }}
+                  >
+                    <Avatar
+                      source={require("../assets/profilepic.png")}
+                      size={30}
+                    />
+                    <ListItem.Content>
+                      <ListItem.Title>{item.listenerName}</ListItem.Title>
+                      <ListItem.Subtitle>{item.topic}</ListItem.Subtitle>
+                    </ListItem.Content>
+                    <ListItem.Chevron size={35} />
+                  </ListItem>
+                </View>
+              </TouchableOpacity>
+            )}
+          />
+        </View>
+      </ImageBackground>
     </SafeAreaView>
   );
 };
@@ -111,6 +143,11 @@ const styler = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginTop: 20,
+  },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
   },
   listView: {
     flex: 0.85,

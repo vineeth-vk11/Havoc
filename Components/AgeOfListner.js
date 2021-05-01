@@ -27,11 +27,15 @@ const AgeOfListner = ({ navigation }) => {
     <SafeAreaView style={styler.screen}>
       <View style={styler.headView}>
         <View style={styler.head}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.goBack(null);
+            }}
+          >
             <Icon
               name="arrow-back"
               type="ionicon"
-              color="#979797"
+              color="#000000"
               size={30}
               style={{ marginLeft: 32, marginTop: 20 }}
             />

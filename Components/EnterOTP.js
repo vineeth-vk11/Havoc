@@ -1,9 +1,17 @@
 import React, { useState } from "react";
 import { TextInput } from "react-native-paper";
-import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
+import {
+  Keyboard,
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import { showMessage, hideMessage } from "react-native-flash-message";
 
 import * as firebase from "firebase";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 const EnterOTP = ({
   route: {
@@ -13,47 +21,54 @@ const EnterOTP = ({
 }) => {
   const [verificationCode, setVerificationCode] = useState();
 
-
-const EnterOTP = ({navigation}) => {
   return (
     <View style={styler.screen}>
-      <View style={styler.havoc}>
-        <Image source={require("../assets/Images/HavocTherapy.png")} />
-      </View>
-      <View>
-        <TextInput
-          mode="outlined"
-          label="Enter OTP"
-          theme={{
-            colors: { primary: "#7AC141", underlineColor: "transparent" },
-          }}
-          keyboardType="number-pad"
-          style={styler.name}
-          onChangeText={(text) => setVerificationCode(text)}
-          value={verificationCode}
-        />
-      </View>
-      <View style={styler.getStartedView}>
-        <TouchableOpacity
-          onPress={async () => {
-            try {
-              const credential = firebase.auth.PhoneAuthProvider.credential(
-                verificationId,
-                verificationCode
-              );
-              await firebase.auth().signInWithCredential(credential);
-              navigation.navigate("MyJournal");
-            } catch (err) {
-              showMessage({
-                message: "OTP validation failed",
-                type: "info",
-              });
-            }
-          }}
-        >
-          <Text style={styler.getStarted}>VERIFY</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          Keyboard.dismiss();
+        }}
+      >
+        <View style={styler.havoc}>
+          <Image source={require("../assets/Images/HavocTherapy.png")} />
+        </View>
+        <View>
+          <TextInput
+            mode="outlined"
+            label="Enter OTP"
+            theme={{
+              colors: { primary: "#7AC141", underlineColor: "transparent" },
+            }}
+            keyboardType="number-pad"
+            style={styler.name}
+            onChangeText={(text) => setVerificationCode(text)}
+            value={verificationCode}
+          />
+        </View>
+        <View style={styler.getStartedView}>
+          <TouchableOpacity
+            onPress={async () => {
+              try {
+                const credential = firebase.auth.PhoneAuthProvider.credential(
+                  verificationId,
+                  verificationCode
+                );
+                console.log("waiting to login");
+                await firebase.auth().signInWithCredential(credential);
+                console.log("waiting to navigate");
+                navigation.navigate("Register3");
+              } catch (err) {
+                console.log(err);
+                showMessage({
+                  message: "OTP validation failed",
+                  type: "info",
+                });
+              }
+            }}
+          >
+            <Text style={styler.getStarted}>VERIFY</Text>
+          </TouchableOpacity>
+        </View>
+      </TouchableWithoutFeedback>
     </View>
   );
 };

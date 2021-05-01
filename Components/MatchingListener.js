@@ -9,12 +9,16 @@ import {
 import { Icon } from "react-native-elements";
 import LottieView from "lottie-react-native";
 
-const MatchingListener = () => {
+const MatchingListener = ({ navigation }) => {
   return (
     <SafeAreaView style={styler.screen}>
       <View style={styler.headView}>
         <View style={styler.head}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.goBack(null);
+            }}
+          >
             <Icon
               style={{ margin: 5 }}
               name="close"

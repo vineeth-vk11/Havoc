@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  ImageBackground,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { SearchBar } from "react-native-elements";
@@ -94,70 +95,95 @@ const PickTopic = ({ navigation }) => {
   );
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styler.screen}>
       <ScrollView>
-        <View style={styler.head}>
-          <TouchableOpacity>
-            <Icon
-              style={{ marginLeft: 32 }}
-              name="arrow-back"
-              type="ionicon"
-              color="#979797"
-              size={30}
-            />
-          </TouchableOpacity>
-          <Text
-            style={{ fontSize: 24, fontWeight: "bold", alignSelf: "center" }}
-          >
-            Pick Topic
-          </Text>
-          <TouchableOpacity>
-            <Icon reverse name="person" type="ionicon" color="#ffff" />
-          </TouchableOpacity>
-        </View>
-        <View style={{ padding: 10 }}>
-          <SearchBar
-            containerStyle={{
-              backgroundColor: "white",
-              borderWidth: 1,
-              borderRadius: 15,
-              borderColor: "#7AC141",
-              borderTopWidth: 1,
-              borderTopColor: "#7AC141",
-              borderBottomColor: "#7AC141",
-              height: 48,
-            }}
-            inputContainerStyle={{ backgroundColor: "white", height: 32 }}
-            placeholder="Enter topic name"
-            onChangeText={updateSearch}
-            value={search}
-          />
-        </View>
-        <View>
-          {list.map((l, i) => (
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("AgeOfListener");
-              }}
-            >
-              <View
-                key={i}
-                style={{ padding: 3, paddingRight: 5, paddingLeft: 5 }}
+        <ImageBackground
+          source={require("../assets/ss.png")}
+          style={styler.image}
+        >
+          <View style={styler.head}>
+            <View style={{ flex: 0.35, alignItems: "flex-start" }}>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack(null);
+                }}
               >
-                <ListItem
-                  key={l.key.toString()}
-                  containerStyle={{ backgroundColor: "#F8F8F8", height: 55 }}
+                <Icon
+                  style={{ marginLeft: 32 }}
+                  name="arrow-back"
+                  type="ionicon"
+                  color="#000000"
+                  size={30}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={{ flex: 0.65 }}>
+              <Text
+                style={{
+                  fontSize: 24,
+                  fontWeight: "bold",
+                  alignItems: "flex-start",
+                }}
+              >
+                Pick Topic
+              </Text>
+            </View>
+          </View>
+          <View style={{ padding: 10, marginTop: 10 }}>
+            <SearchBar
+              containerStyle={{
+                backgroundColor: "white",
+                borderWidth: 1,
+                borderRadius: 15,
+                borderColor: "#7AC141",
+                borderTopWidth: 1,
+                borderTopColor: "#7AC141",
+                borderBottomColor: "#7AC141",
+                height: 48,
+              }}
+              inputContainerStyle={{ backgroundColor: "white", height: 32 }}
+              placeholder="Enter topic name"
+              onChangeText={updateSearch}
+              value={search}
+            />
+          </View>
+          <View>
+            {list.map((l, i) => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("AgeOfListener");
+                }}
+              >
+                <View
+                  key={i}
+                  style={{
+                    padding: 3,
+                    paddingRight: 5,
+                    paddingLeft: 5,
+                    marginLeft: 8,
+                    marginRight: 8,
+                  }}
                 >
-                  <ListItem.Content>
-                    <ListItem.Title>{l.name}</ListItem.Title>
-                    <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
-                  </ListItem.Content>
-                  <ListItem.Chevron size={35} />
-                </ListItem>
-              </View>
-            </TouchableOpacity>
-          ))}
-        </View>
+                  <ListItem
+                    key={i}
+                    containerStyle={{
+                      backgroundColor: "#F8F8F8",
+                      height: 60,
+                      borderRadius: 5,
+                      elevation: 5,
+                    }}
+                  >
+                    <ListItem.Content>
+                      <ListItem.Title>{l.name}</ListItem.Title>
+                      <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
+                    </ListItem.Content>
+                    <ListItem.Chevron size={35} />
+                  </ListItem>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </ImageBackground>
       </ScrollView>
     </SafeAreaView>
   );
@@ -167,9 +193,17 @@ export default PickTopic;
 
 const styler = StyleSheet.create({
   head: {
+    flex: 0.15,
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    marginTop: 20,
+  },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+  },
+  screen: {
+    flex: 1,
     marginTop: 30,
   },
 });
