@@ -121,7 +121,7 @@ const styler = StyleSheet.create({
   },
   phoneNumber: {
     padding: 10,
-    width: 310,
+    width: "80%",
     height: 52,
     color: "#828282",
     backgroundColor: "#fff",
@@ -136,8 +136,12 @@ const styler = StyleSheet.create({
     margin: 20,
     textAlign: "center",
     textAlignVertical: "center",
+    alignContent: "center",
+    alignItems: "center",
     fontSize: 20,
     elevation: 5,
+    padding: 10,
+    overflow: "hidden"
   },
   lineStyle: {
     borderWidth: 0.4,
