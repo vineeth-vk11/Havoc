@@ -31,7 +31,7 @@ const EnterOTP = ({
         <View style={styler.havoc}>
           <Image source={require("../assets/Images/HavocTherapy.png")} />
         </View>
-        <View>
+        <View style = {{alignItems: "center"}}>
           <TextInput
             mode="outlined"
             label="Enter OTP"
@@ -44,7 +44,9 @@ const EnterOTP = ({
             value={verificationCode}
           />
         </View>
-        <View style={styler.getStartedView}>
+      </TouchableWithoutFeedback>
+
+      <View style={styler.getStartedView}>
           <TouchableOpacity
             onPress={async () => {
               try {
@@ -68,7 +70,6 @@ const EnterOTP = ({
             <Text style={styler.getStarted}>VERIFY</Text>
           </TouchableOpacity>
         </View>
-      </TouchableWithoutFeedback>
     </View>
   );
 };
@@ -78,16 +79,18 @@ export default EnterOTP;
 const styler = StyleSheet.create({
   getStarted: {
     borderRadius: 7,
-    width: 100,
-    height: 40,
+    width: 310,
+    height: 45,
     backgroundColor: "#7AC141",
     color: "white",
-    marginVertical: 10,
+    marginVertical: 20,
     marginHorizontal: 20,
     textAlign: "center",
     textAlignVertical: "center",
     fontSize: 15,
     elevation: 5,
+    padding: 10,
+    overflow: "hidden"
   },
   getStartedView: {
     alignItems: "center",
@@ -98,18 +101,13 @@ const styler = StyleSheet.create({
     justifyContent: "center",
   },
   name: {
-    padding: 10,
     borderColor: "black",
-    borderBottomWidth: 1,
-    borderBottomColor: "rgba(122, 193, 65, 0.4);",
     borderRadius: 0,
-    width: 310,
-    height: 52,
+    width: "80%",
+    height: 55,
     color: "#828282",
     justifyContent: "center",
     backgroundColor: "#fff",
-    marginHorizontal: 20,
-    marginVertical: 10,
     fontSize: 16,
   },
   havoc: {
