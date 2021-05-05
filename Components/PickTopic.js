@@ -1,0 +1,209 @@
+import React, { useState, useCallback } from "react";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  ImageBackground,
+} from "react-native";
+import { Icon } from "react-native-elements";
+import { SearchBar } from "react-native-elements";
+import { ListItem } from "react-native-elements";
+const list = [
+  {
+    key: "1",
+    name: "Work and Productivity",
+    subtitle: "66 Talking",
+  },
+  {
+    key: "2",
+    name: "Academic Pressure",
+    subtitle: "53 Talking",
+  },
+  {
+    key: "3",
+    name: "Relationships",
+    subtitle: "72 Talking",
+  },
+  {
+    key: "4",
+    name: "LGBTQ & Identity",
+    subtitle: "32 Talking",
+  },
+  {
+    key: "5",
+    name: "I just want to talk",
+    subtitle: "96 Talking",
+  },
+  {
+    key: "6",
+    name: "COVID 19",
+    subtitle: "49 Talking",
+  },
+  {
+    key: "7",
+    name: "Health Issues",
+    subtitle: "43 Talking",
+  },
+  {
+    key: "8",
+    name: "Parenting",
+    subtitle: "34 Talking",
+  },
+  {
+    key: "9",
+    name: "Bullying",
+    subtitle: "24 Talking",
+  },
+  {
+    key: "10",
+    name: "Loneliness",
+    subtitle: "25 Talking",
+  },
+  {
+    key: "11",
+    name: "Motivation and Confidence",
+    subtitle: "36 Talking",
+  },
+  {
+    key: "12",
+    name: "Overthinking",
+    subtitle: "21 Talking",
+  },
+  {
+    key: "13",
+    name: "Sleep",
+    subtitle: "15 Talking",
+  },
+  {
+    key: "14",
+    name: "Low Energy",
+    subtitle: "12 Talking",
+  },
+];
+
+const PickTopic = ({ navigation }) => {
+  const [search, setsearch] = useState("");
+
+  const updateSearch = useCallback(
+    (event) => {
+      setsearch(event);
+    },
+    [setsearch]
+  );
+
+  return (
+    <SafeAreaView style={styler.screen}>
+      <ScrollView>
+        <ImageBackground
+          source={require("../assets/ss.png")}
+          style={styler.image}
+        >
+          <View style={styler.head}>
+            <View style={{ flex: 0.35, alignItems: "flex-start" }}>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack(null);
+                }}
+              >
+                <Icon
+                  style={{ marginLeft: 32 }}
+                  name="arrow-back"
+                  type="ionicon"
+                  color="#000000"
+                  size={30}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={{ flex: 0.65 }}>
+              <Text
+                style={{
+                  fontSize: 24,
+                  fontWeight: "bold",
+                  alignItems: "flex-start",
+                }}
+              >
+                Pick Topic
+              </Text>
+            </View>
+          </View>
+          <View style={{ padding: 10, marginTop: 10 }}>
+            <SearchBar
+              containerStyle={{
+                backgroundColor: "white",
+                borderWidth: 1,
+                borderRadius: 15,
+                borderColor: "#7AC141",
+                borderTopWidth: 1,
+                borderTopColor: "#7AC141",
+                borderBottomColor: "#7AC141",
+                height: 48,
+              }}
+              inputContainerStyle={{ backgroundColor: "white", height: 32 }}
+              placeholder="Enter topic name"
+              onChangeText={updateSearch}
+              value={search}
+            />
+          </View>
+          <View>
+            {list.map((l, i) => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("AgeOfListener");
+                }}
+              >
+                <View
+                  key={i}
+                  style={{
+                    padding: 3,
+                    paddingRight: 5,
+                    paddingLeft: 5,
+                    marginLeft: 8,
+                    marginRight: 8,
+                  }}
+                >
+                  <ListItem
+                    key={i}
+                    containerStyle={{
+                      backgroundColor: "#F8F8F8",
+                      height: 60,
+                      borderRadius: 5,
+                      elevation: 5,
+                    }}
+                  >
+                    <ListItem.Content>
+                      <ListItem.Title>{l.name}</ListItem.Title>
+                      <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
+                    </ListItem.Content>
+                    <ListItem.Chevron size={35} />
+                  </ListItem>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </ImageBackground>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+
+export default PickTopic;
+
+const styler = StyleSheet.create({
+  head: {
+    flex: 0.15,
+    flexDirection: "row",
+    marginTop: 20,
+  },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+  },
+  screen: {
+    flex: 1,
+    marginTop: 30,
+  },
+});
