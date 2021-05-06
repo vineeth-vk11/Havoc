@@ -10,8 +10,10 @@ import {
 } from "react-native";
 import { showMessage, hideMessage } from "react-native-flash-message";
 
-import * as firebase from "firebase";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+
+import firebase from "firebase";
+require("firebase/firestore");
 
 const EnterOTP = ({
   route: {
@@ -31,7 +33,7 @@ const EnterOTP = ({
         <View style={styler.havoc}>
           <Image source={require("../assets/Images/HavocTherapy.png")} />
         </View>
-        <View style = {{alignItems: "center"}}>
+        <View style={{ alignItems: "center" }}>
           <TextInput
             mode="outlined"
             label="Enter OTP"
@@ -47,29 +49,50 @@ const EnterOTP = ({
       </TouchableWithoutFeedback>
 
       <View style={styler.getStartedView}>
-          <TouchableOpacity
-            onPress={async () => {
-              try {
-                const credential = firebase.auth.PhoneAuthProvider.credential(
-                  verificationId,
-                  verificationCode
-                );
-                console.log("waiting to login");
-                await firebase.auth().signInWithCredential(credential);
-                console.log("waiting to navigate");
-                navigation.navigate("Register3");
-              } catch (err) {
-                console.log(err);
-                showMessage({
-                  message: "OTP validation failed",
-                  type: "info",
-                });
+        <TouchableOpacity
+          onPress={async () => {
+            try {
+              const credential = firebase.auth.PhoneAuthProvider.credential(
+                verificationId,
+                verificationCode
+              );
+              console.log("waiting to login");
+              await firebase.auth().signInWithCredential(credential);
+              console.log("waiting to navigate");
+
+              if (firebase.auth().currentUser) {
+                var user = firebase.auth().currentUser.uid;
+
+                firebase
+                  .firestore()
+                  .collection("users")
+                  .doc(user)
+                  .get()
+                  .then((documentSnapshot) => {
+                    if (!documentSnapshot.exists) {
+                      navigation.navigate("Register2");
+                      console.log("Hi");
+                    } else {
+                      if (documentSnapshot.data()["isListener"]) {
+                        navigation.navigate("ListenerDB");
+                      } else {
+                        navigation.navigate("Register3");
+                      }
+                    }
+                  });
               }
-            }}
-          >
-            <Text style={styler.getStarted}>VERIFY</Text>
-          </TouchableOpacity>
-        </View>
+            } catch (err) {
+              console.log(err);
+              showMessage({
+                message: "OTP validation failed",
+                type: "info",
+              });
+            }
+          }}
+        >
+          <Text style={styler.getStarted}>VERIFY</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -90,7 +113,7 @@ const styler = StyleSheet.create({
     fontSize: 15,
     elevation: 5,
     padding: 10,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   getStartedView: {
     alignItems: "center",

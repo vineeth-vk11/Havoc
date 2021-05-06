@@ -15,14 +15,22 @@ import RadioForm, {
   RadioButtonInput,
   RadioButtonLabel,
 } from "react-native-simple-radio-button";
+
+import firebase from "firebase";
+require("firebase/firestore");
+
 var radio_props = [
   { label: "18 - 24 Years", value: 0 },
   { label: "25 - 34 Years", value: 1 },
   { label: "35 - 50 Years", value: 2 },
   { label: "51 years or more", value: 3 },
 ];
-const AgeOfListner = ({ navigation }) => {
-  const [value, setvalue] = useState();
+
+const AgeOfListner = ({ navigation, route }) => {
+  const [value, setvalue] = useState(-1);
+  const { userName, topic } = route.params;
+  const [minimumAge, setMinimumAge] = useState();
+  const [maximumAge, setMaximumAge] = useState();
   return (
     <SafeAreaView style={styler.screen}>
       <View style={styler.headView}>
@@ -57,6 +65,19 @@ const AgeOfListner = ({ navigation }) => {
                   index={i}
                   isSelected={value === i}
                   onPress={(value) => {
+                    if (value === 0) {
+                      setMinimumAge("18");
+                      setMaximumAge("24");
+                    } else if (value === 1) {
+                      setMinimumAge("25");
+                      setMaximumAge("34");
+                    } else if (value === 2) {
+                      setMinimumAge("35");
+                      setMinimumAge("50");
+                    } else if (value === 3) {
+                      setMinimumAge("51");
+                      setMaximumAge("100");
+                    }
                     setvalue(value);
                   }}
                   borderWidth={2}
@@ -71,9 +92,6 @@ const AgeOfListner = ({ navigation }) => {
                   obj={obj}
                   index={i}
                   labelHorizontal={true}
-                  onPress={(value) => {
-                    setvalue(value);
-                  }}
                   labelStyle={{ fontSize: 20, color: "rgba(18, 18, 18, 0.5)" }}
                   labelWrapStyle={{}}
                 />
@@ -85,7 +103,36 @@ const AgeOfListner = ({ navigation }) => {
       <View style={styler.footView}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("MatchingListener");
+            console.log(value);
+            if (value === -1) {
+            } else {
+              console.log(minimumAge);
+              console.log(maximumAge);
+
+              if (firebase.auth().currentUser) {
+                var user = firebase.auth().currentUser.uid;
+
+                firebase
+                  .firestore()
+                  .collection("users")
+                  .doc(user)
+                  .set(
+                    {
+                      minAge: minimumAge,
+                      maxAge: maximumAge,
+                    },
+                    { merge: true }
+                  )
+                  .then(() => {
+                    navigation.navigate("HowYouFeel", {
+                      userName: userName,
+                      topic: topic,
+                      minAge: maximumAge,
+                      maxAge: minimumAge,
+                    });
+                  });
+              }
+            }
           }}
         >
           <Text style={styler.continue}>CONTINUE</Text>
