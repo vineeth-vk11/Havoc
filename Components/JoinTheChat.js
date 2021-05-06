@@ -122,6 +122,9 @@ const styler = StyleSheet.create({
     textAlign: "center",
     textAlignVertical: "center",
     fontSize: 20,
+    paddingVertical: 10,
+    overflow: "hidden",
+    alignSelf: "center"
   },
   dp: {
     width: 150,
@@ -141,7 +144,7 @@ const styler = StyleSheet.create({
     flex: 1,
   },
   headView: {
-    flex: 0.1,
+    flex: 0.2,
   },
   imageView: {
     flex: 0.35,
