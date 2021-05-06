@@ -16,9 +16,12 @@ import RadioForm, {
   RadioButtonLabel,
 } from "react-native-simple-radio-button";
 var radio_props = [
-  { label: "I’ve been waiting for long", value: 0 },
-  { label: "I’m Nervous", value: 1 },
+  { label: "I’ve been waiting for long", value: 0, txt:"We're sorry we couldn't find you a listener in time.\n It gets tough with many requests. More listeners\n sign up every day, rest assured we will find you a \n perfect person if you stay a bit longer"},
+  { label: "I’m Nervous", value: 1, txt: "Its okay. It is quite stressful to interact with a\n stranger. But we are here to help and make you\n feel the best comfort. You will sail through it!"},
+  {label:"Is my information confidential?", value: 2, txt:"Fear is genuine. And we understand. But your\n conversations are totally secure. We don't share\n anything with any third-partners. Your expression\nS is valued and protected"},
+  {label:"I'm not satisfied", value: 3, txt: "We are sorry you feel this way but maybe second \n time's the charm"}
 ];
+
 const Leaving = () => {
   const [value, setvalue] = useState();
   return (
@@ -38,7 +41,8 @@ const Leaving = () => {
       <View style={styler.formView}>
         <Text style={styler.text}>What went wrong?</Text>
         <RadioForm formHorizontal={false} animation={true}>
-          {radio_props.map((obj, i) => (
+          {radio_props.map((obj, i) =>(
+            <View>
             <RadioButton labelHorizontal={true} key={i}>
               <View style={{ flexDirection: "row" }}>
                 <RadioButtonInput
@@ -52,8 +56,8 @@ const Leaving = () => {
                   buttonInnerColor={"#7AC141"}
                   buttonOuterColor={value === i ? "#7AC141" : "#DADADA"}
                   buttonSize={16}
-                  buttonOuterSize={28}
-                  buttonStyle={{ marginRight: 20, marginBottom: 10 }}
+                  buttonOuterSize={22}
+                  buttonStyle={{ marginRight: 10, marginBottom: 0 }}
                   buttonWrapStyle={{ marginLeft: 10 }}
                 />
                 <RadioButtonLabel
@@ -63,11 +67,15 @@ const Leaving = () => {
                   onPress={(value) => {
                     setvalue(value);
                   }}
-                  labelStyle={{ fontSize: 20, color: "rgba(18, 18, 18, 0.5)" }}
+                  labelStyle={{ fontSize: 17, color: "rgba(18, 18, 18, 0.5)" }}
                   labelWrapStyle={{}}
                 />
               </View>
             </RadioButton>
+            <View style={styler.declaration}>
+                  <Text>{obj.txt}</Text>
+                </View>
+            </View>
           ))}
         </RadioForm>
       </View>
@@ -92,7 +100,7 @@ const styler = StyleSheet.create({
     height: 52,
     backgroundColor: "#7AC141",
     color: "white",
-    margin: 20,
+    marginVertical:0,
     textAlign: "center",
     textAlignVertical: "center",
     fontSize: 20,
@@ -101,18 +109,19 @@ const styler = StyleSheet.create({
     flex: 1,
   },
   sadFaceView: {
-    flex: 0.5,
+    flex: 0.3,
     justifyContent: "center",
     alignItems: "center",
   },
   formView: {
-    flex: 0.3,
-    margin: 5,
+    flex: 0.6,
+    padding:10,
+    marginHorizontal:5
   },
   footView: {
-    flex: 0.2,
-    justifyContent: "flex-end",
-    marginBottom: 70,
+    flex: 0.1,
+    justifyContent: "center",
+    alignItems:'center',
   },
   text: {
     fontSize: 20,
@@ -120,4 +129,8 @@ const styler = StyleSheet.create({
     margin: 5,
     marginBottom: 15,
   },
+ declaration: {
+     padding:'1%',
+     marginHorizontal:2,
+  }
 });

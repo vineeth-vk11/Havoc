@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  KeyboardAvoidingView,
 } from "react-native";
 import RadioForm, {
   RadioButton,
@@ -18,7 +19,7 @@ import { Rating, AirbnbRating } from "react-native-elements";
 var radio_props = [
   { label: "Yes", value: 0 },
   { label: "Not Sure", value: 1 },
-  { label: "NO", value: 2 },
+  { label: "No", value: 2 },
 ];
 const AgeOfListner = () => {
   const [value, setvalue] = useState();
@@ -27,7 +28,7 @@ const AgeOfListner = () => {
     setrating((rating += rating));
   };
   return (
-    <SafeAreaView style={styler.screen}>
+    <View style={styler.screen}>
       <View style={styler.headView}>
         <View style={styler.head}>
           <Text style={{ fontSize: 30, fontWeight: "bold" }}>Review</Text>
@@ -38,7 +39,7 @@ const AgeOfListner = () => {
         <RadioForm formHorizontal={false} animation={true}>
           {radio_props.map((obj, i) => (
             <RadioButton labelHorizontal={true} key={i}>
-              <View style={{ flexDirection: "row" }}>
+              <View style={{ flexDirection: "row"}}>
                 <RadioButtonInput
                   obj={obj}
                   index={i}
@@ -50,7 +51,7 @@ const AgeOfListner = () => {
                   buttonInnerColor={"#7AC141"}
                   buttonOuterColor={value === i ? "#7AC141" : "#DADADA"}
                   buttonSize={16}
-                  buttonOuterSize={28}
+                  buttonOuterSize={24}
                   buttonStyle={{ marginRight: 20, marginBottom: 10 }}
                   buttonWrapStyle={{ marginLeft: 10 }}
                 />
@@ -71,7 +72,11 @@ const AgeOfListner = () => {
       </View>
       <View style={styler.rateView}>
         <Text style={styler.better}>Rate the listener</Text>
-        <Rating onFinishRating={updateRating} style={{ paddingVertical: 10 }} />
+        <View style={styler.ratingView}>
+        <Rating onFinishRating={updateRating} style={{ paddingVertical: 10}} 
+        imageSize={30}
+        fractions={1}/>
+        </View>
       </View>
       <View style={styler.reviewView}>
         <Text style={styler.better}>Review</Text>
@@ -94,7 +99,7 @@ const AgeOfListner = () => {
           <Text style={styler.complete}>Complete</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -110,11 +115,9 @@ const styler = StyleSheet.create({
   better: {
     fontSize: 20,
     textAlign: "left",
-    margin: 10,
-    marginBottom: 0,
+    marginBottom:'5%'
   },
   complete: {
-    justifyContent: "flex-end",
     borderRadius: 15,
     width: 310,
     height: 52,
@@ -127,8 +130,7 @@ const styler = StyleSheet.create({
   review: {
     padding: 10,
     borderColor: "black",
-    borderRadius: 0,
-    width: 340,
+    width: 310,
     height: 52,
     color: "#828282",
     justifyContent: "center",
@@ -137,27 +139,30 @@ const styler = StyleSheet.create({
   },
   screen: {
     flex: 1,
+    padding: '4%',
+    justifyContent:'space-between'
   },
   headView: {
-    flex: 0.2,
     justifyContent: "center",
     alignItems: "center",
   },
   formView: {
-    flex: 0.3,
     margin: 5,
   },
   rateView: {
-    flex: 0.2,
   },
   reviewView: {
-    flex: 0.2,
+    marginBottom:'3%',
   },
   footView: {
-    flex: 0.1,
     justifyContent: "flex-end",
     marginBottom: 50,
     justifyContent: "flex-end",
     alignItems: "center",
   },
+  ratingView:{
+    marginHorizontal:'7%',
+    justifyContent:'flex-start',
+    alignItems:'flex-start',
+  }
 });
