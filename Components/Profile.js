@@ -34,7 +34,7 @@ const list = [
     icon: "log-out",
   },
 ];
-const Profile = () => {
+const Profile = ({navigation}) => {
   return (
     <SafeAreaView style={styler.screen}>
       <View style={styler.headView}>
@@ -46,7 +46,9 @@ const Profile = () => {
               marginTop: 10,
             }}
           >
-            <TouchableOpacity>
+            <TouchableOpacity onPress = {() => {
+              navigation.goBack(null)
+            }}>
               <Icon
                 style={{ marginTop: 10, marginLeft: 20 }}
                 name="arrow-back"

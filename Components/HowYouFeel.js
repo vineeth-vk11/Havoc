@@ -229,5 +229,7 @@ const styler = StyleSheet.create({
     textAlignVertical: "center",
     fontSize: 20,
     elevation: 5,
+    paddingVertical: 10,
+    overflow: "hidden"
   },
 });

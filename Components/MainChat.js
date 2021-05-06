@@ -147,7 +147,7 @@ function MainChat({ navigation, route }) {
           >
             <TouchableOpacity
               onPress={() => {
-                toggleBottomNavigationView;
+                navigation.navigate("Register3")
               }}
             >
               <Icon
