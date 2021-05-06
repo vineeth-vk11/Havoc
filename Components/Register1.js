@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ImageBackground, Keyboard, Touchable } from "react-native";
 import {
   View,
@@ -11,7 +11,11 @@ import {
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { SocialIcon } from "react-native-elements";
-import { TextInput, TouchableRipple } from "react-native-paper";
+import {
+  ActivityIndicator,
+  TextInput,
+  TouchableRipple,
+} from "react-native-paper";
 import { showMessage, hideMessage } from "react-native-flash-message";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -21,8 +25,10 @@ import {
   FirebaseRecaptchaVerifierModal,
   FirebaseRecaptchaBanner,
 } from "expo-firebase-recaptcha";
-import * as firebase from "firebase";
 import { BackgroundImage } from "react-native-elements/dist/config";
+
+import firebase from "firebase";
+require("firebase/firestore");
 
 const Register1 = ({ navigation }) => {
   const recaptchaVerifier = React.useRef(null);
@@ -33,6 +39,37 @@ const Register1 = ({ navigation }) => {
     : undefined;
 
   const attemptInvisibleVerification = true;
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (firebase.auth().currentUser) {
+      var user = firebase.auth().currentUser.uid;
+
+      firebase
+        .firestore()
+        .collection("users")
+        .doc(user)
+        .get()
+        .then((documentSnapshot) => {
+          if (!documentSnapshot.exists) {
+            navigation.navigate("Register2");
+            console.log("Hi");
+          } else {
+            if (documentSnapshot.data()["isListener"]) {
+              navigation.navigate("ListenerDB");
+            } else {
+              navigation.navigate("Register3");
+            }
+          }
+        });
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
+  if (loading) {
+    return <ActivityIndicator />;
+  }
 
   return (
     <TouchableWithoutFeedback
@@ -141,7 +178,7 @@ const styler = StyleSheet.create({
     fontSize: 20,
     elevation: 5,
     padding: 10,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   lineStyle: {
     borderWidth: 0.4,

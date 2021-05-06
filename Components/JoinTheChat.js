@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -11,55 +11,72 @@ import {
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { Button } from "react-native-elements";
-const JoinTheChat = () => {
+
+import firebase from "firebase";
+require("firebase/firestore");
+
+const JoinTheChat = ({ navigation, route }) => {
+  const { chatId, feeling, onMind, listenerId, topic } = route.params;
+  const [listenerName, setListenerName] = useState();
+  const [listenerBio, setListenerBio] = useState();
+
+  useEffect(() => {
+    let listener = firebase
+      .firestore()
+      .collection("Listeners")
+      .doc(listenerId)
+      .get()
+      .then((documentSnapshot) => {
+        setListenerName(documentSnapshot.data()["name"]);
+        setListenerBio(documentSnapshot.data()["bio"]);
+      });
+  });
+
   return (
     <SafeAreaView style={styler.screen}>
       <View style={styler.headView}>
         <View style={styler.head}>
-          <Text style={{ fontSize: 24, fontWeight: "bold" }}>
+          <Text
+            style={{
+              fontSize: 18,
+              fontWeight: "bold",
+            }}
+          >
             Request Accepted By{" "}
           </Text>
-          <Text style={{ fontSize: 24, fontWeight: "bold" }}>Mahesh </Text>
+          <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+            Vineeth Kumar{" "}
+          </Text>
         </View>
       </View>
 
       <View style={styler.imageView}>
-        <Image
-          style={styler.dp}
-          source={require("../assets/Images/Conversation.png")}
-        />
+        <Image style={styler.dp} source={require("../assets/profilepic.png")} />
       </View>
       <View style={styler.aboutView}>
         <View style={styler.about}>
           <Text style={{ fontSize: 22 }}>About </Text>
-          <Text style={{ fontSize: 22 }}>Mahesh</Text>
+          <Text style={{ fontSize: 22 }}>{listenerName}</Text>
         </View>
         <View style={styler.about}>
-          <Text>
-            {" "}
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip.
-          </Text>
+          <Text>{listenerBio}</Text>
         </View>
       </View>
 
-      <View style={styler.topicsView}>
-        <Text style={{ fontSize: 22, fontWeight: "bold", margin: 10 }}>
-          Topics{" "}
-        </Text>
-        <View style={styler.topics}>
-          <View style={styler.topicInner}>
-            <Text style={{ color: "#fff" }}>Relationships</Text>
-          </View>
-          <View style={styler.topicInner}>
-            <Text style={{ color: "#fff" }}>Career</Text>
-          </View>
-        </View>
-      </View>
       <View style={styler.footView}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("MainChat", {
+              chatId: chatId,
+              feeling: feeling,
+              onMind: onMind,
+              listenerId: listenerId,
+              listenerName: listenerName,
+              topic: topic,
+              type: "seeker",
+            });
+          }}
+        >
           <Text style={styler.bookNow}>JOIN THE CHAT</Text>
         </TouchableOpacity>
       </View>
@@ -74,7 +91,7 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 45,
+    marginTop: 60,
     margin: 10,
   },
   medication: {
@@ -91,6 +108,8 @@ const styler = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     margin: 10,
+    marginLeft: 20,
+    marginRight: 20,
   },
   bookNow: {
     justifyContent: "flex-end",
@@ -133,12 +152,8 @@ const styler = StyleSheet.create({
   aboutView: {
     flex: 0.2,
   },
-  topicsView: {
-    flex: 0.25,
-  },
   footView: {
-    flex: 0.1,
+    flex: 0.35,
     justifyContent: "flex-end",
-    marginBottom: 50,
   },
 });

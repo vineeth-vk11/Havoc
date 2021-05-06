@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,9 +8,12 @@ import {
   ScrollView,
   ImageBackground,
 } from "react-native";
+import firebase from "firebase";
+require("firebase/firestore");
 import { Icon } from "react-native-elements";
 import { SearchBar } from "react-native-elements";
 import { ListItem } from "react-native-elements";
+import { ActivityIndicator } from "react-native-paper";
 const list = [
   {
     key: "1",
@@ -86,13 +89,47 @@ const list = [
 
 const PickTopic = ({ navigation }) => {
   const [search, setsearch] = useState("");
-
+  const [ageGroupExists, setAgeGroupExists] = useState(false);
+  const [minAge, setMinAge] = useState();
+  const [maxAge, setMaxAge] = useState();
+  const [name, setName] = useState();
   const updateSearch = useCallback(
     (event) => {
       setsearch(event);
     },
     [setsearch]
   );
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (firebase.auth().currentUser) {
+      var user = firebase.auth().currentUser.uid;
+      const userInfo = firebase
+        .firestore()
+        .collection("users")
+        .doc(user)
+        .get()
+        .then((documentSnapshot) => {
+          var data = documentSnapshot.data();
+          console.log(data);
+          if (documentSnapshot.get("minAge")) {
+            setAgeGroupExists(true);
+            setMaxAge(data["maxAge"]);
+            setMinAge(data["minAge"]);
+            setName(data["name"]);
+          } else {
+            setAgeGroupExists(false);
+            setName(data["name"]);
+          }
+          setLoading(false);
+        });
+    }
+  });
+
+  if (loading) {
+    return <ActivityIndicator />;
+  }
 
   return (
     <SafeAreaView style={styler.screen}>
@@ -150,8 +187,21 @@ const PickTopic = ({ navigation }) => {
           <View>
             {list.map((l, i) => (
               <TouchableOpacity
+                key={i}
                 onPress={() => {
-                  navigation.navigate("AgeOfListener");
+                  if (ageGroupExists) {
+                    navigation.navigate("HowYouFeel", {
+                      userName: name,
+                      topic: l.name,
+                      minAge: minAge,
+                      maxAge: maxAge,
+                    });
+                  } else {
+                    navigation.navigate("AgeOfListener", {
+                      userName: name,
+                      topic: l.name,
+                    });
+                  }
                 }}
               >
                 <View

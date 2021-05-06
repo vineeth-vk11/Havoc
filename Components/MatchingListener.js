@@ -9,7 +9,42 @@ import {
 import { Icon } from "react-native-elements";
 import LottieView from "lottie-react-native";
 
-const MatchingListener = ({ navigation }) => {
+import firebase from "firebase";
+require("firebase/firestore");
+
+import { useFocusEffect } from "@react-navigation/native";
+
+const MatchingListener = ({ navigation, route }) => {
+  const { chatId, feeling, onMind, topic } = route.params;
+  const [listenerId, setListenerId] = useState("waiting");
+  const [listenerJoined, setListenerJoined] = useState(false);
+
+  var alreadyEntered = false;
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("Chats")
+      .doc(chatId)
+      .onSnapshot((documentSnapshot) => {
+        setListenerId(documentSnapshot.data()["listener"]);
+        setListenerJoined(documentSnapshot.data()["listenerJoined"]);
+
+        if (listenerId !== "waiting" && alreadyEntered === false) {
+          navigation.navigate("JoinTheChat", {
+            chatId: chatId,
+            feeling: feeling,
+            onMind: onMind,
+            listenerId: listenerId,
+            type: "seeker",
+            topic: topic,
+          });
+
+          alreadyEntered = true;
+        }
+      });
+  });
+
   return (
     <SafeAreaView style={styler.screen}>
       <View style={styler.headView}>

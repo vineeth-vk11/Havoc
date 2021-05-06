@@ -8,6 +8,7 @@ import SelectTopic from "./Components/SelectTopic";
 import PickTopic from "./Components/PickTopic";
 import AgeOfListner from "./Components/AgeOfListner";
 import MatchingListener from "./Components/MatchingListener";
+import MainChat from "./Components/MainChat";
 import Leaving from "./Components/Leaving";
 import Review from "./Components/Review";
 import MyRequests from "./Components/MyRequests";
@@ -67,8 +68,7 @@ const MyTheme = {
 
 function App() {
   return (
-
-    /*<NavigationContainer theme={MyTheme}>
+    <NavigationContainer theme={MyTheme}>
       <Stack.Navigator
         initialRouteName="Register1"
         screenOptions={{ headerShown: false }}
@@ -80,7 +80,9 @@ function App() {
         <Stack.Screen name="ListenerDB" component={ListenerDB} />
         <Stack.Screen name="PickTopic" component={PickTopic} />
         <Stack.Screen name="AgeOfListener" component={AgeOfListner} />
+        <Stack.Screen name="HowYouFeel" component={HowYouFeel} />
         <Stack.Screen name="MatchingListener" component={MatchingListener} />
+        <Stack.Screen name="MainChat" component={MainChat} />
         <Stack.Screen name="Leaving" component={Leaving} />
         <Stack.Screen name="Review" component={Review} />
         <Stack.Screen name="MyRequests" component={MyRequests} />
@@ -99,8 +101,7 @@ function App() {
         <Stack.Screen name="BookCallDateTime" component={BookCallDateTime} />
         <Stack.Screen name="DedicatedChats" component={DedicatedChats} />
       </Stack.Navigator>
-    </NavigationContainer> */
-    <HowYouFeel/>
+    </NavigationContainer>
   );
 }
 
