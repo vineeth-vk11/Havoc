@@ -96,7 +96,17 @@ const DedicatedChats = ({ navigation }) => {
           <FlatList
             data={list}
             renderItem={({ item }) => (
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("DedicatedChatting", {
+                    chatId: item.chatId,
+                    listenerId: item.listener,
+                    listenerName: item.listenerName,
+                    type: item.type,
+                    topic: item.topic,
+                  });
+                }}
+              >
                 <View
                   style={{
                     padding: 3,

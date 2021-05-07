@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   Modal,
   TouchableOpacity,
+  ImageBackground,
 } from "react-native";
 
 import { ListItem, Avatar, Icon } from "react-native-elements";
@@ -16,6 +17,7 @@ require("firebase/firestore");
 
 import React, { useState, useCallback, useEffect } from "react";
 import { GiftedChat } from "react-native-gifted-chat";
+import { Bubble } from "react-native-gifted-chat";
 
 import uuid from "react-native-uuid";
 
@@ -31,11 +33,18 @@ function MainChat({ navigation, route }) {
   var currentUser = firebase.auth().currentUser.uid;
 
   const [visible, setVisible] = useState(false);
+  const [visible1, setVisible1] = useState(false);
 
   const toggleBottomNavigationView = () => {
     //Toggling the visibility state of the bottom sheet
     console.log("called");
     setVisible(!visible);
+  };
+
+  const toggleBottomNavigationView1 = () => {
+    //Toggling the visibility state of the bottom sheet
+    console.log("called");
+    setVisible1(!visible1);
   };
 
   useEffect(() => {
@@ -61,6 +70,119 @@ function MainChat({ navigation, route }) {
           });
 
           setMessages(messageList.reverse());
+        });
+
+      firebase
+        .firestore()
+        .collection("Chats")
+        .doc(chatId)
+        .onSnapshot((documentSnapshot) => {
+          var data = documentSnapshot.data();
+
+          var paymentActivated = data["paymentActivated"];
+          var isClosedBySeeker = data["isClosedBySeeker"];
+          var isClosedByListener = data["isClosedByListener"];
+          var isAddedToDedicatedChats = data["isAddedToDedicatedChats"];
+
+          if (paymentActivated && type === "seeker") {
+            var currentUser = firebase.auth().currentUser.uid;
+
+            firebase
+              .firestore()
+              .collection("users")
+              .doc(currentUser)
+              .collection("Journal")
+              .add({
+                listenerName: listenerName,
+                listener: listenerId,
+                topic: topic,
+                date: "06/05/2021",
+                chatId: chatId,
+              })
+              .then(() => {
+                navigation.navigate("Review", {
+                  type: "payment",
+                  listener: listenerId,
+                });
+              });
+          }
+
+          if (isClosedByListener && type === "seeker") {
+            var currentUser = firebase.auth().currentUser.uid;
+
+            firebase
+              .firestore()
+              .collection("users")
+              .doc(currentUser)
+              .collection("Journal")
+              .add({
+                listenerName: listenerName,
+                listener: listenerId,
+                topic: topic,
+                date: "06/05/2021",
+                chatId: chatId,
+              })
+              .then(() => {
+                navigation.navigate("Review", {
+                  type: "normal",
+                  listener: listenerId,
+                });
+              });
+          }
+
+          if (isAddedToDedicatedChats && type === "seeker") {
+            var currentUser = firebase.auth().currentUser.uid;
+
+            firebase
+              .firestore()
+              .collection("users")
+              .doc(currentUser)
+              .collection("DedicatedChats")
+              .doc(listenerId)
+              .set({
+                chatId: chatId,
+                listenerName: listenerName,
+                listener: listenerId,
+                topic: topic,
+                date: "06/05/2021",
+                type: type,
+                isClosedBySeeker: false,
+                isClosedByListener: false,
+              })
+              .then(() => {
+                firebase
+                  .firestore()
+                  .collection("users")
+                  .doc(currentUser)
+                  .collection("Journal")
+                  .add({
+                    listenerName: listenerName,
+                    listener: listenerId,
+                    topic: topic,
+                    date: "06/05/2021",
+                    chatId: chatId,
+                  })
+                  .then(() => {
+                    navigation.navigate("Register3");
+                  });
+              });
+          }
+
+          if (isClosedBySeeker && type === "listener") {
+            firebase
+              .firestore()
+              .collection("users")
+              .doc(currentUser)
+              .collection("Journal")
+              .add({
+                listenerName: listenerName,
+                listener: listenerId,
+                topic: topic,
+                date: "06/05/2021",
+                chatId: chatId,
+              })
+              .then(() => {});
+          }
         });
     }
   }, []);
@@ -103,7 +225,6 @@ function MainChat({ navigation, route }) {
             style={{
               flex: 0.3,
               alignItems: "flex-start",
-              backgroundColor: "#fff",
             }}
           >
             <TouchableOpacity
@@ -142,12 +263,11 @@ function MainChat({ navigation, route }) {
             style={{
               flex: 0.3,
               alignItems: "flex-start",
-              backgroundColor: "#fff",
             }}
           >
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("Register3")
+                setVisible1(!visible1);
               }}
             >
               <Icon
@@ -165,142 +285,204 @@ function MainChat({ navigation, route }) {
   }
 
   return (
-    <View style={{ flex: 1 }}>
-      {renderHeader()}
-      <GiftedChat
-        style={{ flex: 0.5 }}
-        messages={messages}
-        onSend={(messages) => onSend(messages)}
-        user={{
-          _id: currentUser,
-        }}
-      />
-      <BottomSheet
-        visible={visible}
-        //setting the visibility state of the bottom shee
-        onBackButtonPress={toggleBottomNavigationView}
-        //Toggling the visibility state on the click of the back botton
-        onBackdropPress={toggleBottomNavigationView}
-      >
-        <View style={styler.bottomNavigationView}>
-          <TouchableOpacity
-            onPress={() => {
-              var currentUser = firebase.auth().currentUser.uid;
+    <ImageBackground source={require("../assets/ss.png")} style={styler.image}>
+      <View style={{ flex: 1 }}>
+        {renderHeader()}
+        <GiftedChat
+          style={{ flex: 0.85 }}
+          messages={messages}
+          onSend={(messages) => onSend(messages)}
+          user={{
+            _id: currentUser,
+          }}
+        />
+        <BottomSheet
+          visible={visible}
+          //setting the visibility state of the bottom shee
+          onBackButtonPress={toggleBottomNavigationView}
+          //Toggling the visibility state on the click of the back botton
+          onBackdropPress={toggleBottomNavigationView}
+        >
+          <View style={styler.bottomNavigationView}>
+            <TouchableOpacity
+              onPress={() => {
+                var currentUser = firebase.auth().currentUser.uid;
 
-              firebase
-                .firestore()
-                .collection("users")
-                .doc(currentUser)
-                .collection("Journal")
-                .add({
-                  listenerName: listenerName,
-                  listener: listenerId,
-                  topic: topic,
-                  date: "06/05/2021",
-                  chatId: chatId,
-                })
-                .then(() => {
-                  firebase
-                    .firestore()
-                    .collection("Chats")
-                    .doc(chatId)
-                    .update({
-                      paymentActivated: true,
-                    })
-                    .then(() => {
-                      navigation.navigate("ListenerDB");
-                    });
-                });
-            }}
-          >
-            <Text style={styler.getStarted}>Activate payment</Text>
-          </TouchableOpacity>
+                firebase
+                  .firestore()
+                  .collection("users")
+                  .doc(currentUser)
+                  .collection("Journal")
+                  .add({
+                    listenerName: listenerName,
+                    listener: listenerId,
+                    topic: topic,
+                    date: "06/05/2021",
+                    chatId: chatId,
+                  })
+                  .then(() => {
+                    firebase
+                      .firestore()
+                      .collection("Chats")
+                      .doc(chatId)
+                      .update({
+                        paymentActivated: true,
+                      })
+                      .then(() => {
+                        navigation.navigate("ListenerDB");
+                      });
+                  });
+              }}
+            >
+              <Text style={styler.getStarted}>Activate payment</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              var currentUser = firebase.auth().currentUser.uid;
+            <TouchableOpacity
+              onPress={() => {
+                var currentUser = firebase.auth().currentUser.uid;
 
-              firebase
-                .firestore()
-                .collection("users")
-                .doc(currentUser)
-                .collection("DedicatedChats")
-                .doc(listenerId)
-                .set({
-                  listenerName: listenerName,
-                  listener: listenerId,
-                  topic: topic,
-                  date: "06/05/2021",
-                  type: type,
-                  isClosedBySeeker: false,
-                  isClosedByListener: false,
-                })
-                .then(() => {
-                  firebase
-                    .firestore()
-                    .collection("users")
-                    .doc(currentUser)
-                    .collection("Journal")
-                    .add({
-                      listenerName: listenerName,
-                      listener: listenerId,
-                      topic: topic,
-                      date: "06/05/2021",
-                      chatId: chatId,
-                    })
-                    .then(() => {
-                      firebase
-                        .firestore()
-                        .collection("Chats")
-                        .doc(chatId)
-                        .update({
-                          isAddedToDedicatedChats: true,
-                        })
-                        .then(() => {
-                          navigation.navigate("ListenerDB");
-                        });
-                    });
-                });
-            }}
-          >
-            <Text style={styler.getStarted}>Add to dedicated chats</Text>
-          </TouchableOpacity>
+                firebase
+                  .firestore()
+                  .collection("users")
+                  .doc(currentUser)
+                  .collection("DedicatedChats")
+                  .doc(listenerId)
+                  .set({
+                    chatId: chatId,
+                    listenerName: listenerName,
+                    listener: listenerId,
+                    topic: topic,
+                    date: "06/05/2021",
+                    type: type,
+                    isClosedBySeeker: false,
+                    isClosedByListener: false,
+                  })
+                  .then(() => {
+                    firebase
+                      .firestore()
+                      .collection("users")
+                      .doc(currentUser)
+                      .collection("Journal")
+                      .add({
+                        listenerName: listenerName,
+                        listener: listenerId,
+                        topic: topic,
+                        date: "06/05/2021",
+                        chatId: chatId,
+                      })
+                      .then(() => {
+                        firebase
+                          .firestore()
+                          .collection("Chats")
+                          .doc(chatId)
+                          .update({
+                            isAddedToDedicatedChats: true,
+                          })
+                          .then(() => {
+                            navigation.navigate("ListenerDB");
+                          });
+                      });
+                  });
+              }}
+            >
+              <Text style={styler.getStarted}>Add to dedicated chats</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              var currentUser = firebase.auth().currentUser.uid;
+            <TouchableOpacity
+              onPress={() => {
+                var currentUser = firebase.auth().currentUser.uid;
 
-              firebase
-                .firestore()
-                .collection("users")
-                .doc(currentUser)
-                .collection("Journal")
-                .add({
-                  listenerName: listenerName,
-                  listener: listenerId,
-                  topic: topic,
-                  date: "06/05/2021",
-                  chatId: chatId,
-                })
-                .then(() => {
-                  firebase
-                    .firestore()
-                    .collection("Chats")
-                    .doc(chatId)
-                    .update({
-                      isClosedByListener: true,
-                    })
-                    .then(() => {
-                      navigation.navigate("ListenerDB");
-                    });
-                });
-            }}
-          >
-            <Text style={styler.getStarted}>Close chat</Text>
-          </TouchableOpacity>
-        </View>
-      </BottomSheet>
-    </View>
+                firebase
+                  .firestore()
+                  .collection("users")
+                  .doc(currentUser)
+                  .collection("Journal")
+                  .add({
+                    listenerName: listenerName,
+                    listener: listenerId,
+                    topic: topic,
+                    date: "06/05/2021",
+                    chatId: chatId,
+                  })
+                  .then(() => {
+                    firebase
+                      .firestore()
+                      .collection("Chats")
+                      .doc(chatId)
+                      .update({
+                        isClosedByListener: true,
+                      })
+                      .then(() => {
+                        navigation.navigate("ListenerDB");
+                      });
+                  });
+              }}
+            >
+              <Text style={styler.getStarted}>Close chat</Text>
+            </TouchableOpacity>
+          </View>
+        </BottomSheet>
+
+        <BottomSheet
+          visible={visible1}
+          //setting the visibility state of the bottom shee
+          onBackButtonPress={toggleBottomNavigationView1}
+          //Toggling the visibility state on the click of the back botton
+          onBackdropPress={toggleBottomNavigationView1}
+        >
+          <View style={styler.bottomNavigationView1}>
+            <View>
+              <Text style={{ fontSize: 16, marginTop: 16 }}>
+                Are you sure you want to eixt ?
+              </Text>
+            </View>
+
+            <View style={styler.buttonsView}>
+              <View>
+                <TouchableOpacity
+                  onPress={() => {
+                    var currentUser = firebase.auth().currentUser.uid;
+
+                    firebase
+                      .firestore()
+                      .collection("users")
+                      .doc(currentUser)
+                      .collection("Journal")
+                      .add({
+                        listenerName: listenerName,
+                        listener: listenerId,
+                        topic: topic,
+                        date: "06/05/2021",
+                        chatId: chatId,
+                      })
+                      .then(() => {
+                        firebase
+                          .firestore()
+                          .collection("Chats")
+                          .doc(chatId)
+                          .update({
+                            isClosedBySeeker: true,
+                          })
+                          .then(() => {
+                            navigation.navigate("Register3");
+                          });
+                      });
+                  }}
+                >
+                  <Text style={styler.exitButtons}>Yes</Text>
+                </TouchableOpacity>
+              </View>
+
+              <View>
+                <TouchableOpacity>
+                  <Text style={styler.exitButtons}>No</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </BottomSheet>
+      </View>
+    </ImageBackground>
   );
 }
 
@@ -314,6 +496,11 @@ const styler = StyleSheet.create({
     textAlign: "center",
     marginTop: 32,
   },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+  },
   bottomNavigationView: {
     backgroundColor: "#fff",
     width: "100%",
@@ -322,6 +509,23 @@ const styler = StyleSheet.create({
     alignItems: "center",
     borderTopEndRadius: 10,
     borderTopLeftRadius: 10,
+  },
+  bottomNavigationView1: {
+    backgroundColor: "#fff",
+    width: "100%",
+    height: 150,
+    justifyContent: "space-around",
+    alignItems: "center",
+    borderTopEndRadius: 10,
+    borderTopLeftRadius: 10,
+  },
+  buttonsView: {
+    flexDirection: "row",
+    backgroundColor: "#fff",
+    width: "100%",
+    height: 100,
+    justifyContent: "space-around",
+    alignItems: "center",
   },
   getStarted: {
     borderRadius: 7,
@@ -337,5 +541,15 @@ const styler = StyleSheet.create({
     elevation: 5,
     padding: 10,
     overflow: "hidden",
+  },
+  exitButtons: {
+    borderRadius: 5,
+    backgroundColor: "#7AC141",
+    color: "white",
+    fontSize: 15,
+    overflow: "hidden",
+    padding: 10,
+    width: 100,
+    textAlign: "center",
   },
 });

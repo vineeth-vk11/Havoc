@@ -21,12 +21,19 @@ var radio_props = [
   { label: "Not Sure", value: 1 },
   { label: "No", value: 2 },
 ];
-const AgeOfListner = () => {
+
+const AgeOfListner = ({ navigation, route }) => {
   const [value, setvalue] = useState();
   const [rating, setrating] = useState();
   const updateRating = (rating) => {
     setrating((rating += rating));
   };
+
+  const { type, listener } = route.params;
+
+  console.log(type);
+  console.log(listener);
+
   return (
     <View style={styler.screen}>
       <View style={styler.headView}>
@@ -39,7 +46,7 @@ const AgeOfListner = () => {
         <RadioForm formHorizontal={false} animation={true}>
           {radio_props.map((obj, i) => (
             <RadioButton labelHorizontal={true} key={i}>
-              <View style={{ flexDirection: "row"}}>
+              <View style={{ flexDirection: "row" }}>
                 <RadioButtonInput
                   obj={obj}
                   index={i}
@@ -73,9 +80,12 @@ const AgeOfListner = () => {
       <View style={styler.rateView}>
         <Text style={styler.better}>Rate the listener</Text>
         <View style={styler.ratingView}>
-        <Rating onFinishRating={updateRating} style={{ paddingVertical: 10}} 
-        imageSize={30}
-        fractions={1}/>
+          <Rating
+            onFinishRating={updateRating}
+            style={{ paddingVertical: 10 }}
+            imageSize={30}
+            fractions={1}
+          />
         </View>
       </View>
       <View style={styler.reviewView}>
@@ -95,7 +105,11 @@ const AgeOfListner = () => {
         </View>
       </View>
       <View style={styler.footView}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Register3");
+          }}
+        >
           <Text style={styler.complete}>Complete</Text>
         </TouchableOpacity>
       </View>
@@ -115,7 +129,7 @@ const styler = StyleSheet.create({
   better: {
     fontSize: 20,
     textAlign: "left",
-    marginBottom:'5%'
+    marginBottom: "5%",
   },
   complete: {
     borderRadius: 15,
@@ -139,8 +153,8 @@ const styler = StyleSheet.create({
   },
   screen: {
     flex: 1,
-    padding: '4%',
-    justifyContent:'space-between'
+    padding: "4%",
+    justifyContent: "space-between",
   },
   headView: {
     justifyContent: "center",
@@ -149,10 +163,9 @@ const styler = StyleSheet.create({
   formView: {
     margin: 5,
   },
-  rateView: {
-  },
+  rateView: {},
   reviewView: {
-    marginBottom:'3%',
+    marginBottom: "3%",
   },
   footView: {
     justifyContent: "flex-end",
@@ -160,9 +173,9 @@ const styler = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "center",
   },
-  ratingView:{
-    marginHorizontal:'7%',
-    justifyContent:'flex-start',
-    alignItems:'flex-start',
-  }
+  ratingView: {
+    marginHorizontal: "7%",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+  },
 });
