@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   SafeAreaView,
+  ImageBackground,
 } from "react-native";
 import { TextInput } from "react-native-paper";
 import RadioForm, {
@@ -86,100 +87,102 @@ const HowYouFeel = ({ navigation, route }) => {
   };
 
   return (
-    <View style={styler.screen}>
-      <ScrollView>
-        <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={5}>
-          <View style={styler.titleView}>
-            <Text style={styler.titleText}>How are you feeling now?</Text>
-          </View>
-          <View style={styler.radioButtons}>
-            <RadioForm formHorizontal={false} animation={true}>
-              {radio_props.map((obj, i) => (
-                <RadioButton labelHorizontal={true} key={i}>
-                  <View style={{ flexDirection: "row" }}>
-                    <RadioButtonInput
-                      obj={obj}
-                      index={i}
-                      isSelected={value === i}
-                      onPress={(value) => {
-                        if (value === 0) {
-                          setFeeling("Very Good");
-                        } else if (value === 1) {
-                          setFeeling("Good");
-                        } else if (value === 2) {
-                          setFeeling("Ok");
-                        } else if (value === 3) {
-                          setFeeling("Bad");
-                        } else if (value === 4) {
-                          setFeeling("Worst");
-                        }
-                        setvalue(value);
-                      }}
-                      borderWidth={2}
-                      buttonInnerColor={"#7AC141"}
-                      buttonOuterColor={value === i ? "#7AC141" : "#DADADA"}
-                      buttonSize={16}
-                      buttonOuterSize={23}
-                      buttonStyle={{ marginRight: 20, marginBottom: 10 }}
-                      buttonWrapStyle={{ marginLeft: 10 }}
-                    />
-                    <RadioButtonLabel
-                      obj={obj}
-                      index={i}
-                      labelHorizontal={true}
-                      onPress={(value) => {
-                        setvalue(value);
-                      }}
-                      labelStyle={{
-                        fontSize: 15,
-                        color: "#000",
-                        marginBottom: 10,
-                      }}
-                      labelWrapStyle={{}}
-                    />
-                  </View>
-                </RadioButton>
-              ))}
-            </RadioForm>
-          </View>
-          <View style={styler.gatherYT}>
-            <Text style={styler.gatherText}>
-              Gather your thoughts here. This will{" "}
-            </Text>
-            <Text style={styler.gatherText}>
-              {" "}
-              help the listener get going/initiate
-            </Text>
-          </View>
-          <View style={styler.inputText}>
-            <TextInput
-              mode="flat"
-              label="What's on your mind?"
-              theme={{
-                colors: {
-                  primary: "green",
-                  underlineColor: "transparent",
-                  background: "transparent",
-                },
+    <ImageBackground source={require("../assets/ss.png")} style={styler.image}>
+      <View style={styler.screen}>
+        <ScrollView>
+          <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={5}>
+            <View style={styler.titleView}>
+              <Text style={styler.titleText}>How are you feeling now?</Text>
+            </View>
+            <View style={styler.radioButtons}>
+              <RadioForm formHorizontal={false} animation={true}>
+                {radio_props.map((obj, i) => (
+                  <RadioButton labelHorizontal={true} key={i}>
+                    <View style={{ flexDirection: "row" }}>
+                      <RadioButtonInput
+                        obj={obj}
+                        index={i}
+                        isSelected={value === i}
+                        onPress={(value) => {
+                          if (value === 0) {
+                            setFeeling("Very Good");
+                          } else if (value === 1) {
+                            setFeeling("Good");
+                          } else if (value === 2) {
+                            setFeeling("Ok");
+                          } else if (value === 3) {
+                            setFeeling("Bad");
+                          } else if (value === 4) {
+                            setFeeling("Worst");
+                          }
+                          setvalue(value);
+                        }}
+                        borderWidth={2}
+                        buttonInnerColor={"#7AC141"}
+                        buttonOuterColor={value === i ? "#7AC141" : "#000"}
+                        buttonSize={12}
+                        buttonOuterSize={24}
+                        buttonStyle={{ marginRight: 20, marginBottom: 10 }}
+                        buttonWrapStyle={{ marginLeft: 10 }}
+                      />
+                      <RadioButtonLabel
+                        obj={obj}
+                        index={i}
+                        labelHorizontal={true}
+                        onPress={(value) => {
+                          setvalue(value);
+                        }}
+                        labelStyle={{
+                          fontSize: 18,
+                          color: "#000",
+                          marginBottom: 10,
+                        }}
+                        labelWrapStyle={{}}
+                      />
+                    </View>
+                  </RadioButton>
+                ))}
+              </RadioForm>
+            </View>
+            <View style={styler.gatherYT}>
+              <Text style={styler.gatherText}>
+                Gather your thoughts here. This will{" "}
+              </Text>
+              <Text style={styler.gatherText}>
+                {" "}
+                help the listener get going/initiate
+              </Text>
+            </View>
+            <View style={styler.inputText}>
+              <TextInput
+                mode="flat"
+                label="What's on your mind?"
+                theme={{
+                  colors: {
+                    primary: "green",
+                    underlineColor: "transparent",
+                    background: "transparent",
+                  },
+                }}
+                onChangeText={(value) => {
+                  setOnMind(value);
+                }}
+              />
+            </View>
+            <TouchableOpacity
+              onPress={() => {
+                if (value === -1) {
+                } else {
+                  sendRequest();
+                }
               }}
-              onChangeText={(value) => {
-                setOnMind(value);
-              }}
-            />
-          </View>
-          <TouchableOpacity
-            onPress={() => {
-              if (value === -1) {
-              } else {
-                sendRequest();
-              }
-            }}
-          >
-            <Text style={styler.getStarted}>FIND LISTENER</Text>
-          </TouchableOpacity>
-        </KeyboardAvoidingView>
-      </ScrollView>
-    </View>
+            >
+              <Text style={styler.getStarted}>FIND LISTENER</Text>
+            </TouchableOpacity>
+          </KeyboardAvoidingView>
+        </ScrollView>
+      </View>
+    </ImageBackground>
   );
 };
 
@@ -190,6 +193,11 @@ const styler = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     paddingVertical: "20%",
+  },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
   },
   titleView: {
     width: "100%",
@@ -230,6 +238,6 @@ const styler = StyleSheet.create({
     fontSize: 20,
     elevation: 5,
     paddingVertical: 10,
-    overflow: "hidden"
+    overflow: "hidden",
   },
 });

@@ -28,6 +28,8 @@ import BookCallDateTime from "./Components/BookCallDateTime";
 import DedicatedChats from "./Components/DedicatedChats";
 import EnterOTP from "./Components/EnterOTP";
 import ListenerDB from "./Components/ListenerDB";
+import JournalChat from "./Components/JournalChat";
+import DedicatedChatting from "./Components/DedicatedChatting";
 
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -100,6 +102,8 @@ function App() {
         <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="BookCallDateTime" component={BookCallDateTime} />
         <Stack.Screen name="DedicatedChats" component={DedicatedChats} />
+        <Stack.Screen name="JournalChat" component={JournalChat} />
+        <Stack.Screen name="DedicatedChatting" component={DedicatedChatting} />
       </Stack.Navigator>
     </NavigationContainer>
   );
