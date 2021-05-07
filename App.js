@@ -28,6 +28,8 @@ import BookCallDateTime from "./Components/BookCallDateTime";
 import DedicatedChats from "./Components/DedicatedChats";
 import EnterOTP from "./Components/EnterOTP";
 import ListenerDB from "./Components/ListenerDB";
+import GiveFeedback from './Components/GiveFeedback';
+import ReportNEnd from './Components/ReportNEnd';
 
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -68,7 +70,7 @@ const MyTheme = {
 
 function App() {
   return (
-    <NavigationContainer theme={MyTheme}>
+    /*<NavigationContainer theme={MyTheme}>
       <Stack.Navigator
         initialRouteName="Register1"
         screenOptions={{ headerShown: false }}
@@ -101,7 +103,8 @@ function App() {
         <Stack.Screen name="BookCallDateTime" component={BookCallDateTime} />
         <Stack.Screen name="DedicatedChats" component={DedicatedChats} />
       </Stack.Navigator>
-    </NavigationContainer>
+    </NavigationContainer>*/
+    <GiveFeedback/>
   );
 }
 
