@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   StyleSheet,
   TouchableOpacity,
+  ImageBackground,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import LottieView from "lottie-react-native";
@@ -46,43 +47,45 @@ const MatchingListener = ({ navigation, route }) => {
   });
 
   return (
-    <SafeAreaView style={styler.screen}>
-      <View style={styler.headView}>
-        <View style={styler.head}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.goBack(null);
-            }}
-          >
-            <Icon
-              style={{ margin: 5 }}
-              name="close"
-              type="ionicon"
-              color="#979797"
-              size={30}
-              style={{ marginRight: 32, marginTop: 20 }}
+    <ImageBackground source={require("../assets/ss.png")} style={styler.image}>
+      <SafeAreaView style={styler.screen}>
+        <View style={styler.headView}>
+          <View style={styler.head}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack(null);
+              }}
+            >
+              <Icon
+                style={{ margin: 5 }}
+                name="close"
+                type="ionicon"
+                color="#979797"
+                size={30}
+                style={{ marginRight: 32, marginTop: 20 }}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styler.textView}>
+          <Text style={styler.textHeading}>Matching you with a Listener</Text>
+          <View style={styler.loaderView}>
+            <LottieView
+              style={{ width: 150, height: 150 }}
+              source={require("../assets/loading.json")}
+              autoPlay
+              loop
             />
-          </TouchableOpacity>
+          </View>
         </View>
-      </View>
-      <View style={styler.textView}>
-        <Text style={styler.textHeading}>Matching you with a Listener</Text>
-        <View style={styler.loaderView}>
-          <LottieView
-            style={{ width: 150, height: 150 }}
-            source={require("../assets/loading.json")}
-            autoPlay
-            loop
-          />
+        <View style={styler.footView}>
+          <Text style={styler.text}>
+            Our algorithm is finding you the perfect Listener. Our listener will
+            connect with you soon!
+          </Text>
         </View>
-      </View>
-      <View style={styler.footView}>
-        <Text style={styler.text}>
-          Our algorithm is finding you the perfect Listener. Our listener will
-          connect with you soon!
-        </Text>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </ImageBackground>
   );
 };
 
@@ -93,6 +96,11 @@ const styler = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-end",
     marginTop: 35,
+  },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
   },
   textHeading: {
     fontSize: 24,

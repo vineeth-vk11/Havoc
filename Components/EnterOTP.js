@@ -7,13 +7,19 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
+  ImageBackground,
+  Alert,
 } from "react-native";
-import { showMessage, hideMessage } from "react-native-flash-message";
 
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 import firebase from "firebase";
 require("firebase/firestore");
+
+import { Dimensions } from "react-native";
+
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 
 const EnterOTP = ({
   route: {
@@ -23,77 +29,87 @@ const EnterOTP = ({
 }) => {
   const [verificationCode, setVerificationCode] = useState();
 
+  const createAlert = () =>
+    Alert.alert(
+      "Wrong OTP",
+      "Please Enter Correct OTP",
+      [{ text: "OK", onPress: () => {} }],
+      { cancelable: false }
+    );
+
   return (
-    <View style={styler.screen}>
-      <TouchableWithoutFeedback
-        onPress={() => {
-          Keyboard.dismiss();
-        }}
-      >
-        <View style={styler.havoc}>
-          <Image source={require("../assets/Images/HavocTherapy.png")} />
-        </View>
-        <View style={{ alignItems: "center" }}>
-          <TextInput
-            mode="outlined"
-            label="Enter OTP"
-            theme={{
-              colors: { primary: "#7AC141", underlineColor: "transparent" },
-            }}
-            keyboardType="number-pad"
-            style={styler.name}
-            onChangeText={(text) => setVerificationCode(text)}
-            value={verificationCode}
-          />
-        </View>
-      </TouchableWithoutFeedback>
-
-      <View style={styler.getStartedView}>
-        <TouchableOpacity
-          onPress={async () => {
-            try {
-              const credential = firebase.auth.PhoneAuthProvider.credential(
-                verificationId,
-                verificationCode
-              );
-              console.log("waiting to login");
-              await firebase.auth().signInWithCredential(credential);
-              console.log("waiting to navigate");
-
-              if (firebase.auth().currentUser) {
-                var user = firebase.auth().currentUser.uid;
-
-                firebase
-                  .firestore()
-                  .collection("users")
-                  .doc(user)
-                  .get()
-                  .then((documentSnapshot) => {
-                    if (!documentSnapshot.exists) {
-                      navigation.navigate("Register2");
-                      console.log("Hi");
-                    } else {
-                      if (documentSnapshot.data()["isListener"]) {
-                        navigation.navigate("ListenerDB");
-                      } else {
-                        navigation.navigate("Register3");
-                      }
-                    }
-                  });
-              }
-            } catch (err) {
-              console.log(err);
-              showMessage({
-                message: "OTP validation failed",
-                type: "info",
-              });
-            }
+    <ImageBackground
+      source={require("../assets/ss.png")}
+      style={styler.imageBg}
+    >
+      <View style={styler.screen}>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            Keyboard.dismiss();
           }}
         >
-          <Text style={styler.getStarted}>VERIFY</Text>
-        </TouchableOpacity>
+          <View style={styler.havoc}>
+            <Image source={require("../assets/logoTB.png")} />
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <TextInput
+              mode="outlined"
+              label="Enter OTP"
+              theme={{
+                colors: { primary: "#7AC141", underlineColor: "transparent" },
+              }}
+              keyboardType="number-pad"
+              style={styler.name}
+              onChangeText={(text) => setVerificationCode(text)}
+              value={verificationCode}
+            />
+          </View>
+        </TouchableWithoutFeedback>
+
+        <View style={styler.getStartedView}>
+          <TouchableOpacity
+            onPress={async () => {
+              try {
+                const credential = firebase.auth.PhoneAuthProvider.credential(
+                  verificationId,
+                  verificationCode
+                );
+                console.log("waiting to login");
+                await firebase.auth().signInWithCredential(credential);
+                console.log("waiting to navigate");
+
+                if (firebase.auth().currentUser) {
+                  var user = firebase.auth().currentUser.uid;
+
+                  firebase
+                    .firestore()
+                    .collection("users")
+                    .doc(user)
+                    .get()
+                    .then((documentSnapshot) => {
+                      if (!documentSnapshot.exists) {
+                        navigation.navigate("Register2");
+                        console.log("Hi");
+                      } else {
+                        if (documentSnapshot.data()["isListener"]) {
+                          navigation.navigate("ListenerDB");
+                        } else {
+                          navigation.navigate("Register3");
+                        }
+                      }
+                    });
+                }
+              } catch (err) {
+                createAlert();
+                console.log(err);
+              }
+            }}
+          >
+            <Text style={styler.getStarted}>VERIFY</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -102,7 +118,7 @@ export default EnterOTP;
 const styler = StyleSheet.create({
   getStarted: {
     borderRadius: 7,
-    width: 310,
+    width: windowWidth - 48,
     height: 45,
     backgroundColor: "#7AC141",
     color: "white",
@@ -115,6 +131,11 @@ const styler = StyleSheet.create({
     padding: 10,
     overflow: "hidden",
   },
+  imageBg: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+  },
   getStartedView: {
     alignItems: "center",
     marginVertical: 10,
@@ -126,7 +147,7 @@ const styler = StyleSheet.create({
   name: {
     borderColor: "black",
     borderRadius: 0,
-    width: "80%",
+    width: windowWidth - 48,
     height: 55,
     color: "#828282",
     justifyContent: "center",
@@ -134,6 +155,7 @@ const styler = StyleSheet.create({
     fontSize: 16,
   },
   havoc: {
+    alignSelf: "center",
     justifyContent: "center",
     margin: 50,
   },

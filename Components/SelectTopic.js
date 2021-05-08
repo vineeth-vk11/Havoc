@@ -6,9 +6,14 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
+  Dimensions
 } from "react-native";
 import { Icon } from "react-native-elements";
 import Carousel from "react-native-snap-carousel";
+
+const screenWidth = Dimensions.get('window').width;
+const screenHeight= Dimensions.get('window').height;
+
 const SelectTopic = () => {
   const carouselItems = [
     {
@@ -38,15 +43,15 @@ const SelectTopic = () => {
         style={{
           backgroundColor: "purple",
           borderRadius: 5,
-          height: 200,
-          padding: 10,
-          marginLeft: 20,
-          marginRight: 25,
+          height: 0.29*screenHeight,
+          padding: 0.02*screenHeight,
+          marginLeft: 0.03*screenHeight,
+          marginRight: 0.035*screenHeight,
         }}
       >
         <Text style={{ color: "white" }}>{item.title}</Text>
         <Image
-          style={{ width: 200 }}
+          style={{ width: 0.55*screenWidth }}
           source={require("../assets/Images/HavocTherapy.png")}
         />
         <Text style={{ color: "white" }}>{item.text}</Text>
@@ -74,14 +79,14 @@ const SelectTopic = () => {
         <Carousel
           layout={"default"}
           data={carouselItems}
-          sliderWidth={300}
-          itemWidth={300}
+          sliderWidth={0.55*screenWidth}
+          itemWidth={0.78*screenWidth}
           renderItem={renderItem}
         />
       </View>
       <TouchableOpacity style={{ justifyContent: "flex-end" }}>
         <View style={styler.selectTopic}>
-          <Text style={{ fontSize: 18 }}>Select Topic</Text>
+          <Text style={{ fontSize: 0.022*screenHeight }}>Select Topic</Text>
           <Icon
             style={{ margin: 5 }}
             name="chevron-forward"
@@ -100,15 +105,15 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 20,
+    marginTop: 0.07*screenHeight,
   },
   selectTopic: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     backgroundColor: "#E1FFC9",
-    height: 55.2,
-    margin: 10,
-    padding: 10,
+    height: 0.08*screenHeight,
+    margin: 0.015*screenHeight,
+    padding: 0.015*screenHeight,
   },
 });

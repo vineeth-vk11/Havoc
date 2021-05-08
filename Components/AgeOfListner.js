@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  ImageBackground,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import RadioForm, {
@@ -33,111 +34,120 @@ const AgeOfListner = ({ navigation, route }) => {
   const [maximumAge, setMaximumAge] = useState();
   return (
     <SafeAreaView style={styler.screen}>
-      <View style={styler.headView}>
-        <View style={styler.head}>
+      <ImageBackground
+        source={require("../assets/ss.png")}
+        style={styler.image}
+      >
+        <View style={styler.headView}>
+          <View style={styler.head}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack(null);
+              }}
+            >
+              <Icon
+                name="arrow-back"
+                type="ionicon"
+                color="#000000"
+                size={30}
+                style={{ marginLeft: 32, marginTop: 20 }}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styler.textView}>
+          <Text style={styler.age}>Age of listener</Text>
+          <Text style={styler.set}>(Set Your Preference)</Text>
+        </View>
+        <View style={styler.formView}>
+          <RadioForm formHorizontal={false} animation={true}>
+            {radio_props.map((obj, i) => (
+              <RadioButton labelHorizontal={true} key={i}>
+                <View style={{ flexDirection: "row" }}>
+                  <RadioButtonInput
+                    obj={obj}
+                    index={i}
+                    isSelected={value === i}
+                    onPress={(value) => {
+                      if (value === 0) {
+                        setMinimumAge("18");
+                        setMaximumAge("24");
+                      } else if (value === 1) {
+                        setMinimumAge("25");
+                        setMaximumAge("34");
+                      } else if (value === 2) {
+                        setMinimumAge("35");
+                        setMinimumAge("50");
+                      } else if (value === 3) {
+                        setMinimumAge("51");
+                        setMaximumAge("100");
+                      }
+                      setvalue(value);
+                    }}
+                    borderWidth={2}
+                    buttonInnerColor={"#7AC141"}
+                    buttonOuterColor={value === i ? "#7AC141" : "#000"}
+                    buttonSize={12}
+                    buttonOuterSize={24}
+                    buttonStyle={{ marginRight: 20, marginBottom: 10 }}
+                    buttonWrapStyle={{ marginLeft: 10 }}
+                  />
+                  <RadioButtonLabel
+                    obj={obj}
+                    index={i}
+                    labelHorizontal={true}
+                    labelStyle={{
+                      fontSize: 18,
+                      color: "#000",
+                      marginBottom: 5,
+                    }}
+                    labelWrapStyle={{}}
+                  />
+                </View>
+              </RadioButton>
+            ))}
+          </RadioForm>
+        </View>
+        <View style={styler.footView}>
           <TouchableOpacity
             onPress={() => {
-              navigation.goBack(null);
+              console.log(value);
+              if (value === -1) {
+              } else {
+                console.log(minimumAge);
+                console.log(maximumAge);
+
+                if (firebase.auth().currentUser) {
+                  var user = firebase.auth().currentUser.uid;
+
+                  firebase
+                    .firestore()
+                    .collection("users")
+                    .doc(user)
+                    .set(
+                      {
+                        minAge: minimumAge,
+                        maxAge: maximumAge,
+                      },
+                      { merge: true }
+                    )
+                    .then(() => {
+                      navigation.navigate("HowYouFeel", {
+                        userName: userName,
+                        topic: topic,
+                        minAge: maximumAge,
+                        maxAge: minimumAge,
+                      });
+                    });
+                }
+              }
             }}
           >
-            <Icon
-              name="arrow-back"
-              type="ionicon"
-              color="#000000"
-              size={30}
-              style={{ marginLeft: 32, marginTop: 20 }}
-            />
+            <Text style={styler.continue}>CONTINUE</Text>
           </TouchableOpacity>
         </View>
-      </View>
-
-      <View style={styler.textView}>
-        <Text style={styler.age}>Age of listener</Text>
-        <Text style={styler.set}>(Set Your Preference)</Text>
-      </View>
-      <View style={styler.formView}>
-        <RadioForm formHorizontal={false} animation={true}>
-          {radio_props.map((obj, i) => (
-            <RadioButton labelHorizontal={true} key={i}>
-              <View style={{ flexDirection: "row" }}>
-                <RadioButtonInput
-                  obj={obj}
-                  index={i}
-                  isSelected={value === i}
-                  onPress={(value) => {
-                    if (value === 0) {
-                      setMinimumAge("18");
-                      setMaximumAge("24");
-                    } else if (value === 1) {
-                      setMinimumAge("25");
-                      setMaximumAge("34");
-                    } else if (value === 2) {
-                      setMinimumAge("35");
-                      setMinimumAge("50");
-                    } else if (value === 3) {
-                      setMinimumAge("51");
-                      setMaximumAge("100");
-                    }
-                    setvalue(value);
-                  }}
-                  borderWidth={2}
-                  buttonInnerColor={"#7AC141"}
-                  buttonOuterColor={value === i ? "#7AC141" : "#DADADA"}
-                  buttonSize={16}
-                  buttonOuterSize={28}
-                  buttonStyle={{ marginRight: 20, marginBottom: 10 }}
-                  buttonWrapStyle={{ marginLeft: 10 }}
-                />
-                <RadioButtonLabel
-                  obj={obj}
-                  index={i}
-                  labelHorizontal={true}
-                  labelStyle={{ fontSize: 20, color: "rgba(18, 18, 18, 0.5)" }}
-                  labelWrapStyle={{}}
-                />
-              </View>
-            </RadioButton>
-          ))}
-        </RadioForm>
-      </View>
-      <View style={styler.footView}>
-        <TouchableOpacity
-          onPress={() => {
-            console.log(value);
-            if (value === -1) {
-            } else {
-              console.log(minimumAge);
-              console.log(maximumAge);
-
-              if (firebase.auth().currentUser) {
-                var user = firebase.auth().currentUser.uid;
-
-                firebase
-                  .firestore()
-                  .collection("users")
-                  .doc(user)
-                  .set(
-                    {
-                      minAge: minimumAge,
-                      maxAge: maximumAge,
-                    },
-                    { merge: true }
-                  )
-                  .then(() => {
-                    navigation.navigate("HowYouFeel", {
-                      userName: userName,
-                      topic: topic,
-                      minAge: maximumAge,
-                      maxAge: minimumAge,
-                    });
-                  });
-              }
-            }
-          }}
-        >
-          <Text style={styler.continue}>CONTINUE</Text>
-        </TouchableOpacity>
-      </View>
+      </ImageBackground>
     </SafeAreaView>
   );
 };
@@ -150,6 +160,11 @@ const styler = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     marginTop: 35,
+  },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
   },
   age: {
     fontSize: 20,

@@ -103,6 +103,8 @@ const MyJournal = ({ navigation }) => {
                     name: item.listenerName,
                     topic: item.topic,
                     date: item.date,
+                    chatId: item.chatId,
+                    listenerId: item.listenerId,
                   });
                 }}
               >

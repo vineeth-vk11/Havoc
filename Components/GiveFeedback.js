@@ -1,6 +1,5 @@
 import React from 'react'
-import {View,Text,StyleSheet,Dimensions, KeyboardAvoidingView,ScrollView,Platform, TouchableNativeFeedback} from 'react-native';
-import {  TouchableOpacity } from 'react-native-gesture-handler';
+import {View,Text,StyleSheet,Dimensions, KeyboardAvoidingView,ScrollView,TouchableNativeFeedback} from 'react-native';
 import {TextInput} from 'react-native-paper';
 
 const screenWidth= Dimensions.get('window').width;
@@ -18,11 +17,13 @@ const GiveFeedback = ()=>{
             <Text style={styler.feedbackText}>Let us know what you think of we hear you</Text>
             <TextInput mode="flat" label="Feedback" theme={{colors:{primary:'#7AC141', background:'transparent'}}} />
         </View>
-        <View style={styler.footView}>
-      <TouchableOpacity>
-          <Text style={styler.complete}>SUBMIT</Text>
-              </TouchableOpacity>
-      </View>
+      
+        <TouchableNativeFeedback >
+            <View style={styler.footView}>
+           <Text style={styler.complete}>SUBMIT</Text>
+           </View>
+           </TouchableNativeFeedback>
+      
       </KeyboardAvoidingView>
       </ScrollView>
         </View>
@@ -34,6 +35,7 @@ export default GiveFeedback;
 const styler=StyleSheet.create({
   screen:{
       flex:1,
+      alignItems:'center'
   },
   titleView:{
       alignItems:'center',
@@ -69,9 +71,12 @@ const styler=StyleSheet.create({
     shadowRadius: 15
   },
   footView: {
-    justifyContent: "flex-end",
+    width: 0.81*screenWidth,
+    height:0.09*screenHeight,
     marginTop:0.5*screenHeight,
-    justifyContent: "flex-end",
+    justifyContent:'center',
     alignItems: "center",
+    marginLeft:0.07*screenWidth,
+    borderRadius: 20
   }
 });

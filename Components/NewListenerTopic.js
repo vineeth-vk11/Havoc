@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import {View,Text,StyleSheet,FlatList,TouchableOpacity,ScrollView} from 'react-native';
+import {View,Text,StyleSheet,FlatList,TouchableOpacity,ScrollView,Dimensions} from 'react-native';
 import {CheckBox} from 'react-native-elements';
 
+
+const screenWidth= Dimensions.get('window').width;
+const screenHeight=Dimensions.get('window').height;
 
 const NewListenerTopic=()=>{
     
@@ -36,7 +39,7 @@ const updateCheckBox=(id)=>{
            <ScrollView>
         <View style={styler.screen}>
             <View style={styler.titleView}>
-            <Text style={{fontSize: 25}}>Select Your Topic</Text>
+            <Text style={{fontSize: 0.03*screenHeight}}>Select Your Topic</Text>
             </View>
             <View style={styler.checkBoxView}>
               <FlatList data={isChecked.list} renderItem={selectCB} />
@@ -57,19 +60,19 @@ const styler=StyleSheet.create({
     screen:{
         flex:1,
         justifyContent:"space-between",
-        paddingVertical:"15%",
-        paddingHorizontal:'3%'
+        paddingVertical:0.08*screenHeight,
+        paddingHorizontal:0.02*screenHeight
     },
     getStarted: {
         borderRadius: 15,
-        width: 310,
-        height: 52,
+        width: 0.85*screenWidth,
+        height: 0.08*screenHeight,
         backgroundColor: "#7AC141",
         color: "white",
-        marginHorizontal: 10,
+        marginHorizontal: 0.015*screenHeight,
         textAlign: "center",
         textAlignVertical: "center",
-        fontSize: 20,
+        fontSize: 0.028*screenHeight,
         elevation: 5,
         marginVertical: '5%'
       },

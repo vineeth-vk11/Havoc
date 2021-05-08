@@ -1,6 +1,9 @@
 import React from 'react';
-import {View,Text,StyleSheet,ScrollView,KeyboardAvoidingView,TouchableOpacity } from 'react-native';
+import {View,Text,StyleSheet,ScrollView,KeyboardAvoidingView,TouchableOpacity, Dimensions } from 'react-native';
 import {TextInput} from "react-native-paper";
+
+const screenWidth= Dimensions.get('window').width;
+const screenHeight=Dimensions.get('window').height;
 
 const NewListenerInfo= ()=>{
     return (
@@ -10,11 +13,11 @@ const NewListenerInfo= ()=>{
                 <KeyboardAvoidingView>
                 <ScrollView>
             <View style={styler.Title}>
-                <Text style={{fontSize: 25}}>Personal Info</Text>
+                <Text style={{fontSize: 0.03*screenHeight}}>Personal Info</Text>
             </View>
             <Text style={styler.declaration}>Users will see only your first name</Text>
             <View style={styler.nameView}>
-                <View style={{marginVertical:"2%"}}>
+                <View style={{marginVertical:0.015*screenHeight}}>
                 <TextInput mode="flat" label="First Name" 
                 theme={{colors:{primary:'black', background:'transparent'}}} />
                 </View>
@@ -57,33 +60,33 @@ const styler=StyleSheet.create({
    screen:{
        flex:1,
        justifyContent:"space-between",
-       marginVertical:"10%",
-       padding:'4%'
+       marginVertical:0.07*screenHeight,
+       padding:0.02*screenHeight
    },
    getStarted: {
     borderRadius: 15,
-    width: 310,
-    height: 52,
+    width: 0.85*screenWidth,
+    height: 0.08*screenHeight,
     backgroundColor: "#7AC141",
     color: "white",
-    marginHorizontal: 10,
+    marginHorizontal: 0.02*screenHeight,
     textAlign: "center",
     textAlignVertical: "center",
-    fontSize: 20,
+    fontSize: 0.028*screenHeight,
     elevation: 5,
-    marginVertical: '5%'
+    marginVertical: 0.03*screenHeight
   },
   Title:{
-      height:"5%",
-      marginVertical:"3%",
+      height:0.05*screenHeight,
+      marginVertical:0.02*screenHeight,
       alignItems:'center',
       justifyContent:'center',
   },
   declaration:{
       color:'grey',
-      marginVertical:'3%'
+      marginVertical:0.01*screenHeight
   },
   nameView:{
-      marginVertical:'2%'
+      marginVertical:0.01*screenHeight
   }
 });
