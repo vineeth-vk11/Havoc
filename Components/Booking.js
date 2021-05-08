@@ -8,7 +8,12 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  Dimensions
 } from "react-native";
+
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
+
 import { Icon } from "react-native-elements";
 
 const Booking = () => {
@@ -35,7 +40,7 @@ const Booking = () => {
         </View>
       </View>
       <View style={styler.summaryView}>
-        <Text style={{ fontSize: 18, fontWeight: "bold", margin: 10 }}>
+        <Text style={{ fontSize: 18, fontWeight: "bold", margin: 0.015*screenHeight }}>
           Summary
         </Text>
         <View style={styler.lineStyle} />
@@ -43,7 +48,7 @@ const Booking = () => {
           <Text style={{ fontSize: 15, fontWeight: "bold" }}>Paid Amount</Text>
           <Text style={{ fontSize: 20 }}>₹ 250</Text>
         </View>
-        <Text style={{ margin: 10, width: 160 }}>
+        <Text style={{ margin: 0.015*screenHeight, width: 0.4*screenWidth }}>
           Your booking is confirmed on 5PM, 5th Match. You will receive a call
           on +918978117894.
         </Text>
@@ -64,38 +69,38 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 35,
-    margin: 10,
+    marginTop: 0.07*screenHeight,
+    margin: 0.015*screenHeight,
   },
   medicationView: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    margin: 10,
+    margin: 0.015*screenHeight,
   },
   finish: {
     justifyContent: "flex-end",
-    borderRadius: 15,
-    width: 310,
-    height: 52,
+    borderRadius: 0.021*screenHeight,
+    width: 0.85*screenWidth,
+    height: 0.07*screenHeight,
     backgroundColor: "#7AC141",
     color: "white",
     textAlign: "center",
     textAlignVertical: "center",
-    fontSize: 20,
+    fontSize: 0.03*screenHeight,
   },
   lineStyle: {
     borderWidth: 0.4,
     borderColor: "black",
-    margin: 10,
+    margin: 0.015*screenHeight,
     borderColor: "#828282",
   },
   bookingSuccessfull: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 80,
-    marginBottom: 80,
+    marginTop: 0.1*screenHeight,
+    marginBottom: 0.1*screenHeight,
   },
   screen: { flex: 1 },
   headView: {
@@ -113,6 +118,6 @@ const styler = StyleSheet.create({
     flex: 0.3,
     alignItems: "center",
     justifyContent: "flex-end",
-    marginBottom: 50,
+    marginBottom: 0.09*screenHeight,
   },
 });

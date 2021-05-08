@@ -8,10 +8,14 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  Dimensions
 } from "react-native";
 
 import { Button, Icon } from "react-native-elements";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 const BookCallDateTime = () => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -47,7 +51,7 @@ const BookCallDateTime = () => {
       <View style={styler.headView}>
         <View style={styler.head}>
           <TouchableOpacity>
-            <Icon name="arrow-back" type="ionicon" color="#979797" size={30} />
+            <Icon name="arrow-back" type="ionicon" color="#979797" size={0.04*screenHeight} />
           </TouchableOpacity>
           <Text style={{ fontSize: 24, fontWeight: "bold" }}>Booking</Text>
           <TouchableOpacity>
@@ -60,20 +64,20 @@ const BookCallDateTime = () => {
           <Button
             raised
             containerStyle={{
-              width: 100,
-              height: 48,
-              margin: 10,
-              smarginBottom: 20,
+              width: 0.25*screenWidth,
+              height: 0.07*screenHeight,
+              margin: 0.015*screenHeight,
+              smarginBottom: 0.025*screenHeight,
             }}
             buttonStyle={{
-              padding: 5,
-              height: 48,
+              padding: 0.01*screenHeight,
+              height: 0.07*screenHeight,
               borderColor: "#7AC141",
               borderWidth: 1,
-              borderRadius: 5,
+              borderRadius: 0.01*screenHeight,
             }}
             icon={
-              <Icon name="calendar" size={20} color="#7AC141" type="ionicon" />
+              <Icon name="calendar" size={0.025*screenHeight} color="#7AC141" type="ionicon" />
             }
             title="  Date"
             type="outline"
@@ -91,20 +95,20 @@ const BookCallDateTime = () => {
           <Button
             raised
             containerStyle={{
-              width: 100,
-              height: 48,
+              width: 0.25*screenWidth,
+              height: 0.07*screenHeight,
               margin: 10,
               marginBottom: 20,
               color: "green",
             }}
             buttonStyle={{
-              padding: 5,
-              height: 48,
+              padding: 0.01*screenHeight,
+              height: 0.07*screenHeight,
               borderColor: "#7AC141",
               borderWidth: 1,
-              borderRadius: 5,
+              borderRadius: 0.01*screenHeight,
             }}
-            icon={<Icon name="time" size={20} color="#7ACA41" type="ionicon" />}
+            icon={<Icon name="time" size={0.03*screenHeight} color="#7ACA41" type="ionicon" />}
             title=" Time"
             type="outline"
             titleStyle={{ color: "#7AC141" }}
@@ -135,39 +139,39 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 35,
-    margin: 10,
+    marginTop: 0.07*screenHeight,
+    margin: 0.015*screenHeight,
   },
   medicationView: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    margin: 10,
+    margin: 0.015*screenHeight,
   },
   bookNow: {
     justifyContent: "flex-end",
-    borderRadius: 15,
-    width: 310,
-    height: 52,
+    borderRadius: 0.022*screenHeight,
+    width: 0.85*screenWidth,
+    height: 0.07*screenHeight,
     backgroundColor: "#7AC141",
     color: "white",
-    margin: 20,
+    margin: 0.035*screenHeight,
     textAlign: "center",
     textAlignVertical: "center",
-    fontSize: 20,
+    fontSize: 0.03*screenHeight,
   },
   phoneNumber: {
-    padding: 10,
+    padding: 0.015*screenHeight,
     borderColor: "#7AC141",
-    borderRadius: 15,
+    borderRadius: 0.022*screenHeight,
     borderWidth: 1,
-    margin: 10,
-    width: 310,
-    height: 52,
+    margin: 0.015*screenHeight,
+    width: 0.85*screenWidth,
+    height: 0.07*screenHeight,
     color: "#828282",
     justifyContent: "center",
   },
-  screen: { flex: 1 },
+  screen: { flex: 1, padding: 0.015*screenHeight},
   headView: {
     flex: 0.2,
   },

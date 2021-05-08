@@ -9,6 +9,7 @@ import {
   TextInput,
   ScrollView,
   ImageBackground,
+  Dimensions
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { Button } from "react-native-elements";
@@ -16,12 +17,15 @@ import { Button } from "react-native-elements";
 import firebase from "firebase";
 require("firebase/firestore");
 
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
+
 const JoinTheChat = ({ navigation, route }) => {
-  const { chatId, feeling, onMind, listenerId, topic } = route.params;
+ const { chatId, feeling, onMind, listenerId, topic } = route.params;
   const [listenerName, setListenerName] = useState();
   const [listenerBio, setListenerBio] = useState();
 
-  useEffect(() => {
+ useEffect(() => {
     let listener = firebase
       .firestore()
       .collection("Listeners")
@@ -43,13 +47,13 @@ const JoinTheChat = ({ navigation, route }) => {
           <View style={styler.head}>
             <Text
               style={{
-                fontSize: 18,
+                fontSize: 0.025*screenHeight,
                 fontWeight: "bold",
               }}
             >
               Request Accepted By{" "}
             </Text>
-            <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+            <Text style={{ fontSize: 0.025*screenHeight, fontWeight: "bold" }}>
               Vineeth Kumar{" "}
             </Text>
           </View>
@@ -63,8 +67,8 @@ const JoinTheChat = ({ navigation, route }) => {
         </View>
         <View style={styler.aboutView}>
           <View style={styler.about}>
-            <Text style={{ fontSize: 22 }}>About </Text>
-            <Text style={{ fontSize: 22 }}>{listenerName}</Text>
+            <Text style={{ fontSize: 0.027*screenHeight }}>About </Text>
+            <Text style={{ fontSize: 0.027*screenHeight }}>{listenerName}</Text>
           </View>
           <View style={styler.about}>
             <Text>{listenerBio}</Text>
@@ -100,8 +104,8 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 60,
-    margin: 10,
+    marginTop: 0.09*screenHeight,
+    margin: 0.015*screenHeight,
   },
   imageBg: {
     flex: 1,
@@ -109,40 +113,36 @@ const styler = StyleSheet.create({
     justifyContent: "center",
   },
   medication: {
-    width: 258,
-    height: 172,
+    width: 0.5*screenWidth,
+    height: 0.2*screenHeight,
   },
-  tinyLogo: {
-    width: 114,
-    height: 114,
-    borderRadius: 100,
-  },
+ 
   about: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    margin: 10,
-    marginLeft: 20,
-    marginRight: 20,
+    margin: 0.015*screenHeight,
+    marginLeft: 0.025*screenHeight,
+    marginRight: 0.025*screenHeight,
   },
   bookNow: {
     justifyContent: "flex-end",
     borderRadius: 15,
-    width: 310,
-    height: 52,
+    width: 0.85*screenWidth,
+    height: 0.07*screenHeight,
     backgroundColor: "#7AC141",
     color: "white",
-    margin: 20,
+    margin: 0.027*screenHeight,
     textAlign: "center",
     textAlignVertical: "center",
-    fontSize: 20,
-    paddingVertical: 10,
+    fontSize: 0.025*screenHeight,
+    paddingVertical: 0.015*screenHeight,
     overflow: "hidden",
     alignSelf: "center",
   },
   dp: {
-    width: 150,
-    height: 150,
+    width: 0.45*screenWidth,
+    height: 0.45*screenWidth,
     borderRadius: 100,
   },
   topics: {
@@ -150,9 +150,9 @@ const styler = StyleSheet.create({
   },
   topicInner: {
     backgroundColor: "#7AC141",
-    padding: 10,
+    padding: 0.025*screenHeight,
     borderRadius: 84,
-    margin: 10,
+    margin: 0.015*screenHeight,
   },
   screen: {
     flex: 1,

@@ -8,6 +8,7 @@ import {
   ScrollView,
   SafeAreaView,
   ImageBackground,
+  Dimensions
 } from "react-native";
 import { TextInput } from "react-native-paper";
 import RadioForm, {
@@ -21,6 +22,9 @@ require("firebase/firestore");
 
 import uuid from "react-native-uuid";
 import { min } from "react-native-reanimated";
+
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 const HowYouFeel = ({ navigation, route }) => {
   const [value, setvalue] = useState(-1);
@@ -85,7 +89,6 @@ const HowYouFeel = ({ navigation, route }) => {
         });
     }
   };
-
   return (
     <ImageBackground source={require("../assets/ss.png")} style={styler.image}>
       <View style={styler.screen}>
@@ -120,10 +123,10 @@ const HowYouFeel = ({ navigation, route }) => {
                         borderWidth={2}
                         buttonInnerColor={"#7AC141"}
                         buttonOuterColor={value === i ? "#7AC141" : "#000"}
-                        buttonSize={12}
-                        buttonOuterSize={24}
-                        buttonStyle={{ marginRight: 20, marginBottom: 10 }}
-                        buttonWrapStyle={{ marginLeft: 10 }}
+                        buttonSize={0.017*screenHeight}
+                        buttonOuterSize={0.028*screenHeight}
+                        buttonStyle={{ marginRight: 0.025*screenHeight, marginBottom: 0.015*screenHeight }}
+                        buttonWrapStyle={{ marginLeft: 0.015*screenHeight }}
                       />
                       <RadioButtonLabel
                         obj={obj}
@@ -133,9 +136,9 @@ const HowYouFeel = ({ navigation, route }) => {
                           setvalue(value);
                         }}
                         labelStyle={{
-                          fontSize: 18,
+                          fontSize: 0.026*screenHeight,
                           color: "#000",
-                          marginBottom: 10,
+                          marginBottom: 0.015*screenHeight,
                         }}
                         labelWrapStyle={{}}
                       />
@@ -169,6 +172,7 @@ const HowYouFeel = ({ navigation, route }) => {
                 }}
               />
             </View>
+            <View style={{justifyContent:'center',alignItems:'center' }}>
             <TouchableOpacity
               onPress={() => {
                 if (value === -1) {
@@ -179,6 +183,7 @@ const HowYouFeel = ({ navigation, route }) => {
             >
               <Text style={styler.getStarted}>FIND LISTENER</Text>
             </TouchableOpacity>
+            </View>
           </KeyboardAvoidingView>
         </ScrollView>
       </View>
@@ -192,7 +197,7 @@ const styler = StyleSheet.create({
   screen: {
     flex: 1,
     alignItems: "center",
-    paddingVertical: "20%",
+    paddingVertical: 0.1*screenHeight,
   },
   image: {
     flex: 1,
@@ -200,44 +205,44 @@ const styler = StyleSheet.create({
     justifyContent: "center",
   },
   titleView: {
-    width: "100%",
+    width: screenWidth,
     alignItems: "center",
     justifyContent: "center",
   },
   titleText: {
-    fontSize: 25,
+    fontSize: 0.027*screenHeight,
   },
   inputText: {
-    width: "100%",
-    paddingHorizontal: "10%",
-    marginVertical: "10%",
+    width: screenWidth,
+    paddingHorizontal: 0.1*screenWidth,
+    marginVertical: 0.1*screenWidth,
   },
   radioButtons: {
-    width: "100%",
-    paddingLeft: "5%",
-    marginVertical: "10%",
+    width: screenWidth,
+    paddingLeft: 0.07*screenWidth,
+    marginVertical: 0.1*screenWidth,
   },
   gatherYT: {
-    width: "100%",
-    paddingVertical: "5%",
+    width: screenWidth,
+    paddingVertical: 0.02*screenWidth,
     alignItems: "center",
     justifyContent: "center",
   },
   gatherText: {
-    fontSize: 20,
+    fontSize: 0.027*screenHeight,
   },
   getStarted: {
-    borderRadius: 15,
-    width: 310,
-    height: 52,
+    borderRadius: 0.022*screenHeight,
+    width: 0.85*screenWidth,
+    height: 0.07*screenHeight,
     backgroundColor: "#7AC141",
     color: "white",
-    marginHorizontal: 10,
     textAlign: "center",
     textAlignVertical: "center",
-    fontSize: 20,
+    fontSize: 0.027*screenHeight,
     elevation: 5,
-    paddingVertical: 10,
+    paddingVertical: 0.017*screenHeight,
     overflow: "hidden",
+    marginVertical: 0.02*screenHeight
   },
 });
