@@ -97,11 +97,7 @@ function DedicatedChatting({ navigation, route }) {
               alignItems: "flex-start",
             }}
           >
-            <TouchableOpacity
-              onPress={() => {
-                setVisible1(!visible1);
-              }}
-            >
+            <TouchableOpacity onPress={() => {}}>
               <Icon
                 name="close-outline"
                 type="ionicon"

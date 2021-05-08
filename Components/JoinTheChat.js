@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  ImageBackground,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { Button } from "react-native-elements";
@@ -33,54 +34,62 @@ const JoinTheChat = ({ navigation, route }) => {
   });
 
   return (
-    <SafeAreaView style={styler.screen}>
-      <View style={styler.headView}>
-        <View style={styler.head}>
-          <Text
-            style={{
-              fontSize: 18,
-              fontWeight: "bold",
+    <ImageBackground
+      source={require("../assets/ss.png")}
+      style={styler.imageBg}
+    >
+      <SafeAreaView style={styler.screen}>
+        <View style={styler.headView}>
+          <View style={styler.head}>
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: "bold",
+              }}
+            >
+              Request Accepted By{" "}
+            </Text>
+            <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+              Vineeth Kumar{" "}
+            </Text>
+          </View>
+        </View>
+
+        <View style={styler.imageView}>
+          <Image
+            style={styler.dp}
+            source={require("../assets/profilepic.png")}
+          />
+        </View>
+        <View style={styler.aboutView}>
+          <View style={styler.about}>
+            <Text style={{ fontSize: 22 }}>About </Text>
+            <Text style={{ fontSize: 22 }}>{listenerName}</Text>
+          </View>
+          <View style={styler.about}>
+            <Text>{listenerBio}</Text>
+          </View>
+        </View>
+
+        <View style={styler.footView}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("MainChat", {
+                chatId: chatId,
+                feeling: feeling,
+                onMind: onMind,
+                listenerId: listenerId,
+                listenerName: listenerName,
+                topic: topic,
+                type: "seeker",
+              });
             }}
           >
-            Request Accepted By{" "}
-          </Text>
-          <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-            Vineeth Kumar{" "}
-          </Text>
+            <Text style={styler.bookNow}>JOIN THE CHAT</Text>
+          </TouchableOpacity>
         </View>
-      </View>
-
-      <View style={styler.imageView}>
-        <Image style={styler.dp} source={require("../assets/profilepic.png")} />
-      </View>
-      <View style={styler.aboutView}>
-        <View style={styler.about}>
-          <Text style={{ fontSize: 22 }}>About </Text>
-          <Text style={{ fontSize: 22 }}>{listenerName}</Text>
-        </View>
-        <View style={styler.about}>
-          <Text>{listenerBio}</Text>
-        </View>
-      </View>
-
-      <View style={styler.footView}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("MainChat", {
-              chatId: chatId,
-              feeling: feeling,
-              onMind: onMind,
-              listenerId: listenerId,
-              listenerName: listenerName,
-              topic: topic,
-              type: "seeker",
-            });
-          }}
-        >
-          <Text style={styler.bookNow}>JOIN THE CHAT</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </ImageBackground>
   );
 };
 
@@ -93,6 +102,11 @@ const styler = StyleSheet.create({
     justifyContent: "center",
     marginTop: 60,
     margin: 10,
+  },
+  imageBg: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
   },
   medication: {
     width: 258,
@@ -124,7 +138,7 @@ const styler = StyleSheet.create({
     fontSize: 20,
     paddingVertical: 10,
     overflow: "hidden",
-    alignSelf: "center"
+    alignSelf: "center",
   },
   dp: {
     width: 150,
@@ -145,6 +159,7 @@ const styler = StyleSheet.create({
   },
   headView: {
     flex: 0.2,
+    alignItems: "center",
   },
   imageView: {
     flex: 0.35,

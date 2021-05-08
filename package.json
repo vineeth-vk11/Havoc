@@ -21,9 +21,9 @@
     "firebase": "8.2.3",
     "lottie-react-native": "3.5.0",
     "native-base": "^2.15.2",
-    "react": "^17.0.2",
+    "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
     "react-native-btr": "^2.1.2",
     "react-native-elements": "^3.3.2",
     "react-native-flash-message": "^0.1.23",
@@ -37,11 +37,11 @@
     "react-native-screens": "~3.0.0",
     "react-native-simple-radio-button": "^2.7.4",
     "react-native-snap-carousel": "^3.9.1",
+    "react-native-stars": "^1.2.2",
     "react-native-uuid": "^2.0.1",
     "react-native-web": "~0.13.12",
     "react-native-webview": "^11.4.3",
-    "react-native-youtube-iframe": "^2.0.1",
-    "react-navigation": "^4.4.4"
+    "react-native-youtube-iframe": "^2.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"

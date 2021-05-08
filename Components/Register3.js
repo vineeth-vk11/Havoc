@@ -16,11 +16,8 @@ const screenHeight=Dimensions.get('window').height;
 
 const Register3 = ({ navigation }) => {
   return (
-    <SafeAreaView style={styler.screen}>
-      <ImageBackground
-        source={require("../assets/ss.png")}
-        style={styler.image}
-      >
+    <ImageBackground source={require("../assets/ss.png")} style={styler.image}>
+      <SafeAreaView style={styler.screen}>
         <View style={styler.headerView}>
           <View style={styler.head}>
             <TouchableOpacity
@@ -70,7 +67,11 @@ const Register3 = ({ navigation }) => {
         </View>
         <View style={styler.footerView}>
           <View style={{ flexDirection: "column", alignItems: "center" }}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("NewListenerInfo");
+              }}
+            >
               <Icon
                 reverse
                 name="user-friends"
@@ -128,8 +129,8 @@ const Register3 = ({ navigation }) => {
             <Text>Dedicated</Text>
           </View>
         </View>
-      </ImageBackground>
-    </SafeAreaView>
+      </SafeAreaView>
+    </ImageBackground>
   );
 };
 

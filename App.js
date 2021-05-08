@@ -28,15 +28,16 @@ import BookCallDateTime from "./Components/BookCallDateTime";
 import DedicatedChats from "./Components/DedicatedChats";
 import EnterOTP from "./Components/EnterOTP";
 import ListenerDB from "./Components/ListenerDB";
-import GiveFeedback from './Components/GiveFeedback';
-import ReportNEnd from './Components/ReportNEnd';
+import GiveFeedback from "./Components/GiveFeedback";
+import ReportNEnd from "./Components/ReportNEnd";
 import JournalChat from "./Components/JournalChat";
 import DedicatedChatting from "./Components/DedicatedChatting";
-import Quiz1 from './Components/Quiz1';
-import Quiz2 from './Components/Quiz2';
-import Quiz3 from './Components/Quiz3';
-import Quiz4 from './Components/Quiz4';
-import NewListenerInfo from './Components/NewListenerInfo';
+import NewListenerInfo from "./Components/NewListenerInfo";
+import NewListenerTopic from "./Components/NewListenerTopic";
+import Quiz1 from "./Components/Quiz1";
+import Quiz2 from "./Components/Quiz2";
+import Quiz3 from "./Components/Quiz3";
+import Quiz4 from "./Components/Quiz4";
 
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -44,7 +45,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import * as firebase from "firebase";
 import { LogBox } from "react-native";
 import HowYouFeel from "./Components/HowYouFeel";
-import NewListenerTopic from "./Components/NewListenerTopic";
 
 LogBox.ignoreLogs(["Setting a timer"]);
 // Initialize Firebase
@@ -111,6 +111,12 @@ function App() {
         <Stack.Screen name="DedicatedChats" component={DedicatedChats} />
         <Stack.Screen name="JournalChat" component={JournalChat} />
         <Stack.Screen name="DedicatedChatting" component={DedicatedChatting} />
+        <Stack.Screen name="NewListenerInfo" component={NewListenerInfo} />
+        <Stack.Screen name="NewListenerTopic" component={NewListenerTopic} />
+        <Stack.Screen name="Quiz1" component={Quiz1} />
+        <Stack.Screen name="Quiz2" component={Quiz2} />
+        <Stack.Screen name="Quiz3" component={Quiz3} />
+        <Stack.Screen name="Quiz4" component={Quiz4} />
       </Stack.Navigator>
     </NavigationContainer>
   );
