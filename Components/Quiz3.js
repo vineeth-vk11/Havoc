@@ -24,17 +24,21 @@ const Quiz3=()=>{
     },[isPlaying]);
     const [value,setvalue]=useState();
     const radio_props = [
-        { label:"Listening with attention, while withholding \n judgements and advice", value: 0 },
-        { label: "Accepting and validating what the other \n person is sharing", value: 1 },
-        {label:"Priciple of confidentiality is about privacy \n and respecting someone's willingness \n to open up", value: 2},
-        {label:"Keeping the information shared to yourself,\n makes the seeker believe that the listener \n is actively listening to them without any \njudgement", value:3},
+        { label:"By providing them time and space to openly talk about their issues", 
+        value: 0 },
+        { label: "Listen to them with acceptance and validation", 
+        value: 1 },
+        {label:"Be mindful of their emotions", 
+        value: 2},
+        {label:"Giving casual advice and guiding them various perspectives", 
+        value:3},
       ];
     return (
       <SafeAreaView style={styler.screen}>
         <ScrollView >
             <View style={styler.titleView}>
                 <Text style={{textAlign:'center', fontSize: 0.038*screenHeight}}>
-                    Question 1
+                    Question 3
                 </Text>
                 <Text style={{fontSize:0.020*screenHeight, color:'grey', marginHorizontal:0.020*screenHeight,
             marginVertical: 0.014*screenHeight }}>
@@ -49,7 +53,7 @@ const Quiz3=()=>{
       </View>
       <View>
           <Text style={{color:'black',marginHorizontal:0.025*screenHeight,fontSize:0.023*screenHeight}}>
-              What is active listening and how does confidentiality work?
+              How would you help the person without providing them with solutions?
           </Text>
       </View>
       <View style={styler.radioButtons}>

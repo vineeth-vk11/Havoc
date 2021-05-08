@@ -10,11 +10,17 @@ import {
   ScrollView,
   ActivityIndicator,
   ImageBackground,
+  Dimensions
 } from "react-native";
 import { ListItem, Avatar, Icon } from "react-native-elements";
 import firebase from "firebase";
 import { FlatList } from "react-native-gesture-handler";
 require("firebase/firestore");
+
+
+const screenWidth= Dimensions.get('window').width;
+const screenHeight=Dimensions.get('window').height;
+
 
 const MyJournal = ({ navigation }) => {
   const [list, setList] = useState([]);
@@ -76,15 +82,15 @@ const MyJournal = ({ navigation }) => {
                 name="arrow-back"
                 type="ionicon"
                 color="#000000"
-                size={30}
-                style={{ marginLeft: 32 }}
+                size={0.04*screenHeight}
+                style={{ marginLeft: 0.03*screenHeight }}
               />
             </TouchableOpacity>
           </View>
           <View style={{ flex: 0.6 }}>
             <Text
               style={{
-                fontSize: 24,
+                fontSize: 0.032*screenHeight,
                 fontWeight: "bold",
                 textAlign: "left",
               }}
@@ -110,31 +116,31 @@ const MyJournal = ({ navigation }) => {
               >
                 <View
                   style={{
-                    padding: 3,
-                    paddingRight: 5,
-                    paddingLeft: 5,
-                    marginLeft: 8,
-                    marginRight: 8,
+                    padding: 0.009*screenHeight,
+                    paddingRight: 0.01*screenHeight,
+                    paddingLeft: 0.01*screenHeight,
+                    marginLeft: 0.012*screenHeight,
+                    marginRight: 0.012*screenHeight,
                   }}
                 >
                   <ListItem
                     containerStyle={{
                       backgroundColor: "#F8F8F8",
-                      height: 79,
-                      borderRadius: 5,
-                      elevation: 5,
+                      height: 0.09*screenHeight,
+                      borderRadius: 0.01*screenHeight,
+                      elevation: 0.01*screenHeight,
                     }}
                   >
                     <Avatar
                       source={require("../assets/profilepic.png")}
-                      size={30}
+                      size={0.045*screenHeight}
                     />
                     <ListItem.Content>
                       <ListItem.Title>{item.listenerName}</ListItem.Title>
                       <ListItem.Subtitle>{item.topic}</ListItem.Subtitle>
                       <ListItem.Subtitle>{item.date}</ListItem.Subtitle>
                     </ListItem.Content>
-                    <ListItem.Chevron size={35} />
+                    <ListItem.Chevron size={0.045*screenHeight} />
                   </ListItem>
                 </View>
               </TouchableOpacity>
@@ -154,7 +160,7 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     textAlign: "center",
-    marginTop: 20,
+    marginTop: 0.025*screenHeight,
   },
   image: {
     flex: 1,

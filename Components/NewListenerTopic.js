@@ -7,9 +7,13 @@ import {
   TouchableOpacity,
   ScrollView,
   ImageBackground,
+  Dimensions
 } from "react-native";
 import { CheckBox } from "react-native-elements";
 import { cos, set } from "react-native-reanimated";
+
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 const NewListenerTopic = ({ navigation }) => {
   const [all, setAll] = useState(false);
@@ -43,7 +47,7 @@ const NewListenerTopic = ({ navigation }) => {
       <ScrollView>
         <View style={styler.screen}>
           <View style={styler.titleView}>
-            <Text style={{ fontSize: 25 }}>Select Your Topic</Text>
+            <Text style={{fontSize: 0.03*screenHeight}}>Select Your Topic</Text>
           </View>
           <View style={styler.checkBoxView}>
             <CheckBox
@@ -343,36 +347,35 @@ const NewListenerTopic = ({ navigation }) => {
 export default NewListenerTopic;
 
 const styler = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: "space-between",
-    paddingVertical: "15%",
-    paddingHorizontal: "3%",
+  screen:{
+    flex:1,
+    justifyContent:"space-between",
+    paddingVertical:0.08*screenHeight,
+    paddingHorizontal:0.02*screenHeight
+},
+getStarted: {
+    borderRadius: 15,
+    width: 0.85*screenWidth,
+    height: 0.08*screenHeight,
+    backgroundColor: "#7AC141",
+    color: "white",
+    marginHorizontal: 0.015*screenHeight,
+    textAlign: "center",
+    textAlignVertical: "center",
+    fontSize: 0.028*screenHeight,
+    elevation: 5,
+    marginVertical: '5%'
+  },
+  checkBoxView:{
+      marginVertical:"3%"
+  },
+  titleView:{
+      justifyContent:'center',
+      alignItems:'center'
   },
   image: {
     flex: 1,
     resizeMode: "cover",
     justifyContent: "center",
-  },
-  getStarted: {
-    borderRadius: 15,
-    width: 310,
-    height: 52,
-    backgroundColor: "#7AC141",
-    color: "white",
-    marginHorizontal: 10,
-    textAlign: "center",
-    textAlignVertical: "center",
-    fontSize: 20,
-    elevation: 5,
-    marginVertical: "5%",
-  },
-  checkBoxView: {
-    flex: 1,
-    marginVertical: "3%",
-  },
-  titleView: {
-    justifyContent: "center",
-    alignItems: "center",
   },
 });
