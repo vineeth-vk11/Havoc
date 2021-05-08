@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -7,8 +7,13 @@ import {
   StyleSheet,
   TouchableOpacity,
   ImageBackground,
+  Dimensions
 } from "react-native";
 import { Icon } from "react-native-elements";
+
+const screenWidth= Dimensions.get('window').width;
+const screenHeight=Dimensions.get('window').height;
+
 const Register3 = ({ navigation }) => {
   return (
     <ImageBackground source={require("../assets/ss.png")} style={styler.image}>
@@ -31,7 +36,7 @@ const Register3 = ({ navigation }) => {
           </View>
           <View style={styler.imageView}>
             <Image
-              style={{ width: 80, height: 80, alignSelf: "center" }}
+              style={{ width: 0.11*screenHeight, height: 0.11*screenHeight, alignSelf: "center" }}
               source={require("../assets/logoTB.png")}
             />
           </View>
@@ -50,7 +55,7 @@ const Register3 = ({ navigation }) => {
           >
             <View style={styler.find}>
               <Text
-                style={{ color: "white", textAlign: "center", fontSize: 20 }}
+                style={{ color: "white", textAlign: "center", fontSize: 0.03*screenHeight }}
               >
                 FIND MY{"\n"}LISTENER
               </Text>
@@ -141,36 +146,37 @@ const styler = StyleSheet.create({
     justifyContent: "center",
   },
   head: {
-    width: "35%",
+    width: 0.31*screenWidth,
     alignItems: "flex-start",
     justifyContent: "flex-start",
-    marginTop: 35,
+    marginTop: 0.06*screenHeight,
   },
   text: {
-    fontSize: 24,
+    fontSize: 0.03*screenHeight,
     fontWeight: "bold",
     textAlign: "center",
   },
   textSmall: {
-    fontSize: 16,
-    margin: 10,
+    fontSize: 0.025*screenHeight,
+    margin: 0.02*screenHeight,
     textAlign: "center",
   },
   find: {
     backgroundColor: "#7AC141",
-    width: 135,
-    height: 135,
-    borderRadius: 100,
+    width: 0.2*screenHeight,
+    height: 0.2*screenHeight,
+    borderRadius: 0.1*screenHeight,
     alignItems: "center",
     justifyContent: "center",
   },
   headerView: {
     flex: 0.3,
     flexDirection: "row",
-    padding: 10,
+    padding: 0.05*screenHeight,
   },
   textView: {
     flex: 0.1,
+    marginBottom: 0.05*screenHeight
   },
   findMyListnerView: {
     flex: 0.4,
@@ -180,21 +186,21 @@ const styler = StyleSheet.create({
   footerView: {
     flexDirection: "row",
     flex: 0.2,
-    marginTop: 80,
-    marginBottom: 20,
-    marginLeft: 20,
-    marginRight: 20,
+    marginTop: 0.13*screenHeight,
+    marginBottom: 0.04*screenHeight,
+    marginLeft: 0.04*screenHeight,
+    marginRight: 0.04*screenHeight,
     justifyContent: "space-around",
     alignItems: "center",
   },
   imageView: {
-    marginTop: 35,
+    marginTop: 0.05*screenHeight,
   },
   talkingNow: {
     justifyContent: "center",
     alignItems: "center",
   },
   tnText: {
-    fontSize: 25,
+    fontSize: 0.035*screenHeight,
   },
 });

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -12,7 +12,9 @@ import {
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { Button } from "react-native-elements";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 import { Dimensions } from "react-native";
 
@@ -91,8 +93,8 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 35,
-    margin: 10,
+    marginTop: 0.05 * screenHeight,
+    margin: 0.015 * screenHeight,
   },
   imageBg: {
     flex: 1,
@@ -113,15 +115,15 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    margin: 10,
+    margin: 0.02 * screenHeight,
   },
   applyCoupon: {
-    padding: 10,
+    padding: 0.015 * screenHeight,
     borderColor: "#7AC141",
     borderRadius: 5,
     borderWidth: 1,
-    width: 198,
-    height: 35,
+    width: 0.55 * screenWidth,
+    height: 0.054 * screenHeight,
     color: "#828282",
     justifyContent: "center",
   },
@@ -129,19 +131,19 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    marginTop: 20,
-    margin: 10,
+    marginTop: 0.025 * screenHeight,
+    margin: 0.015 * screenHeight,
   },
   bookNow: {
     justifyContent: "flex-end",
     borderRadius: 15,
-    width: 310,
-    height: 52,
+    width: 0.85 * screenWidth,
+    height: 0.08 * screenHeight,
     backgroundColor: "#7AC141",
     color: "white",
     textAlign: "center",
     textAlignVertical: "center",
-    fontSize: 20,
+    fontSize: 0.025 * screenHeight,
   },
   screen: { flex: 1 },
   headView: {
@@ -152,11 +154,11 @@ const styler = StyleSheet.create({
     flex: 0.25,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 24,
+    marginTop: 0.03 * screenHeight,
   },
   meditationView: {
     flex: 0.25,
-    paddingTop: 10,
+    paddingTop: 0.015 * screenHeight,
   },
   footView: {
     height: windowHeight / 3.5,

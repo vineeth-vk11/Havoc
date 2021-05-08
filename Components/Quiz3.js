@@ -1,12 +1,16 @@
-
 import React ,{useState,useCallback} from 'react';
-import {View,Text,StyleSheet,Button, TouchableOpacity,ScrollView} from 'react-native';
+import {View,Text,StyleSheet,Button, TouchableOpacity,ScrollView,Dimensions} from 'react-native';
 import YoutubePlayer from 'react-native-youtube-iframe';
 import RadioForm, {
     RadioButton,
     RadioButtonInput,
     RadioButtonLabel,
   } from "react-native-simple-radio-button";
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+
+  const screenWidth= Dimensions.get('window').width;
+const screenHeight=Dimensions.get('window').height;
 
 const Quiz3=()=>{
     const [isPlaying,setisPlaying]=useState(false);
@@ -26,25 +30,25 @@ const Quiz3=()=>{
         {label:"Keeping the information shared to yourself,\n makes the seeker believe that the listener \n is actively listening to them without any \njudgement", value:3},
       ];
     return (
-      
-        <View style={styler.screen}>
+      <SafeAreaView style={styler.screen}>
+        <ScrollView >
             <View style={styler.titleView}>
-                <Text style={{textAlign:'center', fontSize: 28}}>
+                <Text style={{textAlign:'center', fontSize: 0.038*screenHeight}}>
                     Question 1
                 </Text>
-                <Text style={{fontSize:15, color:'grey', marginHorizontal:15,
-            marginVertical: 10 }}>
+                <Text style={{fontSize:0.020*screenHeight, color:'grey', marginHorizontal:0.020*screenHeight,
+            marginVertical: 0.014*screenHeight }}>
                 Please watch the video and answer the question
                 </Text>
             </View>
-      <View style={{height:'38%',marginVertical:'0%'}}>
+      <View style={{height:0.30*screenHeight, width:screenWidth}}>
        <YoutubePlayer videoId={"7VjbVCSXevQ"}
        play={true}
-       height="80%"
+       height="100%"
        onChangeState={videoEnded}/>
       </View>
       <View>
-          <Text style={{color:'black',marginVertical:5,marginHorizontal:15,fontSize:17}}>
+          <Text style={{color:'black',marginHorizontal:0.025*screenHeight,fontSize:0.023*screenHeight}}>
               What is active listening and how does confidentiality work?
           </Text>
       </View>
@@ -65,8 +69,8 @@ const Quiz3=()=>{
                   buttonOuterColor={value === i ? "#7AC141" : "#DADADA"}
                   buttonSize={16}
                   buttonOuterSize={23}
-                  buttonStyle={{ marginRight: 5, marginBottom: 10 }}
-                  buttonWrapStyle={{ marginLeft: 5 }}
+                  buttonStyle={{ marginRight: 0.01*screenHeight, marginBottom: 0.015*screenHeight}}
+                  buttonWrapStyle={{ marginLeft: 0.01*screenHeight }}
                 />
                 <RadioButtonLabel
                   obj={obj}
@@ -75,7 +79,7 @@ const Quiz3=()=>{
                   onPress={(value) => {
                     setvalue(value);
                   }}
-                  labelStyle={{ fontSize: 15, color: "rgba(18, 18, 18)" }}
+                  labelStyle={{ fontSize: 0.02*screenHeight, color: "rgba(18, 18, 18)" }}
                   labelWrapStyle={{}}
                 />
               </View>
@@ -83,12 +87,13 @@ const Quiz3=()=>{
           ))}
         </RadioForm>
      </View>
-     <View style={{justifyContent:'center',alignItems:'center'}}>
+     <View style={{justifyContent:'center',alignItems:'center', marginBottom:0.02*screenHeight}}>
      <TouchableOpacity>
           <Text style={styler.getStarted}>CONTINUE</Text>
         </TouchableOpacity>
         </View>
-      </View>
+        </ScrollView>
+        </SafeAreaView>
     );
 }
 
@@ -97,23 +102,23 @@ export default Quiz3;
 const styler=StyleSheet.create({
     screen:{
         flex:1,
-        marginVertical:'15%'
+        paddingVertical:0.03*screenHeight,
+        justifyContent:'space-between'
     },
     radioButtons:{
-        width:'100%',  
-        paddingLeft:'5%',
-        marginVertical:'5%'
+        width:screenWidth,  
+        paddingLeft:0.015*screenHeight,
+        marginVertical:0.018*screenHeight,
     },
     getStarted: {
         borderRadius: 15,
-        width: 310,
-        height: 52,
+        width: 0.85*screenWidth,
+        height: 0.08*screenHeight,
         backgroundColor: "#7AC141",
         color: "white",
         textAlign: "center",
         textAlignVertical: "center",
-        fontSize: 20,
+        fontSize: 0.03*screenHeight,
         elevation: 5,
-        marginBottom:50
       }
 });

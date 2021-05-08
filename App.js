@@ -28,6 +28,8 @@ import BookCallDateTime from "./Components/BookCallDateTime";
 import DedicatedChats from "./Components/DedicatedChats";
 import EnterOTP from "./Components/EnterOTP";
 import ListenerDB from "./Components/ListenerDB";
+import GiveFeedback from "./Components/GiveFeedback";
+import ReportNEnd from "./Components/ReportNEnd";
 import JournalChat from "./Components/JournalChat";
 import DedicatedChatting from "./Components/DedicatedChatting";
 import NewListenerInfo from "./Components/NewListenerInfo";
@@ -45,7 +47,6 @@ import { LogBox } from "react-native";
 import HowYouFeel from "./Components/HowYouFeel";
 
 LogBox.ignoreLogs(["Setting a timer"]);
-
 // Initialize Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyBQAMKTj8n5N6RTHtSHQfZ4099O6CdwTqA",

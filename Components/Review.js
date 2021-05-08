@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-  SafeAreaView,
-  Image,
   StyleSheet,
   TouchableOpacity,
   TextInput,
@@ -11,6 +9,7 @@ import {
   KeyboardAvoidingView,
   ImageBackground,
   Alert,
+  Dimensions,
 } from "react-native";
 import RadioForm, {
   RadioButton,
@@ -29,6 +28,9 @@ var radio_props = [
   { label: "Not Sure", value: 1 },
   { label: "No", value: 2 },
 ];
+
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 const AgeOfListner = ({ navigation, route }) => {
   const [value, setvalue] = useState(-1);
@@ -236,7 +238,7 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 20,
+    marginTop: 0.06 * screenHeight,
   },
   image: {
     flex: 1,
@@ -244,19 +246,20 @@ const styler = StyleSheet.create({
     justifyContent: "center",
   },
   better: {
-    fontSize: 20,
+    fontSize: 0.035 * screenHeight,
     textAlign: "left",
     marginBottom: "5%",
   },
   complete: {
     borderRadius: 15,
-    width: 310,
-    height: 52,
+    width: 0.8 * screenWidth,
+    height: 0.08 * screenHeight,
     backgroundColor: "#7AC141",
     color: "white",
     textAlign: "center",
     textAlignVertical: "center",
-    fontSize: 20,
+    fontSize: 0.035 * screenHeight,
+    elevation: 5,
   },
   review: {
     padding: 10,
@@ -266,11 +269,11 @@ const styler = StyleSheet.create({
     color: "#000",
     justifyContent: "center",
     backgroundColor: "#f5f6fa",
-    margin: 15,
+    margin: 0.02 * screenHeight,
   },
   screen: {
     flex: 1,
-    padding: "4%",
+    padding: 0.02 * screenHeight,
     justifyContent: "space-between",
   },
   headView: {
@@ -282,16 +285,16 @@ const styler = StyleSheet.create({
   },
   rateView: {},
   reviewView: {
-    marginBottom: "3%",
+    marginBottom: 0.02 * screenHeight,
   },
   footView: {
     justifyContent: "flex-end",
-    marginBottom: 50,
+    marginBottom: 0.08 * screenHeight,
     justifyContent: "flex-end",
     alignItems: "center",
   },
   ratingView: {
-    marginHorizontal: "7%",
+    marginHorizontal: 0.04 * screenHeight,
     justifyContent: "flex-start",
     alignItems: "flex-start",
   },

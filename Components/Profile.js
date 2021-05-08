@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ImageBackground,
+  Dimensions
 } from "react-native";
 import { ListItem, Icon } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
@@ -48,6 +49,10 @@ const list = [
     icon: "log-out",
   },
 ];
+
+const screenWidth= Dimensions.get('window').width;
+const screenHeight=Dimensions.get('window').height;
+
 const Profile = ({ navigation }) => {
   return (
     <ScrollView>
@@ -62,7 +67,7 @@ const Profile = ({ navigation }) => {
                 style={{
                   flex: 0.4,
                   alignItems: "flex-start",
-                  marginTop: 10,
+                  marginTop: 0.015*screenHeight,
                 }}
               >
                 <TouchableOpacity
@@ -71,17 +76,17 @@ const Profile = ({ navigation }) => {
                   }}
                 >
                   <Icon
-                    style={{ marginTop: 10, marginLeft: 20 }}
+                    style={{ marginTop: 0.015*screenHeight, marginLeft: 0.025*screenHeight}}
                     name="arrow-back"
                     type="ionicon"
                     color="#000000"
-                    size={30}
+                    size={0.05*screenHeight}
                   />
                 </TouchableOpacity>
               </View>
 
-              <View style={{ flex: 0.6, marginTop: 10 }}>
-                <Text style={{ fontSize: 24 }}>Profile</Text>
+              <View style={{ flex: 0.6, marginTop: 0.015*screenHeight }}>
+                <Text style={{ fontSize: 0.035*screenHeight }}>Profile</Text>
               </View>
             </View>
           </View>
@@ -93,8 +98,8 @@ const Profile = ({ navigation }) => {
                   source={require("../assets/profilepic.png")}
                 />
               </View>
-              <View style={{ marginBottom: 10 }}>
-                <Text style={{ fontSize: 30, margin: 2 }}></Text>
+              <View style={{ marginBottom: 0.015*screenHeight }}>
+                <Text style={{ fontSize: 0.03*screenHeight, margin: 0.01*screenHeight }}></Text>
               </View>
             </View>
           </View>
@@ -116,20 +121,20 @@ const Profile = ({ navigation }) => {
                 <View
                   key={i}
                   style={{
-                    padding: 3,
-                    paddingRight: 5,
-                    paddingLeft: 5,
+                    padding: 0.01*screenHeight,
+                    paddingRight: 0.012*screenHeight,
+                    paddingLeft: 0.012*screenHeight,
                   }}
                 >
                   <ListItem
                     key={i}
                     containerStyle={{
                       backgroundColor: "#FFFFFF",
-                      height: 53,
-                      marginLeft: 8,
-                      marginRight: 8,
-                      borderRadius: 5,
-                      elevation: 5,
+                      height: 0.07*screenHeight,
+                      marginLeft: 0.01*screenHeight,
+                      marginRight: 0.012*screenHeight,
+                      borderRadius: 0.01*screenHeight,
+                      elevation: 0.01*screenHeight,
                     }}
                   >
                     <Icon name={item.icon} type="ionicon" />
@@ -155,7 +160,7 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 35,
+    marginTop: 0.06*screenHeight,
   },
   imageBg: {
     flex: 1,
@@ -168,9 +173,9 @@ const styler = StyleSheet.create({
     justifyContent: "space-around",
   },
   dp: {
-    width: 109,
-    height: 109,
-    borderRadius: 100,
+    width: 0.3*screenWidth,
+    height: 0.3*screenWidth,
+    borderRadius: 0.3*screenWidth,
   },
   screen: { flex: 1 },
   headView: { flex: 0.15 },
@@ -178,12 +183,12 @@ const styler = StyleSheet.create({
     flex: 0.3,
   },
   listView: {
-    marginTop: 20,
+    marginTop: 0.025*screenWidth,
     flex: 0.7,
     justifyContent: "flex-end",
   },
   imageView: {
     flex: 0.15,
-    marginTop: 20,
+    marginTop: 0.025*screenWidth,
   },
 });

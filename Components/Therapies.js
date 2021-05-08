@@ -5,7 +5,7 @@ import {
   SafeAreaView,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
+  Dimensions,
   ActivityIndicator,
   ImageBackground,
 } from "react-native";
@@ -15,6 +15,9 @@ import { ListItem } from "react-native-elements";
 import firebase from "firebase";
 import { FlatList } from "react-native-gesture-handler";
 require("firebase/firestore");
+
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 const Therapies = ({ navigation }) => {
   const [search, setsearch] = useState();
@@ -155,7 +158,7 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 30,
+    marginTop: 0.04 * screenHeight,
   },
   image: {
     flex: 1,
