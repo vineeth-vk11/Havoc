@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ImageBackground,
+  Dimensions
 } from "react-native";
 import { Icon } from "react-native-elements";
 import LottieView from "lottie-react-native";
@@ -14,6 +15,9 @@ import firebase from "firebase";
 require("firebase/firestore");
 
 import { useFocusEffect } from "@react-navigation/native";
+
+const screenWidth= Dimensions.get('window').width;
+const screenHeight=Dimensions.get('window').height;
 
 const MatchingListener = ({ navigation, route }) => {
   const { chatId, feeling, onMind, topic } = route.params;
@@ -61,8 +65,8 @@ const MatchingListener = ({ navigation, route }) => {
                 name="close"
                 type="ionicon"
                 color="#979797"
-                size={30}
-                style={{ marginRight: 32, marginTop: 20 }}
+                size={0.04*screenHeight}
+                style={{ marginRight: 0.041*screenHeight, marginTop: 0.025*screenHeight }}
               />
             </TouchableOpacity>
           </View>
@@ -71,7 +75,7 @@ const MatchingListener = ({ navigation, route }) => {
           <Text style={styler.textHeading}>Matching you with a Listener</Text>
           <View style={styler.loaderView}>
             <LottieView
-              style={{ width: 150, height: 150 }}
+              style={{ width: 0.5*screenWidth, height: 0.5*screenWidth }}
               source={require("../assets/loading.json")}
               autoPlay
               loop
@@ -95,7 +99,7 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-end",
-    marginTop: 35,
+    marginTop: 0.042*screenHeight,
   },
   image: {
     flex: 1,
@@ -103,15 +107,15 @@ const styler = StyleSheet.create({
     justifyContent: "center",
   },
   textHeading: {
-    fontSize: 24,
+    fontSize: 0.031*screenHeight,
     textAlign: "center",
     fontWeight: "bold",
-    margin: 5,
+    margin: 0.01*screenHeight,
   },
   text: {
-    fontSize: 18,
+    fontSize: 0.025*screenHeight,
     textAlign: "center",
-    margin: 20,
+    margin: 0.025*screenHeight,
   },
   screen: {
     flex: 1,
@@ -121,16 +125,16 @@ const styler = StyleSheet.create({
   },
   textView: {
     flex: 0.2,
-    marginLeft: 10,
+    marginLeft: 0.015*screenHeight,
   },
   loaderView: {
     flex: 0.1,
-    margin: 5,
+    margin: 0.01*screenHeight,
     alignItems: "center",
   },
   footView: {
     flex: 0.3,
     justifyContent: "flex-end",
-    marginBottom: 50,
+    marginBottom: 0.07*screenHeight,
   },
 });

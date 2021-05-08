@@ -7,8 +7,12 @@ import {
   StyleSheet,
   TouchableOpacity,
   ImageBackground,
+  Dimensions
 } from "react-native";
 import { Icon } from "react-native-elements";
+
+const screenWidth= Dimensions.get('window').width;
+const screenHeight=Dimensions.get('window').height;
 
 const Register3 = ({ navigation }) => {
   return (
@@ -29,13 +33,13 @@ const Register3 = ({ navigation }) => {
                 name="person-circle"
                 type="ionicon"
                 color="#7AC141"
-                size={24}
+                size={0.034*screenHeight}
               />
             </TouchableOpacity>
           </View>
           <View style={styler.imageView}>
             <Image
-              style={{ width: 80, height: 80 }}
+              style={{ width: 0.1*screenHeight, height: 0.1*screenHeight }}
               source={require("../assets/logoTB.png")}
             />
           </View>
@@ -54,7 +58,7 @@ const Register3 = ({ navigation }) => {
           >
             <View style={styler.find}>
               <Text
-                style={{ color: "white", textAlign: "center", fontSize: 20 }}
+                style={{ color: "white", textAlign: "center", fontSize: 0.03*screenHeight }}
               >
                 FIND MY{"\n"}SEEKER
               </Text>
@@ -72,7 +76,7 @@ const Register3 = ({ navigation }) => {
             style={{
               flexDirection: "column",
               alignItems: "center",
-              marginBottom: 20,
+              marginBottom: 0.025*screenHeight,
             }}
           >
             <TouchableOpacity
@@ -85,7 +89,7 @@ const Register3 = ({ navigation }) => {
                 name="chat"
                 type="material-icons"
                 color="#7AC141"
-                size={24}
+                size={0.03*screenHeight}
               />
             </TouchableOpacity>
             <Text>Dedicated</Text>
@@ -95,7 +99,7 @@ const Register3 = ({ navigation }) => {
             style={{
               flexDirection: "column",
               alignItems: "center",
-              marginBottom: 20,
+              marginBottom: 0.025*screenHeight,
             }}
           >
             <TouchableOpacity
@@ -108,7 +112,7 @@ const Register3 = ({ navigation }) => {
                 name="journal"
                 type="ionicon"
                 color="#7AC141"
-                size={24}
+                size={0.03*screenHeight}
               />
             </TouchableOpacity>
             <Text>Journal</Text>
@@ -118,16 +122,16 @@ const Register3 = ({ navigation }) => {
             style={{
               flexDirection: "column",
               alignItems: "center",
-              marginBottom: 20,
+              marginBottom: 0.025*screenHeight,
             }}
           >
             <TouchableOpacity>
               <Icon
                 reverse
-                name="user-friends"
+                name="gift"
                 type="font-awesome-5"
                 color="#7AC141"
-                size={24}
+                size={0.03*screenHeight}
                 reverseColor="white"
               />
             </TouchableOpacity>
@@ -151,33 +155,33 @@ const styler = StyleSheet.create({
     justifyContent: "center",
   },
   head: {
-    width: "35%",
+    width: 0.35*screenWidth,
     alignItems: "flex-start",
     justifyContent: "flex-start",
-    marginTop: 35,
+    marginTop: 0.045*screenHeight,
   },
   text: {
-    fontSize: 24,
+    fontSize: 0.033*screenHeight,
     fontWeight: "bold",
     textAlign: "center",
   },
   textSmall: {
-    fontSize: 16,
-    margin: 10,
+    fontSize: 0.026*screenHeight,
+    margin: 0.015*screenHeight,
     textAlign: "center",
   },
   find: {
     backgroundColor: "#7AC141",
-    width: 135,
-    height: 135,
-    borderRadius: 100,
+    width: 0.42*screenWidth,
+    height: 0.42*screenWidth,
+    borderRadius: 0.13*screenHeight,
     alignItems: "center",
     justifyContent: "center",
   },
   headerView: {
     flex: 0.3,
     flexDirection: "row",
-    padding: 10,
+    padding: 0.015*screenHeight,
   },
   textView: {
     flex: 0.1,
@@ -186,35 +190,35 @@ const styler = StyleSheet.create({
     flex: 0.4,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 0.025*screenHeight,
     flexDirection: "row",
   },
   footerView: {
     flexDirection: "row",
     flex: 0.2,
-    marginTop: 80,
-    marginLeft: 20,
-    marginRight: 20,
+    marginTop: 0.1*screenHeight,
+    marginLeft: 0.015*screenHeight,
+    marginRight: 0.015*screenHeight,
     justifyContent: "space-around",
     alignItems: "center",
   },
   imageView: {
-    marginTop: 35,
+    marginTop: 0.055*screenHeight,
   },
   talkingNow: {
     justifyContent: "center",
     alignItems: "center",
   },
   tnText: {
-    fontSize: 25,
+    fontSize: 0.036*screenHeight,
   },
   activeUser: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    width: 0.1*screenWidth,
+    height: 0.1*screenWidth,
+    borderRadius: 0.05*screenWidth,
     backgroundColor: "red",
     justifyContent: "center",
     alignItems: "center",
-    marginLeft: -20,
+    marginLeft: -0.025*screenHeight,
   },
 });

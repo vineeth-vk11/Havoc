@@ -47,7 +47,7 @@ const NewListenerInfo = ({ navigation }) => {
               <KeyboardAvoidingView>
                 <ScrollView>
                   <View style={styler.Title}>
-                    <Text style={{ fontSize: 25 }}>Personal Info</Text>
+                    <Text style={{fontSize: 0.03*screenHeight}}>Personal Info</Text>
                   </View>
                   <Text style={styler.declaration}>
                     Users will see only your first name
@@ -206,41 +206,41 @@ const NewListenerInfo = ({ navigation }) => {
 export default NewListenerInfo;
 
 const styler = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: "space-between",
-    marginVertical: "10%",
-    padding: "4%",
-  },
-  image: {
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center",
-  },
-  getStarted: {
-    borderRadius: 15,
-    width: windowWidth - 48,
-    height: 52,
-    backgroundColor: "#7AC141",
-    color: "white",
-    textAlign: "center",
-    textAlignVertical: "center",
-    fontSize: 0.028 * screenHeight,
-    elevation: 5,
-    marginVertical: "5%",
-    alignSelf: "center",
-  },
-  Title: {
-    height: "5%",
-    marginVertical: "3%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  declaration: {
-    color: "grey",
-    marginTop: "3%",
-  },
-  nameView: {
-    marginVertical: "2%",
-  },
+  screen:{
+    flex:1,
+    justifyContent:"space-between",
+    marginVertical:0.07*screenHeight,
+    padding:0.02*screenHeight
+},
+getStarted: {
+ borderRadius: 15,
+ width: 0.85*screenWidth,
+ height: 0.08*screenHeight,
+ backgroundColor: "#7AC141",
+ color: "white",
+ marginHorizontal: 0.02*screenHeight,
+ textAlign: "center",
+ textAlignVertical: "center",
+ fontSize: 0.028*screenHeight,
+ elevation: 5,
+ marginVertical: 0.03*screenHeight
+},
+Title:{
+   height:0.05*screenHeight,
+   marginVertical:0.02*screenHeight,
+   alignItems:'center',
+   justifyContent:'center',
+},
+declaration:{
+   color:'grey',
+   marginVertical:0.01*screenHeight
+},
+nameView:{
+   marginVertical:0.01*screenHeight
+},
+ image: {
+  flex: 1,
+  resizeMode: "cover",
+  justifyContent: "center",
+},
 });

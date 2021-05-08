@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  Dimensions
 } from "react-native";
 import { Icon } from "react-native-elements";
 import RadioForm, {
@@ -22,6 +23,9 @@ var radio_props = [
   {label:"I'm not satisfied", value: 3, txt: "We are sorry you feel this way but maybe second \n time's the charm"}
 ];
 
+const screenWidth= Dimensions.get('window').width;
+const screenHeight=Dimensions.get('window').height;
+
 const Leaving = () => {
   const [value, setvalue] = useState();
   return (
@@ -29,10 +33,10 @@ const Leaving = () => {
       <View style={styler.sadFaceView}>
         <View style={styler.sadFace}>
           <Image
-            style={{ width: 100, height: 100 }}
+            style={{ width: 0.3*screenWidth, height: 0.3*screenWidth }}
             source={require("../assets/Images/SadFace.png")}
           />
-          <Text style={{ fontSize: 18, margin: 5, color: "#828282" }}>
+          <Text style={{ fontSize: 0.026*screenHeight, margin: 0.020*screenHeight, color: "#828282" }}>
             We are sorry to see you leave
           </Text>
         </View>

@@ -17,7 +17,7 @@ import RadioForm, {
   RadioButtonLabel,
 } from "react-native-simple-radio-button";
 import { Rating, AirbnbRating } from "react-native-elements";
-import Stars from "react-native-stars";
+import {Stars} from "react-native-stars";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import firebase from "firebase";
