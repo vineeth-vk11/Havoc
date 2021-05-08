@@ -7,7 +7,9 @@ import {
   TouchableOpacity,
   ScrollView,
   ImageBackground,
-  Dimensions
+  Dimensions,
+  Alert,
+  SafeAreaView,
 } from "react-native";
 import { CheckBox } from "react-native-elements";
 import { cos, set } from "react-native-reanimated";
@@ -15,7 +17,9 @@ import { cos, set } from "react-native-reanimated";
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
-const NewListenerTopic = ({ navigation }) => {
+const NewListenerTopic = ({ navigation, route }) => {
+  const { firstName, lastName, email, city, country, bio } = route.params;
+
   const [all, setAll] = useState(false);
   const [work, setWork] = useState(false);
   const [academic, setAcademic] = useState(false);
@@ -42,13 +46,26 @@ const NewListenerTopic = ({ navigation }) => {
     return arr;
   }
 
+  const createAlert = () =>
+    Alert.alert(
+      "No Topic Selected",
+      "Please select atleast one topic to continue",
+      [{ text: "OK", onPress: () => {} }],
+      {
+        cancelable: false,
+      }
+    );
+
   return (
     <ImageBackground source={require("../assets/ss.png")} style={styler.image}>
-      <ScrollView>
-        <View style={styler.screen}>
+      <SafeAreaView style={styler.screen}>
+        <ScrollView>
           <View style={styler.titleView}>
-            <Text style={{fontSize: 0.03*screenHeight}}>Select Your Topic</Text>
+            <Text style={{ fontSize: 0.03 * screenHeight }}>
+              Select Your Topic
+            </Text>
           </View>
+
           <View style={styler.checkBoxView}>
             <CheckBox
               checked={all}
@@ -329,17 +346,30 @@ const NewListenerTopic = ({ navigation }) => {
               }}
             />
           </View>
-        </View>
-        <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("Quiz1");
-            }}
-          >
-            <Text style={styler.getStarted}>CONTINUE</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <TouchableOpacity
+              onPress={() => {
+                if (list.length === 0) {
+                  createAlert();
+                } else {
+                  navigation.navigate("Quiz1", {
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    city: city,
+                    country: country,
+                    bio: bio,
+                    list: list,
+                  });
+                }
+              }}
+            >
+              <Text style={styler.getStarted}>CONTINUE</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
     </ImageBackground>
   );
 };
@@ -347,31 +377,31 @@ const NewListenerTopic = ({ navigation }) => {
 export default NewListenerTopic;
 
 const styler = StyleSheet.create({
-  screen:{
-    flex:1,
-    justifyContent:"space-between",
-    paddingVertical:0.08*screenHeight,
-    paddingHorizontal:0.02*screenHeight
-},
-getStarted: {
+  screen: {
+    flex: 1,
+    justifyContent: "space-between",
+    paddingVertical: 0.08 * screenHeight,
+    paddingHorizontal: 0.02 * screenHeight,
+  },
+  getStarted: {
     borderRadius: 15,
-    width: 0.85*screenWidth,
-    height: 0.08*screenHeight,
+    width: 0.85 * screenWidth,
+    height: 0.08 * screenHeight,
     backgroundColor: "#7AC141",
     color: "white",
-    marginHorizontal: 0.015*screenHeight,
+    marginHorizontal: 0.015 * screenHeight,
     textAlign: "center",
     textAlignVertical: "center",
-    fontSize: 0.028*screenHeight,
+    fontSize: 0.028 * screenHeight,
     elevation: 5,
-    marginVertical: '5%'
+    marginVertical: "5%",
   },
-  checkBoxView:{
-      marginVertical:"3%"
+  checkBoxView: {
+    marginVertical: "3%",
   },
-  titleView:{
-      justifyContent:'center',
-      alignItems:'center'
+  titleView: {
+    justifyContent: "center",
+    alignItems: "center",
   },
   image: {
     flex: 1,

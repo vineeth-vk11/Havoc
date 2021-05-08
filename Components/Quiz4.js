@@ -1,124 +1,283 @@
-import React ,{useState,useCallback} from 'react';
-import {View,Text,StyleSheet,Button, TouchableOpacity,ScrollView,Dimensions} from 'react-native';
-import YoutubePlayer from 'react-native-youtube-iframe';
+import React, { useState, useCallback } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  TouchableOpacity,
+  ScrollView,
+  Dimensions,
+  ImageBackground,
+} from "react-native";
+import YoutubePlayer from "react-native-youtube-iframe";
 import RadioForm, {
-    RadioButton,
-    RadioButtonInput,
-    RadioButtonLabel,
-  } from "react-native-simple-radio-button";
-import { SafeAreaView } from 'react-native-safe-area-context';
+  RadioButton,
+  RadioButtonInput,
+  RadioButtonLabel,
+} from "react-native-simple-radio-button";
+import { SafeAreaView } from "react-native-safe-area-context";
 
+import firebase from "firebase";
+require("firebase/firestore");
 
-  const screenWidth= Dimensions.get('window').width;
-const screenHeight=Dimensions.get('window').height;
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
-const Quiz4=()=>{
-    const [isPlaying,setisPlaying]=useState(false);
-     const playingVideo = useCallback(()=>{
-         setisPlaying(prev=>!prev)
-     },[isPlaying]);
-    const videoEnded= useCallback((state)=>{
-        if(state==="ended"){
-            setisPlaying(false);
-        }
-    },[isPlaying]);
-    const [value,setvalue]=useState();
-    const radio_props = [
-        { label:"Do not advice or try to solve their problems", value: 0 },
-        { label: "Do not share too much personal information", value: 1 },
-        {label:"Share personal experiences only when required", value: 2},
-        {label:"Safe and comfortable environment, trust and confidentiality", value:3},
-      ];
-    return (
-      <SafeAreaView style={styler.screen}>
-        <ScrollView >
-            <View style={styler.titleView}>
-                <Text style={{textAlign:'center', fontSize: 0.038*screenHeight}}>
-                    Question 4
-                </Text>
-                <Text style={{fontSize:0.020*screenHeight, color:'grey', marginHorizontal:0.020*screenHeight,
-            marginVertical: 0.014*screenHeight }}>
-                Please watch the video and answer the question
-                </Text>
-            </View>
-      <View style={{height:0.30*screenHeight, width:screenWidth}}>
-       <YoutubePlayer videoId={"7VjbVCSXevQ"}
-       play={true}
-       height="100%"
-       onChangeState={videoEnded}/>
-      </View>
-      <View>
-          <Text style={{color:'black',marginHorizontal:0.025*screenHeight,fontSize:0.023*screenHeight}}>
-              What are the boundaries you set in your chat?
-          </Text>
-      </View>
-      <View style={styler.radioButtons}>
-             <RadioForm formHorizontal={false} animation={true}>
-          {radio_props.map((obj, i) => (
-            <RadioButton labelHorizontal={true} key={i}>
-              <View style={{ flexDirection: "row" }}>
-                <RadioButtonInput
-                  obj={obj}
-                  index={i}
-                  isSelected={value === i}
-                  onPress={(value) => {
-                    setvalue(value);
-                  }}
-                  borderWidth={2}
-                  buttonInnerColor={"#7AC141"}
-                  buttonOuterColor={value === i ? "#7AC141" : "#DADADA"}
-                  buttonSize={16}
-                  buttonOuterSize={23}
-                  buttonStyle={{ marginRight: 0.01*screenHeight, marginBottom: 0.015*screenHeight}}
-                  buttonWrapStyle={{ marginLeft: 0.01*screenHeight }}
-                />
-                <RadioButtonLabel
-                  obj={obj}
-                  index={i}
-                  labelHorizontal={true}
-                  onPress={(value) => {
-                    setvalue(value);
-                  }}
-                  labelStyle={{ fontSize: 0.02*screenHeight, color: "rgba(18, 18, 18)" }}
-                  labelWrapStyle={{}}
-                />
-              </View>
-            </RadioButton>
-          ))}
-        </RadioForm>
-     </View>
-     <View style={{justifyContent:'center',alignItems:'center', marginBottom:0.02*screenHeight}}>
-     <TouchableOpacity>
-          <Text style={styler.getStarted}>CONTINUE</Text>
-        </TouchableOpacity>
-        </View>
-        </ScrollView>
-        </SafeAreaView>
+const Quiz4 = ({ navigation, route }) => {
+  const {
+    firstName,
+    lastName,
+    email,
+    city,
+    country,
+    bio,
+    list,
+    answer1,
+    answer2,
+    answer3,
+  } = route.params;
+
+  const [isPlaying, setisPlaying] = useState(false);
+  const playingVideo = useCallback(() => {
+    setisPlaying((prev) => !prev);
+  }, [isPlaying]);
+  const videoEnded = useCallback(
+    (state) => {
+      if (state === "ended") {
+        setisPlaying(false);
+      }
+    },
+    [isPlaying]
+  );
+  const [value, setvalue] = useState();
+  const radio_props = [
+    { label: "Do not advice or try to solve their problems", value: 0 },
+    { label: "Do not share too much personal information", value: 1 },
+    { label: "Share personal experiences only when required", value: 2 },
+    {
+      label: "Safe and comfortable environment, trust and confidentiality",
+      value: 3,
+    },
+  ];
+
+  const [answersList, setAnswersList] = useState([]);
+
+  function getOccurrence(array, value) {
+    var count = 0;
+    array.forEach((v) => v === value && count++);
+    return count;
+  }
+
+  const [answer4, setAnswer4] = useState("");
+
+  const createAlert = () =>
+    Alert.alert(
+      "No Option Selected",
+      "Please select an option continue",
+      [{ text: "OK", onPress: () => {} }],
+      {
+        cancelable: false,
+      }
     );
-}
+
+  return (
+    <ImageBackground source={require("../assets/ss.png")} style={styler.image}>
+      <SafeAreaView style={styler.screen}>
+        <ScrollView>
+          <View style={styler.titleView}>
+            <Text
+              style={{ textAlign: "center", fontSize: 0.038 * screenHeight }}
+            >
+              Question 4
+            </Text>
+            <Text
+              style={{
+                fontSize: 0.02 * screenHeight,
+                color: "grey",
+                marginHorizontal: 0.02 * screenHeight,
+                marginVertical: 0.014 * screenHeight,
+              }}
+            >
+              Please watch the video and answer the question
+            </Text>
+          </View>
+          <View style={{ height: 0.3 * screenHeight, width: screenWidth }}>
+            <YoutubePlayer
+              videoId={"-mlRqtbZ4sg"}
+              play={false}
+              height="100%"
+              onChangeState={videoEnded}
+            />
+          </View>
+          <View>
+            <Text
+              style={{
+                color: "black",
+                marginHorizontal: 0.025 * screenHeight,
+                fontSize: 0.023 * screenHeight,
+                marginTop: 20,
+              }}
+            >
+              What are the boundaries you set in your chat?
+            </Text>
+          </View>
+          <View style={styler.radioButtons}>
+            <RadioForm formHorizontal={false} animation={true}>
+              {radio_props.map((obj, i) => (
+                <RadioButton labelHorizontal={true} key={i}>
+                  <View style={{ flexDirection: "row" }}>
+                    <RadioButtonInput
+                      obj={obj}
+                      index={i}
+                      isSelected={value === i}
+                      onPress={(value) => {
+                        if (value === 3) {
+                          setAnswer4(false);
+                        } else {
+                          setAnswer4(true);
+                        }
+                        setvalue(value);
+                      }}
+                      borderWidth={2}
+                      buttonInnerColor={"#7AC141"}
+                      buttonOuterColor={value === i ? "#7AC141" : "#000"}
+                      buttonSize={12}
+                      buttonOuterSize={22}
+                      buttonStyle={{
+                        marginRight: 0.01 * screenHeight,
+                        marginBottom: 0.015 * screenHeight,
+                      }}
+                      buttonWrapStyle={{ marginLeft: 0.01 * screenHeight }}
+                    />
+                    <RadioButtonLabel
+                      obj={obj}
+                      index={i}
+                      labelHorizontal={true}
+                      onPress={(value) => {
+                        if (value === 3) {
+                          setAnswer4(false);
+                        } else {
+                          setAnswer4(true);
+                        }
+                        setvalue(value);
+                      }}
+                      labelStyle={{
+                        fontSize: 0.02 * screenHeight,
+                        color: "#000",
+                      }}
+                      labelWrapStyle={{}}
+                    />
+                  </View>
+                </RadioButton>
+              ))}
+            </RadioForm>
+          </View>
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom: 0.02 * screenHeight,
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => {
+                if (answer4 === "") {
+                  createAlert();
+                } else {
+                  answersList.push(answer1);
+                  answersList.push(answer2);
+                  answersList.push(answer3);
+                  answersList.push(answer4);
+
+                  if (getOccurrence(answersList, true) > 2) {
+                    var currentUser = firebase.auth().currentUser.uid;
+
+                    firebase
+                      .firestore()
+                      .collection("users")
+                      .doc(currentUser)
+                      .get()
+                      .then((documentSnapshot) => {
+                        console.log(documentSnapshot.data());
+
+                        var age = documentSnapshot.data()["age"];
+                        var gender = documentSnapshot.data()["gender"];
+
+                        firebase
+                          .firestore()
+                          .collection("Listeners")
+                          .doc(currentUser)
+                          .set({
+                            age: age,
+                            gender: gender,
+                            name: firstName,
+                            lastName: lastName,
+                            email: email,
+                            city: city,
+                            country: country,
+                            bio: bio,
+                            topic: list,
+                            sessions: 0,
+                          })
+                          .then(() => {
+                            firebase
+                              .firestore()
+                              .collection("users")
+                              .doc(currentUser)
+                              .update({
+                                isListener: true,
+                              })
+                              .then(() => {
+                                navigation.navigate("BecomeListenerResult", {
+                                  result: true,
+                                });
+                              });
+                          });
+                      });
+                  } else {
+                    navigation.navigate("BecomeListenerResult", {
+                      result: false,
+                    });
+                  }
+                }
+              }}
+            >
+              <Text style={styler.getStarted}>CONTINUE</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </ImageBackground>
+  );
+};
 
 export default Quiz4;
 
-const styler=StyleSheet.create({
-    screen:{
-        flex:1,
-        paddingVertical:0.03*screenHeight,
-        justifyContent:'space-between'
-    },
-    radioButtons:{
-        width:screenWidth,  
-        paddingLeft:0.015*screenHeight,
-        marginVertical:0.018*screenHeight,
-    },
-    getStarted: {
-        borderRadius: 15,
-        width: 0.85*screenWidth,
-        height: 0.08*screenHeight,
-        backgroundColor: "#7AC141",
-        color: "white",
-        textAlign: "center",
-        textAlignVertical: "center",
-        fontSize: 0.03*screenHeight,
-        elevation: 5,
-      }
+const styler = StyleSheet.create({
+  screen: {
+    flex: 1,
+    paddingVertical: 0.03 * screenHeight,
+    justifyContent: "space-between",
+  },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+  },
+  radioButtons: {
+    width: screenWidth,
+    paddingLeft: 0.015 * screenHeight,
+    marginVertical: 0.018 * screenHeight,
+  },
+  getStarted: {
+    borderRadius: 15,
+    width: 0.85 * screenWidth,
+    height: 0.08 * screenHeight,
+    backgroundColor: "#7AC141",
+    color: "white",
+    textAlign: "center",
+    textAlignVertical: "center",
+    fontSize: 0.03 * screenHeight,
+    elevation: 5,
+  },
 });
