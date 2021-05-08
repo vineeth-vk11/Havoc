@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -8,10 +8,13 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  Dimensions
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { Button } from "react-native-elements";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
+const screenWidth= Dimensions.get('window').width;
+const screenHeight=Dimensions.get('window').height;
 
 const TherapyProduct = ({ navigation, route }) => {
   const { name, description, cost, image } = route.params;
@@ -26,25 +29,25 @@ const TherapyProduct = ({ navigation, route }) => {
                 name="arrow-back"
                 type="ionicon"
                 color="#979797"
-                style={{ marginTop: 10, marginLeft: 20 }}
+                style={{ marginTop: 0.015*screenHeight, marginLeft: 0.019*screenHeight }}
               />
             </TouchableOpacity>
-            <Text style={{ fontSize: 24, marginTop: 10 }}>Therapy Product</Text>
+            <Text style={{ fontSize: 0.025*screenHeight, marginTop: 0.015*screenHeight }}>Therapy Product</Text>
             <TouchableOpacity>
               <Icon name="arrow-back" type="ionicon" color="#ffff" />
             </TouchableOpacity>
           </View>
         </View>
 
-        <View style={styler.imageView}>
-          <Image style={styler.meditation} source={{ uri: image[0] }} />
+       <View style={styler.imageView}>
+          <Image style={styler.meditation} source={{uri: image[0]}} />
         </View>
         <View style={styler.meditationView}>
           <View style={styler.meditationTexts}>
-            <Text style={{ fontSize: 22 }}>{name}</Text>
-            <Text style={{ fontSize: 22 }}>{"₹ " + cost}</Text>
+            <Text style={{ fontSize: 0.03*screenHeight }}>{name}</Text>
+            <Text style={{ fontSize: 0.03*screenHeight }}>{"₹ " + cost}</Text>
           </View>
-          <View style={{ margin: 10 }}>
+          <View style={{ margin: 0.015*screenHeight }}>
             <Text>{description}</Text>
           </View>
         </View>
@@ -58,7 +61,7 @@ const TherapyProduct = ({ navigation, route }) => {
             <Button
               titleStyle={{ color: "#7AC141" }}
               raised
-              containerStyle={{ width: 100, margin: 10 }}
+              containerStyle={{ width: 0.35*screenWidth, margin: 0.015*screenHeight }}
               buttonStyle={{
                 padding: 5,
                 borderColor: "#7AC141",
@@ -87,31 +90,26 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 35,
-    margin: 10,
+    marginTop: 0.05*screenHeight,
+    margin: 0.015*screenHeight,
   },
   meditation: {
-    width: 258,
-    height: 172,
-  },
-  tinyLogo: {
-    width: 114,
-    height: 114,
-    borderRadius: 100,
+    width: 0.8*screenWidth,
+    height: 0.27*screenHeight,
   },
   meditationTexts: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    margin: 10,
+    margin: 0.02*screenHeight,
   },
   applyCoupon: {
-    padding: 10,
+    padding: 0.015*screenHeight,
     borderColor: "#7AC141",
     borderRadius: 5,
     borderWidth: 1,
-    width: 198,
-    height: 35,
+    width: 0.55*screenWidth,
+    height: 0.054*screenHeight,
     color: "#828282",
     justifyContent: "center",
   },
@@ -119,19 +117,19 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    marginTop: 20,
-    margin: 10,
+    marginTop: 0.025*screenHeight,
+    margin: 0.015*screenHeight,
   },
   bookNow: {
     justifyContent: "flex-end",
     borderRadius: 15,
-    width: 310,
-    height: 52,
+    width: 0.85*screenWidth,
+    height: 0.08*screenHeight,
     backgroundColor: "#7AC141",
     color: "white",
     textAlign: "center",
     textAlignVertical: "center",
-    fontSize: 20,
+    fontSize: 0.025*screenHeight,
   },
   screen: { flex: 1 },
   headView: {
@@ -141,17 +139,17 @@ const styler = StyleSheet.create({
     flex: 0.25,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 24,
+    marginTop: 0.03*screenHeight,
   },
   meditationView: {
     flex: 0.25,
-    paddingTop: 10,
+    paddingTop: 0.015*screenHeight,
   },
   promoView: { flex: 0.2, justifyContent: "center" },
   footView: {
     flex: 0.15,
     alignItems: "center",
     justifyContent: "flex-end",
-    marginBottom: 50,
+    marginBottom: 0.1*screenHeight,
   },
 });

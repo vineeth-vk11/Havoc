@@ -28,8 +28,15 @@ import BookCallDateTime from "./Components/BookCallDateTime";
 import DedicatedChats from "./Components/DedicatedChats";
 import EnterOTP from "./Components/EnterOTP";
 import ListenerDB from "./Components/ListenerDB";
+import GiveFeedback from './Components/GiveFeedback';
+import ReportNEnd from './Components/ReportNEnd';
 import JournalChat from "./Components/JournalChat";
 import DedicatedChatting from "./Components/DedicatedChatting";
+import Quiz1 from './Components/Quiz1';
+import Quiz2 from './Components/Quiz2';
+import Quiz3 from './Components/Quiz3';
+import Quiz4 from './Components/Quiz4';
+import NewListenerInfo from './Components/NewListenerInfo';
 
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -37,9 +44,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 import * as firebase from "firebase";
 import { LogBox } from "react-native";
 import HowYouFeel from "./Components/HowYouFeel";
+import NewListenerTopic from "./Components/NewListenerTopic";
 
 LogBox.ignoreLogs(["Setting a timer"]);
-
 // Initialize Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyBQAMKTj8n5N6RTHtSHQfZ4099O6CdwTqA",

@@ -5,7 +5,7 @@ import {
   SafeAreaView,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
+  Dimensions,
   ActivityIndicator,
 } from "react-native";
 import { Icon } from "react-native-elements";
@@ -14,6 +14,9 @@ import { ListItem } from "react-native-elements";
 import firebase from "firebase";
 import { FlatList } from "react-native-gesture-handler";
 require("firebase/firestore");
+
+const screenWidth= Dimensions.get('window').width;
+const screenHeight=Dimensions.get('window').height;
 
 const Therapies = ({ navigation }) => {
   const [search, setsearch] = useState();
@@ -50,11 +53,11 @@ const Therapies = ({ navigation }) => {
       <View style={styler.head}>
         <TouchableOpacity>
           <Icon
-            style={{ marginTop: 10, marginLeft: 32 }}
+            style={{ marginTop: 0.025*screenHeight, marginLeft: 0.035*screenHeight }}
             name="arrow-back"
             type="ionicon"
             color="#979797"
-            size={30}
+            size={0.036*screenHeight}
           />
         </TouchableOpacity>
         <Text style={{ fontSize: 24, fontWeight: "bold", marginTop: 10 }}>
@@ -64,7 +67,7 @@ const Therapies = ({ navigation }) => {
           <Icon reverse name="person" type="ionicon" color="#ffff" />
         </TouchableOpacity>
       </View>
-      <View style={{ padding: 10 }}>
+      <View style={{ padding: 0.024*screenHeight }}>
         <SearchBar
           containerStyle={{
             backgroundColor: "white",
@@ -74,9 +77,9 @@ const Therapies = ({ navigation }) => {
             borderTopWidth: 1,
             borderTopColor: "#7AC141",
             borderBottomColor: "#7AC141",
-            height: 48,
+            height: 0.07*screenHeight,
           }}
-          inputContainerStyle={{ backgroundColor: "white", height: 32 }}
+          inputContainerStyle={{ backgroundColor: "white", height: 0.035*screenHeight }}
           placeholder="Search therapy name"
           onChangeText={(value) => setsearch(value)}
           value={search}
@@ -96,15 +99,15 @@ const Therapies = ({ navigation }) => {
                 });
               }}
             >
-              <View style={{ padding: 3, paddingRight: 5, paddingLeft: 5 }}>
+              <View style={{ padding: 0.01*screenHeight, paddingRight: 0.015*screenHeight, paddingLeft: 0.015*screenHeight }}>
                 <ListItem
-                  containerStyle={{ backgroundColor: "#F8F8F8", height: 55 }}
+                  containerStyle={{ backgroundColor: "#F8F8F8", height: 0.08*screenHeight }}
                 >
                   <ListItem.Content>
                     <ListItem.Title>{item.name}</ListItem.Title>
                     <ListItem.Subtitle>{"₹ " + item.cost}</ListItem.Subtitle>
                   </ListItem.Content>
-                  <ListItem.Chevron size={35} />
+                  <ListItem.Chevron size={0.04*screenHeight} />
                 </ListItem>
               </View>
             </TouchableOpacity>
@@ -122,6 +125,6 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 30,
+    marginTop: 0.04*screenHeight,
   },
 });

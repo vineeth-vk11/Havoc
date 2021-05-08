@@ -2,25 +2,25 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-  SafeAreaView,
-  Image,
   StyleSheet,
   TouchableOpacity,
   TextInput,
-  ScrollView,
-  KeyboardAvoidingView,
+  Dimensions
 } from "react-native";
 import RadioForm, {
   RadioButton,
   RadioButtonInput,
   RadioButtonLabel,
 } from "react-native-simple-radio-button";
-import { Rating, AirbnbRating } from "react-native-elements";
+import { Rating} from "react-native-elements";
 var radio_props = [
   { label: "Yes", value: 0 },
   { label: "Not Sure", value: 1 },
   { label: "No", value: 2 },
 ];
+
+const screenWidth= Dimensions.get('window').width;
+const screenHeight=Dimensions.get('window').height;
 
 const AgeOfListner = ({ navigation, route }) => {
   const [value, setvalue] = useState();
@@ -38,7 +38,7 @@ const AgeOfListner = ({ navigation, route }) => {
     <View style={styler.screen}>
       <View style={styler.headView}>
         <View style={styler.head}>
-          <Text style={{ fontSize: 30, fontWeight: "bold" }}>Review</Text>
+          <Text style={{ fontSize: 0.04*screenHeight, fontWeight: "bold" }}>Review</Text>
         </View>
       </View>
       <View style={styler.formView}>
@@ -59,8 +59,8 @@ const AgeOfListner = ({ navigation, route }) => {
                   buttonOuterColor={value === i ? "#7AC141" : "#DADADA"}
                   buttonSize={16}
                   buttonOuterSize={24}
-                  buttonStyle={{ marginRight: 20, marginBottom: 10 }}
-                  buttonWrapStyle={{ marginLeft: 10 }}
+                  buttonStyle={{ marginRight: 0.025*screenHeight, marginBottom: 0.015*screenHeight }}
+                  buttonWrapStyle={{ marginLeft: 0.015*screenHeight }}
                 />
                 <RadioButtonLabel
                   obj={obj}
@@ -69,7 +69,7 @@ const AgeOfListner = ({ navigation, route }) => {
                   onPress={(value) => {
                     setvalue(value);
                   }}
-                  labelStyle={{ fontSize: 20, color: "rgba(18, 18, 18, 0.5)" }}
+                  labelStyle={{ fontSize: 17, color: "rgba(18, 18, 18, 0.5)" }}
                   labelWrapStyle={{}}
                 />
               </View>
@@ -109,8 +109,8 @@ const AgeOfListner = ({ navigation, route }) => {
           onPress={() => {
             navigation.navigate("Register3");
           }}
-        >
-          <Text style={styler.complete}>Complete</Text>
+       >
+          <Text style={styler.complete}>COMPLETE</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -124,36 +124,37 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 20,
+    marginTop: 0.06*screenHeight,
   },
   better: {
-    fontSize: 20,
+    fontSize: 0.035*screenHeight,
     textAlign: "left",
     marginBottom: "5%",
   },
   complete: {
     borderRadius: 15,
-    width: 310,
-    height: 52,
+    width: 0.8*screenWidth,
+    height: 0.08*screenHeight,
     backgroundColor: "#7AC141",
     color: "white",
     textAlign: "center",
     textAlignVertical: "center",
-    fontSize: 20,
+    fontSize: 0.035*screenHeight,
+    elevation: 5
   },
   review: {
     padding: 10,
     borderColor: "black",
-    width: 310,
-    height: 52,
+    width: 0.8*screenWidth,
+    height: 0.08*screenHeight,
     color: "#828282",
     justifyContent: "center",
     backgroundColor: "#f5f6fa",
-    margin: 15,
+    margin: 0.02*screenHeight,
   },
   screen: {
     flex: 1,
-    padding: "4%",
+    padding: 0.02*screenHeight,
     justifyContent: "space-between",
   },
   headView: {
@@ -165,16 +166,16 @@ const styler = StyleSheet.create({
   },
   rateView: {},
   reviewView: {
-    marginBottom: "3%",
+    marginBottom: 0.02*screenHeight,
   },
   footView: {
     justifyContent: "flex-end",
-    marginBottom: 50,
+    marginBottom: 0.08*screenHeight,
     justifyContent: "flex-end",
     alignItems: "center",
   },
   ratingView: {
-    marginHorizontal: "7%",
+    marginHorizontal: 0.04*screenHeight,
     justifyContent: "flex-start",
     alignItems: "flex-start",
   },
