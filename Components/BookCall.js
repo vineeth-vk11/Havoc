@@ -8,69 +8,92 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  ImageBackground,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { Button } from "react-native-elements";
-const BookCall = () => {
+
+import firebase from "firebase";
+require("firebase/firestore");
+
+const BookCall = ({ navigation }) => {
   return (
-    <SafeAreaView style={styler.screen}>
-      <View style={styler.headView}>
-        <View style={styler.head}>
+    <ImageBackground
+      source={require("../assets/ss.png")}
+      style={styler.imageBg}
+    >
+      <SafeAreaView style={styler.screen}>
+        <View style={styler.headView}>
+          <View style={styler.head}>
+            <View style={{ flex: 0.2, alignContent: "flex-start" }}>
+              <TouchableOpacity
+                onPress={() => {
+                  var currentUser = firebase.auth().currentUser.uid;
+
+                  firebase
+                    .firestore()
+                    .collection("users")
+                    .doc(currentUser)
+                    .get()
+                    .then((documentSnapshot) => {
+                      var isListener = documentSnapshot.data()["isListener"];
+
+                      if (isListener) {
+                        navigation.navigate("ListenerDB");
+                      } else {
+                        navigation.navigate("Register3");
+                      }
+                    });
+                }}
+              >
+                <Icon name="arrow-back" type="ionicon" color="#000" />
+              </TouchableOpacity>
+            </View>
+
+            <View
+              style={{
+                flex: 0.8,
+                alignContent: "flex-start",
+                marginLeft: "15%",
+              }}
+            >
+              <Text style={{ fontSize: 24, fontWeight: "bold" }}>
+                Book a Call
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View style={styler.meditationView}>
+          <View style={styler.callView}>
+            <Text style={{ fontSize: 22, marginLeft: 16 }}>Call</Text>
+            <Text style={{ fontSize: 22, marginRight: 16 }}>₹ 250</Text>
+          </View>
+          <View style={{ margin: 16, textAlign: "center" }}>
+            <Text style={{ fontSize: 20, textAlign: "center" }}>
+              Quick help. Any Device, where ever you are in the world
+            </Text>
+            <Text
+              style={{
+                fontSize: 20,
+                textAlign: "center",
+                marginTop: 10,
+                fontWeight: "bold",
+              }}
+            >
+              Communicate your way
+            </Text>
+            <Text style={{ fontSize: 20, textAlign: "center", marginTop: 10 }}>
+              Video | Call | Chat | Messaging
+            </Text>
+          </View>
+        </View>
+        <View style={styler.footView}>
           <TouchableOpacity>
-            <Icon name="arrow-back" type="ionicon" color="#979797" />
-          </TouchableOpacity>
-          <Text style={{ fontSize: 24, fontWeight: "bold" }}>Book a Call</Text>
-          <TouchableOpacity>
-            <Icon name="arrow-back" type="ionicon" color="#ffff" />
+            <Text style={styler.bookNow}>BOOK NOW</Text>
           </TouchableOpacity>
         </View>
-      </View>
-      <View style={styler.meditationView}>
-        <View style={styler.callView}>
-          <Text style={{ fontSize: 22 }}>Call</Text>
-          <Text style={{ fontSize: 22 }}>₹ 250</Text>
-        </View>
-        <View style={{ margin: 10 }}>
-          <Text>
-            {" "}
-            Meditation is a practice where an individual uses a technique – such
-            as mindfulness, or focusing the mind on a particular object,
-            thought, or activity – to train attention and awareness, and achieve
-            a mentally clear and emotionally calm and stable state.
-          </Text>
-          <Text style={{ fontSize: 15, margin: 10 }}>
-            Duration: 25 minutes per day
-          </Text>
-        </View>
-      </View>
-      <View style={styler.promoView}>
-        <View style={styler.promo}>
-          <TextInput
-            style={styler.applyCoupon}
-            placeholder={"Got a promo code?"}
-            placeholderTextColor="#000"
-          ></TextInput>
-          <Button
-            raised
-            titleStyle={{ color: "#7AC141" }}
-            containerStyle={{ width: 100, margin: 10 }}
-            buttonStyle={{
-              padding: 5,
-              borderColor: "#7AC141",
-              borderWidth: 1,
-              borderRadius: 5,
-            }}
-            title="APPLY"
-            type="outline"
-          />
-        </View>
-      </View>
-      <View style={styler.footView}>
-        <TouchableOpacity>
-          <Text style={styler.bookNow}>BOOK NOW</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </ImageBackground>
   );
 };
 
@@ -83,6 +106,11 @@ const styler = StyleSheet.create({
     justifyContent: "space-between",
     marginTop: 35,
     margin: 10,
+  },
+  imageBg: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
   },
   medication: {
     width: 258,
@@ -136,13 +164,14 @@ const styler = StyleSheet.create({
   screen: { flex: 1 },
   headView: {
     flex: 0.15,
+    marginTop: 20,
   },
   meditationView: {
     flex: 0.55,
   },
   promoView: { flex: 0.1, justifyContent: "center" },
   footView: {
-    flex: 0.2,
+    flex: 0.3,
     alignItems: "center",
     justifyContent: "flex-end",
     marginBottom: 50,

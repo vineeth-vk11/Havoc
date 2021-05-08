@@ -30,6 +30,12 @@ import EnterOTP from "./Components/EnterOTP";
 import ListenerDB from "./Components/ListenerDB";
 import JournalChat from "./Components/JournalChat";
 import DedicatedChatting from "./Components/DedicatedChatting";
+import NewListenerInfo from "./Components/NewListenerInfo";
+import NewListenerTopic from "./Components/NewListenerTopic";
+import Quiz1 from "./Components/Quiz1";
+import Quiz2 from "./Components/Quiz2";
+import Quiz3 from "./Components/Quiz3";
+import Quiz4 from "./Components/Quiz4";
 
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -104,6 +110,12 @@ function App() {
         <Stack.Screen name="DedicatedChats" component={DedicatedChats} />
         <Stack.Screen name="JournalChat" component={JournalChat} />
         <Stack.Screen name="DedicatedChatting" component={DedicatedChatting} />
+        <Stack.Screen name="NewListenerInfo" component={NewListenerInfo} />
+        <Stack.Screen name="NewListenerTopic" component={NewListenerTopic} />
+        <Stack.Screen name="Quiz1" component={Quiz1} />
+        <Stack.Screen name="Quiz2" component={Quiz2} />
+        <Stack.Screen name="Quiz3" component={Quiz3} />
+        <Stack.Screen name="Quiz4" component={Quiz4} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -104,12 +104,12 @@ const Profile = ({ navigation }) => {
                 key={item.title}
                 onPress={() => {
                   if (item.title === "Call History") {
-                    // navigation.navigate("CallHistory");
+                    navigation.navigate("CallHistory");
                   } else if (item.title === "Listener Age Range") {
                   } else if (item.title === "Therapies") {
                     navigation.navigate("Therapies");
                   } else if (item.title === "My Therapies") {
-                    navigation.navigate("MyTherapies");
+                    // navigation.navigate("MyTherapies");
                   }
                 }}
               >

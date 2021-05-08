@@ -27,9 +27,17 @@ function MainChat({ navigation, route }) {
   const [messages, setMessages] = useState([]);
   const { chatId, listenerId, type, listenerName, topic } = route.params;
   const [loading, setLoading] = useState(true);
+  const [initialMessage, setInititalMessage] = useState(false);
 
-  console.log(type);
+  var feeling, onMind;
 
+  if (type === "seeker") {
+    feeling = route.params.feeling;
+    onMind = route.params.onMind;
+
+    console.log(feeling);
+    console.log(onMind);
+  }
   var currentUser = firebase.auth().currentUser.uid;
 
   const [visible, setVisible] = useState(false);
@@ -50,6 +58,26 @@ function MainChat({ navigation, route }) {
   useEffect(() => {
     if (firebase.auth().currentUser) {
       var currentUser = firebase.auth().currentUser.uid;
+
+      var message = "I am feeling " + feeling + ". " + onMind;
+      console.log(message);
+
+      if (!initialMessage) {
+        firebase.database().ref(`/Chats/${currentUser}/${chatId}`).push({
+          message: message,
+          receivedUser: listenerId,
+          sentUser: currentUser,
+        });
+
+        firebase.database().ref(`/Chats/${listenerId}/${chatId}`).push({
+          message: message,
+          receivedUser: listenerId,
+          sentUser: currentUser,
+        });
+
+        setInititalMessage(true);
+      }
+
       firebase
         .database()
         .ref(`/Chats/${currentUser}/${chatId}`)
