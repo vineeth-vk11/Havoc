@@ -45,36 +45,6 @@ const Register1 = ({ navigation }) => {
     : undefined;
 
   const attemptInvisibleVerification = true;
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (firebase.auth().currentUser) {
-      var user = firebase.auth().currentUser.uid;
-      firebase
-        .firestore()
-        .collection("users")
-        .doc(user)
-        .get()
-        .then((documentSnapshot) => {
-          if (!documentSnapshot.exists) {
-            navigation.navigate("Register2");
-            console.log("Hi");
-          } else {
-            if (documentSnapshot.data()["isListener"]) {
-              navigation.navigate("ListenerDB");
-            } else {
-              navigation.navigate("Register3");
-            }
-          }
-        });
-    } else {
-      setLoading(false);
-    }
-  }, []);
-
-  if (loading) {
-    return <ActivityIndicator />;
-  }
 
   return (
     <ImageBackground

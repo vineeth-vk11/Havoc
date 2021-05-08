@@ -1,128 +1,233 @@
-import React ,{useState,useCallback} from 'react';
-import {View,Text,StyleSheet,Button, TouchableOpacity,ScrollView,Dimensions} from 'react-native';
-import YoutubePlayer from 'react-native-youtube-iframe';
+import React, { useState, useCallback } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  TouchableOpacity,
+  ScrollView,
+  Dimensions,
+  ImageBackground,
+} from "react-native";
+import YoutubePlayer from "react-native-youtube-iframe";
 import RadioForm, {
-    RadioButton,
-    RadioButtonInput,
-    RadioButtonLabel,
-  } from "react-native-simple-radio-button";
-import { SafeAreaView } from 'react-native-safe-area-context';
+  RadioButton,
+  RadioButtonInput,
+  RadioButtonLabel,
+} from "react-native-simple-radio-button";
+import { SafeAreaView } from "react-native-safe-area-context";
 
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
-  const screenWidth= Dimensions.get('window').width;
-const screenHeight=Dimensions.get('window').height;
+const Quiz3 = ({ navigation, route }) => {
+  const {
+    firstName,
+    lastName,
+    email,
+    city,
+    country,
+    bio,
+    list,
+    answer1,
+    answer2,
+  } = route.params;
 
-const Quiz3=()=>{
-    const [isPlaying,setisPlaying]=useState(false);
-     const playingVideo = useCallback(()=>{
-         setisPlaying(prev=>!prev)
-     },[isPlaying]);
-    const videoEnded= useCallback((state)=>{
-        if(state==="ended"){
-            setisPlaying(false);
-        }
-    },[isPlaying]);
-    const [value,setvalue]=useState();
-    const radio_props = [
-        { label:"By providing them time and space to openly talk about their issues", 
-        value: 0 },
-        { label: "Listen to them with acceptance and validation", 
-        value: 1 },
-        {label:"Be mindful of their emotions", 
-        value: 2},
-        {label:"Giving casual advice and guiding them various perspectives", 
-        value:3},
-      ];
-    return (
-      <SafeAreaView style={styler.screen}>
-        <ScrollView >
-            <View style={styler.titleView}>
-                <Text style={{textAlign:'center', fontSize: 0.038*screenHeight}}>
-                    Question 3
-                </Text>
-                <Text style={{fontSize:0.020*screenHeight, color:'grey', marginHorizontal:0.020*screenHeight,
-            marginVertical: 0.014*screenHeight }}>
-                Please watch the video and answer the question
-                </Text>
-            </View>
-      <View style={{height:0.30*screenHeight, width:screenWidth}}>
-       <YoutubePlayer videoId={"7VjbVCSXevQ"}
-       play={true}
-       height="100%"
-       onChangeState={videoEnded}/>
-      </View>
-      <View>
-          <Text style={{color:'black',marginHorizontal:0.025*screenHeight,fontSize:0.023*screenHeight}}>
-              How would you help the person without providing them with solutions?
-          </Text>
-      </View>
-      <View style={styler.radioButtons}>
-             <RadioForm formHorizontal={false} animation={true}>
-          {radio_props.map((obj, i) => (
-            <RadioButton labelHorizontal={true} key={i}>
-              <View style={{ flexDirection: "row" }}>
-                <RadioButtonInput
-                  obj={obj}
-                  index={i}
-                  isSelected={value === i}
-                  onPress={(value) => {
-                    setvalue(value);
-                  }}
-                  borderWidth={2}
-                  buttonInnerColor={"#7AC141"}
-                  buttonOuterColor={value === i ? "#7AC141" : "#DADADA"}
-                  buttonSize={16}
-                  buttonOuterSize={23}
-                  buttonStyle={{ marginRight: 0.01*screenHeight, marginBottom: 0.015*screenHeight}}
-                  buttonWrapStyle={{ marginLeft: 0.01*screenHeight }}
-                />
-                <RadioButtonLabel
-                  obj={obj}
-                  index={i}
-                  labelHorizontal={true}
-                  onPress={(value) => {
-                    setvalue(value);
-                  }}
-                  labelStyle={{ fontSize: 0.02*screenHeight, color: "rgba(18, 18, 18)" }}
-                  labelWrapStyle={{}}
-                />
-              </View>
-            </RadioButton>
-          ))}
-        </RadioForm>
-     </View>
-     <View style={{justifyContent:'center',alignItems:'center', marginBottom:0.02*screenHeight}}>
-     <TouchableOpacity>
-          <Text style={styler.getStarted}>CONTINUE</Text>
-        </TouchableOpacity>
-        </View>
-        </ScrollView>
-        </SafeAreaView>
+  const [isPlaying, setisPlaying] = useState(false);
+  const playingVideo = useCallback(() => {
+    setisPlaying((prev) => !prev);
+  }, [isPlaying]);
+  const videoEnded = useCallback(
+    (state) => {
+      if (state === "ended") {
+        setisPlaying(false);
+      }
+    },
+    [isPlaying]
+  );
+  const [value, setvalue] = useState();
+  const radio_props = [
+    {
+      label:
+        "By providing them time and space to openly talk about their issues",
+      value: 0,
+    },
+    { label: "Listen to them with acceptance and validation", value: 1 },
+    { label: "Be mindful of their emotions", value: 2 },
+    {
+      label: "Giving casual advice and guiding them various perspectives",
+      value: 3,
+    },
+  ];
+
+  const [answer3, setAnswer3] = useState("");
+
+  const createAlert = () =>
+    Alert.alert(
+      "No Option Selected",
+      "Please select an option continue",
+      [{ text: "OK", onPress: () => {} }],
+      {
+        cancelable: false,
+      }
     );
-}
+
+  return (
+    <ImageBackground source={require("../assets/ss.png")} style={styler.image}>
+      <SafeAreaView style={styler.screen}>
+        <ScrollView>
+          <View style={styler.titleView}>
+            <Text
+              style={{ textAlign: "center", fontSize: 0.038 * screenHeight }}
+            >
+              Question 3
+            </Text>
+            <Text
+              style={{
+                fontSize: 0.02 * screenHeight,
+                color: "grey",
+                marginHorizontal: 0.02 * screenHeight,
+                marginVertical: 0.014 * screenHeight,
+              }}
+            >
+              Please watch the video and answer the question
+            </Text>
+          </View>
+          <View style={{ height: 0.3 * screenHeight, width: screenWidth }}>
+            <YoutubePlayer
+              videoId={"G0DtWpmK8rU"}
+              play={false}
+              height="100%"
+              onChangeState={videoEnded}
+            />
+          </View>
+          <View>
+            <Text
+              style={{
+                color: "black",
+                marginHorizontal: 0.025 * screenHeight,
+                fontSize: 0.023 * screenHeight,
+                marginTop: 20,
+              }}
+            >
+              How would you help the person without providing them with
+              solutions?
+            </Text>
+          </View>
+          <View style={styler.radioButtons}>
+            <RadioForm formHorizontal={false} animation={true}>
+              {radio_props.map((obj, i) => (
+                <RadioButton labelHorizontal={true} key={i}>
+                  <View style={{ flexDirection: "row" }}>
+                    <RadioButtonInput
+                      obj={obj}
+                      index={i}
+                      isSelected={value === i}
+                      onPress={(value) => {
+                        if (value === 3) {
+                          setAnswer3(false);
+                        } else {
+                          setAnswer3(true);
+                        }
+                        setvalue(value);
+                      }}
+                      borderWidth={2}
+                      buttonInnerColor={"#7AC141"}
+                      buttonOuterColor={value === i ? "#7AC141" : "#000"}
+                      buttonSize={12}
+                      buttonOuterSize={22}
+                      buttonStyle={{
+                        marginRight: 0.01 * screenHeight,
+                        marginBottom: 0.015 * screenHeight,
+                      }}
+                      buttonWrapStyle={{ marginLeft: 0.01 * screenHeight }}
+                    />
+                    <RadioButtonLabel
+                      obj={obj}
+                      index={i}
+                      labelHorizontal={true}
+                      onPress={(value) => {
+                        if (value === 3) {
+                          setAnswer3(false);
+                        } else {
+                          setAnswer3(true);
+                        }
+                        setvalue(value);
+                      }}
+                      labelStyle={{
+                        fontSize: 0.02 * screenHeight,
+                        color: "#000",
+                      }}
+                      labelWrapStyle={{}}
+                    />
+                  </View>
+                </RadioButton>
+              ))}
+            </RadioForm>
+          </View>
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom: 0.02 * screenHeight,
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => {
+                if (answer3 === "") {
+                  createAlert();
+                } else {
+                  navigation.navigate("Quiz4", {
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    city: city,
+                    country: country,
+                    bio: bio,
+                    list: list,
+                    answer1: answer1,
+                    answer2: answer2,
+                    answer3: answer3,
+                  });
+                }
+              }}
+            >
+              <Text style={styler.getStarted}>CONTINUE</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </ImageBackground>
+  );
+};
 
 export default Quiz3;
 
-const styler=StyleSheet.create({
-    screen:{
-        flex:1,
-        paddingVertical:0.03*screenHeight,
-        justifyContent:'space-between'
-    },
-    radioButtons:{
-        width:screenWidth,  
-        paddingLeft:0.015*screenHeight,
-        marginVertical:0.018*screenHeight,
-    },
-    getStarted: {
-        borderRadius: 15,
-        width: 0.85*screenWidth,
-        height: 0.08*screenHeight,
-        backgroundColor: "#7AC141",
-        color: "white",
-        textAlign: "center",
-        textAlignVertical: "center",
-        fontSize: 0.03*screenHeight,
-        elevation: 5,
-      }
+const styler = StyleSheet.create({
+  screen: {
+    flex: 1,
+    paddingVertical: 0.03 * screenHeight,
+    justifyContent: "space-between",
+  },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+  },
+  radioButtons: {
+    width: screenWidth,
+    paddingLeft: 0.015 * screenHeight,
+    marginVertical: 0.018 * screenHeight,
+  },
+  getStarted: {
+    borderRadius: 15,
+    width: 0.85 * screenWidth,
+    height: 0.08 * screenHeight,
+    backgroundColor: "#7AC141",
+    color: "white",
+    textAlign: "center",
+    textAlignVertical: "center",
+    fontSize: 0.03 * screenHeight,
+    elevation: 5,
+  },
 });

@@ -38,6 +38,8 @@ import Quiz1 from "./Components/Quiz1";
 import Quiz2 from "./Components/Quiz2";
 import Quiz3 from "./Components/Quiz3";
 import Quiz4 from "./Components/Quiz4";
+import Splash from "./Components/Splash";
+import BecomeListenerResult from "./Components/BecomeListenerResult";
 
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -79,9 +81,10 @@ function App() {
   return (
     <NavigationContainer theme={MyTheme}>
       <Stack.Navigator
-        initialRouteName="Register1"
+        initialRouteName="Splash"
         screenOptions={{ headerShown: false }}
       >
+        <Stack.Screen name="Splash" component={Splash} />
         <Stack.Screen name="Register1" component={Register1} />
         <Stack.Screen name="EnterOTP" component={EnterOTP} />
         <Stack.Screen name="Register2" component={Register2} />
@@ -119,6 +122,10 @@ function App() {
         <Stack.Screen name="Quiz4" component={Quiz4} />
         <Stack.Screen name="ReportNEnd" component={ReportNEnd} />
         <Stack.Screen name="GiveFeedback" component={GiveFeedback} />
+        <Stack.Screen
+          name="BecomeListenerResult"
+          component={BecomeListenerResult}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
