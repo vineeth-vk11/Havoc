@@ -17,7 +17,7 @@ const screenWidth= Dimensions.get('window').width;
 const screenHeight=Dimensions.get('window').height;
 
 const TherapyProduct = ({ navigation, route }) => {
-  /*const { name, description, cost, image } = route.params;*/
+  const { name, description, cost, image } = route.params;
 
   return (
     <SafeAreaView style={styler.screen}>
@@ -40,15 +40,15 @@ const TherapyProduct = ({ navigation, route }) => {
         </View>
 
        <View style={styler.imageView}>
-          <Image style={styler.meditation} source={require("../assets/Images/Medication.png") } />
+          <Image style={styler.meditation} source={{uri: image[0]}} />
         </View>
         <View style={styler.meditationView}>
           <View style={styler.meditationTexts}>
-            <Text style={{ fontSize: 0.03*screenHeight }}>Yoga</Text>
-            <Text style={{ fontSize: 0.03*screenHeight }}>{"₹ " + 250}</Text>
+            <Text style={{ fontSize: 0.03*screenHeight }}>{name}</Text>
+            <Text style={{ fontSize: 0.03*screenHeight }}>{"₹ " + cost}</Text>
           </View>
           <View style={{ margin: 0.015*screenHeight }}>
-            <Text>XYZ</Text>
+            <Text>{description}</Text>
           </View>
         </View>
         <View style={styler.promoView}>

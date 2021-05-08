@@ -77,7 +77,7 @@ const MyTheme = {
 
 function App() {
   return (
-    /*<NavigationContainer theme={MyTheme}>
+    <NavigationContainer theme={MyTheme}>
       <Stack.Navigator
         initialRouteName="Register1"
         screenOptions={{ headerShown: false }}
@@ -112,8 +112,7 @@ function App() {
         <Stack.Screen name="JournalChat" component={JournalChat} />
         <Stack.Screen name="DedicatedChatting" component={DedicatedChatting} />
       </Stack.Navigator>
-    </NavigationContainer>*/
-    <MyTherapies/>
+    </NavigationContainer>
   );
 }
 
