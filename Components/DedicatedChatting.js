@@ -7,6 +7,7 @@ import {
   Modal,
   TouchableOpacity,
   ImageBackground,
+  Alert,
 } from "react-native";
 
 import { ListItem, Avatar, Icon } from "react-native-elements";
@@ -54,6 +55,25 @@ function DedicatedChatting({ navigation, route }) {
 
           setMessages(messageList.reverse());
         });
+
+      firebase
+        .firestore()
+        .collection("users")
+        .doc(currentUser)
+        .collection("DedicatedChats")
+        .doc(listenerId)
+        .onSnapshot((documentSnapshot) => {
+          if (!documentSnapshot.exists) {
+            if (type === "seeker") {
+              navigation.navigate("ReportNEnd", {
+                user: currentUser,
+                listener: listenerId,
+              });
+            } else {
+              navigation.navigate("ReportNEnd");
+            }
+          }
+        });
     }
   }, []);
 
@@ -74,6 +94,48 @@ function DedicatedChatting({ navigation, route }) {
       sentUser: currentUser,
     });
   }, []);
+
+  const createAlert = () =>
+    Alert.alert(
+      "Close Chat",
+      "Are you sure you want to close this chat ?",
+      [
+        { text: "No", onPress: () => {} },
+        {
+          text: "Yes",
+          onPress: () => {
+            var currentUser = firebase.auth().currentUser.uid;
+            firebase
+              .firestore()
+              .collection("users")
+              .doc(currentUser)
+              .collection("DedicatedChats")
+              .doc(listenerId)
+              .delete()
+              .then(() => {
+                firebase
+                  .firestore()
+                  .collection("users")
+                  .doc(listenerId)
+                  .collection("DedicatedChats")
+                  .doc(currentUser)
+                  .delete()
+                  .then(() => {
+                    if (type === "seeker") {
+                      navigation.navigate("ReportNEnd", {
+                        user: currentUser,
+                        listener: listenerId,
+                      });
+                    } else {
+                      navigation.goBack(null);
+                    }
+                  });
+              });
+          },
+        },
+      ],
+      { cancelable: false }
+    );
 
   return (
     <ImageBackground source={require("../assets/ss.png")} style={styler.image}>
@@ -97,7 +159,11 @@ function DedicatedChatting({ navigation, route }) {
               alignItems: "flex-start",
             }}
           >
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity
+              onPress={() => {
+                createAlert();
+              }}
+            >
               <Icon
                 name="close-outline"
                 type="ionicon"

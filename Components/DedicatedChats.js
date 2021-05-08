@@ -54,44 +54,25 @@ const DedicatedChats = ({ navigation }) => {
     return <ActivityIndicator />;
   }
 
-  return (
-    <SafeAreaView style={styler.screen}>
-      <ImageBackground
-        source={require("../assets/ss.png")}
-        style={styler.image}
-      >
-        <View style={styler.head}>
-          <View
-            style={{
-              flex: 0.3,
-              alignItems: "flex-start",
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => {
-                navigation.goBack(null);
-              }}
-            >
-              <Icon
-                style={{ marginTop: 10, marginLeft: 32 }}
-                name="arrow-back"
-                type="ionicon"
-                color="#000000"
-                size={30}
-              />
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              flex: 0.7,
-              alignItems: "flex-start",
-            }}
-          >
-            <Text style={{ fontSize: 24, fontWeight: "bold", marginTop: 10 }}>
-              Dedicated chats
-            </Text>
-          </View>
+  const renderList = () => {
+    if (list.length === 0) {
+      return (
+        <View
+          style={{
+            flex: 0.85,
+            marginLeft: 32,
+            marginRight: 32,
+          }}
+        >
+          <Text style={{ fontSize: 16, marginTop: "50%", textAlign: "center" }}>
+            It's one dedicated corridor, you can request your listener to
+            carry/flag your chat as dedicated and you can chat with the listener
+            whenever-whereever.
+          </Text>
         </View>
+      );
+    } else {
+      return (
         <View style={styler.listView}>
           <FlatList
             data={list}
@@ -139,6 +120,50 @@ const DedicatedChats = ({ navigation }) => {
             )}
           />
         </View>
+      );
+    }
+  };
+
+  return (
+    <SafeAreaView style={styler.screen}>
+      <ImageBackground
+        source={require("../assets/ss.png")}
+        style={styler.image}
+      >
+        <View style={styler.head}>
+          <View
+            style={{
+              flex: 0.3,
+              alignItems: "flex-start",
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack(null);
+              }}
+            >
+              <Icon
+                style={{ marginTop: 10, marginLeft: 32 }}
+                name="arrow-back"
+                type="ionicon"
+                color="#000000"
+                size={30}
+              />
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              flex: 0.7,
+              alignItems: "flex-start",
+            }}
+          >
+            <Text style={{ fontSize: 24, fontWeight: "bold", marginTop: 10 }}>
+              Dedicated chats
+            </Text>
+          </View>
+        </View>
+
+        {renderList()}
       </ImageBackground>
     </SafeAreaView>
   );
