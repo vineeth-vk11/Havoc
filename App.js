@@ -117,6 +117,8 @@ function App() {
         <Stack.Screen name="Quiz2" component={Quiz2} />
         <Stack.Screen name="Quiz3" component={Quiz3} />
         <Stack.Screen name="Quiz4" component={Quiz4} />
+        <Stack.Screen name="ReportNEnd" component={ReportNEnd} />
+        <Stack.Screen name="GiveFeedback" component={GiveFeedback} />
       </Stack.Navigator>
     </NavigationContainer>
   );
