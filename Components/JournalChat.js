@@ -7,6 +7,7 @@ import {
   Modal,
   TouchableOpacity,
   ImageBackground,
+  Dimensions
 } from "react-native";
 
 import { ListItem, Avatar, Icon } from "react-native-elements";
@@ -22,6 +23,9 @@ import { Bubble } from "react-native-gifted-chat";
 import uuid from "react-native-uuid";
 
 import { BottomSheet } from "react-native-btr";
+
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 function JournalChat({ navigation, route }) {
   const [messages, setMessages] = useState([]);
@@ -76,7 +80,7 @@ function JournalChat({ navigation, route }) {
                 name="arrow-back"
                 type="ionicon"
                 color="#000000"
-                size={30}
+                size={0.04*screenHeight}
                 style={{ marginLeft: 32 }}
               />
             </TouchableOpacity>
@@ -86,7 +90,7 @@ function JournalChat({ navigation, route }) {
           >
             <Text
               style={{
-                fontSize: 24,
+                fontSize: 0.032*screenHeight,
                 fontWeight: "bold",
                 textAlign: "left",
                 marginLeft: "30%",
@@ -121,7 +125,7 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     textAlign: "center",
-    marginTop: 32,
+    marginTop: 0.042*screenHeight,
   },
   image: {
     flex: 1,

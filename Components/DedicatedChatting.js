@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   Alert,
+  Dimensions
 } from "react-native";
 
 import { ListItem, Avatar, Icon } from "react-native-elements";
@@ -23,6 +24,9 @@ import { Bubble } from "react-native-gifted-chat";
 import uuid from "react-native-uuid";
 
 import { BottomSheet } from "react-native-btr";
+
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 function DedicatedChatting({ navigation, route }) {
   const [messages, setMessages] = useState([]);
@@ -144,7 +148,7 @@ function DedicatedChatting({ navigation, route }) {
           <View style={{ flex: 0.8, alignItems: "center" }}>
             <Text
               style={{
-                fontSize: 24,
+                fontSize: 0.035*screenHeight,
                 fontWeight: "bold",
                 textAlign: "left",
                 marginLeft: "30%",
@@ -168,8 +172,8 @@ function DedicatedChatting({ navigation, route }) {
                 name="close-outline"
                 type="ionicon"
                 color="#000000"
-                size={30}
-                style={{ marginLeft: 32 }}
+                size={0.04*screenHeight}
+                style={{ marginLeft: 0.04*screenHeight }}
               />
             </TouchableOpacity>
           </View>
@@ -178,7 +182,7 @@ function DedicatedChatting({ navigation, route }) {
           style={{ flex: 0.85 }}
           messages={messages}
           onSend={(messages) => onSend(messages)}
-          user={{
+         user={{
             _id: currentUser,
           }}
         />
@@ -195,7 +199,7 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     textAlign: "center",
-    marginTop: 32,
+    marginTop: 0.042*screenHeight,
   },
   image: {
     flex: 1,

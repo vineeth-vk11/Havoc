@@ -9,6 +9,7 @@ import {
   TextInput,
   ScrollView,
   ImageBackground,
+  Dimensions
 } from "react-native";
 import { Icon } from "react-native-elements";
 import RadioForm, {
@@ -20,6 +21,9 @@ import RadioForm, {
 import firebase from "firebase";
 require("firebase/firestore");
 
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
+
 var radio_props = [
   { label: "18 - 24 Years", value: 0 },
   { label: "25 - 34 Years", value: 1 },
@@ -29,7 +33,7 @@ var radio_props = [
 
 const AgeOfListner = ({ navigation, route }) => {
   const [value, setvalue] = useState(-1);
-  const { userName, topic } = route.params;
+  /*const { userName, topic } = route.params;*/
   const [minimumAge, setMinimumAge] = useState();
   const [maximumAge, setMaximumAge] = useState();
   return (
@@ -49,8 +53,8 @@ const AgeOfListner = ({ navigation, route }) => {
                 name="arrow-back"
                 type="ionicon"
                 color="#000000"
-                size={30}
-                style={{ marginLeft: 32, marginTop: 20 }}
+                size={0.04*screenHeight}
+                style={{ marginLeft: 0.039*screenHeight, marginTop: 0.025*screenHeight }}
               />
             </TouchableOpacity>
           </View>
@@ -88,10 +92,10 @@ const AgeOfListner = ({ navigation, route }) => {
                     borderWidth={2}
                     buttonInnerColor={"#7AC141"}
                     buttonOuterColor={value === i ? "#7AC141" : "#000"}
-                    buttonSize={12}
+                    buttonSize={0}
                     buttonOuterSize={24}
-                    buttonStyle={{ marginRight: 20, marginBottom: 10 }}
-                    buttonWrapStyle={{ marginLeft: 10 }}
+                    buttonStyle={{ marginRight: 0.025*screenHeight, marginBottom: 0.015*screenHeight }}
+                    buttonWrapStyle={{ marginLeft: 0.015*screenHeight }}
                   />
                   <RadioButtonLabel
                     obj={obj}
@@ -100,7 +104,7 @@ const AgeOfListner = ({ navigation, route }) => {
                     labelStyle={{
                       fontSize: 18,
                       color: "#000",
-                      marginBottom: 5,
+                      marginBottom: 0.01*screenHeight,
                     }}
                     labelWrapStyle={{}}
                   />
@@ -159,7 +163,7 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    marginTop: 35,
+    marginTop: 0.06*screenHeight,
   },
   image: {
     flex: 1,
@@ -170,23 +174,22 @@ const styler = StyleSheet.create({
     fontSize: 20,
     textAlign: "left",
     fontWeight: "bold",
-    marginTop: 50,
-    marginLeft: 24,
-    marginBottom: 0,
+    marginTop: 0.07*screenHeight,
+    marginLeft: 0.028*screenHeight,
   },
   set: {
     fontSize: 15,
     textAlign: "left",
-    marginLeft: 24,
+    marginLeft: 0.028*screenHeight,
   },
   continue: {
     justifyContent: "flex-end",
-    borderRadius: 15,
-    width: 310,
-    height: 52,
+    borderRadius: 0.022*screenHeight,
+    width: 0.85*screenWidth,
+    height: 0.07*screenHeight,
     backgroundColor: "#7AC141",
     color: "white",
-    margin: 20,
+    margin: 0.04*screenHeight,
     textAlign: "center",
     textAlignVertical: "center",
     fontSize: 20,
@@ -200,16 +203,16 @@ const styler = StyleSheet.create({
   },
   textView: {
     flex: 0.1,
-    marginLeft: 10,
+    marginLeft: 0.015*screenHeight,
   },
   formView: {
     flex: 0.3,
-    marginTop: 50,
-    marginLeft: 24,
+    marginTop: 0.07*screenHeight,
+    marginLeft: 0.028*screenHeight,
   },
   footView: {
     flex: 0.5,
     justifyContent: "flex-end",
-    marginBottom: 50,
+    marginBottom: 0.07*screenHeight,
   },
 });

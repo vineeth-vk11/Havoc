@@ -119,16 +119,16 @@ const styler = StyleSheet.create({
   getStarted: {
     borderRadius: 7,
     width: windowWidth - 48,
-    height: 45,
+    height: 0.065*windowHeight,
     backgroundColor: "#7AC141",
     color: "white",
-    marginVertical: 20,
+    marginVertical: 0.015*windowHeight,
     marginHorizontal: 20,
     textAlign: "center",
     textAlignVertical: "center",
-    fontSize: 15,
+    fontSize: 0.022*windowHeight,
     elevation: 5,
-    padding: 10,
+    padding: 0.015*windowHeight,
     overflow: "hidden",
   },
   imageBg: {
@@ -138,7 +138,7 @@ const styler = StyleSheet.create({
   },
   getStartedView: {
     alignItems: "center",
-    marginVertical: 10,
+    marginVertical: 0.015*windowHeight,
   },
   screen: {
     flex: 1,
@@ -148,15 +148,15 @@ const styler = StyleSheet.create({
     borderColor: "black",
     borderRadius: 0,
     width: windowWidth - 48,
-    height: 55,
+    height: 0.08*windowHeight,
     color: "#828282",
     justifyContent: "center",
     backgroundColor: "#fff",
-    fontSize: 16,
+    fontSize: 0.025*windowHeight,
   },
   havoc: {
     alignSelf: "center",
     justifyContent: "center",
-    margin: 50,
+    margin: 0.08*windowHeight,
   },
 });

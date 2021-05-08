@@ -30,13 +30,14 @@ const Leaving = () => {
   const [value, setvalue] = useState();
   return (
     <SafeAreaView style={styler.screen}>
+      <ScrollView>
       <View style={styler.sadFaceView}>
         <View style={styler.sadFace}>
           <Image
-            style={{ width: 0.3*screenWidth, height: 0.3*screenWidth }}
+            style={{ width: 0.29*screenWidth, height: 0.29*screenWidth }}
             source={require("../assets/Images/SadFace.png")}
           />
-          <Text style={{ fontSize: 0.026*screenHeight, margin: 0.020*screenHeight, color: "#828282" }}>
+          <Text style={{ fontSize: 0.026*screenHeight, margin: 0.015*screenHeight, color: "#828282" }}>
             We are sorry to see you leave
           </Text>
         </View>
@@ -59,10 +60,10 @@ const Leaving = () => {
                   borderWidth={2}
                   buttonInnerColor={"#7AC141"}
                   buttonOuterColor={value === i ? "#7AC141" : "#DADADA"}
-                  buttonSize={16}
-                  buttonOuterSize={22}
-                  buttonStyle={{ marginRight: 10, marginBottom: 0 }}
-                  buttonWrapStyle={{ marginLeft: 10 }}
+                  buttonSize={0.021*screenHeight}
+                  buttonOuterSize={0.03*screenHeight}
+                  buttonStyle={{ marginRight: 0.015*screenHeight, marginBottom:0.007*screenHeight }}
+                  buttonWrapStyle={{ marginLeft: 0.015*screenHeight }}
                 />
                 <RadioButtonLabel
                   obj={obj}
@@ -71,7 +72,7 @@ const Leaving = () => {
                   onPress={(value) => {
                     setvalue(value);
                   }}
-                  labelStyle={{ fontSize: 17, color: "rgba(18, 18, 18, 0.5)" }}
+                  labelStyle={{ fontSize: 0.023*screenHeight, color: "rgba(18, 18, 18, 0.5)" }}
                   labelWrapStyle={{}}
                 />
               </View>
@@ -88,6 +89,7 @@ const Leaving = () => {
           <Text style={styler.done}>Done</Text>
         </TouchableOpacity>
       </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -96,18 +98,18 @@ export default Leaving;
 const styler = StyleSheet.create({
   sadFace: {
     alignItems: "center",
+    marginTop: 0.07*screenHeight
   },
   done: {
     justifyContent: "flex-end",
-    borderRadius: 15,
-    width: 310,
-    height: 52,
+    borderRadius: 0.022*screenHeight,
+    width: 0.85*screenWidth,
+    height: 0.08*screenHeight,
     backgroundColor: "#7AC141",
     color: "white",
-    marginVertical:0,
     textAlign: "center",
     textAlignVertical: "center",
-    fontSize: 20,
+    fontSize: 0.03*screenHeight,
   },
   screen: {
     flex: 1,
@@ -119,22 +121,23 @@ const styler = StyleSheet.create({
   },
   formView: {
     flex: 0.6,
-    padding:10,
-    marginHorizontal:5
+    padding:0.01*screenHeight,
+    marginHorizontal:0.01*screenHeight
   },
   footView: {
     flex: 0.1,
     justifyContent: "center",
     alignItems:'center',
+    marginTop: 0.015*screenHeight
   },
   text: {
-    fontSize: 20,
+    fontSize: 0.03*screenHeight,
     textAlign: "left",
-    margin: 5,
-    marginBottom: 15,
+    margin: 0.015*screenHeight,
+    marginBottom: 0.025*screenHeight,
   },
  declaration: {
      padding:'1%',
-     marginHorizontal:2,
+     marginHorizontal:0.009*screenHeight,
   }
 });

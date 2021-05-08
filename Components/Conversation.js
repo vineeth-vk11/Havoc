@@ -7,8 +7,12 @@ import {
   StyleSheet,
   TouchableOpacity,
   ImageBackground,
+  Dimensions
 } from "react-native";
 import { Icon } from "react-native-elements";
+
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 const Conversation = ({ navigation, route }) => {
   const { name, topic, date, chatId, listenerId } = route.params;
@@ -33,7 +37,7 @@ const Conversation = ({ navigation, route }) => {
                 }}
               >
                 <Icon
-                  style={{ marginTop: 20, marginLeft: 32 }}
+                  style={{ marginTop: 0.025*screenHeight, marginLeft: 32 }}
                   name="arrow-back"
                   type="ionicon"
                   color="#000000"
@@ -97,7 +101,7 @@ const styler = StyleSheet.create({
   head: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 35,
+    marginTop: 0.048*screenHeight,
   },
   container: {
     flexDirection: "row",
@@ -105,27 +109,27 @@ const styler = StyleSheet.create({
     justifyContent: "space-around",
   },
   tinyLogo: {
-    width: 100,
-    height: 100,
-    borderRadius: 100,
+    width: 0.3*screenWidth,
+    height: 0.3*screenWidth,
+    borderRadius: 0.3*screenWidth,
   },
   viewTheChat: {
     justifyContent: "flex-end",
-    borderRadius: 15,
-    width: 310,
-    height: 52,
+    borderRadius: 0.02*screenHeight,
+    width: 0.85*screenWidth,
+    height: 0.07*screenHeight,
     backgroundColor: "#7AC141",
     color: "white",
     textAlign: "center",
     textAlignVertical: "center",
-    fontSize: 20,
+    fontSize: 0.029*screenHeight,
   },
   screen: { flex: 1 },
   headView: { flex: 0.15 },
   profileView: { flex: 0.25, justifyContent: "center" },
   footView: {
     flex: 0.6,
-    marginBottom: 50,
+    marginBottom: 0.07*screenHeight,
     justifyContent: "flex-end",
     alignItems: "center",
   },

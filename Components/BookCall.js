@@ -9,12 +9,16 @@ import {
   TextInput,
   ScrollView,
   ImageBackground,
+  Dimensions
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { Button } from "react-native-elements";
 
 import firebase from "firebase";
 require("firebase/firestore");
+
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 const BookCall = ({ navigation }) => {
   return (
@@ -54,7 +58,7 @@ const BookCall = ({ navigation }) => {
               style={{
                 flex: 0.8,
                 alignContent: "flex-start",
-                marginLeft: "15%",
+                marginLeft: 0.15*screenWidth,
               }}
             >
               <Text style={{ fontSize: 24, fontWeight: "bold" }}>
@@ -76,13 +80,13 @@ const BookCall = ({ navigation }) => {
               style={{
                 fontSize: 20,
                 textAlign: "center",
-                marginTop: 10,
+                marginTop: 0.015*screenHeight,
                 fontWeight: "bold",
               }}
             >
               Communicate your way
             </Text>
-            <Text style={{ fontSize: 20, textAlign: "center", marginTop: 10 }}>
+            <Text style={{ fontSize: 20, textAlign: "center", marginTop: 0.015*screenHeight }}>
               Video | Call | Chat | Messaging
             </Text>
           </View>
@@ -104,8 +108,8 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 35,
-    margin: 10,
+    marginTop: 0.05*screenHeight,
+    margin: 0.015*screenHeight,
   },
   imageBg: {
     flex: 1,
@@ -113,33 +117,29 @@ const styler = StyleSheet.create({
     justifyContent: "center",
   },
   medication: {
-    width: 258,
-    height: 172,
+    width: 0.65*screenWidth,
+    height: 0.2*screenHeight,
   },
   container: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    margin: 10,
+    margin: 0.015*screenHeight,
   },
-  tinyLogo: {
-    width: 114,
-    height: 114,
-    borderRadius: 100,
-  },
+  
   callView: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    margin: 10,
+    margin: 0.015*screenHeight,
   },
   applyCoupon: {
-    padding: 10,
+    padding: 0.015*screenHeight,
     borderColor: "#7AC141",
     borderRadius: 5,
     borderWidth: 1,
-    width: 198,
-    height: 35,
+    width: 0.5*screenWidth,
+    height: 0.04*screenHeight,
     color: "#828282",
     justifyContent: "center",
   },
@@ -147,24 +147,24 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    marginTop: 20,
-    margin: 10,
+    marginTop: 0.025*screenHeight,
+    margin: 0.015*screenHeight,
   },
   bookNow: {
     justifyContent: "flex-end",
-    borderRadius: 15,
-    width: 310,
-    height: 52,
+    borderRadius: 0.022*screenHeight,
+    width: 0.85*screenWidth,
+    height: 0.07*screenHeight,
     backgroundColor: "#7AC141",
     color: "white",
     textAlign: "center",
     textAlignVertical: "center",
-    fontSize: 20,
+    fontSize: 0.025*screenHeight,
   },
   screen: { flex: 1 },
   headView: {
     flex: 0.15,
-    marginTop: 20,
+    marginTop: 0.025*screenHeight,
   },
   meditationView: {
     flex: 0.55,
@@ -174,6 +174,6 @@ const styler = StyleSheet.create({
     flex: 0.3,
     alignItems: "center",
     justifyContent: "flex-end",
-    marginBottom: 50,
+    marginBottom: 0.07*screenHeight,
   },
 });
