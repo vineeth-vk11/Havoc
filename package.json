@@ -1,29 +1,28 @@
 {
-  "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "start": "react-native start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
     "web": "expo start --web",
     "eject": "expo eject"
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "^3.4.3",
     "@react-native-community/masked-view": "0.1.10",
-    "@react-native-firebase/app": "^11.4.1",
-    "@react-native-firebase/database": "^11.4.1",
     "@react-navigation/native": "^5.9.4",
     "@react-navigation/stack": "^5.14.4",
     "cli": "^1.0.1",
     "expo": "^41.0.1",
     "expo-firebase-recaptcha": "^1.4.1",
+    "expo-splash-screen": "~0.10.2",
     "expo-status-bar": "~1.0.3",
+    "expo-updates": "~0.5.4",
     "firebase": "8.2.3",
     "lottie-react-native": "3.5.0",
     "native-base": "^2.15.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
+    "react-native": "~0.63.4",
     "react-native-btr": "^2.1.2",
     "react-native-elements": "^3.3.2",
     "react-native-flash-message": "^0.1.23",
@@ -38,6 +37,7 @@
     "react-native-simple-radio-button": "^2.7.4",
     "react-native-snap-carousel": "^3.9.1",
     "react-native-stars": "^1.2.2",
+    "react-native-unimodules": "~0.13.3",
     "react-native-uuid": "^2.0.1",
     "react-native-web": "~0.13.12",
     "react-native-webview": "^11.4.3",
@@ -46,5 +46,7 @@
   "devDependencies": {
     "@babel/core": "^7.9.0"
   },
-  "private": true
+  "private": true,
+  "name": "Havoc",
+  "version": "1.0.0"
 }
