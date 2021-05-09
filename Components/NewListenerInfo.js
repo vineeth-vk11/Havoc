@@ -13,6 +13,8 @@ import {
 } from "react-native";
 import { TextInput } from "react-native-paper";
 
+import { Icon } from "react-native-elements";
+
 import { Dimensions } from "react-native";
 
 const windowWidth = Dimensions.get("window").width;
@@ -46,11 +48,39 @@ const NewListenerInfo = ({ navigation }) => {
             <ScrollView>
               <KeyboardAvoidingView>
                 <ScrollView>
-                  <View style={styler.Title}>
-                    <Text style={{ fontSize: 0.03 * screenHeight }}>
-                      Personal Info
-                    </Text>
-                  </View>
+                <View style={styler.head}>
+          <View
+            style={{
+              flex: 0.4,
+              alignItems: "flex-start",
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack(null);
+              }}
+            >
+              <Icon
+                name="arrow-back"
+                type="ionicon"
+                color="#000000"
+                size={0.04*screenHeight}
+                style={{ marginLeft: 0.03*screenHeight }}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={{ flex: 0.6 }}>
+            <Text
+              style={{
+                fontSize: 0.032*screenHeight,
+                fontWeight: "bold",
+                textAlign: "left",
+              }}
+            >
+              Info
+            </Text>
+          </View>
+        </View>
                   <Text style={styler.declaration}>
                     Users will see only your first name
                   </Text>
@@ -218,8 +248,15 @@ const styler = StyleSheet.create({
   screen: {
     flex: 1,
     justifyContent: "space-between",
-    marginVertical: 0.07 * screenHeight,
+    marginVertical: 0.05 * screenHeight,
     padding: 0.02 * screenHeight,
+  },
+  head: {
+    flex: 0.15,
+    flexDirection: "row",
+    alignItems: "center",
+    textAlign: "center",
+    marginTop: 0.025*screenHeight,
   },
   getStarted: {
     borderRadius: 15,
@@ -233,6 +270,8 @@ const styler = StyleSheet.create({
     fontSize: 0.028 * screenHeight,
     elevation: 5,
     marginVertical: 0.03 * screenHeight,
+    overflow: "hidden",
+    paddingVertical: 0.04 * screenWidth
   },
   Title: {
     height: 0.05 * screenHeight,
@@ -242,7 +281,7 @@ const styler = StyleSheet.create({
   },
   declaration: {
     color: "grey",
-    marginVertical: 0.01 * screenHeight,
+    marginVertical: 0.03 * screenHeight,
   },
   nameView: {
     marginVertical: 0.01 * screenHeight,
