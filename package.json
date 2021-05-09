@@ -9,14 +9,14 @@
   "dependencies": {
     "@react-native-community/datetimepicker": "^3.4.3",
     "@react-native-community/masked-view": "0.1.10",
-    "@react-native-firebase/app": "^11.4.1",
-    "@react-native-firebase/database": "^11.4.1",
     "@react-navigation/native": "^5.9.4",
     "@react-navigation/stack": "^5.14.4",
     "cli": "^1.0.1",
     "expo": "^41.0.1",
     "expo-firebase-recaptcha": "^1.4.1",
+    "expo-splash-screen": "~0.10.2",
     "expo-status-bar": "~1.0.3",
+    "expo-updates": "~0.5.4",
     "firebase": "8.2.3",
     "lottie-react-native": "3.5.0",
     "native-base": "^2.15.2",
@@ -37,13 +37,11 @@
     "react-native-simple-radio-button": "^2.7.4",
     "react-native-snap-carousel": "^3.9.1",
     "react-native-stars": "^1.2.2",
+    "react-native-unimodules": "~0.13.3",
     "react-native-uuid": "^2.0.1",
     "react-native-web": "~0.13.12",
     "react-native-webview": "^11.4.3",
-    "react-native-youtube-iframe": "^2.0.1",
-    "expo-splash-screen": "~0.10.2",
-    "expo-updates": "~0.5.4",
-    "react-native-unimodules": "~0.13.3"
+    "react-native-youtube-iframe": "^2.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"
