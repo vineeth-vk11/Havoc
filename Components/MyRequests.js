@@ -78,13 +78,18 @@ const MyRequests = ({ navigation }) => {
               alignItems: "center",
             }}
           >
+            <TouchableOpacity onPress = {() => {
+              navigation.goBack(null)
+            }}>
             <Icon
               style={{ margin: 0.01*screenHeight }}
               name="arrow-back"
               type="ionicon"
-              color="#979797"
+              color="#000"
               size={0.04*screenHeight}
             />
+            </TouchableOpacity>
+
           </View>
           <View style={{ flex: 0.7, alignItems: "flex-start" }}>
             <Text style={{ fontSize: 0.034*screenHeight, fontWeight: "bold" }}>

@@ -14,6 +14,8 @@ import {
 import { CheckBox } from "react-native-elements";
 import { cos, set } from "react-native-reanimated";
 
+import { Icon } from "react-native-elements";
+
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
@@ -60,11 +62,39 @@ const NewListenerTopic = ({ navigation, route }) => {
     <ImageBackground source={require("../assets/ss.png")} style={styler.image}>
       <SafeAreaView style={styler.screen}>
         <ScrollView>
-          <View style={styler.titleView}>
-            <Text style={{ fontSize: 0.03 * screenHeight }}>
-              Select Your Topic
+        <View style={styler.head}>
+          <View
+            style={{
+              flex: 0.4,
+              alignItems: "flex-start",
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack(null);
+              }}
+            >
+              <Icon
+                name="arrow-back"
+                type="ionicon"
+                color="#000000"
+                size={0.04*screenHeight}
+                style={{ marginLeft: 0.03*screenHeight }}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={{ flex: 0.6 }}>
+            <Text
+              style={{
+                fontSize: 0.032*screenHeight,
+                fontWeight: "bold",
+                textAlign: "left",
+              }}
+            >
+              Topics
             </Text>
           </View>
+        </View>
 
           <View style={styler.checkBoxView}>
             <CheckBox
@@ -383,6 +413,13 @@ const styler = StyleSheet.create({
     paddingVertical: 0.08 * screenHeight,
     paddingHorizontal: 0.02 * screenHeight,
   },
+  head: {
+    flex: 0.15,
+    flexDirection: "row",
+    alignItems: "center",
+    textAlign: "center",
+    marginTop: 0.025*screenHeight,
+  },
   getStarted: {
     borderRadius: 15,
     width: 0.85 * screenWidth,
@@ -395,6 +432,8 @@ const styler = StyleSheet.create({
     fontSize: 0.028 * screenHeight,
     elevation: 5,
     marginVertical: "5%",
+    overflow: "hidden",
+    paddingVertical: 0.02 * screenHeight
   },
   checkBoxView: {
     marginVertical: "3%",
