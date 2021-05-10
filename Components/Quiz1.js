@@ -24,7 +24,7 @@ const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 const Quiz1 = ({ navigation, route }) => {
-  const { firstName, lastName, email, city, country, bio, list } = route.params;
+ const { firstName, lastName, email, city, country, bio, list } = route.params;
 
   const [isPlaying, setisPlaying] = useState(false);
   const playingVideo = useCallback(() => {
@@ -166,7 +166,7 @@ const Quiz1 = ({ navigation, route }) => {
                       buttonSize={12}
                       buttonOuterSize={22}
                       buttonStyle={{
-                        marginRight: 0.01 * screenHeight,
+                        marginRight: 0.006 * screenHeight,
                         marginBottom: 0.015 * screenHeight,
                       }}
                       buttonWrapStyle={{ marginLeft: 0.01 * screenHeight }}
@@ -187,7 +187,7 @@ const Quiz1 = ({ navigation, route }) => {
                         fontSize: 0.02 * screenHeight,
                         color: "#000",
                       }}
-                      labelWrapStyle={{}}
+                      labelWrapStyle={{marginRight: 0.012*screenHeight}}
                     />
                   </View>
                 </RadioButton>

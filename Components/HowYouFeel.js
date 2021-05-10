@@ -136,9 +136,9 @@ const HowYouFeel = ({ navigation, route }) => {
                           setvalue(value);
                         }}
                         labelStyle={{
-                          fontSize: 0.026*screenHeight,
+                          fontSize: 0.021*screenHeight,
                           color: "#000",
-                          marginBottom: 0.015*screenHeight,
+                          marginBottom: 0.01*screenHeight,
                         }}
                         labelWrapStyle={{}}
                       />
