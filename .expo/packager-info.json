@@ -1,10 +1,9 @@
 {
   "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "packagerPort": 19000,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
-  "webpackServerPort": null
+  "packagerPort": 19001,
+  "packagerPid": 11756,
+  "expoServerNgrokUrl": "https://bf-md4.hiphop-head.havoc.exp.direct",
+  "packagerNgrokUrl": "https://packager.bf-md4.hiphop-head.havoc.exp.direct",
+  "ngrokPid": 5128
 }

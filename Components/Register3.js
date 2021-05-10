@@ -166,7 +166,7 @@ const styler = StyleSheet.create({
   },
   textSmall: {
     fontSize: 0.025 * screenHeight,
-    margin: 0.02 * screenHeight,
+    marginVertical: 0.02 * screenHeight,
     textAlign: "center",
   },
   find: {
@@ -178,22 +178,19 @@ const styler = StyleSheet.create({
     justifyContent: "center",
   },
   headerView: {
-    flex: 0.3,
     flexDirection: "row",
     padding: 0.05 * screenHeight,
   },
   textView: {
-    flex: 0.1,
     marginBottom: 0.05 * screenHeight,
+
   },
   findMyListnerView: {
-    flex: 0.4,
     justifyContent: "center",
     alignItems: "center",
   },
   footerView: {
     flexDirection: "row",
-    flex: 0.2,
     marginTop: 0.13 * screenHeight,
     marginBottom: 0.04 * screenHeight,
     marginLeft: 0.04 * screenHeight,
@@ -202,7 +199,7 @@ const styler = StyleSheet.create({
     alignItems: "center",
   },
   imageView: {
-    marginTop: 0.05 * screenHeight,
+    marginTop: 0.02 * screenHeight,
   },
   talkingNow: {
     justifyContent: "center",
@@ -210,5 +207,6 @@ const styler = StyleSheet.create({
   },
   tnText: {
     fontSize: 0.035 * screenHeight,
+    marginTop: 0.02*screenHeight
   },
 });

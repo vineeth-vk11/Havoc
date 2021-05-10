@@ -12,8 +12,8 @@ import {
 import { ListItem, Icon } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
 
-import firebase from "firebase";
-require("firebase/auth");
+/*import firebase from "firebase";
+require("firebase/auth");*/
 
 const list = [
   {
@@ -118,7 +118,6 @@ const Profile = ({ navigation }) => {
           <View style={styler.listView}>
             {list.map((item, i) => (
               <TouchableOpacity
-                key={item.title}
                 onPress={() => {
                   if (item.title === "Call History") {
                     navigation.navigate("CallHistory");
@@ -137,8 +136,7 @@ const Profile = ({ navigation }) => {
                   }
                 }}
               >
-                <View
-                  key={i}
+                <View 
                   style={{
                     padding: 0.01 * screenHeight,
                     paddingRight: 0.012 * screenHeight,
@@ -146,7 +144,7 @@ const Profile = ({ navigation }) => {
                   }}
                 >
                   <ListItem
-                    key={i}
+                    key={item.title}
                     containerStyle={{
                       backgroundColor: "#FFFFFF",
                       height: 0.07 * screenHeight,
@@ -203,11 +201,10 @@ const styler = StyleSheet.create({
   },
   listView: {
     marginTop: 0.025 * screenWidth,
-    flex: 0.7,
     justifyContent: "flex-end",
   },
   imageView: {
-    flex: 0.15,
     marginTop: 0.025 * screenWidth,
   },
+  i
 });

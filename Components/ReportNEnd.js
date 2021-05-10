@@ -18,7 +18,7 @@ const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 const GiveFeedback = ({ navigation, route }) => {
-  const { listener, user } = route.params;
+  /*const { listener, user } = route.params;*/
   const [feedback, setFeedback] = useState("");
 
   return (
@@ -119,5 +119,6 @@ const styler = StyleSheet.create({
     marginTop: 0.4 * screenHeight,
     justifyContent: "flex-end",
     alignItems: "center",
+    marginBottom:0.1*screenHeight
   },
 });

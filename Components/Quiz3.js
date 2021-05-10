@@ -24,7 +24,7 @@ const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 const Quiz3 = ({ navigation, route }) => {
-  const {
+ const {
     firstName,
     lastName,
     email,
@@ -52,13 +52,13 @@ const Quiz3 = ({ navigation, route }) => {
   const radio_props = [
     {
       label:
-        "By providing them time and space to openly talk about their issues",
+        "By providing them time and space to \n openly talk about their issues",
       value: 0,
     },
-    { label: "Listen to them with acceptance and validation", value: 1 },
+    { label: "Listen to them with acceptance and \n validation", value: 1 },
     { label: "Be mindful of their emotions", value: 2 },
     {
-      label: "Giving casual advice and guiding them various perspectives",
+      label: "Giving casual advice and guiding them \n various perspectives",
       value: 3,
     },
   ];
@@ -168,7 +168,7 @@ const Quiz3 = ({ navigation, route }) => {
                       buttonSize={12}
                       buttonOuterSize={22}
                       buttonStyle={{
-                        marginRight: 0.01 * screenHeight,
+                        marginRight: 0.006 * screenHeight,
                         marginBottom: 0.015 * screenHeight,
                       }}
                       buttonWrapStyle={{ marginLeft: 0.01 * screenHeight }}
@@ -255,6 +255,7 @@ const styler = StyleSheet.create({
     width: screenWidth,
     paddingLeft: 0.015 * screenHeight,
     marginVertical: 0.018 * screenHeight,
+
   },
   getStarted: {
     borderRadius: 15,
