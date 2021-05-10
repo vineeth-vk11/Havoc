@@ -68,13 +68,13 @@ const TherapyProduct = ({ navigation, route }) => {
             </View>
           </View>
           <View style={styler.imageView}>
-            <Image style={styler.meditation} source={{ uri: image[0] }} />
+            <Image style={styler.meditation} source={{uri: image[0]}} />
           </View>
           <View style={styler.meditationView}>
             <View style={styler.meditationTexts}>
               <Text style={{ fontSize: 22, marginLeft: 16 }}>{name}</Text>
               <Text style={{ fontSize: 22, marginRight: 16 }}>
-                {"₹ " + cost}
+                {"₹ "+ cost}
               </Text>
             </View>
             <View style={{ marginLeft: 16, marginRight: 16 }}>
@@ -176,17 +176,16 @@ const styler = StyleSheet.create({
     margin: 0.015 * screenHeight,
   },
   bookNow: {
-    justifyContent: "flex-end",
     borderRadius: 15,
     width: 0.85 * screenWidth,
     height: 0.08 * screenHeight,
     backgroundColor: "#7AC141",
     color: "white",
-    textAlign: "center",
-    textAlignVertical: "center",
     fontSize: 0.025 * screenHeight,
     overflow: "hidden",
     paddingVertical: 0.02 * screenHeight
+    textAlign:'center',
+    marginVertical:0.02*screenHeight
   },
   screen: { flex: 1 },
   headView: {
@@ -207,6 +206,6 @@ const styler = StyleSheet.create({
     height: windowHeight / 3.5,
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "flex-end",
+    justifyContent: "center",
   },
 });

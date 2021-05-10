@@ -51,7 +51,7 @@ const Quiz2 = ({ navigation, route }) => {
   const radio_props = [
     {
       label:
-        "I can see that you are stressed due to work which is also affecting your relationship with your manager",
+        "I can see that you are stressed due to work \n  which is also affecting your relationship \n  with your manager",
       value: 0,
     },
     {
@@ -175,7 +175,7 @@ const Quiz2 = ({ navigation, route }) => {
                       buttonSize={12}
                       buttonOuterSize={22}
                       buttonStyle={{
-                        marginRight: 0.01 * screenHeight,
+                        marginRight: 0.006 * screenHeight,
                         marginBottom: 0.015 * screenHeight,
                       }}
                       buttonWrapStyle={{ marginLeft: 0.01 * screenHeight }}

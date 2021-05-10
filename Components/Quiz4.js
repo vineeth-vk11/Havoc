@@ -54,11 +54,11 @@ const Quiz4 = ({ navigation, route }) => {
   );
   const [value, setvalue] = useState();
   const radio_props = [
-    { label: "Do not advice or try to solve their problems", value: 0 },
-    { label: "Do not share too much personal information", value: 1 },
-    { label: "Share personal experiences only when required", value: 2 },
+    { label: "Do not advice or try to solve their \n problems", value: 0 },
+    { label: "Do not share too much personal \n information", value: 1 },
+    { label: "Share personal experiences only when\n required", value: 2 },
     {
-      label: "Safe and comfortable environment, trust and confidentiality",
+      label: "Safe and comfortable environment, \ntrust and confidentiality",
       value: 3,
     },
   ];
@@ -175,7 +175,7 @@ const Quiz4 = ({ navigation, route }) => {
                       buttonSize={12}
                       buttonOuterSize={22}
                       buttonStyle={{
-                        marginRight: 0.01 * screenHeight,
+                        marginRight: 0.006 * screenHeight,
                         marginBottom: 0.015 * screenHeight,
                       }}
                       buttonWrapStyle={{ marginLeft: 0.01 * screenHeight }}

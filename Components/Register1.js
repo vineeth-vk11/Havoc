@@ -202,8 +202,7 @@ const styler = StyleSheet.create({
   textSignIn: {
     color: "grey",
     fontSize: 18,
-    alignSelf: "center",
-    marginRight: 50,
+    textAlign: "center",
   },
   textView: {
     width: 260,
