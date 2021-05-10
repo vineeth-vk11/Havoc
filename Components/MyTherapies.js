@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, {  useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,92 +6,120 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  Dimensions
+  Dimensions, 
+  ImageBackground
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { SearchBar } from "react-native-elements";
 import { ListItem } from "react-native-elements";
-const list = [
-  {
-    therapy: "Medication",
-    price: "₹ 250",
-    date: "14 March",
-  },
-  {
-    therapy: "Medication",
-    price: "₹ 250",
-    date: "14 March",
-  },
-  {
-    therapy: "Medication",
-    price: "₹ 250",
-    date: "14 March",
-  },
-];
+
+import { FlatList } from "react-native-gesture-handler";
+
+import firebase from "firebase";
+import { ActivityIndicator } from "react-native";
+require("firebase/firestore");
 
 const screenWidth= Dimensions.get('window').width;
 const screenHeight=Dimensions.get('window').height;
 
-const MyTherapies = () => {
+const MyTherapies = ({navigation}) => {
   const [search, setsearch] = useState();
+  const [list, setList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  updateSearch = (search) => {
-    setsearch(search);
-  };
+  useEffect(() => {
+    var currentUser = firebase.auth().currentUser.uid
+
+    const journal = firebase.firestore()
+      .collection("users")
+      .doc(currentUser)
+      .collection("TherapyBookings")
+      .onSnapshot((querySnapshot) => {
+        const therapyList = [];
+
+        querySnapshot.forEach((documentSnapshot) => {
+          therapyList.push({
+            ...documentSnapshot.data(),
+            key: documentSnapshot.id,
+          });
+        });
+
+        setList(therapyList);
+        setLoading(false);
+      });
+
+    return () => journal();
+  }, []);
+
+  if(loading){
+    return(
+      <ActivityIndicator/>
+    )
+  }
 
   return (
-    <SafeAreaView>
-      <ScrollView>
+<SafeAreaView style={styler.screen}>
+      <ImageBackground
+        source={require("../assets/ss.png")}
+        style={styler.image}
+      >
         <View style={styler.head}>
-          <TouchableOpacity>
-            <Icon
-              style={{ margin: 0.015*screenHeight }}
-              name="arrow-back"
-              type="ionicon"
-              color="#979797"
-              size={0.04*screenHeight}
-            />
-          </TouchableOpacity>
-          <Text style={{ fontSize: 0.032*screenHeight, fontWeight: "bold" }}>My Therapies</Text>
-          <TouchableOpacity>
-            <Icon reverse name="person" type="ionicon" color="#ffff" />
-          </TouchableOpacity>
-        </View>
-        <View style={{ padding: 0.015*screenHeight }}>
-          <SearchBar
-            containerStyle={{
-              backgroundColor: "white",
-              borderWidth: 1,
-              borderRadius: 15,
-              borderColor: "#7AC141",
-              borderTopWidth: 1,
-              borderTopColor: "#7AC141",
-              borderBottomColor: "#7AC141",
-              height: 0.07*screenHeight,
+          <View
+            style={{
+              flex: 0.3,
+              alignItems: "flex-start",
             }}
-            inputContainerStyle={{ backgroundColor: "white", height: 0.03*screenHeight }}
-            placeholder="Search therapy name"
-            onChangeText={updateSearch}
-            value={search}
-          />
+          >
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Profile");
+              }}
+            >
+              <Icon
+                name="arrow-back"
+                type="ionicon"
+                color="#000000"
+                size={0.04*screenHeight}
+                style={{ marginLeft: 0.03*screenHeight }}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={{ flex: 0.7 }}>
+            <Text
+              style={{
+                fontSize: 0.032*screenHeight,
+                fontWeight: "bold",
+                textAlign: "left",
+              }}
+            >
+              My Therapies
+            </Text>
+          </View>
         </View>
-        <View>
-          {list.map((l, i) => (
-            <View style={{ padding: 0.01*screenHeight, paddingRight: 0.01*screenHeight, paddingLeft: 0.01*screenHeight }}>
+        <View style={styler.listView}>
+          <FlatList
+            data={list}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                onPress={() => {
+                }}
+              >
+                            <View style={{ padding: 0.01*screenHeight, paddingRight: 0.01*screenHeight, paddingLeft: 0.01*screenHeight, marginLeft: 0.01 * screenWidth, marginRight: 0.01 * screenWidth}}>
               <ListItem
-                key={i}
-                containerStyle={{ backgroundColor: "#F8F8F8", height: 0.08*screenHeight }}
+                containerStyle={{ backgroundColor: "#F8F8F8", height: 0.08*screenHeight, borderRadius: 5, elevation: 5 }}
               >
                 <ListItem.Content>
-                  <ListItem.Title>{l.therapy}</ListItem.Title>
-                  <ListItem.Subtitle>{l.date}</ListItem.Subtitle>
+                  <ListItem.Title>{item.therapyName}</ListItem.Title>
+                  <ListItem.Subtitle>{item.date}</ListItem.Subtitle>
                 </ListItem.Content>
-                <ListItem.Subtitle>{l.price}</ListItem.Subtitle>
+                <ListItem.Subtitle>{item.amountPaid}</ListItem.Subtitle>
               </ListItem>
             </View>
-          ))}
+              </TouchableOpacity>
+            )}
+          />
         </View>
-      </ScrollView>
+      </ImageBackground>
     </SafeAreaView>
   );
 };
@@ -100,9 +128,21 @@ export default MyTherapies;
 
 const styler = StyleSheet.create({
   head: {
+    flex: 0.15,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
-    marginTop: 0.04*screenHeight,
+    textAlign: "center",
+    marginTop: 0.025*screenHeight,
+  },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+  },
+  listView: {
+    flex: 0.85,
+  },
+  screen: {
+    flex: 1,
   },
 });

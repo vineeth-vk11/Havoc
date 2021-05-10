@@ -17,6 +17,10 @@ import { Button } from "react-native-elements";
 import firebase from "firebase";
 require("firebase/firestore");
 
+import uuid from "react-native-uuid";
+
+import RazorpayCheckout from 'react-native-razorpay';
+
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
@@ -92,7 +96,27 @@ const BookCall = ({ navigation }) => {
           </View>
         </View>
         <View style={styler.footView}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress = {() => {
+
+            var options = {
+              description: 'Call Booking',
+              image: require('../assets/logoTB.png'),
+              currency: 'INR',
+              key: 'rzp_test_MvrwOKu0TQyu0C',
+              amount: '25000',
+              name: 'Havoc Therapy',
+              theme: {color: '#7AC141'}
+            }
+            RazorpayCheckout.open(options).then((data) => {
+              // handle success
+              alert(`Success`);
+
+              navigation.navigate("BookCallDateTime")
+            }).catch((error) => {
+              // handle failure
+              alert(`Error ${error.description}`);
+            });
+          }}>
             <Text style={styler.bookNow}>BOOK NOW</Text>
           </TouchableOpacity>
         </View>
@@ -154,12 +178,14 @@ const styler = StyleSheet.create({
     justifyContent: "flex-end",
     borderRadius: 0.022*screenHeight,
     width: 0.85*screenWidth,
-    height: 0.07*screenHeight,
+    height: 0.08*screenHeight,
     backgroundColor: "#7AC141",
     color: "white",
     textAlign: "center",
     textAlignVertical: "center",
     fontSize: 0.025*screenHeight,
+    overflow: "hidden",
+    paddingVertical: 0.02*screenHeight
   },
   screen: { flex: 1 },
   headView: {

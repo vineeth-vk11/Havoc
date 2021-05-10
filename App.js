@@ -82,7 +82,7 @@ function App() {
     <NavigationContainer theme={MyTheme}>
       <Stack.Navigator
         initialRouteName="Splash"
-        screenOptions={{ headerShown: false }}
+        screenOptions={{ headerShown: false, gestureEnabled: false }}
       >
         <Stack.Screen name="Splash" component={Splash} />
         <Stack.Screen name="Register1" component={Register1} />

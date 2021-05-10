@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ImageBackground } from "react-native";
 import {
   View,
   Text,
@@ -8,18 +9,41 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
-  Dimensions
+  Dimensions, Alert
 } from "react-native";
 
 import { Button, Icon } from "react-native-elements";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
+import Moment from 'moment'
+
+import firebase from "firebase";
+require("firebase/firestore");
+
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
-const BookCallDateTime = () => {
+const BookCallDateTime = ({navigation}) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
+
+  const [date, setDate] = useState("Date")
+  const [time, setTime] = useState("Time")
+  const [number, setNumber] = useState("")
+
+  var today = new Date()
+  var tomorrow = new Date()
+  tomorrow.setDate(today.getDate() + 1)
+  var ftomorrow = Moment(tomorrow).format('l')
+  var minDate = ftomorrow.split("/")
+
+  const createAlert = (message) =>
+  Alert.alert(
+    "Missong Data",
+    message,
+    [{ text: "OK", onPress: () => {} }],
+    { cancelable: false }
+  );
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -30,7 +54,8 @@ const BookCallDateTime = () => {
   };
 
   const handleDateConfirm = (date) => {
-    console.warn("A date has been picked: ", date);
+    var formattedDate = Moment(date).format('MMMM Do YYYY')
+    setDate(formattedDate)
     hideDatePicker();
   };
   const showTimePicker = () => {
@@ -42,21 +67,49 @@ const BookCallDateTime = () => {
   };
 
   const handleTimeConfirm = (time) => {
-    console.warn("A Time has been picked: ", time);
+    var formattedTime = Moment(time).format('hh:mm a')
+    setTime(formattedTime)
     hideTimePicker();
   };
 
   return (
     <SafeAreaView style={styler.screen}>
+      <ImageBackground       source={require("../assets/ss.png")}
+      style={styler.imageBg}> 
+
       <View style={styler.headView}>
-        <View style={styler.head}>
-          <TouchableOpacity>
-            <Icon name="arrow-back" type="ionicon" color="#979797" size={0.04*screenHeight} />
-          </TouchableOpacity>
-          <Text style={{ fontSize: 24, fontWeight: "bold" }}>Booking</Text>
-          <TouchableOpacity>
-            <Icon name="arrow-back" type="ionicon" color="#ffff" />
-          </TouchableOpacity>
+      <View style={styler.head}>
+          <View
+            style={{
+              flex: 0.3,
+              alignItems: "flex-start",
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack(null);
+              }}
+            >
+              <Icon
+                name="arrow-back"
+                type="ionicon"
+                color="#000000"
+                size={0.04*screenHeight}
+                style={{ marginLeft: 0.03*screenHeight }}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={{ flex: 0.6 }}>
+            <Text
+              style={{
+                fontSize: 0.032*screenHeight,
+                fontWeight: "bold",
+                textAlign: "left",
+              }}
+            >
+              Book Call
+            </Text>
+          </View>
         </View>
       </View>
       <View style={styler.dateTimeView}>
@@ -64,7 +117,7 @@ const BookCallDateTime = () => {
           <Button
             raised
             containerStyle={{
-              width: 0.25*screenWidth,
+              width: 0.50*screenWidth,
               height: 0.07*screenHeight,
               margin: 0.015*screenHeight,
               smarginBottom: 0.025*screenHeight,
@@ -73,13 +126,13 @@ const BookCallDateTime = () => {
               padding: 0.01*screenHeight,
               height: 0.07*screenHeight,
               borderColor: "#7AC141",
-              borderWidth: 1,
-              borderRadius: 0.01*screenHeight,
+              borderWidth: 0,
+              borderRadius: 0.05*screenHeight,
             }}
             icon={
               <Icon name="calendar" size={0.025*screenHeight} color="#7AC141" type="ionicon" />
             }
-            title="  Date"
+            title= {date}
             type="outline"
             titleStyle={{ color: "#7AC141" }}
             onPress={showDatePicker}
@@ -87,6 +140,7 @@ const BookCallDateTime = () => {
           <DateTimePickerModal
             isVisible={isDatePickerVisible}
             mode="date"
+            minimumDate = {new Date(minDate[2],minDate[0],minDate[1])}
             onConfirm={handleDateConfirm}
             onCancel={hideDatePicker}
           />
@@ -95,7 +149,7 @@ const BookCallDateTime = () => {
           <Button
             raised
             containerStyle={{
-              width: 0.25*screenWidth,
+              width: 0.5*screenWidth,
               height: 0.07*screenHeight,
               margin: 10,
               marginBottom: 20,
@@ -105,11 +159,11 @@ const BookCallDateTime = () => {
               padding: 0.01*screenHeight,
               height: 0.07*screenHeight,
               borderColor: "#7AC141",
-              borderWidth: 1,
+              borderWidth: 0,
               borderRadius: 0.01*screenHeight,
             }}
             icon={<Icon name="time" size={0.03*screenHeight} color="#7ACA41" type="ionicon" />}
-            title=" Time"
+            title={time}
             type="outline"
             titleStyle={{ color: "#7AC141" }}
             onPress={showTimePicker}
@@ -124,13 +178,60 @@ const BookCallDateTime = () => {
         <TextInput
           style={styler.phoneNumber}
           placeholder={"+91  Phone Number"}
+          onChangeText = {(text) => {
+            setNumber(text)
+          }}
+          value = {number}
         ></TextInput>
       </View>
       <View style={styler.footView}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress = {() => {
+
+          if(date === "Date"){
+            createAlert("Please select a date")
+          }
+          else if(time === "Time"){
+            createAlert("Please select a time")
+          }
+          else if(number === ""){
+            createAlert("Please enter a mobile numer")
+          }
+          else{
+            var currentUser = firebase.auth().currentUser.uid
+
+            firebase
+            .firestore()
+            .collection("users")
+            .doc(currentUser)
+            .collection("callBookings")
+            .add({
+              date: date,
+              time: time,
+              number: number,
+              user: currentUser
+            })
+            .then(()=> {
+              firebase
+              .firestore()
+              .collection("callBookings")
+              .add({
+                date: date,
+                time: time,
+                number: number,
+                user: currentUser
+              })
+              .then(() => {
+                navigation.navigate("Profile")
+              })
+            })
+
+          }
+        }}>
           <Text style={styler.bookNow}>BOOK NOW</Text>
         </TouchableOpacity>
       </View>
+      </ImageBackground>
+
     </SafeAreaView>
   );
 };
@@ -138,9 +239,13 @@ const styler = StyleSheet.create({
   head: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
-    marginTop: 0.07*screenHeight,
-    margin: 0.015*screenHeight,
+    textAlign: "center",
+    marginTop: 0.025*screenHeight,
+  },
+  imageBg: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
   },
   medicationView: {
     flexDirection: "row",
@@ -152,13 +257,15 @@ const styler = StyleSheet.create({
     justifyContent: "flex-end",
     borderRadius: 0.022*screenHeight,
     width: 0.85*screenWidth,
-    height: 0.07*screenHeight,
+    height: 0.08*screenHeight,
     backgroundColor: "#7AC141",
     color: "white",
     margin: 0.035*screenHeight,
     textAlign: "center",
     textAlignVertical: "center",
     fontSize: 0.03*screenHeight,
+    overflow: "hidden",
+    paddingVertical: 0.02*screenHeight
   },
   phoneNumber: {
     padding: 0.015*screenHeight,
@@ -168,15 +275,17 @@ const styler = StyleSheet.create({
     margin: 0.015*screenHeight,
     width: 0.85*screenWidth,
     height: 0.07*screenHeight,
-    color: "#828282",
+    color: "#000",
     justifyContent: "center",
+    fontSize: 22
   },
   screen: { flex: 1, padding: 0.015*screenHeight},
   headView: {
-    flex: 0.2,
+    flex: 0.15,
   },
   dateTimeView: {
-    flex: 0.6,
+    flex: 0.65,
+    marginLeft: 0.05 * screenWidth
   },
   footView: {
     flex: 0.2,

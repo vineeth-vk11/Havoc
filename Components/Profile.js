@@ -125,7 +125,7 @@ const Profile = ({ navigation }) => {
                   } else if (item.title === "Therapies") {
                     navigation.navigate("Therapies");
                   } else if (item.title === "My Therapies") {
-                    // navigation.navigate("MyTherapies");
+                    navigation.navigate("MyTherapies");
                   } else if (item.title === "Logout") {
                     firebase
                       .auth()
