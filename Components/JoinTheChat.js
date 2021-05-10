@@ -25,16 +25,21 @@ const JoinTheChat = ({ navigation, route }) => {
   const [listenerName, setListenerName] = useState();
   const [listenerBio, setListenerBio] = useState();
 
+ console.log(listenerId)
+
  useEffect(() => {
-    let listener = firebase
+    firebase
       .firestore()
       .collection("Listeners")
       .doc(listenerId)
       .get()
       .then((documentSnapshot) => {
-        setListenerName(documentSnapshot.data()["name"]);
-        setListenerBio(documentSnapshot.data()["bio"]);
+        var data = documentSnapshot.data()
+
+        setListenerName(data["name"]);
+        setListenerBio(data["bio"]);
       });
+
   });
 
   return (
@@ -53,8 +58,10 @@ const JoinTheChat = ({ navigation, route }) => {
             >
               Request Accepted By{" "}
             </Text>
-            <Text style={{ fontSize: 0.025*screenHeight, fontWeight: "bold" }}>
-              Vineeth Kumar{" "}
+            <Text 
+            value
+            style={{ fontSize: 0.025*screenHeight, fontWeight: "bold" }} >
+              {listenerName}
             </Text>
           </View>
         </View>
@@ -129,14 +136,14 @@ const styler = StyleSheet.create({
     justifyContent: "flex-end",
     borderRadius: 15,
     width: 0.85*screenWidth,
-    height: 0.07*screenHeight,
+    height: 0.08*screenHeight,
     backgroundColor: "#7AC141",
     color: "white",
     margin: 0.027*screenHeight,
     textAlign: "center",
     textAlignVertical: "center",
     fontSize: 0.025*screenHeight,
-    paddingVertical: 0.015*screenHeight,
+    paddingVertical: 0.02*screenHeight,
     overflow: "hidden",
     alignSelf: "center",
   },

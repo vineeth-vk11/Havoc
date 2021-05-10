@@ -12,20 +12,19 @@ import { Icon } from "react-native-elements";
 const screenWidth= Dimensions.get('window').width;
 const screenHeight=Dimensions.get('window').height;
 
-const TherapyBooking = () => {
+const TherapyBooking = ({navigation, route}) => {
+
+  const { cost } = route.params
+
   return (
     <SafeAreaView style={styler.screen}>
       <View style={styler.headView}>
         <View style={styler.head}>
-          <TouchableOpacity>
-            <Icon name="arrow-back" type="ionicon" color="#979797" />
-          </TouchableOpacity>
-          <Text style={{ fontSize: 0.035*screenHeight, fontWeight: "bold" }}>
-            Therapy Booking
-          </Text>
-          <TouchableOpacity>
-            <Icon name="arrow-back" type="ionicon" color="#ffff" />
-          </TouchableOpacity>
+
+                <Text style={{ fontSize: 24, marginTop: 10, fontWeight: "bold" }}>
+                  Therapy Booking
+                </Text>
+              
         </View>
       </View>
       <View style={styler.bookingView}>
@@ -44,12 +43,15 @@ const TherapyBooking = () => {
         <View style={styler.lineStyle} />
         <View style={styler.medicationView}>
           <Text style={{ fontSize: 0.025*screenHeight, fontWeight: "bold" }}>Paid Amount</Text>
-          <Text style={{ fontSize: 0.030*screenHeight }}>₹ 250</Text>
+          <Text style={{ fontSize: 0.030*screenHeight }}>₹ {cost}</Text>
         </View>
+        <Text style = {{fontSize: 16, marginHorizontal: 0.025*screenHeight}}>Your booking is confirmed. Our team will get in touch with you soon.</Text>
         <View style={styler.lineStyle} />
       </View>
       <View style={styler.footView}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress = {() => {
+          navigation.navigate("MyTherapies")
+        }}>
           <Text style={styler.finish}>FINISH</Text>
         </TouchableOpacity>
       </View>
@@ -62,9 +64,9 @@ const styler = StyleSheet.create({
   head: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
-    marginTop: 0.08*screenHeight,
-    margin: 0.025*screenHeight,
+    justifyContent: "center",
+    marginTop: 0.02 * screenHeight,
+    margin: 0.015 * screenHeight,
   },
   medicationView: {
     flexDirection: "row",
@@ -82,7 +84,9 @@ const styler = StyleSheet.create({
     textAlign: "center",
     textAlignVertical: "center",
     fontSize: 0.03*screenHeight,
-    elevation: 0.010*screenHeight
+    elevation: 0.010*screenHeight,
+    overflow: "hidden",
+    paddingVertical: 0.02 * screenHeight
   },
   lineStyle: {
     borderWidth: 0.4,
@@ -94,8 +98,6 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 0.1*screenHeight,
-    marginBottom: 0.1*screenHeight,
   },
   screen: { flex: 1 },
   headView: {
@@ -107,10 +109,10 @@ const styler = StyleSheet.create({
     justifyContent: "center",
   },
   summaryView: {
-    flex: 0.3,
+    flex: 0.4,
   },
   footView: {
-    flex: 0.3,
+    flex: 0.2,
     alignItems: "center",
     justifyContent: "flex-end",
     marginBottom: 0.05*screenHeight,

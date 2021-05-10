@@ -17,7 +17,7 @@ import RadioForm, {
   RadioButtonLabel,
 } from "react-native-simple-radio-button";
 import { Rating, AirbnbRating } from "react-native-elements";
-import {Stars} from "react-native-stars";
+import Stars from "react-native-stars";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import firebase from "firebase";
@@ -32,7 +32,7 @@ var radio_props = [
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
-const AgeOfListner = ({ navigation, route }) => {
+const Review =({ navigation, route }) => {
   const [value, setvalue] = useState(-1);
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
@@ -117,121 +117,123 @@ const AgeOfListner = ({ navigation, route }) => {
       );
     }
   };
+
   return (
     <ImageBackground source={require("../assets/ss.png")} style={styler.image}>
       <View style={styler.screen}>
-        <View style={styler.headView}>
-          <View style={styler.head}>
-            <Text style={{ fontSize: 30, fontWeight: "bold", marginTop: 20 }}>
-              Review
-            </Text>
-          </View>
-        </View>
-        <View style={styler.formView}>
-          <Text style={styler.better}>Are you feeling better now</Text>
-          <RadioForm formHorizontal={false} animation={true}>
-            {radio_props.map((obj, i) => (
-              <RadioButton labelHorizontal={true} key={i}>
-                <View style={{ flexDirection: "row" }}>
-                  <RadioButtonInput
-                    obj={obj}
-                    index={i}
-                    isSelected={value === i}
-                    onPress={(value) => {
-                      if (value === 0) {
-                        setFeeling("Yes");
-                      } else if (value === 1) {
-                        setFeeling("Not Sure");
-                      } else {
-                        setFeeling("No");
-                      }
-                      setvalue(value);
-                    }}
-                    borderWidth={2}
-                    buttonInnerColor={"#7AC141"}
-                    buttonOuterColor={value === i ? "#7AC141" : "#000"}
-                    buttonSize={16}
-                    buttonOuterSize={24}
-                    buttonStyle={{ marginRight: 20, marginBottom: 10 }}
-                    buttonWrapStyle={{ marginLeft: 10 }}
-                  />
-                  <RadioButtonLabel
-                    obj={obj}
-                    index={i}
-                    labelHorizontal={true}
-                    onPress={(value) => {
-                      setvalue(value);
-                    }}
-                    labelStyle={{
-                      fontSize: 20,
-                      color: "#000",
-                    }}
-                    labelWrapStyle={{}}
-                  />
-                </View>
-              </RadioButton>
-            ))}
-          </RadioForm>
-        </View>
-        <View style={styler.rateView}>
-          <Text style={styler.better}>Rate the listener</Text>
-          <View style={styler.ratingView}>
-            <Stars
-              half={true}
-              update={(val) => {
-                setRating(val);
-              }}
-              spacing={4}
-              starSize={40}
-              count={5}
-              starSize={24}
-              emptyStar={
-                <Icon
-                  name={"star-outline"}
-                  size={40}
-                  style={{ color: "#000" }}
-                />
-              }
-              fullStar={
-                <Icon name={"star"} size={40} style={{ color: "#7AC141" }} />
-              }
-              halfStar={
-                <Icon
-                  name={"star-half"}
-                  size={40}
-                  style={{ color: "#7AC141" }}
-                />
-              }
-            />
-          </View>
-        </View>
-        <View style={styler.reviewView}>
-          <Text style={styler.better}>Review</Text>
-          <View
-            style={{
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "flex-end",
-            }}
-          >
-            <TextInput
-              placeholder="Let us know about your experience"
-              placeholderTextColor="rgba(122, 193, 65, 1);"
-              style={styler.review}
-              onChangeText={(text) => {
-                setReview(text);
-              }}
-              value={review}
-            ></TextInput>
-          </View>
-        </View>
-        {renderButton()}
+      <View style={styler.headView}>
+<View style={styler.head}>
+  <Text style={{ fontSize: 30, fontWeight: "bold", marginTop: 20 }}>
+    Review
+  </Text>
+</View>
+</View>
+
+<View style={styler.formView}>
+<Text style={styler.better}>Are you feeling better now</Text>
+<RadioForm formHorizontal={false} animation={true}>
+  {radio_props.map((obj, i) => (
+    <RadioButton labelHorizontal={true} key={i}>
+      <View style={{ flexDirection: "row" }}>
+        <RadioButtonInput
+          obj={obj}
+          index={i}
+          isSelected={value === i}
+          onPress={(value) => {
+            if (value === 0) {
+              setFeeling("Yes");
+            } else if (value === 1) {
+              setFeeling("Not Sure");
+            } else {
+              setFeeling("No");
+            }
+            setvalue(value);
+          }}
+          borderWidth={2}
+          buttonInnerColor={"#7AC141"}
+          buttonOuterColor={value === i ? "#7AC141" : "#000"}
+          buttonSize={16}
+          buttonOuterSize={24}
+          buttonStyle={{ marginRight: 20, marginBottom: 10 }}
+          buttonWrapStyle={{ marginLeft: 10 }}
+        />
+        <RadioButtonLabel
+          obj={obj}
+          index={i}
+          labelHorizontal={true}
+          onPress={(value) => {
+            setvalue(value);
+          }}
+          labelStyle={{
+            fontSize: 20,
+            color: "#000",
+          }}
+          labelWrapStyle={{}}
+        />
+      </View>
+    </RadioButton>
+  ))}
+</RadioForm>
+</View>
+
+<View style={styler.rateView}>
+<Text style={styler.better}>Rate the listener</Text>
+<View style={styler.ratingView}>
+<Stars
+    update={(val) => {
+      setRating(val);
+    }}
+    spacing={4}
+    starSize={40}
+    count={5}
+    starSize={24}
+    emptyStar={
+      <Icon
+        name={"star-outline"}
+        size={40}
+        style={{ color: "#000" }}
+      />
+    }
+    fullStar={
+      <Icon name={"star"} size={40} style={{ color: "#7AC141" }} />
+    }
+    halfStar={
+      <Icon
+        name={"star-half"}
+        size={40}
+        style={{ color: "#7AC141" }}
+      />
+    }
+  />
+</View>
+</View>
+<View style={styler.reviewView}>
+<Text style={styler.better}>Review</Text>
+<View
+  style={{
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "flex-end",
+  }}
+>
+  <TextInput
+    placeholder="Let us know about your experience"
+    placeholderTextColor="rgba(122, 193, 65, 1);"
+    style={styler.review}
+    onChangeText={(text) => {
+      setReview(text);
+    }}
+    value={review}
+  ></TextInput>
+</View>
+</View>
+{renderButton()}
       </View>
     </ImageBackground>
   );
 };
 
-export default AgeOfListner;
+export default Review;
 
 const styler = StyleSheet.create({
   head: {
@@ -260,6 +262,8 @@ const styler = StyleSheet.create({
     textAlignVertical: "center",
     fontSize: 0.035 * screenHeight,
     elevation: 5,
+    overflow: "hidden",
+    paddingVertical: 0.02 * screenHeight
   },
   review: {
     padding: 10,

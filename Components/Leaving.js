@@ -223,6 +223,8 @@ const styler = StyleSheet.create({
     textAlign: "center",
     textAlignVertical: "center",
     fontSize: 0.03 * screenHeight,
+    overflow: "hidden",
+    paddingVertical: 0.02 * screenHeight
   },
   screen: {
     flex: 1,

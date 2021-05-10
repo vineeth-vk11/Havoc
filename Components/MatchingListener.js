@@ -35,20 +35,24 @@ const MatchingListener = ({ navigation, route }) => {
   var alreadyEntered = false;
 
   useEffect(() => {
-    firebase
+    const chatStatus = firebase
       .firestore()
       .collection("Chats")
       .doc(chatId)
       .onSnapshot((documentSnapshot) => {
-        setListenerId(documentSnapshot.data()["listener"]);
-        setListenerJoined(documentSnapshot.data()["listenerJoined"]);
 
-        if (listenerId !== "waiting" && alreadyEntered === false) {
+        var data = documentSnapshot.data()
+        var ListenerId = data['listener']
+        
+        if (ListenerId !== "waiting" && alreadyEntered === false) {
+
+          setListenerId(ListenerId);
+
           navigation.navigate("JoinTheChat", {
             chatId: chatId,
             feeling: feeling,
             onMind: onMind,
-            listenerId: listenerId,
+            listenerId: ListenerId,
             type: "seeker",
             topic: topic,
           });
@@ -56,6 +60,9 @@ const MatchingListener = ({ navigation, route }) => {
           alreadyEntered = true;
         }
       });
+
+      return () => chatStatus()
+
   }, []);
 
   return (
