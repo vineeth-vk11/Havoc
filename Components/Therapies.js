@@ -22,22 +22,21 @@ const screenHeight = Dimensions.get("window").height;
 const Therapies = ({ navigation }) => {
   const [search, setsearch] = useState();
 
-  const [list, setList] = useState([]);
+  
   const [loading, setLoading] = useState(true);
 
   const db = firebase.firestore();
 
+  const [list, setList] = useState([]);
+  const [therapiesList,settherapiesList]=useState([]);
   useEffect(() => {
     const therapies = db.collection("Therapies").onSnapshot((querySnapshot) => {
-      const therapiesList = [];
-
       querySnapshot.forEach((documentSnapshot) => {
         therapiesList.push({
           ...documentSnapshot.data(),
           key: documentSnapshot.id,
         });
       });
-
       setList(therapiesList);
       setLoading(false);
     });
@@ -47,6 +46,20 @@ const Therapies = ({ navigation }) => {
 
   if (loading) {
     return <ActivityIndicator />;
+  }
+
+
+  const searchFilterFunction =(txt)=>{
+    setsearch(txt);
+    const newData=therapiesList.filter(item=>{
+      const itemData=item.name;
+      return itemData.indexOf(txt)>-1;
+    });
+    if(newData.length==therapiesList.length){
+      setList(therapiesList);
+    }else{
+      setList(newData);
+    }
   }
 
   return (
@@ -63,7 +76,7 @@ const Therapies = ({ navigation }) => {
               }}
             >
               <Icon
-                style={{ marginLeft: 32 }}
+                style={{ marginTop: 10, marginLeft: 32 }}
                 name="arrow-back"
                 type="ionicon"
                 color="#000"
@@ -80,7 +93,7 @@ const Therapies = ({ navigation }) => {
               marginRight: "15%",
             }}
           >
-            <Text style={{ fontSize: 24, fontWeight: "bold" }}>
+            <Text style={{ fontSize: 24, fontWeight: "bold", marginTop: 10 }}>
               Therapies
             </Text>
           </View>
@@ -99,7 +112,7 @@ const Therapies = ({ navigation }) => {
             }}
             inputContainerStyle={{ backgroundColor: "white", height: 32 }}
             placeholder="Search therapy name"
-            onChangeText={(value) => setsearch(value)}
+            onChangeText={searchFilterFunction}
             value={search}
           />
         </View>
@@ -154,11 +167,11 @@ export default Therapies;
 
 const styler = StyleSheet.create({
   head: {
-    flex: 0.1,
+    flex: 0.15,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 0.01 * screenHeight,
+    marginTop: 0.04 * screenHeight,
   },
   image: {
     flex: 1,
