@@ -157,7 +157,7 @@ const styler = StyleSheet.create({
     width: 0.31 * screenWidth,
     alignItems: "flex-start",
     justifyContent: "flex-start",
-    marginTop: 0.06 * screenHeight,
+    marginTop: 0.03 * screenHeight,
   },
   text: {
     fontSize: 0.03 * screenHeight,
@@ -199,7 +199,7 @@ const styler = StyleSheet.create({
     alignItems: "center",
   },
   imageView: {
-    marginTop: 0.02 * screenHeight,
+    marginTop: 0.01 * screenHeight,
   },
   talkingNow: {
     justifyContent: "center",

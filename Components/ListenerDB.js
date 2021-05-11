@@ -138,7 +138,7 @@ const Register3 = ({ navigation }) => {
             style={{
               flexDirection: "column",
               alignItems: "center",
-              marginBottom: 0.025 * screenHeight,
+              marginBottom: 0.05 * screenHeight,
             }}
           >
             <TouchableOpacity
@@ -161,7 +161,7 @@ const Register3 = ({ navigation }) => {
             style={{
               flexDirection: "column",
               alignItems: "center",
-              marginBottom: 0.025 * screenHeight,
+              marginBottom: 0.05 * screenHeight,
             }}
           >
             <TouchableOpacity
@@ -187,17 +187,20 @@ const Register3 = ({ navigation }) => {
               marginBottom: 0.025 * screenHeight,
             }}
           >
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => {
+              navigation.navigate("PickTopic")
+            }}>
               <Icon
                 reverse
-                name="gift"
-                type="font-awesome-5"
+                name="person-add-outline"
+                type = "ionicon"
                 color="#7AC141"
                 size={24}
                 reverseColor="white"
               />
             </TouchableOpacity>
-            <Text>Rewards</Text>
+            <Text>Find</Text>
+            <Text>Listener</Text>
           </View>
         </View>
       </ImageBackground>
@@ -220,7 +223,7 @@ const styler = StyleSheet.create({
     width: 0.35 * screenWidth,
     alignItems: "flex-start",
     justifyContent: "flex-start",
-    marginTop: 0.045 * screenHeight,
+    marginTop: 0.03 * screenHeight,
   },
   text: {
     fontSize: 0.033 * screenHeight,
@@ -265,7 +268,7 @@ const styler = StyleSheet.create({
     alignItems: "center",
   },
   imageView: {
-    marginTop: 0.055 * screenHeight,
+    marginTop: 0.01 * screenHeight,
   },
   talkingNow: {
     justifyContent: "center",

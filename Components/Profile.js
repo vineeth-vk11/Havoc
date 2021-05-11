@@ -8,58 +8,90 @@ import {
   TouchableOpacity,
   ImageBackground,
   Dimensions,
+  Linking
 } from "react-native";
 import { ListItem, Icon } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
+import { FlatList } from "react-native-gesture-handler";
 
-/*import firebase from "firebase";
-require("firebase/auth");*/
+import firebase from "firebase";
+require("firebase/auth");
 
 const list = [
   {
     title: "Call History",
     icon: "list",
+    key:  "0"
   },
   {
     title: "Listener Age Range",
     icon: "funnel-outline",
+    key:  "1"
   },
   {
     title: "Therapies",
     icon: "clipboard",
+    key:  "2"
   },
   {
     title: "My Therapies",
     icon: "medkit",
-  },
-  {
-    title: "Refer a friend",
-    icon: "share-social",
+    key:  "3"
   },
   {
     title: "Privacy Policy",
     icon: "lock-closed-outline",
+    key:  "4"
   },
   {
     title: "Terms & Conditions",
     icon: "document-outline",
+    key:  "5"
   },
   {
     title: "Feedback",
     icon: "create-outline",
+    key:  "6"
   },
   {
     title: "Logout",
     icon: "log-out",
+    key:  "7"
   },
 ];
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
+const listHeader = () => {
+  return (
+    <View style={styler.imageView}>
+    <View style={styler.container}>
+      <View style={styler.image}>
+        <Image
+          style={styler.dp}
+          source={require("../assets/profilepic.png")}
+        />
+      </View>
+      <View style={{ marginBottom: 0.015 * screenHeight }}>
+        <Text
+          style={{
+            fontSize: 0.03 * screenHeight,
+            margin: 0.01 * screenHeight,
+          }}
+        ></Text>
+      </View>
+    </View>
+  </View>
+  )
+}
+
+const listFooter = () => {
+
+}
+
 const Profile = ({ navigation }) => {
   return (
-    <ScrollView>
       <ImageBackground
         source={require("../assets/ss.png")}
         style={styler.imageBg}
@@ -71,7 +103,6 @@ const Profile = ({ navigation }) => {
                 style={{
                   flex: 0.4,
                   alignItems: "flex-start",
-                  marginTop: 0.015 * screenHeight,
                 }}
               >
                 <TouchableOpacity
@@ -81,42 +112,28 @@ const Profile = ({ navigation }) => {
                 >
                   <Icon
                     style={{
-                      marginTop: 0.015 * screenHeight,
                       marginLeft: 0.025 * screenHeight,
                     }}
                     name="arrow-back"
                     type="ionicon"
                     color="#000000"
-                    size={0.05 * screenHeight}
+                    size={30}
                   />
                 </TouchableOpacity>
               </View>
 
-              <View style={{ flex: 0.6, marginTop: 0.015 * screenHeight }}>
+              <View style={{ flex: 0.6 }}>
                 <Text style={{ fontSize: 0.035 * screenHeight }}>Profile</Text>
               </View>
             </View>
           </View>
-          <View style={styler.imageView}>
-            <View style={styler.container}>
-              <View style={styler.image}>
-                <Image
-                  style={styler.dp}
-                  source={require("../assets/profilepic.png")}
-                />
-              </View>
-              <View style={{ marginBottom: 0.015 * screenHeight }}>
-                <Text
-                  style={{
-                    fontSize: 0.03 * screenHeight,
-                    margin: 0.01 * screenHeight,
-                  }}
-                ></Text>
-              </View>
-            </View>
-          </View>
+
           <View style={styler.listView}>
-            {list.map((item, i) => (
+            
+          <FlatList
+            data={list}
+            ListHeaderComponent = {listHeader}
+            renderItem={({ item }) => (
               <TouchableOpacity
                 onPress={() => {
                   if (item.title === "Call History") {
@@ -126,7 +143,17 @@ const Profile = ({ navigation }) => {
                     navigation.navigate("Therapies");
                   } else if (item.title === "My Therapies") {
                     navigation.navigate("MyTherapies");
-                  } else if (item.title === "Logout") {
+                  }
+                  else if (item.title === "Privacy Policy") {
+                    Linking.openURL('https://docs.google.com/document/d/1am33nbtgCMV7qfr9p9sE2YBOnsnnb_-J_RLPsM0G9-k/edit?usp=sharing')
+                  }
+                  else if (item.title === "Terms & Conditions") {
+                    Linking.openURL('https://docs.google.com/document/d/1zDihPzqLGK9RntzesCkVwTdxVX5xOJzR5o5rmHD-mJA/edit?usp=sharing')
+                  }
+                  else if (item.title === "Feedback") {
+                    navigation.navigate("GiveFeedback")
+                  }
+                  else if (item.title === "Logout") {
                     firebase
                       .auth()
                       .signOut()
@@ -136,7 +163,7 @@ const Profile = ({ navigation }) => {
                   }
                 }}
               >
-                <View 
+                <View
                   style={{
                     padding: 0.01 * screenHeight,
                     paddingRight: 0.012 * screenHeight,
@@ -144,7 +171,6 @@ const Profile = ({ navigation }) => {
                   }}
                 >
                   <ListItem
-                    key={item.title}
                     containerStyle={{
                       backgroundColor: "#FFFFFF",
                       height: 0.07 * screenHeight,
@@ -162,11 +188,11 @@ const Profile = ({ navigation }) => {
                   </ListItem>
                 </View>
               </TouchableOpacity>
-            ))}
+            )}
+          />
           </View>
         </SafeAreaView>
       </ImageBackground>
-    </ScrollView>
   );
 };
 
@@ -177,7 +203,7 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 0.06 * screenHeight,
+    marginTop: 0.03 * screenHeight,
   },
   imageBg: {
     flex: 1,
@@ -201,10 +227,10 @@ const styler = StyleSheet.create({
   },
   listView: {
     marginTop: 0.025 * screenWidth,
+    flex: 0.85,
     justifyContent: "flex-end",
   },
   imageView: {
-    marginTop: 0.025 * screenWidth,
+    flex: 0.15,
   },
-  i
 });
