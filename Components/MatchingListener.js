@@ -28,7 +28,6 @@ const MatchingListener = ({ navigation, route }) => {
 
   const toggleBottomNavigationView1 = () => {
     //Toggling the visibility state of the bottom sheet
-    console.log("called");
     setVisible1(!visible1);
   };
 
@@ -40,12 +39,10 @@ const MatchingListener = ({ navigation, route }) => {
       .collection("Chats")
       .doc(chatId)
       .onSnapshot((documentSnapshot) => {
+        var data = documentSnapshot.data();
+        var ListenerId = data["listener"];
 
-        var data = documentSnapshot.data()
-        var ListenerId = data['listener']
-        
         if (ListenerId !== "waiting" && alreadyEntered === false) {
-
           setListenerId(ListenerId);
 
           navigation.navigate("JoinTheChat", {
@@ -61,8 +58,7 @@ const MatchingListener = ({ navigation, route }) => {
         }
       });
 
-      return () => chatStatus()
-
+    return () => chatStatus();
   }, []);
 
   return (
@@ -125,9 +121,8 @@ const MatchingListener = ({ navigation, route }) => {
               <View>
                 <TouchableOpacity
                   onPress={() => {
-              
                     setVisible1(!visible1);
-                    
+
                     var currentUser = firebase.auth().currentUser.uid;
 
                     firebase

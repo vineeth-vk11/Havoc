@@ -12,12 +12,13 @@ import {
 import { Icon } from "react-native-elements";
 
 import firebase from "firebase";
+import { ListItem } from "react-native-elements/dist/list/ListItem";
 require("firebase/firestore");
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
-const Register3 = ({ navigation }) => {
+const ListenerDB = ({ navigation }) => {
   const [age, setAge] = useState();
   const [topics, setTopics] = useState([]);
   const [listenerName, setListenerName] = useState();
@@ -40,8 +41,6 @@ const Register3 = ({ navigation }) => {
             setTopics(data["topics"]);
             setListenerName(data["name"]);
 
-            console.log(age);
-
             db.collection("ChatRequests").onSnapshot((querySnapshot) => {
               const requestsList = [];
 
@@ -50,12 +49,7 @@ const Register3 = ({ navigation }) => {
                 var maxAge = documentSnapshot.data()["maxAge"];
                 var topic = documentSnapshot.data()["topic"];
 
-                console.log(minAge);
-                console.log(maxAge);
-                console.log("Done");
-
                 if (minAge < Number(age) < maxAge) {
-                  console.log("entered");
                   if (topics.includes(topic)) {
                     requestsList.push({
                       ...documentSnapshot.data(),
@@ -66,7 +60,6 @@ const Register3 = ({ navigation }) => {
               });
 
               setNumber(requestsList.length);
-              console.log(number);
             });
           }
         });
@@ -187,13 +180,15 @@ const Register3 = ({ navigation }) => {
               marginBottom: 0.025 * screenHeight,
             }}
           >
-            <TouchableOpacity onPress={() => {
-              navigation.navigate("PickTopic")
-            }}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("PickTopic");
+              }}
+            >
               <Icon
                 reverse
                 name="person-add-outline"
-                type = "ionicon"
+                type="ionicon"
                 color="#7AC141"
                 size={24}
                 reverseColor="white"
@@ -208,7 +203,7 @@ const Register3 = ({ navigation }) => {
   );
 };
 
-export default Register3;
+export default ListenerDB;
 
 const styler = StyleSheet.create({
   screen: {

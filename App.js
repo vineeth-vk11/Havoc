@@ -7,6 +7,7 @@ import Register3 from "./Components/Register3";
 import SelectTopic from "./Components/SelectTopic";
 import PickTopic from "./Components/PickTopic";
 import AgeOfListner from "./Components/AgeOfListner";
+import SetListnerAge from "./Components/SetListenerAge";
 import MatchingListener from "./Components/MatchingListener";
 import MainChat from "./Components/MainChat";
 import Leaving from "./Components/Leaving";
@@ -122,6 +123,7 @@ function App() {
         <Stack.Screen name="Quiz4" component={Quiz4} />
         <Stack.Screen name="ReportNEnd" component={ReportNEnd} />
         <Stack.Screen name="GiveFeedback" component={GiveFeedback} />
+        <Stack.Screen name="SetListenerAge" component={SetListnerAge} />
         <Stack.Screen
           name="BecomeListenerResult"
           component={BecomeListenerResult}

@@ -28,7 +28,6 @@ const MyJournal = ({ navigation }) => {
 
   if (firebase.auth().currentUser) {
     currentUser = firebase.auth().currentUser.uid;
-    console.log(currentUser);
   }
   const db = firebase.firestore();
 

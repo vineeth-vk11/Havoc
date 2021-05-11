@@ -7,7 +7,7 @@ import {
   Modal,
   TouchableOpacity,
   ImageBackground,
-  Dimensions
+  Dimensions,
 } from "react-native";
 
 import { ListItem, Avatar, Icon } from "react-native-elements";
@@ -53,7 +53,6 @@ function JournalChat({ navigation, route }) {
                   "https://firebasestorage.googleapis.com/v0/b/wehearyou-c9eb8.appspot.com/o/profilepic.png?alt=media&token=57e06b2b-343b-489a-bdeb-de00d5e42e70",
               },
             });
-            console.log(documentSnapshot.val());
           });
 
           setMessages(messageList.reverse());
@@ -80,7 +79,7 @@ function JournalChat({ navigation, route }) {
                 name="arrow-back"
                 type="ionicon"
                 color="#000000"
-                size={0.04*screenHeight}
+                size={0.04 * screenHeight}
                 style={{ marginLeft: 32 }}
               />
             </TouchableOpacity>
@@ -90,7 +89,7 @@ function JournalChat({ navigation, route }) {
           >
             <Text
               style={{
-                fontSize: 0.032*screenHeight,
+                fontSize: 0.032 * screenHeight,
                 fontWeight: "bold",
                 textAlign: "left",
                 marginLeft: "30%",
@@ -103,6 +102,7 @@ function JournalChat({ navigation, route }) {
         <GiftedChat
           style={{ flex: 0.85 }}
           messages={messages}
+          renderAvatar={() => null}
           onSend={(messages) => onSend(messages)}
           user={{
             _id: currentUser,
@@ -125,7 +125,7 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     textAlign: "center",
-    marginTop: 0.042*screenHeight,
+    marginTop: 0.042 * screenHeight,
   },
   image: {
     flex: 1,

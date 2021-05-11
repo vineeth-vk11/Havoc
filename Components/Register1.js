@@ -8,6 +8,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  LogBox,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { SocialIcon } from "react-native-elements";
@@ -94,7 +95,6 @@ const Register1 = ({ navigation }) => {
                     message: "Enter mobile number with country code",
                     type: "info",
                   });
-                  console.log(err);
                 }
               }}
             >

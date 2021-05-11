@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -19,6 +19,8 @@ import RadioForm, {
 } from "react-native-simple-radio-button";
 
 import firebase from "firebase";
+import { min } from "moment";
+import { ActivityIndicator } from "react-native-paper";
 require("firebase/firestore");
 
 const screenWidth = Dimensions.get("window").width;
@@ -31,13 +33,44 @@ var radio_props = [
   { label: "51 years or more", value: 3 },
 ];
 
-const AgeOfListner = ({ navigation, route }) => {
+const SetListenerAge = ({ navigation }) => {
   const [value, setvalue] = useState(-1);
   /*const { userName, topic } = route.params;*/
   const [minimumAge, setMinimumAge] = useState();
   const [maximumAge, setMaximumAge] = useState();
 
-  const { userName, topic } = route.params;
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (loading) {
+      var currentUser = firebase.auth().currentUser.uid;
+      firebase
+        .firestore()
+        .collection("users")
+        .doc(currentUser)
+        .get()
+        .then((documentSnapshot) => {
+          if (documentSnapshot.data()["minAge"] !== null) {
+            var minAge = documentSnapshot.data()["minAge"];
+
+            if (minAge === "18") {
+              setvalue(0);
+            } else if (minAge === "25") {
+              setvalue(1);
+            } else if (minAge === "35") {
+              setvalue(2);
+            } else if (minAge === "51") {
+              setvalue(3);
+            }
+            setLoading(false);
+          }
+        });
+    }
+  });
+
+  if (loading) {
+    return <ActivityIndicator />;
+  }
 
   return (
     <SafeAreaView style={styler.screen}>
@@ -111,6 +144,22 @@ const AgeOfListner = ({ navigation, route }) => {
                       color: "#000",
                       marginBottom: 0.01 * screenHeight,
                     }}
+                    onPress={(value) => {
+                      if (value === 0) {
+                        setMinimumAge("18");
+                        setMaximumAge("24");
+                      } else if (value === 1) {
+                        setMinimumAge("25");
+                        setMaximumAge("34");
+                      } else if (value === 2) {
+                        setMinimumAge("35");
+                        setMaximumAge("50");
+                      } else if (value === 3) {
+                        setMinimumAge("51");
+                        setMaximumAge("100");
+                      }
+                      setvalue(value);
+                    }}
                     labelWrapStyle={{}}
                   />
                 </View>
@@ -138,18 +187,13 @@ const AgeOfListner = ({ navigation, route }) => {
                       { merge: true }
                     )
                     .then(() => {
-                      navigation.navigate("HowYouFeel", {
-                        userName: userName,
-                        topic: topic,
-                        minAge: maximumAge,
-                        maxAge: minimumAge,
-                      });
+                      navigation.navigate("Profile");
                     });
                 }
               }
             }}
           >
-            <Text style={styler.continue}>CONTINUE</Text>
+            <Text style={styler.continue}>Save</Text>
           </TouchableOpacity>
         </View>
       </ImageBackground>
@@ -157,7 +201,7 @@ const AgeOfListner = ({ navigation, route }) => {
   );
 };
 
-export default AgeOfListner;
+export default SetListenerAge;
 
 const styler = StyleSheet.create({
   head: {

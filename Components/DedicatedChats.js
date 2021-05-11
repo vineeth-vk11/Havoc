@@ -10,7 +10,7 @@ import {
   ScrollView,
   ActivityIndicator,
   ImageBackground,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import { ListItem, Avatar, Icon } from "react-native-elements";
 import firebase from "firebase";
@@ -28,7 +28,6 @@ const DedicatedChats = ({ navigation }) => {
 
   if (firebase.auth().currentUser) {
     currentUser = firebase.auth().currentUser.uid;
-    console.log(currentUser);
   }
   const db = firebase.firestore();
 
@@ -64,8 +63,8 @@ const DedicatedChats = ({ navigation }) => {
         <View
           style={{
             flex: 0.85,
-            marginLeft: 0.04*screenHeight,
-            marginRight: 0.04*screenHeight,
+            marginLeft: 0.04 * screenHeight,
+            marginRight: 0.04 * screenHeight,
           }}
         >
           <Text style={{ fontSize: 16, marginTop: "50%", textAlign: "center" }}>
@@ -94,30 +93,30 @@ const DedicatedChats = ({ navigation }) => {
               >
                 <View
                   style={{
-                    padding: 0.009*screenHeight,
-                    paddingRight: 0.01*screenHeight,
-                    paddingLeft: 0.01*screenHeight,
-                    marginLeft: 0.012*screenHeight,
-                    marginRight: 0.012*screenHeight,
+                    padding: 0.009 * screenHeight,
+                    paddingRight: 0.01 * screenHeight,
+                    paddingLeft: 0.01 * screenHeight,
+                    marginLeft: 0.012 * screenHeight,
+                    marginRight: 0.012 * screenHeight,
                   }}
                 >
                   <ListItem
                     containerStyle={{
                       backgroundColor: "#F8F8F8",
-                      height: 0.08*screenHeight,
-                      borderRadius: 0.01*screenHeight,
-                      elevation: 0.01*screenHeight,
+                      height: 0.08 * screenHeight,
+                      borderRadius: 0.01 * screenHeight,
+                      elevation: 0.01 * screenHeight,
                     }}
                   >
                     <Avatar
                       source={require("../assets/profilepic.png")}
-                      size={0.04*screenHeight}
+                      size={0.04 * screenHeight}
                     />
                     <ListItem.Content>
                       <ListItem.Title>{item.listenerName}</ListItem.Title>
                       <ListItem.Subtitle>{item.topic}</ListItem.Subtitle>
                     </ListItem.Content>
-                    <ListItem.Chevron size={0.04*screenHeight} />
+                    <ListItem.Chevron size={0.04 * screenHeight} />
                   </ListItem>
                 </View>
               </TouchableOpacity>
@@ -147,11 +146,13 @@ const DedicatedChats = ({ navigation }) => {
               }}
             >
               <Icon
-                style={{ marginTop: 0.015*screenHeight, marginLeft: 0.04*screenHeight }}
+                style={{
+                  marginLeft: 0.03 * screenHeight,
+                }}
                 name="arrow-back"
                 type="ionicon"
                 color="#000000"
-                size={0.04*screenHeight}
+                size={0.04 * screenHeight}
               />
             </TouchableOpacity>
           </View>
@@ -161,7 +162,12 @@ const DedicatedChats = ({ navigation }) => {
               alignItems: "flex-start",
             }}
           >
-            <Text style={{ fontSize: 0.032*screenHeight, fontWeight: "bold", marginTop: 0.015*screenHeight }}>
+            <Text
+              style={{
+                fontSize: 0.032 * screenHeight,
+                fontWeight: "bold",
+              }}
+            >
               Dedicated chats
             </Text>
           </View>
@@ -181,7 +187,7 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 0.025*screenHeight,
+    marginTop: 0.025 * screenHeight,
   },
   image: {
     flex: 1,

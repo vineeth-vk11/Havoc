@@ -152,7 +152,6 @@ const Register2 = ({ navigation }) => {
                         });
                     }
                   } else {
-                    console.log("Enter something");
                   }
                 }}
               >

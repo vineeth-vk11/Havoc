@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   ActivityIndicator,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import { ListItem, Avatar, Icon } from "react-native-elements";
 
@@ -15,8 +15,8 @@ import firebase from "firebase";
 import { FlatList } from "react-native-gesture-handler";
 require("firebase/firestore");
 
-const screenWidth= Dimensions.get('window').width;
-const screenHeight=Dimensions.get('window').height;
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 const MyRequests = ({ navigation }) => {
   const [list, setList] = useState([]);
@@ -54,7 +54,6 @@ const MyRequests = ({ navigation }) => {
 
               setList(requestsList);
               setLoading(false);
-              console.log(list);
             });
           }
         });
@@ -78,21 +77,24 @@ const MyRequests = ({ navigation }) => {
               alignItems: "center",
             }}
           >
-            <TouchableOpacity onPress = {() => {
-              navigation.goBack(null)
-            }}>
-            <Icon
-              style={{ margin: 0.01*screenHeight }}
-              name="arrow-back"
-              type="ionicon"
-              color="#000"
-              size={0.04*screenHeight}
-            />
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack(null);
+              }}
+            >
+              <Icon
+                style={{ margin: 0.01 * screenHeight }}
+                name="arrow-back"
+                type="ionicon"
+                color="#000"
+                size={0.04 * screenHeight}
+              />
             </TouchableOpacity>
-
           </View>
           <View style={{ flex: 0.7, alignItems: "flex-start" }}>
-            <Text style={{ fontSize: 0.034*screenHeight, fontWeight: "bold" }}>
+            <Text
+              style={{ fontSize: 0.034 * screenHeight, fontWeight: "bold" }}
+            >
               My Requests
             </Text>
           </View>
@@ -103,19 +105,19 @@ const MyRequests = ({ navigation }) => {
             renderItem={({ item }) => (
               <View
                 style={{
-                  padding: 0.009*screenHeight,
-                  paddingRight: 0.01*screenHeight,
-                  paddingLeft: 0.01*screenHeight,
-                  marginLeft: 0.012*screenHeight,
-                  marginRight: 0.012*screenHeight,
+                  padding: 0.009 * screenHeight,
+                  paddingRight: 0.01 * screenHeight,
+                  paddingLeft: 0.01 * screenHeight,
+                  marginLeft: 0.012 * screenHeight,
+                  marginRight: 0.012 * screenHeight,
                 }}
               >
                 <ListItem
                   containerStyle={{
                     backgroundColor: "#F8F8F8",
-                    height: 0.09*screenHeight,
-                    borderRadius: 0.01*screenHeight,
-                    elevation: 0.01*screenHeight,
+                    height: 0.09 * screenHeight,
+                    borderRadius: 0.01 * screenHeight,
+                    elevation: 0.01 * screenHeight,
                   }}
                 >
                   <Avatar source={require("../assets/profilepic.png")} />
@@ -151,7 +153,6 @@ const MyRequests = ({ navigation }) => {
                                 listenerName: listenerName,
                                 topic: item.topic,
                               });
-                              console.log("done");
                             });
                         });
                     }}
@@ -176,7 +177,7 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 0.025*screenHeight,
+    marginTop: 0.025 * screenHeight,
   },
   image: {
     flex: 1,
