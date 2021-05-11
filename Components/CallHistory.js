@@ -18,6 +18,7 @@ import { FlatList } from "react-native-gesture-handler";
 require("firebase/firestore");
 
 import { Dimensions } from "react-native";
+import { ScreenHeight } from "react-native-elements/dist/helpers";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -66,11 +67,11 @@ const CallHistory = ({ navigation }) => {
               }}
             >
               <Icon
-                style={{ margin: 0.01*windowHeight }}
+                style={{ margin: 0.01 * windowHeight }}
                 name="arrow-back"
                 type="ionicon"
                 color="#000"
-                size={0.04*windowHeight}
+                size={0.04 * windowHeight}
               />
             </TouchableOpacity>
           </View>
@@ -87,17 +88,17 @@ const CallHistory = ({ navigation }) => {
             renderItem={({ item }) => (
               <View
                 style={{
-                  padding: 0.009*windowHeight,
-                  paddingRight: 0.01*windowHeight,
-                  paddingLeft: 0.01*windowHeight,
-                  marginLeft: 0.012*windowHeight,
-                  marginRight: 0.012*windowHeight,
+                  padding: 0.009 * windowHeight,
+                  paddingRight: 0.01 * windowHeight,
+                  paddingLeft: 0.01 * windowHeight,
+                  marginLeft: 0.012 * windowHeight,
+                  marginRight: 0.012 * windowHeight,
                 }}
               >
                 <ListItem
                   containerStyle={{
                     backgroundColor: "#F8F8F8",
-                    height: 0.075*windowHeight,
+                    height: 0.075 * windowHeight,
                     borderRadius: 5,
                     elevation: 5,
                   }}
@@ -133,7 +134,7 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 0.025*windowHeight,
+    marginTop: 0.025 * windowHeight,
   },
   image: {
     flex: 1,
@@ -148,14 +149,15 @@ const styler = StyleSheet.create({
   },
   callBooking: {
     width: windowWidth,
-    height: 0.07*windowHeight,
+    height: 0.08 * windowHeight,
     backgroundColor: "#7AC141",
     color: "white",
     textAlign: "center",
     textAlignVertical: "center",
     fontSize: 18,
     elevation: 5,
-    padding: 0.015*windowHeight,
+    padding: 0.015 * windowHeight,
     overflow: "hidden",
+    paddingVertical: 0.025 * ScreenHeight,
   },
 });

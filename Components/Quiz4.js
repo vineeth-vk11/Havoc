@@ -8,7 +8,7 @@ import {
   ScrollView,
   Dimensions,
   ImageBackground,
-  Alert
+  Alert,
 } from "react-native";
 import YoutubePlayer from "react-native-youtube-iframe";
 import RadioForm, {
@@ -88,39 +88,39 @@ const Quiz4 = ({ navigation, route }) => {
       <SafeAreaView style={styler.screen}>
         <ScrollView>
           <View style={styler.titleView}>
-          <View style={styler.head}>
-          <View
-            style={{
-              flex: 0.4,
-              alignItems: "flex-start",
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => {
-                navigation.goBack(null);
-              }}
-            >
-              <Icon
-                name="arrow-back"
-                type="ionicon"
-                color="#000000"
-                size={0.04*screenHeight}
-                style={{ marginLeft: 0.03*screenHeight }}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={{ flex: 0.6 }}>
-            <Text
-              style={{
-                fontSize: 0.032*screenHeight,
-                fontWeight: "bold",
-                textAlign: "left",
-              }}
-            >
-              Question 4
-            </Text>
-          </View>
-        </View>
+            <View style={styler.head}>
+              <View
+                style={{
+                  flex: 0.4,
+                  alignItems: "flex-start",
+                }}
+              >
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.goBack(null);
+                  }}
+                >
+                  <Icon
+                    name="arrow-back"
+                    type="ionicon"
+                    color="#000000"
+                    size={0.04 * screenHeight}
+                    style={{ marginLeft: 0.03 * screenHeight }}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View style={{ flex: 0.6 }}>
+                <Text
+                  style={{
+                    fontSize: 0.032 * screenHeight,
+                    fontWeight: "bold",
+                    textAlign: "left",
+                  }}
+                >
+                  Question 4
+                </Text>
+              </View>
+            </View>
             <Text
               style={{
                 fontSize: 0.02 * screenHeight,
@@ -229,8 +229,6 @@ const Quiz4 = ({ navigation, route }) => {
                       .doc(currentUser)
                       .get()
                       .then((documentSnapshot) => {
-                        console.log(documentSnapshot.data());
-
                         var age = documentSnapshot.data()["age"];
                         var gender = documentSnapshot.data()["gender"];
 
@@ -247,7 +245,7 @@ const Quiz4 = ({ navigation, route }) => {
                             city: city,
                             country: country,
                             bio: bio,
-                            topic: list,
+                            topics: list,
                             sessions: 0,
                           })
                           .then(() => {
@@ -317,6 +315,6 @@ const styler = StyleSheet.create({
     fontSize: 0.03 * screenHeight,
     elevation: 5,
     overflow: "hidden",
-    paddingVertical: 0.02 * screenHeight
+    paddingVertical: 0.02 * screenHeight,
   },
 });

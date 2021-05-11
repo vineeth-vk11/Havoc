@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   Alert,
-  Dimensions
+  Dimensions,
 } from "react-native";
 
 import { ListItem, Avatar, Icon } from "react-native-elements";
@@ -54,7 +54,6 @@ function DedicatedChatting({ navigation, route }) {
                   "https://firebasestorage.googleapis.com/v0/b/wehearyou-c9eb8.appspot.com/o/profilepic.png?alt=media&token=57e06b2b-343b-489a-bdeb-de00d5e42e70",
               },
             });
-            console.log(documentSnapshot.val());
           });
 
           setMessages(messageList.reverse());
@@ -82,8 +81,6 @@ function DedicatedChatting({ navigation, route }) {
   }, []);
 
   const onSend = useCallback((messages = []) => {
-    console.log(messages);
-
     var currentUser = firebase.auth().currentUser.uid;
 
     firebase.database().ref(`/Chats/${currentUser}/${chatId}`).push({
@@ -148,7 +145,7 @@ function DedicatedChatting({ navigation, route }) {
           <View style={{ flex: 0.8, alignItems: "center" }}>
             <Text
               style={{
-                fontSize: 0.035*screenHeight,
+                fontSize: 0.035 * screenHeight,
                 fontWeight: "bold",
                 textAlign: "left",
                 marginLeft: "30%",
@@ -172,8 +169,8 @@ function DedicatedChatting({ navigation, route }) {
                 name="close-outline"
                 type="ionicon"
                 color="#000000"
-                size={0.04*screenHeight}
-                style={{ marginLeft: 0.04*screenHeight }}
+                size={0.04 * screenHeight}
+                style={{ marginLeft: 0.04 * screenHeight }}
               />
             </TouchableOpacity>
           </View>
@@ -182,7 +179,7 @@ function DedicatedChatting({ navigation, route }) {
           style={{ flex: 0.85 }}
           messages={messages}
           onSend={(messages) => onSend(messages)}
-         user={{
+          user={{
             _id: currentUser,
           }}
         />
@@ -199,7 +196,7 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     textAlign: "center",
-    marginTop: 0.042*screenHeight,
+    marginTop: 0.042 * screenHeight,
   },
   image: {
     flex: 1,

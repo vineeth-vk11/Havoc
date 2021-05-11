@@ -8,8 +8,6 @@ require("firebase/firestore");
 const Splash = ({ navigation }) => {
   setTimeout(function () {
     if (firebase.auth().currentUser !== null) {
-      console.log("enteres1");
-
       var user = firebase.auth().currentUser.uid;
       firebase
         .firestore()
@@ -28,7 +26,6 @@ const Splash = ({ navigation }) => {
           }
         });
     } else {
-      console.log("enteres2");
       navigation.navigate("Register1");
     }
   }, 4000);

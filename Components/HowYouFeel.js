@@ -8,7 +8,7 @@ import {
   ScrollView,
   SafeAreaView,
   ImageBackground,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import { TextInput } from "react-native-paper";
 import RadioForm, {
@@ -24,6 +24,8 @@ require("firebase/firestore");
 
 import uuid from "react-native-uuid";
 import { min } from "react-native-reanimated";
+
+import Moment from "moment";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -46,13 +48,14 @@ const HowYouFeel = ({ navigation, route }) => {
       var user = firebase.auth().currentUser.uid;
       var id = uuid.v4();
 
-      console.log(id);
+      var date = Moment(new Date()).format("DD/MM/YYYY");
+
       firebase
         .firestore()
         .collection("Chats")
         .doc(id)
         .set({
-          date: "03/05/2021",
+          date: date,
           feeling: feeling,
           isAddedToDedicatedChats: false,
           isClosedByListener: false,
@@ -96,23 +99,29 @@ const HowYouFeel = ({ navigation, route }) => {
       <View style={styler.screen}>
         <ScrollView>
           <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={5}>
-            <View style = {{flex: 1, justifyContent: "flex-start", alignContent: "flex-start"}}>
-            <TouchableOpacity
-                  onPress={() => {
-                    navigation.goBack(null);
-                  }}
-                >
-                  <Icon
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "flex-start",
+                alignContent: "flex-start",
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack(null);
+                }}
+              >
+                <Icon
                   style={{
                     alignSelf: "flex-start",
-                    marginLeft: 0.05 * screenWidth
-                    }}
-                    name="arrow-back"
-                    type="ionicon"
-                    color="#000000"
-                    size={0.04 * screenHeight}
-                  />
-                </TouchableOpacity>
+                    marginLeft: 0.05 * screenWidth,
+                  }}
+                  name="arrow-back"
+                  type="ionicon"
+                  color="#000000"
+                  size={0.04 * screenHeight}
+                />
+              </TouchableOpacity>
             </View>
             <View style={styler.titleView}>
               <Text style={styler.titleText}>How are you feeling now?</Text>
@@ -143,10 +152,13 @@ const HowYouFeel = ({ navigation, route }) => {
                         borderWidth={2}
                         buttonInnerColor={"#7AC141"}
                         buttonOuterColor={value === i ? "#7AC141" : "#000"}
-                        buttonSize={0.017*screenHeight}
-                        buttonOuterSize={0.028*screenHeight}
-                        buttonStyle={{ marginRight: 0.025*screenHeight, marginBottom: 0.015*screenHeight }}
-                        buttonWrapStyle={{ marginLeft: 0.015*screenHeight }}
+                        buttonSize={0.017 * screenHeight}
+                        buttonOuterSize={0.028 * screenHeight}
+                        buttonStyle={{
+                          marginRight: 0.025 * screenHeight,
+                          marginBottom: 0.015 * screenHeight,
+                        }}
+                        buttonWrapStyle={{ marginLeft: 0.015 * screenHeight }}
                       />
                       <RadioButtonLabel
                         obj={obj}
@@ -167,9 +179,9 @@ const HowYouFeel = ({ navigation, route }) => {
                           setvalue(value);
                         }}
                         labelStyle={{
-                          fontSize: 0.021*screenHeight,
+                          fontSize: 0.021 * screenHeight,
                           color: "#000",
-                          marginBottom: 0.01*screenHeight,
+                          marginBottom: 0.01 * screenHeight,
                         }}
                         labelWrapStyle={{}}
                       />
@@ -201,20 +213,20 @@ const HowYouFeel = ({ navigation, route }) => {
                 onChangeText={(value) => {
                   setOnMind(value);
                 }}
-                value = {onMind}
+                value={onMind}
               />
             </View>
-            <View style={{justifyContent:'center',alignItems:'center' }}>
-            <TouchableOpacity
-              onPress={() => {
-                if (value === -1) {
-                } else {
-                  sendRequest();
-                }
-              }}
-            >
-              <Text style={styler.getStarted}>FIND LISTENER</Text>
-            </TouchableOpacity>
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <TouchableOpacity
+                onPress={() => {
+                  if (value === -1) {
+                  } else {
+                    sendRequest();
+                  }
+                }}
+              >
+                <Text style={styler.getStarted}>FIND LISTENER</Text>
+              </TouchableOpacity>
             </View>
           </KeyboardAvoidingView>
         </ScrollView>
@@ -229,7 +241,7 @@ const styler = StyleSheet.create({
   screen: {
     flex: 1,
     alignItems: "center",
-    paddingVertical: 0.1*screenHeight,
+    paddingVertical: 0.1 * screenHeight,
   },
   image: {
     flex: 1,
@@ -240,42 +252,42 @@ const styler = StyleSheet.create({
     width: screenWidth,
     alignItems: "center",
     justifyContent: "center",
-    marginTop : 0.03 * screenHeight
+    marginTop: 0.03 * screenHeight,
   },
   titleText: {
-    fontSize: 0.027*screenHeight,
+    fontSize: 0.027 * screenHeight,
   },
   inputText: {
     width: screenWidth,
-    paddingHorizontal: 0.1*screenWidth,
-    marginVertical: 0.1*screenWidth,
+    paddingHorizontal: 0.1 * screenWidth,
+    marginVertical: 0.1 * screenWidth,
   },
   radioButtons: {
     width: screenWidth,
-    paddingLeft: 0.07*screenWidth,
-    marginVertical: 0.1*screenWidth,
+    paddingLeft: 0.07 * screenWidth,
+    marginVertical: 0.1 * screenWidth,
   },
   gatherYT: {
     width: screenWidth,
-    paddingVertical: 0.02*screenWidth,
+    paddingVertical: 0.02 * screenWidth,
     alignItems: "center",
     justifyContent: "center",
   },
   gatherText: {
-    fontSize: 0.027*screenHeight,
+    fontSize: 0.027 * screenHeight,
   },
   getStarted: {
-    borderRadius: 0.022*screenHeight,
-    width: 0.85*screenWidth,
-    height: 0.07*screenHeight,
+    borderRadius: 0.022 * screenHeight,
+    width: 0.85 * screenWidth,
+    height: 0.07 * screenHeight,
     backgroundColor: "#7AC141",
     color: "white",
     textAlign: "center",
     textAlignVertical: "center",
-    fontSize: 0.027*screenHeight,
+    fontSize: 0.027 * screenHeight,
     elevation: 5,
-    paddingVertical: 0.017*screenHeight,
+    paddingVertical: 0.017 * screenHeight,
     overflow: "hidden",
-    marginVertical: 0.02*screenHeight
+    marginVertical: 0.02 * screenHeight,
   },
 });

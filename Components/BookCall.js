@@ -9,7 +9,7 @@ import {
   TextInput,
   ScrollView,
   ImageBackground,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { Button } from "react-native-elements";
@@ -19,7 +19,7 @@ require("firebase/firestore");
 
 import uuid from "react-native-uuid";
 
-import RazorpayCheckout from 'react-native-razorpay';
+import RazorpayCheckout from "react-native-razorpay";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -36,22 +36,7 @@ const BookCall = ({ navigation }) => {
             <View style={{ flex: 0.2, alignContent: "flex-start" }}>
               <TouchableOpacity
                 onPress={() => {
-                  var currentUser = firebase.auth().currentUser.uid;
-
-                  firebase
-                    .firestore()
-                    .collection("users")
-                    .doc(currentUser)
-                    .get()
-                    .then((documentSnapshot) => {
-                      var isListener = documentSnapshot.data()["isListener"];
-
-                      if (isListener) {
-                        navigation.navigate("ListenerDB");
-                      } else {
-                        navigation.navigate("Register3");
-                      }
-                    });
+                  navigation.navigate("CallHistory");
                 }}
               >
                 <Icon name="arrow-back" type="ionicon" color="#000" />
@@ -62,7 +47,7 @@ const BookCall = ({ navigation }) => {
               style={{
                 flex: 0.8,
                 alignContent: "flex-start",
-                marginLeft: 0.15*screenWidth,
+                marginLeft: 0.15 * screenWidth,
               }}
             >
               <Text style={{ fontSize: 24, fontWeight: "bold" }}>
@@ -84,39 +69,48 @@ const BookCall = ({ navigation }) => {
               style={{
                 fontSize: 20,
                 textAlign: "center",
-                marginTop: 0.015*screenHeight,
+                marginTop: 0.015 * screenHeight,
                 fontWeight: "bold",
               }}
             >
               Communicate your way
             </Text>
-            <Text style={{ fontSize: 20, textAlign: "center", marginTop: 0.015*screenHeight }}>
+            <Text
+              style={{
+                fontSize: 20,
+                textAlign: "center",
+                marginTop: 0.015 * screenHeight,
+              }}
+            >
               Video | Call | Chat | Messaging
             </Text>
           </View>
         </View>
         <View style={styler.footView}>
-          <TouchableOpacity onPress = {() => {
+          <TouchableOpacity
+            onPress={() => {
+              var options = {
+                description: "Call Booking",
+                image: require("../assets/logoTB.png"),
+                currency: "INR",
+                key: "rzp_test_MvrwOKu0TQyu0C",
+                amount: "25000",
+                name: "Havoc Therapy",
+                theme: { color: "#7AC141" },
+              };
+              RazorpayCheckout.open(options)
+                .then((data) => {
+                  // handle success
+                  alert(`Success`);
 
-            var options = {
-              description: 'Call Booking',
-              image: require('../assets/logoTB.png'),
-              currency: 'INR',
-              key: 'rzp_test_MvrwOKu0TQyu0C',
-              amount: '25000',
-              name: 'Havoc Therapy',
-              theme: {color: '#7AC141'}
-            }
-            RazorpayCheckout.open(options).then((data) => {
-              // handle success
-              alert(`Success`);
-
-              navigation.navigate("BookCallDateTime")
-            }).catch((error) => {
-              // handle failure
-              alert(`Error ${error.description}`);
-            });
-          }}>
+                  navigation.navigate("BookCallDateTime");
+                })
+                .catch((error) => {
+                  // handle failure
+                  alert(`Error ${error.description}`);
+                });
+            }}
+          >
             <Text style={styler.bookNow}>BOOK NOW</Text>
           </TouchableOpacity>
         </View>
@@ -132,8 +126,8 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 0.05*screenHeight,
-    margin: 0.015*screenHeight,
+    marginTop: 0.02 * screenHeight,
+    margin: 0.015 * screenHeight,
   },
   imageBg: {
     flex: 1,
@@ -141,29 +135,29 @@ const styler = StyleSheet.create({
     justifyContent: "center",
   },
   medication: {
-    width: 0.65*screenWidth,
-    height: 0.2*screenHeight,
+    width: 0.65 * screenWidth,
+    height: 0.2 * screenHeight,
   },
   container: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    margin: 0.015*screenHeight,
+    margin: 0.015 * screenHeight,
   },
-  
+
   callView: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    margin: 0.015*screenHeight,
+    margin: 0.015 * screenHeight,
   },
   applyCoupon: {
-    padding: 0.015*screenHeight,
+    padding: 0.015 * screenHeight,
     borderColor: "#7AC141",
     borderRadius: 5,
     borderWidth: 1,
-    width: 0.5*screenWidth,
-    height: 0.04*screenHeight,
+    width: 0.5 * screenWidth,
+    height: 0.04 * screenHeight,
     color: "#828282",
     justifyContent: "center",
   },
@@ -171,26 +165,26 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    marginTop: 0.025*screenHeight,
-    margin: 0.015*screenHeight,
+    marginTop: 0.025 * screenHeight,
+    margin: 0.015 * screenHeight,
   },
   bookNow: {
     justifyContent: "flex-end",
-    borderRadius: 0.022*screenHeight,
-    width: 0.85*screenWidth,
-    height: 0.08*screenHeight,
+    borderRadius: 0.022 * screenHeight,
+    width: 0.85 * screenWidth,
+    height: 0.08 * screenHeight,
     backgroundColor: "#7AC141",
     color: "white",
     textAlign: "center",
     textAlignVertical: "center",
-    fontSize: 0.025*screenHeight,
+    fontSize: 0.025 * screenHeight,
     overflow: "hidden",
-    paddingVertical: 0.02*screenHeight
+    paddingVertical: 0.025 * screenHeight,
   },
   screen: { flex: 1 },
   headView: {
     flex: 0.15,
-    marginTop: 0.025*screenHeight,
+    marginTop: 0.025 * screenHeight,
   },
   meditationView: {
     flex: 0.55,
@@ -200,6 +194,6 @@ const styler = StyleSheet.create({
     flex: 0.3,
     alignItems: "center",
     justifyContent: "flex-end",
-    marginBottom: 0.07*screenHeight,
+    marginBottom: 0.07 * screenHeight,
   },
 });

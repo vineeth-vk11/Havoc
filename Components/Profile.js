@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import {
   View,
   Text,
@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   ImageBackground,
   Dimensions,
-  Linking
+  Linking,
+  ActivityIndicator,
 } from "react-native";
 import { ListItem, Icon } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
@@ -21,42 +22,42 @@ const list = [
   {
     title: "Call History",
     icon: "list",
-    key:  "0"
+    key: "0",
   },
   {
     title: "Listener Age Range",
     icon: "funnel-outline",
-    key:  "1"
+    key: "1",
   },
   {
     title: "Therapies",
     icon: "clipboard",
-    key:  "2"
+    key: "2",
   },
   {
     title: "My Therapies",
     icon: "medkit",
-    key:  "3"
+    key: "3",
   },
   {
     title: "Privacy Policy",
     icon: "lock-closed-outline",
-    key:  "4"
+    key: "4",
   },
   {
     title: "Terms & Conditions",
     icon: "document-outline",
-    key:  "5"
+    key: "5",
   },
   {
     title: "Feedback",
     icon: "create-outline",
-    key:  "6"
+    key: "6",
   },
   {
     title: "Logout",
     icon: "log-out",
-    key:  "7"
+    key: "7",
   },
 ];
 
@@ -64,96 +65,124 @@ const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 const listHeader = () => {
+  const [loading, setLoading] = useState(true);
+  const [name, setName] = useState("");
+
+  if (loading) {
+    var currentUser = firebase.auth().currentUser.uid;
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(currentUser)
+      .get()
+      .then((documentSnapshot) => {
+        setName(documentSnapshot.data()["name"]);
+        setLoading(false);
+      });
+  }
+
+  if (loading) {
+    return <ActivityIndicator />;
+  }
+
   return (
     <View style={styler.imageView}>
-    <View style={styler.container}>
-      <View style={styler.image}>
-        <Image
-          style={styler.dp}
-          source={require("../assets/profilepic.png")}
-        />
-      </View>
-      <View style={{ marginBottom: 0.015 * screenHeight }}>
-        <Text
+      <View style={styler.container}>
+        <View
           style={{
-            fontSize: 0.03 * screenHeight,
-            margin: 0.01 * screenHeight,
+            flex: 0.4,
+            alignContent: "flex-start",
+            marginLeft: 0.05 * screenWidth,
           }}
-        ></Text>
+        >
+          <Image
+            style={styler.dp}
+            source={require("../assets/profilepic.png")}
+          />
+        </View>
+        <View
+          style={{
+            flex: 0.6,
+            marginBottom: 0.015 * screenHeight,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 0.025 * screenHeight,
+            }}
+          >
+            {name}
+          </Text>
+        </View>
       </View>
     </View>
-  </View>
-  )
-}
-
-const listFooter = () => {
-
-}
+  );
+};
 
 const Profile = ({ navigation }) => {
   return (
-      <ImageBackground
-        source={require("../assets/ss.png")}
-        style={styler.imageBg}
-      >
-        <SafeAreaView style={styler.screen}>
-          <View style={styler.headView}>
-            <View style={styler.head}>
-              <View
-                style={{
-                  flex: 0.4,
-                  alignItems: "flex-start",
+    <ImageBackground
+      source={require("../assets/ss.png")}
+      style={styler.imageBg}
+    >
+      <SafeAreaView style={styler.screen}>
+        <View style={styler.headView}>
+          <View style={styler.head}>
+            <View
+              style={{
+                flex: 0.4,
+                alignItems: "flex-start",
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack(null);
                 }}
               >
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.goBack(null);
+                <Icon
+                  style={{
+                    marginLeft: 0.025 * screenHeight,
                   }}
-                >
-                  <Icon
-                    style={{
-                      marginLeft: 0.025 * screenHeight,
-                    }}
-                    name="arrow-back"
-                    type="ionicon"
-                    color="#000000"
-                    size={30}
-                  />
-                </TouchableOpacity>
-              </View>
+                  name="arrow-back"
+                  type="ionicon"
+                  color="#000000"
+                  size={30}
+                />
+              </TouchableOpacity>
+            </View>
 
-              <View style={{ flex: 0.6 }}>
-                <Text style={{ fontSize: 0.035 * screenHeight }}>Profile</Text>
-              </View>
+            <View style={{ flex: 0.6 }}>
+              <Text style={{ fontSize: 0.035 * screenHeight }}>Profile</Text>
             </View>
           </View>
+        </View>
 
-          <View style={styler.listView}>
-            
+        <View style={styler.listView}>
           <FlatList
             data={list}
-            ListHeaderComponent = {listHeader}
+            ListHeaderComponent={listHeader}
             renderItem={({ item }) => (
               <TouchableOpacity
                 onPress={() => {
                   if (item.title === "Call History") {
                     navigation.navigate("CallHistory");
                   } else if (item.title === "Listener Age Range") {
+                    navigation.navigate("SetListenerAge");
                   } else if (item.title === "Therapies") {
                     navigation.navigate("Therapies");
                   } else if (item.title === "My Therapies") {
                     navigation.navigate("MyTherapies");
-                  }
-                  else if (item.title === "Privacy Policy") {
-                    Linking.openURL('https://docs.google.com/document/d/1am33nbtgCMV7qfr9p9sE2YBOnsnnb_-J_RLPsM0G9-k/edit?usp=sharing')
-                  }
-                  else if (item.title === "Terms & Conditions") {
-                    Linking.openURL('https://docs.google.com/document/d/1zDihPzqLGK9RntzesCkVwTdxVX5xOJzR5o5rmHD-mJA/edit?usp=sharing')
-                  }
-                  else if (item.title === "Feedback") {
-                    navigation.navigate("GiveFeedback")
-                  }
-                  else if (item.title === "Logout") {
+                  } else if (item.title === "Privacy Policy") {
+                    Linking.openURL(
+                      "https://docs.google.com/document/d/1am33nbtgCMV7qfr9p9sE2YBOnsnnb_-J_RLPsM0G9-k/edit?usp=sharing"
+                    );
+                  } else if (item.title === "Terms & Conditions") {
+                    Linking.openURL(
+                      "https://docs.google.com/document/d/1zDihPzqLGK9RntzesCkVwTdxVX5xOJzR5o5rmHD-mJA/edit?usp=sharing"
+                    );
+                  } else if (item.title === "Feedback") {
+                    navigation.navigate("GiveFeedback");
+                  } else if (item.title === "Logout") {
                     firebase
                       .auth()
                       .signOut()
@@ -190,9 +219,9 @@ const Profile = ({ navigation }) => {
               </TouchableOpacity>
             )}
           />
-          </View>
-        </SafeAreaView>
-      </ImageBackground>
+        </View>
+      </SafeAreaView>
+    </ImageBackground>
   );
 };
 

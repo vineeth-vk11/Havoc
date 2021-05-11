@@ -13,10 +13,12 @@ import {
 import { Icon } from "react-native-elements";
 import { Button } from "react-native-elements";
 
-import RazorpayCheckout from 'react-native-razorpay';
+import RazorpayCheckout from "react-native-razorpay";
 
 import firebase from "firebase";
 require("firebase/firestore");
+
+import Moment from "moment";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -55,26 +57,28 @@ const TherapyProduct = ({ navigation, route }) => {
                     type="ionicon"
                     color="#000"
                     style={{ marginTop: 10, marginLeft: 20 }}
-                    size = {30}
+                    size={30}
                   />
                 </TouchableOpacity>
               </View>
 
               <View style={{ flex: 0.7, alignContent: "flex-end" }}>
-                <Text style={{ fontSize: 24, marginTop: 10, fontWeight: "bold" }}>
+                <Text
+                  style={{ fontSize: 24, marginTop: 10, fontWeight: "bold" }}
+                >
                   Therapy Product
                 </Text>
               </View>
             </View>
           </View>
           <View style={styler.imageView}>
-            <Image style={styler.meditation} source={{uri: image[0]}} />
+            <Image style={styler.meditation} source={{ uri: image[0] }} />
           </View>
           <View style={styler.meditationView}>
             <View style={styler.meditationTexts}>
               <Text style={{ fontSize: 22, marginLeft: 16 }}>{name}</Text>
               <Text style={{ fontSize: 22, marginRight: 16 }}>
-                {"₹ "+ cost}
+                {"₹ " + cost}
               </Text>
             </View>
             <View style={{ marginLeft: 16, marginRight: 16 }}>
@@ -82,42 +86,46 @@ const TherapyProduct = ({ navigation, route }) => {
             </View>
           </View>
           <View style={styler.footView}>
-            <TouchableOpacity onPress = {() => {
-              var options = {
-                description: 'Therapy Booking',
-                image: require('../assets/logoTB.png'),
-                currency: 'INR',
-                key: 'rzp_test_MvrwOKu0TQyu0C',
-                amount: (Number(cost) * 100).toString(),
-                name: 'Havoc Therapy',
-                theme: {color: '#7AC141'}
-              }
-              RazorpayCheckout.open(options).then((data) => {
+            <TouchableOpacity
+              onPress={() => {
+                var options = {
+                  description: "Therapy Booking",
+                  image: require("../assets/logoTB.png"),
+                  currency: "INR",
+                  key: "rzp_test_MvrwOKu0TQyu0C",
+                  amount: (Number(cost) * 100).toString(),
+                  name: "Havoc Therapy",
+                  theme: { color: "#7AC141" },
+                };
+                RazorpayCheckout.open(options)
+                  .then((data) => {
+                    var currentUser = firebase.auth().currentUser.uid;
+                    var date = Moment(new Date()).format("MM/DD/YYYY");
 
-                var currentUser = firebase.auth().currentUser.uid
-
-                firebase
-                .firestore()
-                .collection("users")
-                .doc(currentUser)
-                .collection("TherapyBookings")
-                .add({
-                  therapyName: name,
-                  amountPaid: cost,
-                  date: "10/05/2021",
-                  orderId: data['razorpay_payment_id']
-                })
-                .then(() => {
-                  navigation.navigate("TherapyBooking", {
-                    cost: cost,
-                    orderId: data['razorpay_payment_id']
+                    firebase
+                      .firestore()
+                      .collection("users")
+                      .doc(currentUser)
+                      .collection("TherapyBookings")
+                      .add({
+                        therapyName: name,
+                        amountPaid: cost,
+                        date: date,
+                        orderId: data["razorpay_payment_id"],
+                      })
+                      .then(() => {
+                        navigation.navigate("TherapyBooking", {
+                          cost: cost,
+                          orderId: data["razorpay_payment_id"],
+                        });
+                        alert(`Success`);
+                      });
                   })
-                  alert(`Success`);
-                })
-              }).catch((error) => {
-                alert(`${error.description}`);
-              });
-            }}>
+                  .catch((error) => {
+                    alert(`${error.description}`);
+                  });
+              }}
+            >
               <Text style={styler.bookNow}>BOOK NOW</Text>
             </TouchableOpacity>
           </View>
@@ -184,7 +192,7 @@ const styler = StyleSheet.create({
     fontSize: 0.025 * screenHeight,
     overflow: "hidden",
     textAlign: "center",
-    paddingVertical: 0.025 * screenHeight
+    paddingVertical: 0.025 * screenHeight,
   },
   screen: { flex: 1 },
   headView: {

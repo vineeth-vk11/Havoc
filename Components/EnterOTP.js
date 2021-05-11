@@ -74,9 +74,7 @@ const EnterOTP = ({
                   verificationId,
                   verificationCode
                 );
-                console.log("waiting to login");
                 await firebase.auth().signInWithCredential(credential);
-                console.log("waiting to navigate");
 
                 if (firebase.auth().currentUser) {
                   var user = firebase.auth().currentUser.uid;
@@ -89,7 +87,6 @@ const EnterOTP = ({
                     .then((documentSnapshot) => {
                       if (!documentSnapshot.exists) {
                         navigation.navigate("Register2");
-                        console.log("Hi");
                       } else {
                         if (documentSnapshot.data()["isListener"]) {
                           navigation.navigate("ListenerDB");
@@ -101,7 +98,6 @@ const EnterOTP = ({
                 }
               } catch (err) {
                 createAlert();
-                console.log(err);
               }
             }}
           >
@@ -119,16 +115,16 @@ const styler = StyleSheet.create({
   getStarted: {
     borderRadius: 7,
     width: windowWidth - 48,
-    height: 0.065*windowHeight,
+    height: 0.065 * windowHeight,
     backgroundColor: "#7AC141",
     color: "white",
-    marginVertical: 0.015*windowHeight,
+    marginVertical: 0.015 * windowHeight,
     marginHorizontal: 20,
     textAlign: "center",
     textAlignVertical: "center",
-    fontSize: 0.022*windowHeight,
+    fontSize: 0.022 * windowHeight,
     elevation: 5,
-    padding: 0.015*windowHeight,
+    padding: 0.015 * windowHeight,
     overflow: "hidden",
   },
   imageBg: {
@@ -138,7 +134,7 @@ const styler = StyleSheet.create({
   },
   getStartedView: {
     alignItems: "center",
-    marginVertical: 0.015*windowHeight,
+    marginVertical: 0.015 * windowHeight,
   },
   screen: {
     flex: 1,
@@ -148,15 +144,15 @@ const styler = StyleSheet.create({
     borderColor: "black",
     borderRadius: 0,
     width: windowWidth - 48,
-    height: 0.08*windowHeight,
+    height: 0.08 * windowHeight,
     color: "#828282",
     justifyContent: "center",
     backgroundColor: "#fff",
-    fontSize: 0.025*windowHeight,
+    fontSize: 0.025 * windowHeight,
   },
   havoc: {
     alignSelf: "center",
     justifyContent: "center",
-    margin: 0.08*windowHeight,
+    margin: 0.08 * windowHeight,
   },
 });

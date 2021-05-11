@@ -21,6 +21,8 @@ import { Bubble } from "react-native-gifted-chat";
 
 import uuid from "react-native-uuid";
 
+import Moment from "moment";
+
 import { BottomSheet } from "react-native-btr";
 
 function MainChat({ navigation, route }) {
@@ -34,24 +36,21 @@ function MainChat({ navigation, route }) {
   if (type === "seeker") {
     feeling = route.params.feeling;
     onMind = route.params.onMind;
-
-    console.log(feeling);
-    console.log(onMind);
   }
   var currentUser = firebase.auth().currentUser.uid;
+
+  var date = Moment(new Date()).format("MM/DD/YYYY");
 
   const [visible, setVisible] = useState(false);
   const [visible1, setVisible1] = useState(false);
 
   const toggleBottomNavigationView = () => {
     //Toggling the visibility state of the bottom sheet
-    console.log("called");
     setVisible(!visible);
   };
 
   const toggleBottomNavigationView1 = () => {
     //Toggling the visibility state of the bottom sheet
-    console.log("called");
     setVisible1(!visible1);
   };
 
@@ -60,9 +59,8 @@ function MainChat({ navigation, route }) {
       var currentUser = firebase.auth().currentUser.uid;
 
       var message = "I am feeling " + feeling + ". " + onMind;
-      console.log(message);
 
-      if (!initialMessage) {
+      if (!initialMessage && type === "seeker") {
         firebase.database().ref(`/Chats/${currentUser}/${chatId}`).push({
           message: message,
           receivedUser: listenerId,
@@ -94,7 +92,6 @@ function MainChat({ navigation, route }) {
                   "https://firebasestorage.googleapis.com/v0/b/wehearyou-c9eb8.appspot.com/o/profilepic.png?alt=media&token=57e06b2b-343b-489a-bdeb-de00d5e42e70",
               },
             });
-            console.log(documentSnapshot.val());
           });
 
           setMessages(messageList.reverse());
@@ -124,7 +121,7 @@ function MainChat({ navigation, route }) {
                 listenerName: listenerName,
                 listener: listenerId,
                 topic: topic,
-                date: "06/05/2021",
+                date: date,
                 chatId: chatId,
               })
               .then(() => {
@@ -147,7 +144,7 @@ function MainChat({ navigation, route }) {
                 listenerName: listenerName,
                 listener: listenerId,
                 topic: topic,
-                date: "06/05/2021",
+                date: date,
                 chatId: chatId,
               })
               .then(() => {
@@ -172,7 +169,7 @@ function MainChat({ navigation, route }) {
                 listenerName: listenerName,
                 listener: listenerId,
                 topic: topic,
-                date: "06/05/2021",
+                date: date,
                 type: type,
                 isClosedBySeeker: false,
                 isClosedByListener: false,
@@ -187,7 +184,7 @@ function MainChat({ navigation, route }) {
                     listenerName: listenerName,
                     listener: listenerId,
                     topic: topic,
-                    date: "06/05/2021",
+                    date: date,
                     chatId: chatId,
                   })
                   .then(() => {
@@ -206,18 +203,18 @@ function MainChat({ navigation, route }) {
                 listenerName: listenerName,
                 listener: listenerId,
                 topic: topic,
-                date: "06/05/2021",
+                date: date,
                 chatId: chatId,
               })
-              .then(() => {});
+              .then(() => {
+                navigation.navigate("MyRequests");
+              });
           }
         });
     }
   }, []);
 
   const onSend = useCallback((messages = []) => {
-    console.log(messages);
-
     var currentUser = firebase.auth().currentUser.uid;
 
     firebase.database().ref(`/Chats/${currentUser}/${chatId}`).push({
@@ -257,7 +254,6 @@ function MainChat({ navigation, route }) {
           >
             <TouchableOpacity
               onPress={() => {
-                console.log("called");
                 setVisible(!visible);
               }}
             >
@@ -319,6 +315,7 @@ function MainChat({ navigation, route }) {
         <GiftedChat
           style={{ flex: 0.85 }}
           messages={messages}
+          renderAvatar={() => null}
           onSend={(messages) => onSend(messages)}
           user={{
             _id: currentUser,
@@ -334,6 +331,8 @@ function MainChat({ navigation, route }) {
           <View style={styler.bottomNavigationView}>
             <TouchableOpacity
               onPress={() => {
+                setVisible(!visible);
+
                 var currentUser = firebase.auth().currentUser.uid;
 
                 firebase
@@ -345,7 +344,7 @@ function MainChat({ navigation, route }) {
                     listenerName: listenerName,
                     listener: listenerId,
                     topic: topic,
-                    date: "06/05/2021",
+                    date: date,
                     chatId: chatId,
                   })
                   .then(() => {
@@ -367,6 +366,8 @@ function MainChat({ navigation, route }) {
 
             <TouchableOpacity
               onPress={() => {
+                setVisible(!visible);
+
                 var currentUser = firebase.auth().currentUser.uid;
 
                 firebase
@@ -380,7 +381,7 @@ function MainChat({ navigation, route }) {
                     listenerName: listenerName,
                     listener: listenerId,
                     topic: topic,
-                    date: "06/05/2021",
+                    date: date,
                     type: type,
                     isClosedBySeeker: false,
                     isClosedByListener: false,
@@ -395,7 +396,7 @@ function MainChat({ navigation, route }) {
                         listenerName: listenerName,
                         listener: listenerId,
                         topic: topic,
-                        date: "06/05/2021",
+                        date: date,
                         chatId: chatId,
                       })
                       .then(() => {
@@ -418,6 +419,8 @@ function MainChat({ navigation, route }) {
 
             <TouchableOpacity
               onPress={() => {
+                setVisible(!visible);
+
                 var currentUser = firebase.auth().currentUser.uid;
 
                 firebase
@@ -429,7 +432,7 @@ function MainChat({ navigation, route }) {
                     listenerName: listenerName,
                     listener: listenerId,
                     topic: topic,
-                    date: "06/05/2021",
+                    date: date,
                     chatId: chatId,
                   })
                   .then(() => {
@@ -480,7 +483,7 @@ function MainChat({ navigation, route }) {
                         listenerName: listenerName,
                         listener: listenerId,
                         topic: topic,
-                        date: "06/05/2021",
+                        date: date,
                         chatId: chatId,
                       })
                       .then(() => {
@@ -569,6 +572,7 @@ const styler = StyleSheet.create({
     elevation: 5,
     padding: 10,
     overflow: "hidden",
+    paddingVertical: 12.5,
   },
   exitButtons: {
     borderRadius: 5,

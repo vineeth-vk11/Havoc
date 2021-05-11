@@ -9,7 +9,7 @@ import {
   TextInput,
   ScrollView,
   ImageBackground,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { Button } from "react-native-elements";
@@ -21,25 +21,22 @@ const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 const JoinTheChat = ({ navigation, route }) => {
- const { chatId, feeling, onMind, listenerId, topic } = route.params;
+  const { chatId, feeling, onMind, listenerId, topic } = route.params;
   const [listenerName, setListenerName] = useState();
   const [listenerBio, setListenerBio] = useState();
 
- console.log(listenerId)
-
- useEffect(() => {
+  useEffect(() => {
     firebase
       .firestore()
       .collection("Listeners")
       .doc(listenerId)
       .get()
       .then((documentSnapshot) => {
-        var data = documentSnapshot.data()
+        var data = documentSnapshot.data();
 
         setListenerName(data["name"]);
         setListenerBio(data["bio"]);
       });
-
   });
 
   return (
@@ -52,15 +49,16 @@ const JoinTheChat = ({ navigation, route }) => {
           <View style={styler.head}>
             <Text
               style={{
-                fontSize: 0.025*screenHeight,
+                fontSize: 0.025 * screenHeight,
                 fontWeight: "bold",
               }}
             >
               Request Accepted By{" "}
             </Text>
-            <Text 
-            value
-            style={{ fontSize: 0.025*screenHeight, fontWeight: "bold" }} >
+            <Text
+              value
+              style={{ fontSize: 0.025 * screenHeight, fontWeight: "bold" }}
+            >
               {listenerName}
             </Text>
           </View>
@@ -74,8 +72,10 @@ const JoinTheChat = ({ navigation, route }) => {
         </View>
         <View style={styler.aboutView}>
           <View style={styler.about}>
-            <Text style={{ fontSize: 0.027*screenHeight }}>About </Text>
-            <Text style={{ fontSize: 0.027*screenHeight }}>{listenerName}</Text>
+            <Text style={{ fontSize: 0.027 * screenHeight }}>About </Text>
+            <Text style={{ fontSize: 0.027 * screenHeight }}>
+              {listenerName}
+            </Text>
           </View>
           <View style={styler.about}>
             <Text>{listenerBio}</Text>
@@ -111,8 +111,8 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 0.09*screenHeight,
-    margin: 0.015*screenHeight,
+    marginTop: 0.09 * screenHeight,
+    margin: 0.015 * screenHeight,
   },
   imageBg: {
     flex: 1,
@@ -120,36 +120,36 @@ const styler = StyleSheet.create({
     justifyContent: "center",
   },
   medication: {
-    width: 0.5*screenWidth,
-    height: 0.2*screenHeight,
+    width: 0.5 * screenWidth,
+    height: 0.2 * screenHeight,
   },
- 
+
   about: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    margin: 0.015*screenHeight,
-    marginLeft: 0.025*screenHeight,
-    marginRight: 0.025*screenHeight,
+    margin: 0.015 * screenHeight,
+    marginLeft: 0.025 * screenHeight,
+    marginRight: 0.025 * screenHeight,
   },
   bookNow: {
     justifyContent: "flex-end",
     borderRadius: 15,
-    width: 0.85*screenWidth,
-    height: 0.08*screenHeight,
+    width: 0.85 * screenWidth,
+    height: 0.08 * screenHeight,
     backgroundColor: "#7AC141",
     color: "white",
-    margin: 0.027*screenHeight,
+    margin: 0.027 * screenHeight,
     textAlign: "center",
     textAlignVertical: "center",
-    fontSize: 0.025*screenHeight,
-    paddingVertical: 0.02*screenHeight,
+    fontSize: 0.025 * screenHeight,
+    paddingVertical: 0.02 * screenHeight,
     overflow: "hidden",
     alignSelf: "center",
   },
   dp: {
-    width: 0.45*screenWidth,
-    height: 0.45*screenWidth,
+    width: 0.45 * screenWidth,
+    height: 0.45 * screenWidth,
     borderRadius: 100,
   },
   topics: {
@@ -157,9 +157,9 @@ const styler = StyleSheet.create({
   },
   topicInner: {
     backgroundColor: "#7AC141",
-    padding: 0.025*screenHeight,
+    padding: 0.025 * screenHeight,
     borderRadius: 84,
-    margin: 0.015*screenHeight,
+    margin: 0.015 * screenHeight,
   },
   screen: {
     flex: 1,
