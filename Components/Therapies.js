@@ -63,7 +63,7 @@ const Therapies = ({ navigation }) => {
               }}
             >
               <Icon
-                style={{ marginTop: 10, marginLeft: 32 }}
+                style={{ marginLeft: 32 }}
                 name="arrow-back"
                 type="ionicon"
                 color="#000"
@@ -80,7 +80,7 @@ const Therapies = ({ navigation }) => {
               marginRight: "15%",
             }}
           >
-            <Text style={{ fontSize: 24, fontWeight: "bold", marginTop: 10 }}>
+            <Text style={{ fontSize: 24, fontWeight: "bold" }}>
               Therapies
             </Text>
           </View>
@@ -154,11 +154,11 @@ export default Therapies;
 
 const styler = StyleSheet.create({
   head: {
-    flex: 0.15,
+    flex: 0.1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 0.04 * screenHeight,
+    marginTop: 0.01 * screenHeight,
   },
   image: {
     flex: 1,

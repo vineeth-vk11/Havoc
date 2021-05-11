@@ -183,9 +183,8 @@ const styler = StyleSheet.create({
     color: "white",
     fontSize: 0.025 * screenHeight,
     overflow: "hidden",
-    paddingVertical: 0.02 * screenHeight
-    textAlign:'center',
-    marginVertical:0.02*screenHeight
+    textAlign: "center",
+    paddingVertical: 0.025 * screenHeight
   },
   screen: { flex: 1 },
   headView: {

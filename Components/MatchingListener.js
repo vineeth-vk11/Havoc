@@ -125,6 +125,9 @@ const MatchingListener = ({ navigation, route }) => {
               <View>
                 <TouchableOpacity
                   onPress={() => {
+              
+                    setVisible1(!visible1);
+                    
                     var currentUser = firebase.auth().currentUser.uid;
 
                     firebase

@@ -17,6 +17,8 @@ import RadioForm, {
   RadioButtonLabel,
 } from "react-native-simple-radio-button";
 
+import { Icon } from "react-native-elements";
+
 import firebase from "firebase";
 require("firebase/firestore");
 
@@ -94,6 +96,24 @@ const HowYouFeel = ({ navigation, route }) => {
       <View style={styler.screen}>
         <ScrollView>
           <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={5}>
+            <View style = {{flex: 1, justifyContent: "flex-start", alignContent: "flex-start"}}>
+            <TouchableOpacity
+                  onPress={() => {
+                    navigation.goBack(null);
+                  }}
+                >
+                  <Icon
+                  style={{
+                    alignSelf: "flex-start",
+                    marginLeft: 0.05 * screenWidth
+                    }}
+                    name="arrow-back"
+                    type="ionicon"
+                    color="#000000"
+                    size={0.04 * screenHeight}
+                  />
+                </TouchableOpacity>
+            </View>
             <View style={styler.titleView}>
               <Text style={styler.titleText}>How are you feeling now?</Text>
             </View>
@@ -133,6 +153,17 @@ const HowYouFeel = ({ navigation, route }) => {
                         index={i}
                         labelHorizontal={true}
                         onPress={(value) => {
+                          if (value === 0) {
+                            setFeeling("Very Good");
+                          } else if (value === 1) {
+                            setFeeling("Good");
+                          } else if (value === 2) {
+                            setFeeling("Ok");
+                          } else if (value === 3) {
+                            setFeeling("Bad");
+                          } else if (value === 4) {
+                            setFeeling("Worst");
+                          }
                           setvalue(value);
                         }}
                         labelStyle={{
@@ -170,6 +201,7 @@ const HowYouFeel = ({ navigation, route }) => {
                 onChangeText={(value) => {
                   setOnMind(value);
                 }}
+                value = {onMind}
               />
             </View>
             <View style={{justifyContent:'center',alignItems:'center' }}>
@@ -208,6 +240,7 @@ const styler = StyleSheet.create({
     width: screenWidth,
     alignItems: "center",
     justifyContent: "center",
+    marginTop : 0.03 * screenHeight
   },
   titleText: {
     fontSize: 0.027*screenHeight,

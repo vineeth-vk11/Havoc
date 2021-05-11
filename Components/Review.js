@@ -152,8 +152,8 @@ const Review =({ navigation, route }) => {
           borderWidth={2}
           buttonInnerColor={"#7AC141"}
           buttonOuterColor={value === i ? "#7AC141" : "#000"}
-          buttonSize={16}
-          buttonOuterSize={24}
+          buttonSize={12}
+          buttonOuterSize={22}
           buttonStyle={{ marginRight: 20, marginBottom: 10 }}
           buttonWrapStyle={{ marginLeft: 10 }}
         />
