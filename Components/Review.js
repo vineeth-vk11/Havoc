@@ -10,6 +10,7 @@ import {
   ImageBackground,
   Alert,
   Dimensions,
+  SafeAreaView
 } from "react-native";
 import RadioForm, {
   RadioButton,
@@ -111,12 +112,14 @@ const Review = ({ navigation, route }) => {
           </TouchableOpacity>
         </View>
       );
-    }
+   }
   };
 
   return (
     <ImageBackground source={require("../assets/ss.png")} style={styler.image}>
-      <View style={styler.screen}>
+      
+      <SafeAreaView style={styler.screen}>
+        <ScrollView>
         <View style={styler.headView}>
           <View style={styler.head}>
             <Text style={{ fontSize: 30, fontWeight: "bold", marginTop: 20 }}>
@@ -224,7 +227,8 @@ const Review = ({ navigation, route }) => {
           </View>
         </View>
         {renderButton()}
-      </View>
+        </ScrollView>
+      </SafeAreaView>
     </ImageBackground>
   );
 };
@@ -259,7 +263,7 @@ const styler = StyleSheet.create({
     fontSize: 0.035 * screenHeight,
     elevation: 5,
     overflow: "hidden",
-    paddingVertical: 0.02 * screenHeight,
+    paddingVertical: 0.01 * screenHeight,
   },
   review: {
     padding: 10,
@@ -273,8 +277,9 @@ const styler = StyleSheet.create({
   },
   screen: {
     flex: 1,
-    padding: 0.02 * screenHeight,
+    paddingHorizontal: 0.02 * screenHeight,
     justifyContent: "space-between",
+    paddingVertical:0.04*screenHeight
   },
   headView: {
     justifyContent: "center",
@@ -289,9 +294,10 @@ const styler = StyleSheet.create({
   },
   footView: {
     justifyContent: "flex-end",
-    marginBottom: 0.08 * screenHeight,
+    marginVertical: 0.06 * screenHeight,
     justifyContent: "flex-end",
     alignItems: "center",
+
   },
   ratingView: {
     marginHorizontal: 0.04 * screenHeight,

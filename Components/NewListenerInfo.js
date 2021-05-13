@@ -30,6 +30,7 @@ const NewListenerInfo = ({ navigation }) => {
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [bio, setBio] = useState("");
+  const [isFocused,setisFocused] = useState(false);
 
   const createAlert = (message) =>
     Alert.alert("Data Missing", message, [{ text: "OK", onPress: () => {} }], {
@@ -184,7 +185,7 @@ const NewListenerInfo = ({ navigation }) => {
                   <Text style={styler.declaration}>
                     Write a bit about who you are and why you are a listener
                   </Text>
-                  <View
+                 <View
                     style={{
                       marginVertical: "2%",
                       width: windowWidth - 48,
@@ -202,6 +203,8 @@ const NewListenerInfo = ({ navigation }) => {
                       }}
                       onChangeText={(text) => setBio(text)}
                       value={bio}
+                      onFocus={()=>setisFocused(true)}
+                      onBlur={()=>setisFocused(false)}
                     />
                   </View>
                   <TouchableOpacity

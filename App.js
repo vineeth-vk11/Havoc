@@ -80,7 +80,7 @@ const MyTheme = {
 
 function App() {
   return (
-    <NavigationContainer theme={MyTheme}>
+   <NavigationContainer theme={MyTheme}>
       <Stack.Navigator
         initialRouteName="Splash"
         screenOptions={{ headerShown: false, gestureEnabled: false }}
