@@ -78,6 +78,12 @@ const listHeader = () => {
       .then((documentSnapshot) => {
         setName(documentSnapshot.data()["name"]);
         setLoading(false);
+
+        if (documentSnapshot.data()["isListener"]) {
+          setType("Listener");
+        } else {
+          setType("Seeker");
+        }
       });
   }
 
@@ -136,7 +142,22 @@ const Profile = ({ navigation }) => {
             >
               <TouchableOpacity
                 onPress={() => {
-                  navigation.goBack(null);
+                  var currentUser = firebase.auth().currentUser.uid;
+
+                  firebase
+                    .firestore()
+                    .collection("users")
+                    .doc(currentUser)
+                    .get()
+                    .then((documentSnapshot) => {
+                      var isListener = documentSnapshot.data()["isListener"];
+
+                      if (isListener) {
+                        navigation.navigate("ListenerDB");
+                      } else {
+                        navigation.navigate("Register3");
+                      }
+                    });
                 }}
               >
                 <Icon

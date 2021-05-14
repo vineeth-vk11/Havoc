@@ -63,7 +63,7 @@ const CallHistory = ({ navigation }) => {
           <View style={{ flex: 0.3, alignContent: "center" }}>
             <TouchableOpacity
               onPress={() => {
-                navigation.goBack(null);
+                navigation.navigate("Profile");
               }}
             >
               <Icon

@@ -125,9 +125,6 @@ const MyRequests = ({ navigation }) => {
                     <ListItem.Title>{item.userName}</ListItem.Title>
                     <ListItem.Subtitle>{item.topic}</ListItem.Subtitle>
                   </ListItem.Content>
-                  <TouchableOpacity>
-                    <Icon name={"close"} color="red" />
-                  </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
                       var currentUser = firebase.auth().currentUser.uid;
@@ -157,7 +154,12 @@ const MyRequests = ({ navigation }) => {
                         });
                     }}
                   >
-                    <Icon name={"checkmark"} type="ionicon" color="green" />
+                    <Icon
+                      name={"checkmark"}
+                      type="ionicon"
+                      color="green"
+                      style={{ marginLeft: 0.02 * screenWidth }}
+                    />
                   </TouchableOpacity>
                 </ListItem>
               </View>

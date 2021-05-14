@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ImageBackground } from "react-native";
+import { ImageBackground, Keyboard } from "react-native";
 import {
   View,
   Text,
@@ -11,6 +11,7 @@ import {
   ScrollView,
   Dimensions,
   Alert,
+  TouchableWithoutFeedback,
 } from "react-native";
 
 import { Button, Icon } from "react-native-elements";
@@ -74,136 +75,134 @@ const BookCallDateTime = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styler.screen}>
-      <ImageBackground
-        source={require("../assets/ss.png")}
-        style={styler.imageBg}
+    <ImageBackground
+      source={require("../assets/ss.png")}
+      style={styler.imageBg}
+    >
+      <TouchableWithoutFeedback
+        onPress={() => {
+          Keyboard.dismiss();
+        }}
+        accessible={false}
       >
-        <View style={styler.headView}>
-          <View style={styler.head}>
-            <View style={{ flex: 1 }}>
-              <Text
-                style={{
-                  fontSize: 0.032 * screenHeight,
-                  fontWeight: "bold",
-                  textAlign: "center",
-                }}
-              >
-                Book Call
-              </Text>
+        <SafeAreaView style={styler.screen}>
+          <View style={{ flex: 1 }}>
+            <View style={styler.headView}>
+              <View style={styler.head}>
+                <View style={{ flex: 1 }}>
+                  <Text
+                    style={{
+                      fontSize: 0.032 * screenHeight,
+                      fontWeight: "bold",
+                      textAlign: "center",
+                    }}
+                  >
+                    Book Call
+                  </Text>
+                </View>
+              </View>
             </View>
-          </View>
-        </View>
-        <View style={styler.dateTimeView}>
-          <View>
-            <Button
-              raised
-              containerStyle={{
-                width: 0.5 * screenWidth,
-                height: 0.07 * screenHeight,
-                margin: 0.015 * screenHeight,
-                smarginBottom: 0.025 * screenHeight,
-              }}
-              buttonStyle={{
-                padding: 0.01 * screenHeight,
-                height: 0.07 * screenHeight,
-                borderColor: "#7AC141",
-                borderWidth: 0,
-                borderRadius: 0.05 * screenHeight,
-              }}
-              icon={
-                <Icon
-                  name="calendar"
-                  size={0.025 * screenHeight}
-                  color="#7AC141"
-                  type="ionicon"
+            <View style={styler.dateTimeView}>
+              <View>
+                <Button
+                  raised
+                  containerStyle={{
+                    width: 0.5 * screenWidth,
+                    height: 0.07 * screenHeight,
+                    margin: 0.015 * screenHeight,
+                    smarginBottom: 0.025 * screenHeight,
+                  }}
+                  buttonStyle={{
+                    padding: 0.01 * screenHeight,
+                    height: 0.07 * screenHeight,
+                    borderColor: "#7AC141",
+                    borderWidth: 0,
+                    borderRadius: 0.05 * screenHeight,
+                  }}
+                  icon={
+                    <Icon
+                      name="calendar"
+                      size={0.025 * screenHeight}
+                      color="#7AC141"
+                      type="ionicon"
+                    />
+                  }
+                  title={date}
+                  type="outline"
+                  titleStyle={{ color: "#7AC141" }}
+                  onPress={showDatePicker}
                 />
-              }
-              title={date}
-              type="outline"
-              titleStyle={{ color: "#7AC141" }}
-              onPress={showDatePicker}
-            />
-            <DateTimePickerModal
-              isVisible={isDatePickerVisible}
-              mode="date"
-              minimumDate={new Date(minDate[2], minimumMonth, minDate[0])}
-              onConfirm={handleDateConfirm}
-              onCancel={hideDatePicker}
-            />
-          </View>
-          <View>
-            <Button
-              raised
-              containerStyle={{
-                width: 0.5 * screenWidth,
-                height: 0.07 * screenHeight,
-                margin: 10,
-                marginBottom: 20,
-                color: "green",
-              }}
-              buttonStyle={{
-                padding: 0.01 * screenHeight,
-                height: 0.07 * screenHeight,
-                borderColor: "#7AC141",
-                borderWidth: 0,
-                borderRadius: 0.01 * screenHeight,
-              }}
-              icon={
-                <Icon
-                  name="time"
-                  size={0.03 * screenHeight}
-                  color="#7ACA41"
-                  type="ionicon"
+                <DateTimePickerModal
+                  isVisible={isDatePickerVisible}
+                  mode="date"
+                  minimumDate={new Date(minDate[2], minimumMonth, minDate[0])}
+                  onConfirm={handleDateConfirm}
+                  onCancel={hideDatePicker}
                 />
-              }
-              title={time}
-              type="outline"
-              titleStyle={{ color: "#7AC141" }}
-              onPress={showTimePicker}
-            />
-            <DateTimePickerModal
-              isVisible={isTimePickerVisible}
-              mode="time"
-              onConfirm={handleTimeConfirm}
-              onCancel={hideTimePicker}
-            />
-          </View>
-          <TextInput
-            style={styler.phoneNumber}
-            placeholder={"+91  Phone Number"}
-            onChangeText={(text) => {
-              setNumber(text);
-            }}
-            value={number}
-          ></TextInput>
-        </View>
-        <View style={styler.footView}>
-          <TouchableOpacity
-            onPress={() => {
-              if (date === "Date") {
-                createAlert("Please select a date");
-              } else if (time === "Time") {
-                createAlert("Please select a time");
-              } else if (number === "") {
-                createAlert("Please enter a mobile numer");
-              } else {
-                var currentUser = firebase.auth().currentUser.uid;
+              </View>
+              <View>
+                <Button
+                  raised
+                  containerStyle={{
+                    width: 0.5 * screenWidth,
+                    height: 0.07 * screenHeight,
+                    margin: 10,
+                    marginBottom: 20,
+                    color: "green",
+                  }}
+                  buttonStyle={{
+                    padding: 0.01 * screenHeight,
+                    height: 0.07 * screenHeight,
+                    borderColor: "#7AC141",
+                    borderWidth: 0,
+                    borderRadius: 0.01 * screenHeight,
+                  }}
+                  icon={
+                    <Icon
+                      name="time"
+                      size={0.03 * screenHeight}
+                      color="#7ACA41"
+                      type="ionicon"
+                    />
+                  }
+                  title={time}
+                  type="outline"
+                  titleStyle={{ color: "#7AC141" }}
+                  onPress={showTimePicker}
+                />
+                <DateTimePickerModal
+                  isVisible={isTimePickerVisible}
+                  mode="time"
+                  onConfirm={handleTimeConfirm}
+                  onCancel={hideTimePicker}
+                />
+              </View>
+              <TextInput
+                style={styler.phoneNumber}
+                placeholder={"Phone Number"}
+                onChangeText={(text) => {
+                  setNumber(text);
+                }}
+                keyboardType="number-pad"
+                value={number}
+              ></TextInput>
+            </View>
+            <View style={styler.footView}>
+              <TouchableOpacity
+                onPress={() => {
+                  if (date === "Date") {
+                    createAlert("Please select a date");
+                  } else if (time === "Time") {
+                    createAlert("Please select a time");
+                  } else if (number === "") {
+                    createAlert("Please enter a mobile numer");
+                  } else {
+                    var currentUser = firebase.auth().currentUser.uid;
 
-                firebase
-                  .firestore()
-                  .collection("users")
-                  .doc(currentUser)
-                  .collection("callBookings")
-                  .add({
-                    date: date,
-                    time: time,
-                    number: number,
-                    user: currentUser,
-                  })
-                  .then(() => {
                     firebase
                       .firestore()
+                      .collection("users")
+                      .doc(currentUser)
                       .collection("callBookings")
                       .add({
                         date: date,
@@ -212,17 +211,29 @@ const BookCallDateTime = ({ navigation }) => {
                         user: currentUser,
                       })
                       .then(() => {
-                        navigation.navigate("Profile");
+                        firebase
+                          .firestore()
+                          .collection("callBookings")
+                          .add({
+                            date: date,
+                            time: time,
+                            number: number,
+                            user: currentUser,
+                          })
+                          .then(() => {
+                            navigation.navigate("CallHistory");
+                          });
                       });
-                  });
-              }
-            }}
-          >
-            <Text style={styler.bookNow}>BOOK NOW</Text>
-          </TouchableOpacity>
-        </View>
-      </ImageBackground>
-    </SafeAreaView>
+                  }
+                }}
+              >
+                <Text style={styler.bookNow}>BOOK NOW</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </SafeAreaView>
+      </TouchableWithoutFeedback>
+    </ImageBackground>
   );
 };
 const styler = StyleSheet.create({
