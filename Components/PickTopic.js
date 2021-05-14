@@ -171,12 +171,20 @@ const PickTopic = ({ navigation }) => {
     },
   ]);
 
-  const updateSearch = useCallback(
-    (event) => {
-      setsearch(event);
-    },
-    [setsearch]
-  );
+  const [list, setList] = useState(originalList)
+
+  const searchFilterFunction =(txt)=>{
+    setsearch(txt);
+    const newData=originalList.filter(item=>{
+      const itemData=item.name;
+      return itemData.indexOf(txt)>-1;
+    });
+    if(newData.length==originalList.length){
+      setList(originalList);
+    }else{
+      setList(newData);
+    }
+  }
 
   const [loading, setLoading] = useState(true);
 
@@ -209,12 +217,13 @@ const PickTopic = ({ navigation }) => {
   }
 
   return (
+    <ImageBackground
+    source={require("../assets/ss.png")}
+    style={styler.image}
+  >
     <SafeAreaView style={styler.screen}>
       <ScrollView>
-        <ImageBackground
-          source={require("../assets/ss.png")}
-          style={styler.image}
-        >
+
           <View style={styler.head}>
             <View style={{ flex: 0.35, alignItems: "flex-start" }}>
               <TouchableOpacity
@@ -257,12 +266,12 @@ const PickTopic = ({ navigation }) => {
               }}
               inputContainerStyle={{ backgroundColor: "white", height: 0.04*screenHeight }}
               placeholder="Enter topic name"
-              onChangeText={updateSearch}
+              onChangeText={searchFilterFunction}
               value={search}
             />
           </View>
           <View>
-            {originalList.map((l, i) => (
+            {list.map((l, i) => (
               <TouchableOpacity
                 key={i}
                 onPress={() => {
@@ -310,9 +319,10 @@ const PickTopic = ({ navigation }) => {
               </TouchableOpacity>
             ))}
           </View>
-        </ImageBackground>
       </ScrollView>
     </SafeAreaView>
+    </ImageBackground>
+
   );
 };
 

@@ -142,38 +142,41 @@ function DedicatedChatting({ navigation, route }) {
     <ImageBackground source={require("../assets/ss.png")} style={styler.image}>
       <View style={{ flex: 1 }}>
         <View style={styler.head}>
-          <View style={{ flex: 0.8, alignItems: "center" }}>
-            <Text
-              style={{
-                fontSize: 0.035 * screenHeight,
-                fontWeight: "bold",
-                textAlign: "left",
-                marginLeft: "30%",
-              }}
-            >
-              Chat
-            </Text>
-          </View>
-          <View
-            style={{
-              flex: 0.3,
-              alignItems: "flex-start",
+          <TouchableOpacity
+            onPress={() => {
+              navigation.goBack(null);
             }}
           >
-            <TouchableOpacity
-              onPress={() => {
-                createAlert();
-              }}
-            >
-              <Icon
-                name="close-outline"
-                type="ionicon"
-                color="#000000"
-                size={0.04 * screenHeight}
-                style={{ marginLeft: 0.04 * screenHeight }}
-              />
-            </TouchableOpacity>
-          </View>
+            <Icon
+              name="arrow-back"
+              type="ionicon"
+              color="#000000"
+              size={0.04 * screenHeight}
+            />
+          </TouchableOpacity>
+
+          <Text
+            style={{
+              fontSize: 0.035 * screenHeight,
+              fontWeight: "bold",
+              textAlign: "left",
+            }}
+          >
+            Chat
+          </Text>
+
+          <TouchableOpacity
+            onPress={() => {
+              createAlert();
+            }}
+          >
+            <Icon
+              name="close-outline"
+              type="ionicon"
+              color="#000000"
+              size={0.04 * screenHeight}
+            />
+          </TouchableOpacity>
         </View>
         <GiftedChat
           style={{ flex: 0.85 }}
@@ -196,6 +199,7 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     textAlign: "center",
+    justifyContent: "space-around",
     marginTop: 0.042 * screenHeight,
   },
   image: {

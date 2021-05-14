@@ -17,6 +17,7 @@ import firebase from "firebase";
 require("firebase/firestore");
 
 import { Dimensions } from "react-native";
+import { ScreenHeight } from "react-native-elements/dist/helpers";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -126,6 +127,7 @@ const styler = StyleSheet.create({
     elevation: 5,
     padding: 0.015 * windowHeight,
     overflow: "hidden",
+    paddingVertical: 0.02 * ScreenHeight,
   },
   imageBg: {
     flex: 1,
@@ -144,11 +146,10 @@ const styler = StyleSheet.create({
     borderColor: "black",
     borderRadius: 0,
     width: windowWidth - 48,
-    height: 0.08 * windowHeight,
+    height: 52,
     color: "#828282",
     justifyContent: "center",
     backgroundColor: "#fff",
-    fontSize: 0.025 * windowHeight,
   },
   havoc: {
     alignSelf: "center",

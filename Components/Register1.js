@@ -33,6 +33,7 @@ require("firebase/firestore");
 
 import { Dimensions } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import { ScreenHeight } from "react-native-elements/dist/helpers";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -52,77 +53,56 @@ const Register1 = ({ navigation }) => {
       source={require("../assets/ss.png")}
       style={styler.imageBg}
     >
-      <ScrollView>
-        <TouchableWithoutFeedback
-          onPress={() => {
-            Keyboard.dismiss();
-          }}
-        >
-          <SafeAreaView style={styler.screen}>
-            <FirebaseRecaptchaVerifierModal
-              ref={recaptchaVerifier}
-              firebaseConfig={firebaseConfig}
-              attemptInvisibleVerification={attemptInvisibleVerification}
-            />
-            <View style={styler.havoc}>
-              <Image source={require("../assets/logoTB.png")} />
-            </View>
-            <TextInput
-              mode="outlined"
-              label="Phone Number"
-              style={styler.phoneNumber}
-              theme={{
-                colors: { primary: "#7AC141", underlineColor: "transparent" },
-              }}
-              keyboardType="phone-pad"
-              onChangeText={(text) => setPhoneNumber(text)}
-              value={phoneNumber}
-            ></TextInput>
-            <TouchableOpacity
-              onPress={async () => {
-                try {
-                  const phoneProvider = new firebase.auth.PhoneAuthProvider();
-                  const verificationId = await phoneProvider.verifyPhoneNumber(
-                    phoneNumber,
-                    recaptchaVerifier.current
-                  );
-                  setVerificationId(verificationId);
-                  navigation.navigate("EnterOTP", {
-                    verificationId: verificationId,
-                  });
-                } catch (err) {
-                  showMessage({
-                    message: "Enter mobile number with country code",
-                    type: "info",
-                  });
-                }
-              }}
-            >
-              <Text style={styler.sendOtp}>Get OTP</Text>
-            </TouchableOpacity>
-            <View style={{ flexDirection: "row", marginTop: 10 }}>
-              <View style={styler.lineStyle} />
-              <View style={styler.lineStylew} />
-              <Text>OR</Text>
-              <View style={styler.lineStyle} />
-            </View>
-            <TouchableOpacity>
-              <TouchableOpacity>
-                <View style={styler.continueWithEmail}>
-                  <Image
-                    source={require("../assets/Images/icons8-google-48.png")}
-                    style={{ width: 40, height: 40, marginLeft: 10 }}
-                  />
-                  <View style={styler.textView}>
-                    <Text style={styler.textSignIn}>Sign In</Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            </TouchableOpacity>
-            <FlashMessage position="top" style={{ marginTop: 30 }} />
-          </SafeAreaView>
-        </TouchableWithoutFeedback>
-      </ScrollView>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          Keyboard.dismiss();
+        }}
+      >
+        <SafeAreaView style={styler.screen}>
+          <FirebaseRecaptchaVerifierModal
+            ref={recaptchaVerifier}
+            firebaseConfig={firebaseConfig}
+            attemptInvisibleVerification={attemptInvisibleVerification}
+          />
+          <View style={styler.havoc}>
+            <Image source={require("../assets/logoTB.png")} />
+          </View>
+          <TextInput
+            mode="outlined"
+            label="Phone Number"
+            style={styler.phoneNumber}
+            theme={{
+              colors: { primary: "#7AC141", underlineColor: "transparent" },
+            }}
+            keyboardType="phone-pad"
+            onChangeText={(text) => setPhoneNumber(text)}
+            value={phoneNumber}
+          ></TextInput>
+          <TouchableOpacity
+            onPress={async () => {
+              try {
+                const phoneProvider = new firebase.auth.PhoneAuthProvider();
+                const verificationId = await phoneProvider.verifyPhoneNumber(
+                  phoneNumber,
+                  recaptchaVerifier.current
+                );
+                setVerificationId(verificationId);
+                navigation.navigate("EnterOTP", {
+                  verificationId: verificationId,
+                });
+              } catch (err) {
+                showMessage({
+                  message: "Enter mobile number with country code",
+                  type: "info",
+                });
+              }
+            }}
+          >
+            <Text style={styler.sendOtp}>Get OTP</Text>
+          </TouchableOpacity>
+          <FlashMessage position="top" style={{ marginTop: 30 }} />
+        </SafeAreaView>
+      </TouchableWithoutFeedback>
     </ImageBackground>
   );
 };
@@ -132,6 +112,7 @@ const styler = StyleSheet.create({
   screen: {
     alignItems: "center",
     flex: 1,
+    justifyContent: "center",
   },
   imageBg: {
     flex: 1,
@@ -154,7 +135,7 @@ const styler = StyleSheet.create({
   sendOtp: {
     borderRadius: 8,
     width: windowWidth - 48,
-    height: 45,
+    height: 0.065 * windowHeight,
     backgroundColor: "#7AC141",
     color: "white",
     margin: 20,
@@ -166,6 +147,7 @@ const styler = StyleSheet.create({
     elevation: 5,
     padding: 10,
     overflow: "hidden",
+    paddingVertical: 0.02 * ScreenHeight,
   },
   lineStyle: {
     borderWidth: 0.4,

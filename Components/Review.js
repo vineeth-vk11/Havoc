@@ -10,6 +10,7 @@ import {
   ImageBackground,
   Alert,
   Dimensions,
+  SafeAreaView,
 } from "react-native";
 import RadioForm, {
   RadioButton,
@@ -116,115 +117,117 @@ const Review = ({ navigation, route }) => {
 
   return (
     <ImageBackground source={require("../assets/ss.png")} style={styler.image}>
-      <View style={styler.screen}>
-        <View style={styler.headView}>
-          <View style={styler.head}>
-            <Text style={{ fontSize: 30, fontWeight: "bold", marginTop: 20 }}>
-              Review
-            </Text>
+      <SafeAreaView style={styler.screen}>
+        <ScrollView>
+          <View style={styler.headView}>
+            <View style={styler.head}>
+              <Text style={{ fontSize: 30, fontWeight: "bold", marginTop: 20 }}>
+                Review
+              </Text>
+            </View>
           </View>
-        </View>
 
-        <View style={styler.formView}>
-          <Text style={styler.better}>Are you feeling better now</Text>
-          <RadioForm formHorizontal={false} animation={true}>
-            {radio_props.map((obj, i) => (
-              <RadioButton labelHorizontal={true} key={i}>
-                <View style={{ flexDirection: "row" }}>
-                  <RadioButtonInput
-                    obj={obj}
-                    index={i}
-                    isSelected={value === i}
-                    onPress={(value) => {
-                      if (value === 0) {
-                        setFeeling("Yes");
-                      } else if (value === 1) {
-                        setFeeling("Not Sure");
-                      } else {
-                        setFeeling("No");
-                      }
-                      setvalue(value);
-                    }}
-                    borderWidth={2}
-                    buttonInnerColor={"#7AC141"}
-                    buttonOuterColor={value === i ? "#7AC141" : "#000"}
-                    buttonSize={12}
-                    buttonOuterSize={22}
-                    buttonStyle={{ marginRight: 20, marginBottom: 10 }}
-                    buttonWrapStyle={{ marginLeft: 10 }}
-                  />
-                  <RadioButtonLabel
-                    obj={obj}
-                    index={i}
-                    labelHorizontal={true}
-                    onPress={(value) => {
-                      setvalue(value);
-                    }}
-                    labelStyle={{
-                      fontSize: 20,
-                      color: "#000",
-                    }}
-                    labelWrapStyle={{}}
-                  />
-                </View>
-              </RadioButton>
-            ))}
-          </RadioForm>
-        </View>
+          <View style={styler.formView}>
+            <Text style={styler.better}>Are you feeling better now</Text>
+            <RadioForm formHorizontal={false} animation={true}>
+              {radio_props.map((obj, i) => (
+                <RadioButton labelHorizontal={true} key={i}>
+                  <View style={{ flexDirection: "row" }}>
+                    <RadioButtonInput
+                      obj={obj}
+                      index={i}
+                      isSelected={value === i}
+                      onPress={(value) => {
+                        if (value === 0) {
+                          setFeeling("Yes");
+                        } else if (value === 1) {
+                          setFeeling("Not Sure");
+                        } else {
+                          setFeeling("No");
+                        }
+                        setvalue(value);
+                      }}
+                      borderWidth={2}
+                      buttonInnerColor={"#7AC141"}
+                      buttonOuterColor={value === i ? "#7AC141" : "#000"}
+                      buttonSize={12}
+                      buttonOuterSize={22}
+                      buttonStyle={{ marginRight: 20, marginBottom: 10 }}
+                      buttonWrapStyle={{ marginLeft: 10 }}
+                    />
+                    <RadioButtonLabel
+                      obj={obj}
+                      index={i}
+                      labelHorizontal={true}
+                      onPress={(value) => {
+                        setvalue(value);
+                      }}
+                      labelStyle={{
+                        fontSize: 20,
+                        color: "#000",
+                      }}
+                      labelWrapStyle={{}}
+                    />
+                  </View>
+                </RadioButton>
+              ))}
+            </RadioForm>
+          </View>
 
-        <View style={styler.rateView}>
-          <Text style={styler.better}>Rate the listener</Text>
-          <View style={styler.ratingView}>
-            <Stars
-              update={(val) => {
-                setRating(val);
-              }}
-              spacing={4}
-              starSize={40}
-              count={5}
-              starSize={24}
-              emptyStar={
-                <Icon
-                  name={"star-outline"}
-                  size={40}
-                  style={{ color: "#000" }}
-                />
-              }
-              fullStar={
-                <Icon name={"star"} size={40} style={{ color: "#7AC141" }} />
-              }
-              halfStar={
-                <Icon
-                  name={"star-half"}
-                  size={40}
-                  style={{ color: "#7AC141" }}
-                />
-              }
-            />
+          <View style={styler.rateView}>
+            <Text style={styler.better}>Rate the listener</Text>
+            <View style={styler.ratingView}>
+              <Stars
+                update={(val) => {
+                  setRating(val);
+                }}
+                spacing={4}
+                starSize={40}
+                count={5}
+                starSize={24}
+                emptyStar={
+                  <Icon
+                    name={"star-outline"}
+                    size={40}
+                    style={{ color: "#000" }}
+                  />
+                }
+                fullStar={
+                  <Icon name={"star"} size={40} style={{ color: "#7AC141" }} />
+                }
+                halfStar={
+                  <Icon
+                    name={"star-half"}
+                    size={40}
+                    style={{ color: "#7AC141" }}
+                  />
+                }
+              />
+            </View>
           </View>
-        </View>
-        <View style={styler.reviewView}>
-          <Text style={styler.better}>Review</Text>
-          <View
-            style={{
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "flex-end",
-            }}
-          >
-            <TextInput
-              placeholder="Let us know about your experience"
-              placeholderTextColor="rgba(122, 193, 65, 1);"
-              style={styler.review}
-              onChangeText={(text) => {
-                setReview(text);
+          <View style={styler.reviewView}>
+            <Text style={styler.better}>Review</Text>
+            <View
+              style={{
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "flex-end",
               }}
-              value={review}
-            ></TextInput>
+            >
+              <TextInput
+                placeholder="Let us know about your experience"
+                placeholderTextColor="rgba(122, 193, 65, 1);"
+                style={styler.review}
+                onChangeText={(text) => {
+                  setReview(text);
+                }}
+                value={review}
+              ></TextInput>
+            </View>
           </View>
-        </View>
-        {renderButton()}
-      </View>
+          {renderButton()}
+        </ScrollView>
+      </SafeAreaView>
     </ImageBackground>
   );
 };
@@ -275,6 +278,7 @@ const styler = StyleSheet.create({
     flex: 1,
     padding: 0.02 * screenHeight,
     justifyContent: "space-between",
+    marginLeft: 0.04 * screenWidth,
   },
   headView: {
     justifyContent: "center",
