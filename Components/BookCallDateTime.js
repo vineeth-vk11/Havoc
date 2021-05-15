@@ -35,7 +35,7 @@ const BookCallDateTime = ({ navigation }) => {
 
   const today = new Date();
   const tomorrow = new Date(today);
-  tomorrow.setDate(tomorrow.getDate() + 1);
+  tomorrow.setDate(tomorrow.getDate());
   var mDate = Moment(tomorrow).format("DD/MM/YYYY");
   var minDate = mDate.split("/");
 
@@ -89,15 +89,30 @@ const BookCallDateTime = ({ navigation }) => {
           <View style={{ flex: 1 }}>
             <View style={styler.headView}>
               <View style={styler.head}>
-                <View style={{ flex: 1 }}>
-                  <Text
-                    style={{
-                      fontSize: 0.032 * screenHeight,
-                      fontWeight: "bold",
-                      textAlign: "center",
+                <View style={{ flex: 0.3, alignContent: "flex-start" }}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.goBack(null);
                     }}
                   >
-                    Book Call
+                    <Icon
+                      name="arrow-back"
+                      type="ionicon"
+                      color="#000"
+                      size={30}
+                    />
+                  </TouchableOpacity>
+                </View>
+
+                <View
+                  style={{
+                    flex: 0.7,
+                    alignContent: "flex-start",
+                    marginLeft: 0.1 * screenWidth,
+                  }}
+                >
+                  <Text style={{ fontSize: 24, fontWeight: "bold" }}>
+                    Book a Call
                   </Text>
                 </View>
               </View>
@@ -221,7 +236,7 @@ const BookCallDateTime = ({ navigation }) => {
                             user: currentUser,
                           })
                           .then(() => {
-                            navigation.navigate("CallHistory");
+                            navigation.navigate("BookCallConfirmation");
                           });
                       });
                   }

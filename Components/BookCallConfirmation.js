@@ -13,9 +13,7 @@ import { Icon } from "react-native-elements";
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
-const TherapyBooking = ({ navigation, route }) => {
-  const { cost } = route.params;
-
+const BookCallConfirmation = ({ navigation, route }) => {
   return (
     <SafeAreaView style={styler.screen}>
       <ImageBackground
@@ -31,7 +29,7 @@ const TherapyBooking = ({ navigation, route }) => {
                 fontWeight: "bold",
               }}
             >
-              Therapy Booking
+              Call Booking
             </Text>
           </View>
         </View>
@@ -61,19 +59,19 @@ const TherapyBooking = ({ navigation, route }) => {
             >
               To Pay Amount
             </Text>
-            <Text style={{ fontSize: 0.03 * screenHeight }}>₹ {cost}</Text>
+            <Text style={{ fontSize: 0.03 * screenHeight }}>₹ 250</Text>
           </View>
           <Text
             style={{ fontSize: 16, marginHorizontal: 0.025 * screenHeight }}
           >
-            We received your request. Our team will get in touch with you soon.
+            Your request is placed. Our team will get in touch with you soon.
           </Text>
           <View style={styler.lineStyle} />
         </View>
         <View style={styler.footView}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("MyTherapies");
+              navigation.navigate("CallHistory");
             }}
           >
             <Text style={styler.finish}>FINISH</Text>
@@ -84,7 +82,7 @@ const TherapyBooking = ({ navigation, route }) => {
   );
 };
 
-export default TherapyBooking;
+export default BookCallConfirmation;
 const styler = StyleSheet.create({
   head: {
     flexDirection: "row",

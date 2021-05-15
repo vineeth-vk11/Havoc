@@ -230,7 +230,7 @@ const NewListenerInfo = ({ navigation }) => {
                       }
                     }}
                   >
-                    <Text style={styler.getStarted}>FIND LISTENER</Text>
+                    <Text style={styler.getStarted}>NEXT</Text>
                   </TouchableOpacity>
                 </ScrollView>
               </KeyboardAvoidingView>

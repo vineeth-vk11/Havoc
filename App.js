@@ -26,6 +26,7 @@ import Booking from "./Components/Booking";
 import JoinTheChat from "./Components/JoinTheChat";
 import Chat from "./Components/Chat";
 import BookCallDateTime from "./Components/BookCallDateTime";
+import BookCallConfirmation from "./Components/BookCallConfirmation";
 import DedicatedChats from "./Components/DedicatedChats";
 import EnterOTP from "./Components/EnterOTP";
 import ListenerDB from "./Components/ListenerDB";
@@ -108,6 +109,10 @@ function App() {
         <Stack.Screen name="TherapyBooking" component={TherapyBooking} />
         <Stack.Screen name="MyTherapies" component={MyTherapies} />
         <Stack.Screen name="BookCall" component={BookCall} />
+        <Stack.Screen
+          name="BookCallConfirmation"
+          component={BookCallConfirmation}
+        />
         <Stack.Screen name="Booking" component={Booking} />
         <Stack.Screen name="JoinTheChat" component={JoinTheChat} />
         <Stack.Screen name="Chat" component={Chat} />

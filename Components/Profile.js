@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -16,6 +16,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { FlatList } from "react-native-gesture-handler";
 
 import firebase from "firebase";
+import { set } from "react-native-reanimated";
 require("firebase/auth");
 
 const list = [
@@ -64,68 +65,71 @@ const list = [
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
-const listHeader = () => {
+const Profile = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [name, setName] = useState("");
+  const [type, setType] = useState();
 
-  if (loading) {
-    var currentUser = firebase.auth().currentUser.uid;
-    firebase
-      .firestore()
-      .collection("users")
-      .doc(currentUser)
-      .get()
-      .then((documentSnapshot) => {
-        setName(documentSnapshot.data()["name"]);
-        setLoading(false);
+  useEffect(() => {
+    if (loading) {
+      var currentUser = firebase.auth().currentUser.uid;
+      firebase
+        .firestore()
+        .collection("users")
+        .doc(currentUser)
+        .get()
+        .then((documentSnapshot) => {
+          setName(documentSnapshot.data()["name"]);
+          var isListener = documentSnapshot.data()["isListener"];
+          if (isListener) {
+            setType("Listener");
+          } else {
+            setType("Seeker");
+          }
+          setLoading(false);
+        });
+    }
+  });
 
-        if (documentSnapshot.data()["isListener"]) {
-          setType("Listener");
-        } else {
-          setType("Seeker");
-        }
-      });
-  }
+  const listHeader = () => {
+    return (
+      <View style={styler.imageView}>
+        <View style={styler.container}>
+          <View
+            style={{
+              flex: 0.4,
+              alignContent: "flex-start",
+              marginLeft: 0.05 * screenWidth,
+            }}
+          >
+            <Image
+              style={styler.dp}
+              source={require("../assets/profilepic.png")}
+            />
+          </View>
+          <View
+            style={{
+              flex: 0.6,
+              marginBottom: 0.015 * screenHeight,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 0.025 * screenHeight,
+              }}
+            >
+              {name}
+            </Text>
+          </View>
+        </View>
+      </View>
+    );
+  };
 
   if (loading) {
     return <ActivityIndicator />;
   }
 
-  return (
-    <View style={styler.imageView}>
-      <View style={styler.container}>
-        <View
-          style={{
-            flex: 0.4,
-            alignContent: "flex-start",
-            marginLeft: 0.05 * screenWidth,
-          }}
-        >
-          <Image
-            style={styler.dp}
-            source={require("../assets/profilepic.png")}
-          />
-        </View>
-        <View
-          style={{
-            flex: 0.6,
-            marginBottom: 0.015 * screenHeight,
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 0.025 * screenHeight,
-            }}
-          >
-            {name}
-          </Text>
-        </View>
-      </View>
-    </View>
-  );
-};
-
-const Profile = ({ navigation }) => {
   return (
     <ImageBackground
       source={require("../assets/ss.png")}
@@ -142,22 +146,11 @@ const Profile = ({ navigation }) => {
             >
               <TouchableOpacity
                 onPress={() => {
-                  var currentUser = firebase.auth().currentUser.uid;
-
-                  firebase
-                    .firestore()
-                    .collection("users")
-                    .doc(currentUser)
-                    .get()
-                    .then((documentSnapshot) => {
-                      var isListener = documentSnapshot.data()["isListener"];
-
-                      if (isListener) {
-                        navigation.navigate("ListenerDB");
-                      } else {
-                        navigation.navigate("Register3");
-                      }
-                    });
+                  if (type === "Listener") {
+                    navigation.navigate("ListenerDB");
+                  } else {
+                    navigation.navigate("Register3");
+                  }
                 }}
               >
                 <Icon
