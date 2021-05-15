@@ -9,11 +9,12 @@ import {
   TextInput,
   ScrollView,
   ImageBackground,
+  Alert,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { Button } from "react-native-elements";
 
-import RazorpayCheckout from "react-native-razorpay";
+// import RazorpayCheckout from "react-native-razorpay";
 
 import firebase from "firebase";
 require("firebase/firestore");
@@ -30,6 +31,41 @@ const windowHeight = Dimensions.get("window").height;
 
 const TherapyProduct = ({ navigation, route }) => {
   const { name, description, cost, image } = route.params;
+
+  const createAlert = () =>
+    Alert.alert(
+      "Therapy Booking",
+      "Are you sure you want to proceed ?",
+      [
+        {
+          text: "OK",
+          onPress: () => {
+            var currentUser = firebase.auth().currentUser.uid;
+            var date = Moment(new Date()).format("MM/DD/YYYY");
+            firebase
+              .firestore()
+              .collection("users")
+              .doc(currentUser)
+              .collection("TherapyBookings")
+              .add({
+                therapyName: name,
+                amountPaid: cost,
+                date: date,
+              })
+              .then(() => {
+                navigation.navigate("TherapyBooking", {
+                  cost: cost,
+                });
+              });
+          },
+        },
+        {
+          text: "Cancel",
+          onPress: () => {},
+        },
+      ],
+      { cancelable: false }
+    );
 
   return (
     <SafeAreaView style={styler.screen}>
@@ -88,42 +124,7 @@ const TherapyProduct = ({ navigation, route }) => {
           <View style={styler.footView}>
             <TouchableOpacity
               onPress={() => {
-                var options = {
-                  description: "Therapy Booking",
-                  image: require("../assets/logoTB.png"),
-                  currency: "INR",
-                  key: "rzp_test_MvrwOKu0TQyu0C",
-                  amount: (Number(cost) * 100).toString(),
-                  name: "Havoc Therapy",
-                  theme: { color: "#7AC141" },
-                };
-                RazorpayCheckout.open(options)
-                  .then((data) => {
-                    var currentUser = firebase.auth().currentUser.uid;
-                    var date = Moment(new Date()).format("MM/DD/YYYY");
-
-                    firebase
-                      .firestore()
-                      .collection("users")
-                      .doc(currentUser)
-                      .collection("TherapyBookings")
-                      .add({
-                        therapyName: name,
-                        amountPaid: cost,
-                        date: date,
-                        orderId: data["razorpay_payment_id"],
-                      })
-                      .then(() => {
-                        navigation.navigate("TherapyBooking", {
-                          cost: cost,
-                          orderId: data["razorpay_payment_id"],
-                        });
-                        alert(`Success`);
-                      });
-                  })
-                  .catch((error) => {
-                    alert(`${error.description}`);
-                  });
+                createAlert();
               }}
             >
               <Text style={styler.bookNow}>BOOK NOW</Text>

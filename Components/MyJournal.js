@@ -57,45 +57,26 @@ const MyJournal = ({ navigation }) => {
     return <ActivityIndicator />;
   }
 
-  return (
-    <SafeAreaView style={styler.screen}>
-      <ImageBackground
-        source={require("../assets/ss.png")}
-        style={styler.image}
-      >
-        <View style={styler.head}>
-          <View
-            style={{
-              flex: 0.3,
-              alignItems: "flex-start",
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => {
-                navigation.goBack(null);
-              }}
-            >
-              <Icon
-                name="arrow-back"
-                type="ionicon"
-                color="#000000"
-                size={30}
-                style={{ marginLeft: 0.03 * screenHeight }}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={{ flex: 0.7 }}>
-            <Text
-              style={{
-                fontSize: 0.032 * screenHeight,
-                fontWeight: "bold",
-                textAlign: "left",
-              }}
-            >
-              My Journal
-            </Text>
-          </View>
+  const renderList = () => {
+    if (list.length === 0) {
+      return (
+        <View
+          style={{
+            flex: 0.85,
+            marginLeft: 0.04 * screenHeight,
+            marginRight: 0.04 * screenHeight,
+          }}
+        >
+          <Text style={{ fontSize: 16, marginTop: "50%", textAlign: "center" }}>
+            Need to go strengthen yourself by the golden words said by your
+            listener ? You'll find it here. The journal will hold all your
+            previous chats and you can access them whenever you feel like
+            recollecting.
+          </Text>
         </View>
+      );
+    } else {
+      return (
         <View style={styler.listView}>
           <FlatList
             data={list}
@@ -144,6 +125,51 @@ const MyJournal = ({ navigation }) => {
             )}
           />
         </View>
+      );
+    }
+  };
+
+  return (
+    <SafeAreaView style={styler.screen}>
+      <ImageBackground
+        source={require("../assets/ss.png")}
+        style={styler.image}
+      >
+        <View style={styler.head}>
+          <View
+            style={{
+              flex: 0.3,
+              alignItems: "flex-start",
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack(null);
+              }}
+            >
+              <Icon
+                name="arrow-back"
+                type="ionicon"
+                color="#000000"
+                size={30}
+                style={{ marginLeft: 0.03 * screenHeight }}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={{ flex: 0.7 }}>
+            <Text
+              style={{
+                fontSize: 0.032 * screenHeight,
+                fontWeight: "bold",
+                textAlign: "left",
+              }}
+            >
+              My Journal
+            </Text>
+          </View>
+        </View>
+
+        {renderList()}
       </ImageBackground>
     </SafeAreaView>
   );

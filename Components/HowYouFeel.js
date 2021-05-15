@@ -9,13 +9,9 @@ import {
   SafeAreaView,
   ImageBackground,
   Dimensions,
+  Alert,
 } from "react-native";
 import { TextInput } from "react-native-paper";
-import RadioForm, {
-  RadioButton,
-  RadioButtonInput,
-  RadioButtonLabel,
-} from "react-native-simple-radio-button";
 
 import { Icon } from "react-native-elements";
 
@@ -27,12 +23,14 @@ import { min } from "react-native-reanimated";
 
 import Moment from "moment";
 
+import RadioButtonRN from "radio-buttons-react-native";
+
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 const HowYouFeel = ({ navigation, route }) => {
   const [value, setvalue] = useState(-1);
-  const [feeling, setFeeling] = useState();
+  const [feeling, setFeeling] = useState("");
   const radio_props = [
     { label: "😃 Very Good", value: 0 },
     { label: "🙂 Good", value: 1 },
@@ -94,6 +92,17 @@ const HowYouFeel = ({ navigation, route }) => {
         });
     }
   };
+
+  const createAlert = () =>
+    Alert.alert(
+      "No Option Selected",
+      "Please select your current feeling to continue",
+      [{ text: "OK", onPress: () => {} }],
+      {
+        cancelable: false,
+      }
+    );
+
   return (
     <ImageBackground source={require("../assets/ss.png")} style={styler.image}>
       <View style={styler.screen}>
@@ -127,68 +136,33 @@ const HowYouFeel = ({ navigation, route }) => {
               <Text style={styler.titleText}>How are you feeling now?</Text>
             </View>
             <View style={styler.radioButtons}>
-              <RadioForm formHorizontal={false} animation={true}>
-                {radio_props.map((obj, i) => (
-                  <RadioButton labelHorizontal={true} key={i}>
-                    <View style={{ flexDirection: "row" }}>
-                      <RadioButtonInput
-                        obj={obj}
-                        index={i}
-                        isSelected={value === i}
-                        onPress={(value) => {
-                          if (value === 0) {
-                            setFeeling("Very Good");
-                          } else if (value === 1) {
-                            setFeeling("Good");
-                          } else if (value === 2) {
-                            setFeeling("Ok");
-                          } else if (value === 3) {
-                            setFeeling("Bad");
-                          } else if (value === 4) {
-                            setFeeling("Worst");
-                          }
-                          setvalue(value);
-                        }}
-                        borderWidth={2}
-                        buttonInnerColor={"#7AC141"}
-                        buttonOuterColor={value === i ? "#7AC141" : "#000"}
-                        buttonSize={0.017 * screenHeight}
-                        buttonOuterSize={0.028 * screenHeight}
-                        buttonStyle={{
-                          marginRight: 0.025 * screenHeight,
-                          marginBottom: 0.015 * screenHeight,
-                        }}
-                        buttonWrapStyle={{ marginLeft: 0.015 * screenHeight }}
-                      />
-                      <RadioButtonLabel
-                        obj={obj}
-                        index={i}
-                        labelHorizontal={true}
-                        onPress={(value) => {
-                          if (value === 0) {
-                            setFeeling("Very Good");
-                          } else if (value === 1) {
-                            setFeeling("Good");
-                          } else if (value === 2) {
-                            setFeeling("Ok");
-                          } else if (value === 3) {
-                            setFeeling("Bad");
-                          } else if (value === 4) {
-                            setFeeling("Worst");
-                          }
-                          setvalue(value);
-                        }}
-                        labelStyle={{
-                          fontSize: 0.021 * screenHeight,
-                          color: "#000",
-                          marginBottom: 0.01 * screenHeight,
-                        }}
-                        labelWrapStyle={{}}
-                      />
-                    </View>
-                  </RadioButton>
-                ))}
-              </RadioForm>
+              <RadioButtonRN
+                data={radio_props}
+                style={{
+                  marginRight: 0.02 * screenWidth,
+                }}
+                textStyle={{
+                  fontSize: 0.02 * screenHeight,
+                }}
+                selectedBtn={(e) => {
+                  var v = e["value"];
+
+                  if (v === 0) {
+                    setFeeling("Very Good");
+                  } else if (v === 1) {
+                    setFeeling("Good");
+                  } else if (v === 2) {
+                    setFeeling("Ok");
+                  } else if (v === 3) {
+                    setFeeling("Bad");
+                  } else if (v === 4) {
+                    setFeeling("Worst");
+                  }
+                }}
+                box={false}
+                activeColor="#7AC141"
+                deactiveColor="#7AC141"
+              />
             </View>
             <View style={styler.gatherYT}>
               <Text style={styler.gatherText}>
@@ -219,7 +193,8 @@ const HowYouFeel = ({ navigation, route }) => {
             <View style={{ justifyContent: "center", alignItems: "center" }}>
               <TouchableOpacity
                 onPress={() => {
-                  if (value === -1) {
+                  if (feeling === "") {
+                    createAlert();
                   } else {
                     sendRequest();
                   }

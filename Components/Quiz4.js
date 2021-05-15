@@ -11,14 +11,12 @@ import {
   Alert,
 } from "react-native";
 import YoutubePlayer from "react-native-youtube-iframe";
-import RadioForm, {
-  RadioButton,
-  RadioButtonInput,
-  RadioButtonLabel,
-} from "react-native-simple-radio-button";
+
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Icon } from "react-native-elements";
+
+import RadioButtonRN from "radio-buttons-react-native";
 
 import firebase from "firebase";
 require("firebase/firestore");
@@ -153,55 +151,27 @@ const Quiz4 = ({ navigation, route }) => {
             </Text>
           </View>
           <View style={styler.radioButtons}>
-            <RadioForm formHorizontal={false} animation={true}>
-              {radio_props.map((obj, i) => (
-                <RadioButton labelHorizontal={true} key={i}>
-                  <View style={{ flexDirection: "row" }}>
-                    <RadioButtonInput
-                      obj={obj}
-                      index={i}
-                      isSelected={value === i}
-                      onPress={(value) => {
-                        if (value === 3) {
-                          setAnswer4(false);
-                        } else {
-                          setAnswer4(true);
-                        }
-                        setvalue(value);
-                      }}
-                      borderWidth={2}
-                      buttonInnerColor={"#7AC141"}
-                      buttonOuterColor={value === i ? "#7AC141" : "#000"}
-                      buttonSize={12}
-                      buttonOuterSize={22}
-                      buttonStyle={{
-                        marginRight: 0.006 * screenHeight,
-                        marginBottom: 0.015 * screenHeight,
-                      }}
-                      buttonWrapStyle={{ marginLeft: 0.01 * screenHeight }}
-                    />
-                    <RadioButtonLabel
-                      obj={obj}
-                      index={i}
-                      labelHorizontal={true}
-                      onPress={(value) => {
-                        if (value === 3) {
-                          setAnswer4(false);
-                        } else {
-                          setAnswer4(true);
-                        }
-                        setvalue(value);
-                      }}
-                      labelStyle={{
-                        fontSize: 0.02 * screenHeight,
-                        color: "#000",
-                      }}
-                      labelWrapStyle={{}}
-                    />
-                  </View>
-                </RadioButton>
-              ))}
-            </RadioForm>
+            <RadioButtonRN
+              data={radio_props}
+              style={{
+                marginRight: 0.02 * screenWidth,
+              }}
+              textStyle={{
+                fontSize: 0.018 * screenHeight,
+              }}
+              selectedBtn={(e) => {
+                var v = e["value"];
+
+                if (v !== 3) {
+                  setAnswer4(true);
+                } else {
+                  setAnswer4(false);
+                }
+              }}
+              box={false}
+              activeColor="#7AC141"
+              deactiveColor="#7AC141"
+            />
           </View>
           <View
             style={{
@@ -237,7 +207,7 @@ const Quiz4 = ({ navigation, route }) => {
                           .collection("Listeners")
                           .doc(currentUser)
                           .set({
-                            age: age,
+                            age: age.toString(),
                             gender: gender,
                             name: firstName,
                             lastName: lastName,

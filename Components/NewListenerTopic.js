@@ -62,39 +62,39 @@ const NewListenerTopic = ({ navigation, route }) => {
     <ImageBackground source={require("../assets/ss.png")} style={styler.image}>
       <SafeAreaView style={styler.screen}>
         <ScrollView>
-        <View style={styler.head}>
-          <View
-            style={{
-              flex: 0.4,
-              alignItems: "flex-start",
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => {
-                navigation.goBack(null);
-              }}
-            >
-              <Icon
-                name="arrow-back"
-                type="ionicon"
-                color="#000000"
-                size={0.04*screenHeight}
-                style={{ marginLeft: 0.03*screenHeight }}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={{ flex: 0.6 }}>
-            <Text
+          <View style={styler.head}>
+            <View
               style={{
-                fontSize: 0.032*screenHeight,
-                fontWeight: "bold",
-                textAlign: "left",
+                flex: 0.4,
+                alignItems: "flex-start",
               }}
             >
-              Topics
-            </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack(null);
+                }}
+              >
+                <Icon
+                  name="arrow-back"
+                  type="ionicon"
+                  color="#000000"
+                  size={0.04 * screenHeight}
+                  style={{ marginLeft: 0.03 * screenHeight }}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={{ flex: 0.6 }}>
+              <Text
+                style={{
+                  fontSize: 0.032 * screenHeight,
+                  fontWeight: "bold",
+                  textAlign: "left",
+                }}
+              >
+                Topics
+              </Text>
+            </View>
           </View>
-        </View>
 
           <View style={styler.checkBoxView}>
             <CheckBox
@@ -418,7 +418,7 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     textAlign: "center",
-    marginTop: 0.025*screenHeight,
+    marginTop: 0.025 * screenHeight,
   },
   getStarted: {
     borderRadius: 15,
@@ -433,7 +433,7 @@ const styler = StyleSheet.create({
     elevation: 5,
     marginVertical: "5%",
     overflow: "hidden",
-    paddingVertical: 0.02 * screenHeight
+    paddingVertical: 0.02 * screenHeight,
   },
   checkBoxView: {
     marginVertical: "3%",

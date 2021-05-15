@@ -12,11 +12,8 @@ import {
   Dimensions,
 } from "react-native";
 import { Icon } from "react-native-elements";
-import RadioForm, {
-  RadioButton,
-  RadioButtonInput,
-  RadioButtonLabel,
-} from "react-native-simple-radio-button";
+
+import RadioButtonRN from "radio-buttons-react-native";
 
 import firebase from "firebase";
 import { min } from "moment";
@@ -54,13 +51,13 @@ const SetListenerAge = ({ navigation }) => {
             var minAge = documentSnapshot.data()["minAge"];
 
             if (minAge === "18") {
-              setvalue(0);
-            } else if (minAge === "25") {
               setvalue(1);
-            } else if (minAge === "35") {
+            } else if (minAge === "25") {
               setvalue(2);
-            } else if (minAge === "51") {
+            } else if (minAge === "35") {
               setvalue(3);
+            } else if (minAge === "51") {
+              setvalue(4);
             }
             setLoading(false);
           }
@@ -100,72 +97,36 @@ const SetListenerAge = ({ navigation }) => {
           <Text style={styler.set}>(Set Your Preference)</Text>
         </View>
         <View style={styler.formView}>
-          <RadioForm formHorizontal={false} animation={true}>
-            {radio_props.map((obj, i) => (
-              <RadioButton labelHorizontal={true} key={i}>
-                <View style={{ flexDirection: "row" }}>
-                  <RadioButtonInput
-                    obj={obj}
-                    index={i}
-                    isSelected={value === i}
-                    onPress={(value) => {
-                      if (value === 0) {
-                        setMinimumAge("18");
-                        setMaximumAge("24");
-                      } else if (value === 1) {
-                        setMinimumAge("25");
-                        setMaximumAge("34");
-                      } else if (value === 2) {
-                        setMinimumAge("35");
-                        setMaximumAge("50");
-                      } else if (value === 3) {
-                        setMinimumAge("51");
-                        setMaximumAge("100");
-                      }
-                      setvalue(value);
-                    }}
-                    borderWidth={2}
-                    buttonInnerColor={"#7AC141"}
-                    buttonOuterColor={value === i ? "#7AC141" : "#000"}
-                    buttonSize={12}
-                    buttonOuterSize={24}
-                    buttonStyle={{
-                      marginRight: 0.025 * screenHeight,
-                      marginBottom: 0.015 * screenHeight,
-                    }}
-                    buttonWrapStyle={{ marginLeft: 0.015 * screenHeight }}
-                  />
-                  <RadioButtonLabel
-                    obj={obj}
-                    index={i}
-                    labelHorizontal={true}
-                    labelStyle={{
-                      fontSize: 18,
-                      color: "#000",
-                      marginBottom: 0.01 * screenHeight,
-                    }}
-                    onPress={(value) => {
-                      if (value === 0) {
-                        setMinimumAge("18");
-                        setMaximumAge("24");
-                      } else if (value === 1) {
-                        setMinimumAge("25");
-                        setMaximumAge("34");
-                      } else if (value === 2) {
-                        setMinimumAge("35");
-                        setMaximumAge("50");
-                      } else if (value === 3) {
-                        setMinimumAge("51");
-                        setMaximumAge("100");
-                      }
-                      setvalue(value);
-                    }}
-                    labelWrapStyle={{}}
-                  />
-                </View>
-              </RadioButton>
-            ))}
-          </RadioForm>
+          <RadioButtonRN
+            data={radio_props}
+            style={{
+              marginRight: 0.02 * screenWidth,
+            }}
+            textStyle={{
+              fontSize: 0.02 * screenHeight,
+            }}
+            initial={value}
+            selectedBtn={(e) => {
+              var v = e["value"];
+
+              if (v === 0) {
+                setMinimumAge("18");
+                setMaximumAge("24");
+              } else if (v === 1) {
+                setMinimumAge("25");
+                setMaximumAge("34");
+              } else if (v === 2) {
+                setMinimumAge("35");
+                setMaximumAge("50");
+              } else if (v === 3) {
+                setMinimumAge("51");
+                setMaximumAge("100");
+              }
+            }}
+            box={false}
+            activeColor="#7AC141"
+            deactiveColor="#7AC141"
+          />
         </View>
         <View style={styler.footView}>
           <TouchableOpacity

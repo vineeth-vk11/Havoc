@@ -17,6 +17,8 @@ import { Icon } from "react-native-elements";
 
 import { Dimensions } from "react-native";
 
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
@@ -45,7 +47,7 @@ const NewListenerInfo = ({ navigation }) => {
           }}
         >
           <View style={styler.screen}>
-            <ScrollView>
+            <KeyboardAwareScrollView>
               <KeyboardAvoidingView>
                 <ScrollView>
                   <View style={styler.head}>
@@ -230,11 +232,11 @@ const NewListenerInfo = ({ navigation }) => {
                       }
                     }}
                   >
-                    <Text style={styler.getStarted}>FIND LISTENER</Text>
+                    <Text style={styler.getStarted}>NEXT</Text>
                   </TouchableOpacity>
                 </ScrollView>
               </KeyboardAvoidingView>
-            </ScrollView>
+            </KeyboardAwareScrollView>
           </View>
         </TouchableWithoutFeedback>
       </ScrollView>
@@ -259,6 +261,7 @@ const styler = StyleSheet.create({
     marginTop: 0.025 * screenHeight,
   },
   getStarted: {
+    flex: 1,
     borderRadius: 15,
     width: 0.85 * screenWidth,
     height: 0.08 * screenHeight,
@@ -266,12 +269,13 @@ const styler = StyleSheet.create({
     color: "white",
     marginHorizontal: 0.02 * screenHeight,
     textAlign: "center",
-    textAlignVertical: "center",
     fontSize: 0.028 * screenHeight,
     elevation: 5,
     marginVertical: 0.03 * screenHeight,
     overflow: "hidden",
-    paddingVertical: 0.04 * screenWidth,
+    justifyContent: "center",
+    textAlign: "center",
+    paddingVertical: 0.02 * screenHeight,
   },
   Title: {
     height: 0.05 * screenHeight,

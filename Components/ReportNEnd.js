@@ -21,6 +21,8 @@ const GiveFeedback = ({ navigation, route }) => {
   /*const { listener, user } = route.params;*/
   const [feedback, setFeedback] = useState("");
 
+  const { user, listener } = route.params;
+
   return (
     <BackgroundImage
       source={require("../assets/ss.png")}
@@ -113,12 +115,14 @@ const styler = StyleSheet.create({
     textAlignVertical: "center",
     fontSize: 20,
     elevation: 5,
+    overflow: "hidden",
+    paddingVertical: 0.025 * screenHeight,
   },
   footView: {
     justifyContent: "flex-end",
     marginTop: 0.4 * screenHeight,
     justifyContent: "flex-end",
     alignItems: "center",
-    marginBottom:0.1*screenHeight
+    marginBottom: 0.1 * screenHeight,
   },
 });

@@ -10,7 +10,6 @@ import {
   ImageBackground,
   Alert,
   Dimensions,
-  SafeAreaView,
 } from "react-native";
 import RadioForm, {
   RadioButton,
@@ -20,6 +19,10 @@ import RadioForm, {
 import { Rating, AirbnbRating } from "react-native-elements";
 import Stars from "react-native-stars";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+
+import RadioButtonRN from "radio-buttons-react-native";
+
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import firebase from "firebase";
 require("firebase/firestore");
@@ -41,12 +44,16 @@ const Review = ({ navigation, route }) => {
 
   const { type, listener } = route.params;
 
+  console.log(type);
+  console.log(listener);
+
   const createAlert = (message) =>
     Alert.alert("Enter Data", message, [{ text: "OK", onPress: () => {} }], {
       cancelable: false,
     });
 
   const saveData = (type) => {
+    console.log("Entered");
     if (feeling === "") {
       createAlert("Please select your current feeling");
     } else if (rating === 0) {
@@ -117,8 +124,8 @@ const Review = ({ navigation, route }) => {
 
   return (
     <ImageBackground source={require("../assets/ss.png")} style={styler.image}>
-      <SafeAreaView style={styler.screen}>
-        <ScrollView>
+      <View style={styler.screen}>
+        <KeyboardAwareScrollView>
           <View style={styler.headView}>
             <View style={styler.head}>
               <Text style={{ fontSize: 30, fontWeight: "bold", marginTop: 20 }}>
@@ -129,49 +136,28 @@ const Review = ({ navigation, route }) => {
 
           <View style={styler.formView}>
             <Text style={styler.better}>Are you feeling better now</Text>
-            <RadioForm formHorizontal={false} animation={true}>
-              {radio_props.map((obj, i) => (
-                <RadioButton labelHorizontal={true} key={i}>
-                  <View style={{ flexDirection: "row" }}>
-                    <RadioButtonInput
-                      obj={obj}
-                      index={i}
-                      isSelected={value === i}
-                      onPress={(value) => {
-                        if (value === 0) {
-                          setFeeling("Yes");
-                        } else if (value === 1) {
-                          setFeeling("Not Sure");
-                        } else {
-                          setFeeling("No");
-                        }
-                        setvalue(value);
-                      }}
-                      borderWidth={2}
-                      buttonInnerColor={"#7AC141"}
-                      buttonOuterColor={value === i ? "#7AC141" : "#000"}
-                      buttonSize={12}
-                      buttonOuterSize={22}
-                      buttonStyle={{ marginRight: 20, marginBottom: 10 }}
-                      buttonWrapStyle={{ marginLeft: 10 }}
-                    />
-                    <RadioButtonLabel
-                      obj={obj}
-                      index={i}
-                      labelHorizontal={true}
-                      onPress={(value) => {
-                        setvalue(value);
-                      }}
-                      labelStyle={{
-                        fontSize: 20,
-                        color: "#000",
-                      }}
-                      labelWrapStyle={{}}
-                    />
-                  </View>
-                </RadioButton>
-              ))}
-            </RadioForm>
+            <RadioButtonRN
+              data={radio_props}
+              style={{
+                marginRight: 0.02 * screenWidth,
+              }}
+              textStyle={{
+                fontSize: 0.018 * screenHeight,
+              }}
+              selectedBtn={(e) => {
+                var v = e["value"];
+                if (v === 0) {
+                  setFeeling("Yes");
+                } else if (v === 1) {
+                  setFeeling("Not Sure");
+                } else {
+                  setFeeling("No");
+                }
+              }}
+              box={false}
+              activeColor="#7AC141"
+              deactiveColor="#7AC141"
+            />
           </View>
 
           <View style={styler.rateView}>
@@ -226,8 +212,8 @@ const Review = ({ navigation, route }) => {
             </View>
           </View>
           {renderButton()}
-        </ScrollView>
-      </SafeAreaView>
+        </KeyboardAwareScrollView>
+      </View>
     </ImageBackground>
   );
 };
@@ -277,27 +263,33 @@ const styler = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 0.02 * screenHeight,
-    justifyContent: "space-between",
-    marginLeft: 0.04 * screenWidth,
   },
   headView: {
+    flex: 0.15,
     justifyContent: "center",
     alignItems: "center",
   },
   formView: {
+    flex: 0.3,
     margin: 5,
+    marginTop: 0.04 * screenHeight,
   },
-  rateView: {},
+  rateView: {
+    flex: 0.2,
+    marginTop: 0.02 * screenHeight,
+  },
   reviewView: {
-    marginBottom: 0.02 * screenHeight,
+    marginTop: 0.02 * screenHeight,
   },
   footView: {
+    flex: 0.15,
+    marginTop: 0.02 * screenHeight,
     justifyContent: "flex-end",
-    marginBottom: 0.08 * screenHeight,
     justifyContent: "flex-end",
     alignItems: "center",
   },
   ratingView: {
+    flex: 0.2,
     marginHorizontal: 0.04 * screenHeight,
     justifyContent: "flex-start",
     alignItems: "flex-start",

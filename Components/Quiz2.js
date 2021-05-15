@@ -8,32 +8,22 @@ import {
   ScrollView,
   Dimensions,
   ImageBackground,
-  Alert
+  Alert,
 } from "react-native";
 import YoutubePlayer from "react-native-youtube-iframe";
-import RadioForm, {
-  RadioButton,
-  RadioButtonInput,
-  RadioButtonLabel,
-} from "react-native-simple-radio-button";
+
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Icon } from "react-native-elements";
+
+import RadioButtonRN from "radio-buttons-react-native";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 const Quiz2 = ({ navigation, route }) => {
-  const {
-    firstName,
-    lastName,
-    email,
-    city,
-    country,
-    bio,
-    list,
-    answer1,
-  } = route.params;
+  const { firstName, lastName, email, city, country, bio, list, answer1 } =
+    route.params;
 
   const [isPlaying, setisPlaying] = useState(false);
   const playingVideo = useCallback(() => {
@@ -51,21 +41,21 @@ const Quiz2 = ({ navigation, route }) => {
   const radio_props = [
     {
       label:
-        "I can see that you are stressed due to work \n  which is also affecting your relationship \n  with your manager",
+        "I can see that you are stressed due to work which is also affecting your relationship with your manager",
       value: 0,
     },
     {
-      label: "Accepting and validating what the other \n person is sharing",
+      label: "Accepting and validating what the other person is sharing",
       value: 1,
     },
     {
       label:
-        "Priciple of confidentiality is about privacy \n and respecting someone's willingness \n to open up",
+        "Priciple of confidentiality is about privacy and respecting someone's willingness to open up",
       value: 2,
     },
     {
       label:
-        "Keeping the information shared to yourself,\n makes the seeker believe that the listener \n is actively listening to them without any \njudgement",
+        "Keeping the information shared to yourself, makes the seeker believe that the listener is actively listening to them without any judgement",
       value: 3,
     },
   ];
@@ -87,39 +77,39 @@ const Quiz2 = ({ navigation, route }) => {
       <SafeAreaView style={styler.screen}>
         <ScrollView>
           <View style={styler.titleView}>
-          <View style={styler.head}>
-          <View
-            style={{
-              flex: 0.4,
-              alignItems: "flex-start",
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => {
-                navigation.goBack(null);
-              }}
-            >
-              <Icon
-                name="arrow-back"
-                type="ionicon"
-                color="#000000"
-                size={0.04*screenHeight}
-                style={{ marginLeft: 0.03*screenHeight }}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={{ flex: 0.6 }}>
-            <Text
-              style={{
-                fontSize: 0.032*screenHeight,
-                fontWeight: "bold",
-                textAlign: "left",
-              }}
-            >
-              Question 2
-            </Text>
-          </View>
-        </View>
+            <View style={styler.head}>
+              <View
+                style={{
+                  flex: 0.4,
+                  alignItems: "flex-start",
+                }}
+              >
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.goBack(null);
+                  }}
+                >
+                  <Icon
+                    name="arrow-back"
+                    type="ionicon"
+                    color="#000000"
+                    size={0.04 * screenHeight}
+                    style={{ marginLeft: 0.03 * screenHeight }}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View style={{ flex: 0.6 }}>
+                <Text
+                  style={{
+                    fontSize: 0.032 * screenHeight,
+                    fontWeight: "bold",
+                    textAlign: "left",
+                  }}
+                >
+                  Question 2
+                </Text>
+              </View>
+            </View>
             <Text
               style={{
                 fontSize: 0.02 * screenHeight,
@@ -153,55 +143,27 @@ const Quiz2 = ({ navigation, route }) => {
             </Text>
           </View>
           <View style={styler.radioButtons}>
-            <RadioForm formHorizontal={false} animation={true}>
-              {radio_props.map((obj, i) => (
-                <RadioButton labelHorizontal={true} key={i}>
-                  <View style={{ flexDirection: "row" }}>
-                    <RadioButtonInput
-                      obj={obj}
-                      index={i}
-                      isSelected={value === i}
-                      onPress={(value) => {
-                        if (value === 3) {
-                          setAnswer2(false);
-                        } else {
-                          setAnswer2(true);
-                        }
-                        setvalue(value);
-                      }}
-                      borderWidth={2}
-                      buttonInnerColor={"#7AC141"}
-                      buttonOuterColor={value === i ? "#7AC141" : "#000"}
-                      buttonSize={12}
-                      buttonOuterSize={22}
-                      buttonStyle={{
-                        marginRight: 0.006 * screenHeight,
-                        marginBottom: 0.015 * screenHeight,
-                      }}
-                      buttonWrapStyle={{ marginLeft: 0.01 * screenHeight }}
-                    />
-                    <RadioButtonLabel
-                      obj={obj}
-                      index={i}
-                      labelHorizontal={true}
-                      onPress={(value) => {
-                        if (value === 3) {
-                          setAnswer2(false);
-                        } else {
-                          setAnswer2(true);
-                        }
-                        setvalue(value);
-                      }}
-                      labelStyle={{
-                        fontSize: 0.02 * screenHeight,
-                        color: "#000",
-                      }}
-                      labelWrapStyle={{}}
-                    />
-                  </View>
-                </RadioButton>
-              ))}
-            </RadioForm>
+            <RadioButtonRN
+              data={radio_props}
+              style={{
+                marginRight: 0.02 * screenWidth,
+              }}
+              textStyle={{
+                fontSize: 0.018 * screenHeight,
+              }}
+              selectedBtn={(e) => {
+                var v = e["value"];
+
+                if (v !== 3) {
+                  setAnswer2(true);
+                } else {
+                  setAnswer2(false);
+                }
+              }}
+              box={false}
+              activeColor="#7AC141"
+              deactiveColor="#7AC141"
+            />
           </View>
           <View
             style={{
@@ -215,6 +177,8 @@ const Quiz2 = ({ navigation, route }) => {
                 if (answer2 === "") {
                   createAlert();
                 } else {
+                  console.log(answer1);
+                  console.log(answer2);
                   navigation.navigate("Quiz3", {
                     firstName: firstName,
                     lastName: lastName,
@@ -273,6 +237,6 @@ const styler = StyleSheet.create({
     fontSize: 0.03 * screenHeight,
     elevation: 5,
     overflow: "hidden",
-    paddingVertical: 0.02 * screenHeight
+    paddingVertical: 0.02 * screenHeight,
   },
 });
