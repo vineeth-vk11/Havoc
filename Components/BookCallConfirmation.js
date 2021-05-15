@@ -47,7 +47,7 @@ const BookCallConfirmation = ({ navigation, route }) => {
             style={{
               fontSize: 0.025 * screenHeight,
               fontWeight: "bold",
-              margin: 0.015 * screenHeight,
+              marginLeft: 0.025 * screenHeight,
             }}
           >
             Summary

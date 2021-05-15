@@ -30,13 +30,10 @@ const EnterOTP = ({
 }) => {
   const [verificationCode, setVerificationCode] = useState();
 
-  const createAlert = () =>
-    Alert.alert(
-      "Wrong OTP",
-      "Please Enter Correct OTP",
-      [{ text: "OK", onPress: () => {} }],
-      { cancelable: false }
-    );
+  const createAlert = (message) =>
+    Alert.alert("Wrong OTP", message, [{ text: "OK", onPress: () => {} }], {
+      cancelable: false,
+    });
 
   return (
     <ImageBackground
@@ -98,7 +95,7 @@ const EnterOTP = ({
                     });
                 }
               } catch (err) {
-                createAlert();
+                createAlert("Authentication Failed");
               }
             }}
           >

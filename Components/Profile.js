@@ -188,11 +188,11 @@ const Profile = ({ navigation }) => {
                     navigation.navigate("MyTherapies");
                   } else if (item.title === "Privacy Policy") {
                     Linking.openURL(
-                      "https://docs.google.com/document/d/1am33nbtgCMV7qfr9p9sE2YBOnsnnb_-J_RLPsM0G9-k/edit?usp=sharing"
+                      "https://www.havoctherapy.com/privacy-statement"
                     );
                   } else if (item.title === "Terms & Conditions") {
                     Linking.openURL(
-                      "https://docs.google.com/document/d/1zDihPzqLGK9RntzesCkVwTdxVX5xOJzR5o5rmHD-mJA/edit?usp=sharing"
+                      "https://www.havoctherapy.com/terms-of-service"
                     );
                   } else if (item.title === "Feedback") {
                     navigation.navigate("GiveFeedback");

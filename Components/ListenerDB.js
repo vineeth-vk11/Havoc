@@ -50,9 +50,8 @@ const ListenerDB = ({ navigation }) => {
         </View>
         <View style={styler.textView}>
           <Text style={styler.text}>ARE YOU READY?</Text>
-          <Text style={styler.textSmall}>
-            Connect with a seeker to {"\n"} talk about anything
-          </Text>
+          <Text style={styler.textSmall}>Connect with a seeker to</Text>
+          <Text style={styler.textSmall}>talk about anything</Text>
         </View>
         <View style={styler.findMyListnerView}>
           <TouchableOpacity
@@ -177,7 +176,7 @@ const styler = StyleSheet.create({
   },
   textSmall: {
     fontSize: 0.026 * screenHeight,
-    margin: 0.015 * screenHeight,
+    margin: 0.005 * screenHeight,
     textAlign: "center",
   },
   find: {
@@ -189,12 +188,12 @@ const styler = StyleSheet.create({
     justifyContent: "center",
   },
   headerView: {
-    flex: 0.3,
+    flex: 0.25,
     flexDirection: "row",
     padding: 0.015 * screenHeight,
   },
   textView: {
-    flex: 0.1,
+    flex: 0.15,
   },
   findMyListnerView: {
     flex: 0.4,

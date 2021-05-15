@@ -8,23 +8,21 @@ import {
   ScrollView,
   Dimensions,
   ImageBackground,
-  Alert
+  Alert,
 } from "react-native";
 import YoutubePlayer from "react-native-youtube-iframe";
-import RadioForm, {
-  RadioButton,
-  RadioButtonInput,
-  RadioButtonLabel,
-} from "react-native-simple-radio-button";
+
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Icon } from "react-native-elements";
+
+import RadioButtonRN from "radio-buttons-react-native";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 const Quiz3 = ({ navigation, route }) => {
- const {
+  const {
     firstName,
     lastName,
     email,
@@ -80,39 +78,39 @@ const Quiz3 = ({ navigation, route }) => {
       <SafeAreaView style={styler.screen}>
         <ScrollView>
           <View style={styler.titleView}>
-          <View style={styler.head}>
-          <View
-            style={{
-              flex: 0.4,
-              alignItems: "flex-start",
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => {
-                navigation.goBack(null);
-              }}
-            >
-              <Icon
-                name="arrow-back"
-                type="ionicon"
-                color="#000000"
-                size={0.04*screenHeight}
-                style={{ marginLeft: 0.03*screenHeight }}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={{ flex: 0.6 }}>
-            <Text
-              style={{
-                fontSize: 0.032*screenHeight,
-                fontWeight: "bold",
-                textAlign: "left",
-              }}
-            >
-              Question 3
-            </Text>
-          </View>
-        </View>
+            <View style={styler.head}>
+              <View
+                style={{
+                  flex: 0.4,
+                  alignItems: "flex-start",
+                }}
+              >
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.goBack(null);
+                  }}
+                >
+                  <Icon
+                    name="arrow-back"
+                    type="ionicon"
+                    color="#000000"
+                    size={0.04 * screenHeight}
+                    style={{ marginLeft: 0.03 * screenHeight }}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View style={{ flex: 0.6 }}>
+                <Text
+                  style={{
+                    fontSize: 0.032 * screenHeight,
+                    fontWeight: "bold",
+                    textAlign: "left",
+                  }}
+                >
+                  Question 3
+                </Text>
+              </View>
+            </View>
             <Text
               style={{
                 fontSize: 0.02 * screenHeight,
@@ -146,55 +144,27 @@ const Quiz3 = ({ navigation, route }) => {
             </Text>
           </View>
           <View style={styler.radioButtons}>
-            <RadioForm formHorizontal={false} animation={true}>
-              {radio_props.map((obj, i) => (
-                <RadioButton labelHorizontal={true} key={i}>
-                  <View style={{ flexDirection: "row" }}>
-                    <RadioButtonInput
-                      obj={obj}
-                      index={i}
-                      isSelected={value === i}
-                      onPress={(value) => {
-                        if (value === 3) {
-                          setAnswer3(false);
-                        } else {
-                          setAnswer3(true);
-                        }
-                        setvalue(value);
-                      }}
-                      borderWidth={2}
-                      buttonInnerColor={"#7AC141"}
-                      buttonOuterColor={value === i ? "#7AC141" : "#000"}
-                      buttonSize={12}
-                      buttonOuterSize={22}
-                      buttonStyle={{
-                        marginRight: 0.006 * screenHeight,
-                        marginBottom: 0.015 * screenHeight,
-                      }}
-                      buttonWrapStyle={{ marginLeft: 0.01 * screenHeight }}
-                    />
-                    <RadioButtonLabel
-                      obj={obj}
-                      index={i}
-                      labelHorizontal={true}
-                      onPress={(value) => {
-                        if (value === 3) {
-                          setAnswer3(false);
-                        } else {
-                          setAnswer3(true);
-                        }
-                        setvalue(value);
-                      }}
-                      labelStyle={{
-                        fontSize: 0.02 * screenHeight,
-                        color: "#000",
-                      }}
-                      labelWrapStyle={{}}
-                    />
-                  </View>
-                </RadioButton>
-              ))}
-            </RadioForm>
+            <RadioButtonRN
+              data={radio_props}
+              style={{
+                marginRight: 0.02 * screenWidth,
+              }}
+              textStyle={{
+                fontSize: 0.018 * screenHeight,
+              }}
+              selectedBtn={(e) => {
+                var v = e["value"];
+
+                if (v !== 3) {
+                  setAnswer3(true);
+                } else {
+                  setAnswer3(false);
+                }
+              }}
+              box={false}
+              activeColor="#7AC141"
+              deactiveColor="#7AC141"
+            />
           </View>
           <View
             style={{
@@ -255,7 +225,6 @@ const styler = StyleSheet.create({
     width: screenWidth,
     paddingLeft: 0.015 * screenHeight,
     marginVertical: 0.018 * screenHeight,
-
   },
   getStarted: {
     borderRadius: 15,
@@ -268,6 +237,6 @@ const styler = StyleSheet.create({
     fontSize: 0.03 * screenHeight,
     elevation: 5,
     overflow: "hidden",
-    paddingVertical: 0.02 * screenHeight
+    paddingVertical: 0.02 * screenHeight,
   },
 });

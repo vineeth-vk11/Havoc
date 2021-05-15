@@ -181,6 +181,7 @@ function DedicatedChatting({ navigation, route }) {
         <GiftedChat
           style={{ flex: 0.85 }}
           messages={messages}
+          renderAvatar={() => null}
           onSend={(messages) => onSend(messages)}
           user={{
             _id: currentUser,

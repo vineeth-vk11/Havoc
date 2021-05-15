@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Keyboard,
   TouchableWithoutFeedback,
+  Alert,
 } from "react-native";
 import { TextInput } from "react-native-paper";
 import RadioForm, {
@@ -21,9 +22,13 @@ import firebase from "firebase";
 require("firebase/firestore");
 
 import { Dimensions } from "react-native";
+import { ScreenHeight } from "react-native-elements/dist/helpers";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
+
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 const Register2 = ({ navigation }) => {
   var radio_props = [
@@ -35,6 +40,11 @@ const Register2 = ({ navigation }) => {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
+
+  const createAlert = (message) =>
+    Alert.alert("Enter data", message, [{ text: "OK", onPress: () => {} }], {
+      cancelable: false,
+    });
 
   return (
     <ImageBackground
@@ -116,6 +126,11 @@ const Register2 = ({ navigation }) => {
                         index={i}
                         labelHorizontal={true}
                         onPress={(value) => {
+                          if (value === 0) {
+                            setGender("Male");
+                          } else {
+                            setGender("Female");
+                          }
                           setvalue(value);
                         }}
                         labelStyle={{
@@ -152,6 +167,7 @@ const Register2 = ({ navigation }) => {
                         });
                     }
                   } else {
+                    createAlert("Please fill all the fields to continue");
                   }
                 }}
               >
@@ -183,8 +199,8 @@ const styler = StyleSheet.create({
   },
   getStarted: {
     borderRadius: 15,
-    width: 310,
-    height: 52,
+    width: 0.85 * screenWidth,
+    height: 0.08 * screenHeight,
     backgroundColor: "#7AC141",
     color: "white",
     marginHorizontal: 10,
@@ -192,6 +208,8 @@ const styler = StyleSheet.create({
     textAlignVertical: "center",
     fontSize: 20,
     elevation: 5,
+    overflow: "hidden",
+    paddingVertical: 0.025 * ScreenHeight,
   },
   name: {
     padding: 8,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ImageBackground, Keyboard } from "react-native";
 import {
   View,
@@ -20,6 +20,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Moment from "moment";
 
 import firebase from "firebase";
+import { ActivityIndicator } from "react-native-paper";
 require("firebase/firestore");
 
 const screenWidth = Dimensions.get("window").width;
@@ -33,13 +34,26 @@ const BookCallDateTime = ({ navigation }) => {
   const [time, setTime] = useState("Time");
   const [number, setNumber] = useState("");
 
-  const today = new Date();
-  const tomorrow = new Date(today);
-  tomorrow.setDate(tomorrow.getDate());
-  var mDate = Moment(tomorrow).format("DD/MM/YYYY");
-  var minDate = mDate.split("/");
+  const [minimumDate, setMinimumDate] = useState();
+  const [minimumMonth, setMinimumMonth] = useState();
+  const [minimumYear, setMinimumYear] = useState();
+  const [loading, setLoading] = useState(true);
 
-  var minimumMonth = minDate[1] - 1;
+  useEffect(() => {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate());
+    var mDate = Moment(tomorrow).format("DD/MM/YYYY");
+    var minDate = mDate.split("/");
+
+    var minMonth = minDate[1] - 1;
+
+    setMinimumDate(minDate[0]);
+    setMinimumMonth(minMonth);
+    setMinimumYear(minDate[2]);
+
+    setLoading(false);
+  }, [minimumDate, minimumMonth, minimumYear, loading]);
 
   const createAlert = (message) =>
     Alert.alert("Missong Data", message, [{ text: "OK", onPress: () => {} }], {
@@ -73,6 +87,10 @@ const BookCallDateTime = ({ navigation }) => {
     setTime(formattedTime);
     hideTimePicker();
   };
+
+  if (loading) {
+    return <ActivityIndicator />;
+  }
 
   return (
     <ImageBackground
@@ -150,7 +168,7 @@ const BookCallDateTime = ({ navigation }) => {
                 <DateTimePickerModal
                   isVisible={isDatePickerVisible}
                   mode="date"
-                  minimumDate={new Date(minDate[2], minimumMonth, minDate[0])}
+                  minimumDate={new Date(minimumYear, minimumMonth, minimumDate)}
                   onConfirm={handleDateConfirm}
                   onCancel={hideDatePicker}
                 />

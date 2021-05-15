@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   LogBox,
+  Alert,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { SocialIcon } from "react-native-elements";
@@ -20,7 +21,6 @@ import {
 import { showMessage, hideMessage } from "react-native-flash-message";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import FlashMessage from "react-native-flash-message";
 
 import {
   FirebaseRecaptchaVerifierModal,
@@ -48,6 +48,11 @@ const Register1 = ({ navigation }) => {
 
   const attemptInvisibleVerification = true;
 
+  const createAlert = (title, message) =>
+    Alert.alert(title, message, [{ text: "OK", onPress: () => {} }], {
+      cancelable: false,
+    });
+
   return (
     <ImageBackground
       source={require("../assets/ss.png")}
@@ -69,7 +74,7 @@ const Register1 = ({ navigation }) => {
           </View>
           <TextInput
             mode="outlined"
-            label="Phone Number"
+            label="+91 Phone Number"
             style={styler.phoneNumber}
             theme={{
               colors: { primary: "#7AC141", underlineColor: "transparent" },
@@ -91,16 +96,22 @@ const Register1 = ({ navigation }) => {
                   verificationId: verificationId,
                 });
               } catch (err) {
-                showMessage({
-                  message: "Enter mobile number with country code",
-                  type: "info",
-                });
+                if (err.message === "TOO_SHORT") {
+                  createAlert(
+                    "Wrong phone number",
+                    "Phone number entered is short. Please include your country code and try again."
+                  );
+                } else {
+                  createAlert(
+                    "Error",
+                    "Unexpected error occured. Please try again."
+                  );
+                }
               }
             }}
           >
             <Text style={styler.sendOtp}>Get OTP</Text>
           </TouchableOpacity>
-          <FlashMessage position="top" style={{ marginTop: 30 }} />
         </SafeAreaView>
       </TouchableWithoutFeedback>
     </ImageBackground>
