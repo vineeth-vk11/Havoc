@@ -42,6 +42,7 @@ import Quiz3 from "./Components/Quiz3";
 import Quiz4 from "./Components/Quiz4";
 import Splash from "./Components/Splash";
 import BecomeListenerResult from "./Components/BecomeListenerResult";
+import ReportSeeker from "./Components/ReportSeeker";
 
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -133,6 +134,7 @@ function App() {
           name="BecomeListenerResult"
           component={BecomeListenerResult}
         />
+        <Stack.Screen name="ReportSeeker" component={ReportSeeker} />
       </Stack.Navigator>
     </NavigationContainer>
   );
