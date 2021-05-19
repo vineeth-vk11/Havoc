@@ -25,6 +25,8 @@ import Moment from "moment";
 
 import RadioButtonRN from "radio-buttons-react-native";
 
+import AnimatedLoader from "react-native-animated-loader";
+
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
@@ -41,8 +43,12 @@ const HowYouFeel = ({ navigation, route }) => {
   const { userName, topic, minAge, maxAge } = route.params;
   const [onMind, setOnMind] = useState("");
 
+  const [disabled, setDisabled] = useState(false);
+
   sendRequest = () => {
     if (firebase.auth().currentUser) {
+      setDisabled(true);
+
       var user = firebase.auth().currentUser.uid;
       var id = uuid.v4();
 
@@ -82,6 +88,7 @@ const HowYouFeel = ({ navigation, route }) => {
               userName: userName,
             })
             .then(() => {
+              setDisabled(false);
               navigation.navigate("MatchingListener", {
                 chatId: id,
                 feeling: feeling,
@@ -190,8 +197,18 @@ const HowYouFeel = ({ navigation, route }) => {
                 value={onMind}
               />
             </View>
+            <AnimatedLoader
+              visible={disabled}
+              overlayColor="rgba(255,255,255,0.75)"
+              source={require("../assets/requesting.json")}
+              animationStyle={styler.lottie}
+              speed={1}
+            >
+              <Text>Placing Request</Text>
+            </AnimatedLoader>
             <View style={{ justifyContent: "center", alignItems: "center" }}>
               <TouchableOpacity
+                disabled={disabled}
                 onPress={() => {
                   if (feeling === "") {
                     createAlert();
@@ -264,5 +281,9 @@ const styler = StyleSheet.create({
     paddingVertical: 0.017 * screenHeight,
     overflow: "hidden",
     marginVertical: 0.02 * screenHeight,
+  },
+  lottie: {
+    width: 100,
+    height: 100,
   },
 });

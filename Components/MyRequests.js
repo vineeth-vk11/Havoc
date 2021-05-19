@@ -147,7 +147,7 @@ const MyRequests = ({ navigation }) => {
                                 chatId: chatId,
                                 listenerId: item.user,
                                 type: "listener",
-                                listenerName: listenerName,
+                                listenerName: item.userName,
                                 topic: item.topic,
                               });
                             });

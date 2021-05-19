@@ -20,6 +20,8 @@ import { min } from "moment";
 import { ActivityIndicator } from "react-native-paper";
 require("firebase/firestore");
 
+import AnimatedLoader from "react-native-animated-loader";
+
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
@@ -37,6 +39,8 @@ const SetListenerAge = ({ navigation }) => {
   const [maximumAge, setMaximumAge] = useState();
 
   const [loading, setLoading] = useState(true);
+
+  const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
     if (loading) {
@@ -128,12 +132,24 @@ const SetListenerAge = ({ navigation }) => {
             deactiveColor="#7AC141"
           />
         </View>
+        <AnimatedLoader
+          visible={disabled}
+          overlayColor="rgba(255,255,255,0.75)"
+          source={require("../assets/requesting.json")}
+          animationStyle={styler.lottie}
+          speed={1}
+        >
+          <Text>Saving</Text>
+        </AnimatedLoader>
         <View style={styler.footView}>
           <TouchableOpacity
+            disabled={disabled}
             onPress={() => {
               if (value === -1) {
               } else {
                 if (firebase.auth().currentUser) {
+                  setDisabled(true);
+
                   var user = firebase.auth().currentUser.uid;
 
                   firebase
@@ -148,6 +164,7 @@ const SetListenerAge = ({ navigation }) => {
                       { merge: true }
                     )
                     .then(() => {
+                      setDisabled(false);
                       navigation.navigate("Profile");
                     });
                 }
@@ -222,5 +239,9 @@ const styler = StyleSheet.create({
     flex: 0.4,
     justifyContent: "flex-end",
     marginBottom: 0.07 * screenHeight,
+  },
+  lottie: {
+    width: 100,
+    height: 100,
   },
 });

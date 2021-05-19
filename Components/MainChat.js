@@ -323,9 +323,7 @@ function MainChat({ navigation, route }) {
         />
         <BottomSheet
           visible={visible}
-          //setting the visibility state of the bottom shee
           onBackButtonPress={toggleBottomNavigationView}
-          //Toggling the visibility state on the click of the back botton
           onBackdropPress={toggleBottomNavigationView}
         >
           <View style={styler.bottomNavigationView}>
@@ -451,14 +449,49 @@ function MainChat({ navigation, route }) {
             >
               <Text style={styler.getStarted}>Close chat</Text>
             </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => {
+                setVisible(!visible);
+
+                var currentUser = firebase.auth().currentUser.uid;
+
+                firebase
+                  .firestore()
+                  .collection("users")
+                  .doc(currentUser)
+                  .collection("Journal")
+                  .add({
+                    listenerName: listenerName,
+                    listener: listenerId,
+                    topic: topic,
+                    date: date,
+                    chatId: chatId,
+                  })
+                  .then(() => {
+                    firebase
+                      .firestore()
+                      .collection("Chats")
+                      .doc(chatId)
+                      .update({
+                        isClosedByListener: true,
+                      })
+                      .then(() => {
+                        navigation.navigate("ReportSeeker", {
+                          listenerId: listenerId,
+                        });
+                      });
+                  });
+              }}
+            >
+              <Text style={styler.getStarted}>Report Seeker</Text>
+            </TouchableOpacity>
           </View>
         </BottomSheet>
 
         <BottomSheet
           visible={visible1}
-          //setting the visibility state of the bottom shee
           onBackButtonPress={toggleBottomNavigationView1}
-          //Toggling the visibility state on the click of the back botton
           onBackdropPress={toggleBottomNavigationView1}
         >
           <View style={styler.bottomNavigationView1}>
@@ -535,7 +568,7 @@ const styler = StyleSheet.create({
   bottomNavigationView: {
     backgroundColor: "#fff",
     width: "100%",
-    height: 250,
+    height: 300,
     justifyContent: "center",
     alignItems: "center",
     borderTopEndRadius: 10,
