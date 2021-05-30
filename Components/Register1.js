@@ -74,7 +74,7 @@ const Register1 = ({ navigation }) => {
           </View>
           <TextInput
             mode="outlined"
-            label="+91 Phone Number"
+            label="Phone Number"
             style={styler.phoneNumber}
             theme={{
               colors: { primary: "#7AC141", underlineColor: "transparent" },
@@ -88,7 +88,7 @@ const Register1 = ({ navigation }) => {
               try {
                 const phoneProvider = new firebase.auth.PhoneAuthProvider();
                 const verificationId = await phoneProvider.verifyPhoneNumber(
-                  phoneNumber,
+                "+91" + String(phoneNumber),
                   recaptchaVerifier.current
                 );
                 setVerificationId(verificationId);
