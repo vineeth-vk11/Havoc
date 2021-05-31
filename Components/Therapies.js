@@ -22,13 +22,12 @@ const screenHeight = Dimensions.get("window").height;
 const Therapies = ({ navigation }) => {
   const [search, setsearch] = useState();
 
-  
   const [loading, setLoading] = useState(true);
 
   const db = firebase.firestore();
 
   const [list, setList] = useState([]);
-  const [therapiesList,settherapiesList]=useState([]);
+  const [therapiesList, settherapiesList] = useState([]);
   useEffect(() => {
     const therapies = db.collection("Therapies").onSnapshot((querySnapshot) => {
       querySnapshot.forEach((documentSnapshot) => {
@@ -48,19 +47,18 @@ const Therapies = ({ navigation }) => {
     return <ActivityIndicator />;
   }
 
-
-  const searchFilterFunction =(txt)=>{
+  const searchFilterFunction = (txt) => {
     setsearch(txt);
-    const newData=therapiesList.filter(item=>{
-      const itemData=item.name;
-      return itemData.indexOf(txt)>-1;
+    const newData = therapiesList.filter((item) => {
+      const itemData = item.name;
+      return itemData.indexOf(txt) > -1;
     });
-    if(newData.length==therapiesList.length){
+    if (newData.length == therapiesList.length) {
       setList(therapiesList);
-    }else{
+    } else {
       setList(newData);
     }
-  }
+  };
 
   return (
     <SafeAreaView style={styler.screen}>
@@ -142,14 +140,16 @@ const Therapies = ({ navigation }) => {
                   <ListItem
                     containerStyle={{
                       backgroundColor: "#F8F8F8",
-                      height: 55,
+                      height: 0.08 * screenHeight,
                       borderRadius: 5,
                       elevation: 5,
                     }}
                   >
                     <ListItem.Content>
                       <ListItem.Title>{item.name}</ListItem.Title>
-                      <ListItem.Subtitle>{"₹ " + item.cost}</ListItem.Subtitle>
+                      <ListItem.Subtitle style={{ marginTop: 5 }}>
+                        {"₹ " + item.cost}
+                      </ListItem.Subtitle>
                     </ListItem.Content>
                     <ListItem.Chevron size={35} />
                   </ListItem>

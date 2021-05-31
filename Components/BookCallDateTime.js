@@ -23,6 +23,8 @@ import firebase from "firebase";
 import { ActivityIndicator } from "react-native-paper";
 require("firebase/firestore");
 
+import PhoneInput from "react-native-phone-number-input";
+
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
@@ -87,6 +89,9 @@ const BookCallDateTime = ({ navigation }) => {
     setTime(formattedTime);
     hideTimePicker();
   };
+
+  const [value, setValue] = useState("");
+  const phoneInput = React.useRef(null);
 
   if (loading) {
     return <ActivityIndicator />;
@@ -210,15 +215,18 @@ const BookCallDateTime = ({ navigation }) => {
                   onCancel={hideTimePicker}
                 />
               </View>
-              <TextInput
-                style={styler.phoneNumber}
-                placeholder={"Phone Number"}
-                onChangeText={(text) => {
-                  setNumber(text);
+              <PhoneInput
+                ref={phoneInput}
+                defaultValue={value}
+                defaultCode="IN"
+                onChangeFormattedText={(text) => {
+                  setValue(text);
                 }}
-                keyboardType="number-pad"
-                value={number}
-              ></TextInput>
+                withDarkTheme
+                withShadow
+                autoFocus
+                layout="second"
+              />
             </View>
             <View style={styler.footView}>
               <TouchableOpacity
@@ -227,7 +235,7 @@ const BookCallDateTime = ({ navigation }) => {
                     createAlert("Please select a date");
                   } else if (time === "Time") {
                     createAlert("Please select a time");
-                  } else if (number === "") {
+                  } else if (value === "") {
                     createAlert("Please enter a mobile numer");
                   } else {
                     var currentUser = firebase.auth().currentUser.uid;
@@ -240,7 +248,7 @@ const BookCallDateTime = ({ navigation }) => {
                       .add({
                         date: date,
                         time: time,
-                        number: number,
+                        number: value,
                         user: currentUser,
                       })
                       .then(() => {
@@ -250,7 +258,7 @@ const BookCallDateTime = ({ navigation }) => {
                           .add({
                             date: date,
                             time: time,
-                            number: number,
+                            number: value,
                             user: currentUser,
                           })
                           .then(() => {

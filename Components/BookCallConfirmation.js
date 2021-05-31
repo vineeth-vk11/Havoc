@@ -38,7 +38,7 @@ const BookCallConfirmation = ({ navigation, route }) => {
             <Icon name="check-circle" type="fontAwesome" color="#7AC141" />
             <Text style={{ fontSize: 0.035 * screenHeight, color: "#80B852" }}>
               {" "}
-              Request Placed
+              Booking Successful
             </Text>
           </View>
         </View>
@@ -57,7 +57,7 @@ const BookCallConfirmation = ({ navigation, route }) => {
             <Text
               style={{ fontSize: 0.025 * screenHeight, fontWeight: "bold" }}
             >
-              To Pay Amount
+              Paid Amount
             </Text>
             <Text style={{ fontSize: 0.03 * screenHeight }}>₹ 250</Text>
           </View>
