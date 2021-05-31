@@ -40,7 +40,7 @@ const windowHeight = Dimensions.get("window").height;
 
 const Register1 = ({ navigation }) => {
   const recaptchaVerifier = React.useRef(null);
-  const [phoneNumber, setPhoneNumber] = useState();
+  const [phoneNumber, setPhoneNumber] = useState(null);
   const [verificationId, setVerificationId] = useState();
   const firebaseConfig = firebase.apps.length
     ? firebase.app().options
@@ -81,14 +81,17 @@ const Register1 = ({ navigation }) => {
             }}
             keyboardType="phone-pad"
             onChangeText={(text) => setPhoneNumber(text)}
+            // defaultValue={phoneNumber ? "+91 " + phoneNumber : "+91 "} 
             value={phoneNumber}
+            
           ></TextInput>
           <TouchableOpacity
             onPress={async () => {
               try {
                 const phoneProvider = new firebase.auth.PhoneAuthProvider();
+                const otpPhoneNumber = "+91" + phoneNumber
                 const verificationId = await phoneProvider.verifyPhoneNumber(
-                "+91" + String(phoneNumber),
+                otpPhoneNumber,
                   recaptchaVerifier.current
                 );
                 setVerificationId(verificationId);
@@ -136,16 +139,17 @@ const styler = StyleSheet.create({
     justifyContent: "center",
   },
   phoneNumber: {
-    padding: 10,
-    width: windowWidth - 48,
+    // padding: 10,
+    width: windowWidth * 0.9,
     height: 52,
     color: "#828282",
     backgroundColor: "#fff",
     justifyContent: "center",
+   
   },
   sendOtp: {
     borderRadius: 8,
-    width: windowWidth - 48,
+    width: windowWidth * 0.9,
     height: 0.065 * windowHeight,
     backgroundColor: "#7AC141",
     color: "white",
@@ -188,7 +192,7 @@ const styler = StyleSheet.create({
     alignItems: "center",
   },
   havoc: {
-    justifyContent: "center",
+    justifyContent: "center", 
     marginTop: windowHeight / 8,
     marginBottom: 32,
   },

@@ -71,7 +71,7 @@ const Register3 = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={styler.talkingNow}>
-          <Text style={styler.tnText}>Talking Now : 033</Text>
+          <Text style={styler.tnText}>Talking Now : 33</Text>
         </View>
         <View style={styler.footerView}>
           <View style={{ flexDirection: "column", alignItems: "center" }}>
