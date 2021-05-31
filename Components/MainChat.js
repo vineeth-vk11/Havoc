@@ -39,7 +39,7 @@ function MainChat({ navigation, route }) {
   }
   var currentUser = firebase.auth().currentUser.uid;
 
-  var date = Moment(new Date()).format("MM/DD/YYYY");
+  var date = Moment(new Date()).format("DD/MM/YYYY");
 
   const [visible, setVisible] = useState(false);
   const [visible1, setVisible1] = useState(false);

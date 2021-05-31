@@ -15,6 +15,9 @@ import {
 import { ListItem, Avatar, Icon } from "react-native-elements";
 import firebase from "firebase";
 import { FlatList } from "react-native-gesture-handler";
+
+import Moment from "moment";
+
 require("firebase/firestore");
 
 const screenWidth = Dimensions.get("window").width;
@@ -43,6 +46,9 @@ const MyJournal = ({ navigation }) => {
           journalList.push({
             ...documentSnapshot.data(),
             key: documentSnapshot.id,
+            dateF: Moment(documentSnapshot.data()["date"], "DD/MM/YYYY").format(
+              "MMM Do YY"
+            ),
           });
         });
 
@@ -79,7 +85,7 @@ const MyJournal = ({ navigation }) => {
       return (
         <View style={styler.listView}>
           <FlatList
-            data={list}
+            data={list.sort((a, b) => a.date.localeCompare(b.date)).reverse()}
             renderItem={({ item }) => (
               <TouchableOpacity
                 onPress={() => {
@@ -104,7 +110,7 @@ const MyJournal = ({ navigation }) => {
                   <ListItem
                     containerStyle={{
                       backgroundColor: "#F8F8F8",
-                      height: 0.09 * screenHeight,
+                      height: 0.12 * screenHeight,
                       borderRadius: 0.01 * screenHeight,
                       elevation: 0.01 * screenHeight,
                     }}
@@ -115,8 +121,12 @@ const MyJournal = ({ navigation }) => {
                     />
                     <ListItem.Content>
                       <ListItem.Title>{item.listenerName}</ListItem.Title>
-                      <ListItem.Subtitle>{item.topic}</ListItem.Subtitle>
-                      <ListItem.Subtitle>{item.date}</ListItem.Subtitle>
+                      <ListItem.Subtitle style={{ marginTop: 5 }}>
+                        {item.topic}
+                      </ListItem.Subtitle>
+                      <ListItem.Subtitle style={{ marginTop: 5 }}>
+                        {item.dateF}
+                      </ListItem.Subtitle>
                     </ListItem.Content>
                     <ListItem.Chevron size={0.045 * screenHeight} />
                   </ListItem>

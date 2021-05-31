@@ -1,4 +1,4 @@
-import React, {  useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,8 +6,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  Dimensions, 
-  ImageBackground
+  Dimensions,
+  ImageBackground,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { SearchBar } from "react-native-elements";
@@ -15,22 +15,25 @@ import { ListItem } from "react-native-elements";
 
 import { FlatList } from "react-native-gesture-handler";
 
+import Moment from "moment";
+
 import firebase from "firebase";
 import { ActivityIndicator } from "react-native";
 require("firebase/firestore");
 
-const screenWidth= Dimensions.get('window').width;
-const screenHeight=Dimensions.get('window').height;
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
-const MyTherapies = ({navigation}) => {
+const MyTherapies = ({ navigation }) => {
   const [search, setsearch] = useState();
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    var currentUser = firebase.auth().currentUser.uid
+    var currentUser = firebase.auth().currentUser.uid;
 
-    const journal = firebase.firestore()
+    const journal = firebase
+      .firestore()
       .collection("users")
       .doc(currentUser)
       .collection("TherapyBookings")
@@ -41,6 +44,9 @@ const MyTherapies = ({navigation}) => {
           therapyList.push({
             ...documentSnapshot.data(),
             key: documentSnapshot.id,
+            dateF: Moment(documentSnapshot.data()["date"], "DD/MM/YYYY").format(
+              "MMM Do YY"
+            ),
           });
         });
 
@@ -51,14 +57,12 @@ const MyTherapies = ({navigation}) => {
     return () => journal();
   }, []);
 
-  if(loading){
-    return(
-      <ActivityIndicator/>
-    )
+  if (loading) {
+    return <ActivityIndicator />;
   }
 
   return (
-<SafeAreaView style={styler.screen}>
+    <SafeAreaView style={styler.screen}>
       <ImageBackground
         source={require("../assets/ss.png")}
         style={styler.image}
@@ -79,15 +83,15 @@ const MyTherapies = ({navigation}) => {
                 name="arrow-back"
                 type="ionicon"
                 color="#000000"
-                size={0.04*screenHeight}
-                style={{ marginLeft: 0.03*screenHeight }}
+                size={0.04 * screenHeight}
+                style={{ marginLeft: 0.03 * screenHeight }}
               />
             </TouchableOpacity>
           </View>
           <View style={{ flex: 0.7 }}>
             <Text
               style={{
-                fontSize: 0.032*screenHeight,
+                fontSize: 0.032 * screenHeight,
                 fontWeight: "bold",
                 textAlign: "left",
               }}
@@ -98,23 +102,37 @@ const MyTherapies = ({navigation}) => {
         </View>
         <View style={styler.listView}>
           <FlatList
-            data={list}
+            data={list.sort((a, b) => a.date.localeCompare(b.date)).reverse()}
             renderItem={({ item }) => (
-              <TouchableOpacity
-                onPress={() => {
-                }}
-              >
-                            <View style={{ padding: 0.01*screenHeight, paddingRight: 0.01*screenHeight, paddingLeft: 0.01*screenHeight, marginLeft: 0.01 * screenWidth, marginRight: 0.01 * screenWidth}}>
-              <ListItem
-                containerStyle={{ backgroundColor: "#F8F8F8", height: 0.08*screenHeight, borderRadius: 5, elevation: 5 }}
-              >
-                <ListItem.Content>
-                  <ListItem.Title>{item.therapyName}</ListItem.Title>
-                  <ListItem.Subtitle>{item.date}</ListItem.Subtitle>
-                </ListItem.Content>
-                <ListItem.Subtitle>{item.amountPaid}</ListItem.Subtitle>
-              </ListItem>
-            </View>
+              <TouchableOpacity onPress={() => {}}>
+                <View
+                  style={{
+                    padding: 0.01 * screenHeight,
+                    paddingRight: 0.01 * screenHeight,
+                    paddingLeft: 0.01 * screenHeight,
+                    marginLeft: 0.01 * screenWidth,
+                    marginRight: 0.01 * screenWidth,
+                  }}
+                >
+                  <ListItem
+                    containerStyle={{
+                      backgroundColor: "#F8F8F8",
+                      height: 0.09 * screenHeight,
+                      borderRadius: 5,
+                      elevation: 5,
+                    }}
+                  >
+                    <ListItem.Content>
+                      <ListItem.Title>{item.therapyName}</ListItem.Title>
+                      <ListItem.Subtitle style={{ marginTop: 8 }}>
+                        {item.dateF}
+                      </ListItem.Subtitle>
+                    </ListItem.Content>
+                    <ListItem.Subtitle style={{ marginRight: 15 }}>
+                      ₹ {item.amountPaid}
+                    </ListItem.Subtitle>
+                  </ListItem>
+                </View>
               </TouchableOpacity>
             )}
           />
@@ -132,7 +150,7 @@ const styler = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     textAlign: "center",
-    marginTop: 0.025*screenHeight,
+    marginTop: 0.025 * screenHeight,
   },
   image: {
     flex: 1,

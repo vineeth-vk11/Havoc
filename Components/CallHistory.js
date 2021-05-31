@@ -20,6 +20,8 @@ require("firebase/firestore");
 import { Dimensions } from "react-native";
 import { ScreenHeight } from "react-native-elements/dist/helpers";
 
+import Moment from "moment";
+
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
@@ -42,6 +44,9 @@ const CallHistory = ({ navigation }) => {
           newList.push({
             ...documentSnapshot.data(),
             key: documentSnapshot.id,
+            dateF: Moment(documentSnapshot.data()["date"], "DD/MM/YYYY").format(
+              "MMM Do YY"
+            ),
           });
         });
 
@@ -84,7 +89,7 @@ const CallHistory = ({ navigation }) => {
         </View>
         <View style={styler.listView}>
           <FlatList
-            data={list}
+            data={list.sort((a, b) => a.date.localeCompare(b.date)).reverse()}
             renderItem={({ item }) => (
               <View
                 style={{
@@ -98,16 +103,20 @@ const CallHistory = ({ navigation }) => {
                 <ListItem
                   containerStyle={{
                     backgroundColor: "#F8F8F8",
-                    height: 0.075 * windowHeight,
+                    height: 0.09 * windowHeight,
                     borderRadius: 5,
                     elevation: 5,
                   }}
                 >
                   <ListItem.Content>
-                    <ListItem.Subtitle>{item.date}</ListItem.Subtitle>
-                    <ListItem.Subtitle>{item.time}</ListItem.Subtitle>
+                    <ListItem.Subtitle>{item.dateF}</ListItem.Subtitle>
+                    <ListItem.Subtitle style={{ marginTop: 8 }}>
+                      {item.time}
+                    </ListItem.Subtitle>
                   </ListItem.Content>
-                  <ListItem.Subtitle>{item.amountPaid}</ListItem.Subtitle>
+                  <ListItem.Subtitle style={{ marginRight: 15 }}>
+                    ₹ 250
+                  </ListItem.Subtitle>
                 </ListItem>
               </View>
             )}
