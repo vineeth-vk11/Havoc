@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ImageBackground, Keyboard, Touchable } from "react-native";
 import {
   View,
@@ -35,6 +35,8 @@ import { Dimensions } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { ScreenHeight } from "react-native-elements/dist/helpers";
 
+import PhoneInput from "react-native-phone-number-input";
+
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
@@ -52,6 +54,9 @@ const Register1 = ({ navigation }) => {
     Alert.alert(title, message, [{ text: "OK", onPress: () => {} }], {
       cancelable: false,
     });
+
+  const [value, setValue] = useState("");
+  const phoneInput = React.useRef(null);
 
   return (
     <ImageBackground
@@ -72,26 +77,26 @@ const Register1 = ({ navigation }) => {
           <View style={styler.havoc}>
             <Image source={require("../assets/logoTB.png")} />
           </View>
-          <TextInput
-            mode="outlined"
-            label="Phone Number"
-            style={styler.phoneNumber}
-            theme={{
-              colors: { primary: "#7AC141", underlineColor: "transparent" },
+
+          <PhoneInput
+            ref={phoneInput}
+            defaultValue={value}
+            defaultCode="IN"
+            onChangeFormattedText={(text) => {
+              setValue(text);
             }}
-            keyboardType="phone-pad"
-            onChangeText={(text) => setPhoneNumber(text)}
-            // defaultValue={phoneNumber ? "+91 " + phoneNumber : "+91 "} 
-            value={phoneNumber}
-            
-          ></TextInput>
+            withDarkTheme
+            withShadow
+            autoFocus
+            layout="second"
+          />
           <TouchableOpacity
             onPress={async () => {
               try {
                 const phoneProvider = new firebase.auth.PhoneAuthProvider();
                 const otpPhoneNumber = "+91" + phoneNumber
                 const verificationId = await phoneProvider.verifyPhoneNumber(
-                otpPhoneNumber,
+                  value,
                   recaptchaVerifier.current
                 );
                 setVerificationId(verificationId);
@@ -106,8 +111,8 @@ const Register1 = ({ navigation }) => {
                   );
                 } else {
                   createAlert(
-                    "Error",
-                    "Unexpected error occured. Please try again."
+                    "Failed",
+                    "Please check your mobile number and try again"
                   );
                 }
               }
@@ -139,8 +144,8 @@ const styler = StyleSheet.create({
     justifyContent: "center",
   },
   phoneNumber: {
-    // padding: 10,
-    width: windowWidth * 0.9,
+    padding: 10,
+    width: windowWidth - 24,
     height: 52,
     color: "#828282",
     backgroundColor: "#fff",

@@ -19,7 +19,7 @@ require("firebase/firestore");
 
 import uuid from "react-native-uuid";
 
-// import RazorpayCheckout from "react-native-razorpay";
+import RazorpayCheckout from "react-native-razorpay";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -89,26 +89,23 @@ const BookCall = ({ navigation }) => {
         <View style={styler.footView}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("BookCallDateTime");
-              // var options = {
-              //   description: "Call Booking",
-              //   image: require("../assets/logoTB.png"),
-              //   currency: "INR",
-              //   key: "rzp_test_MvrwOKu0TQyu0C",
-              //   amount: "25000",
-              //   name: "Havoc Therapy",
-              //   theme: { color: "#7AC141" },
-              // };
-              // RazorpayCheckout.open(options)
-              //   .then((data) => {
-              //     // handle success
-              //     alert(`Success`);
-              //     navigation.navigate("BookCallDateTime");
-              //   })
-              //   .catch((error) => {
-              //     // handle failure
-              //     alert(`Error ${error.description}`);
-              //   });
+              var options = {
+                description: "Call Booking",
+                image: require("../assets/logoTB.png"),
+                currency: "INR",
+                key: "rzp_live_qn0G40omXlC5v1",
+                amount: "25000",
+                name: "Havoc Therapy",
+                theme: { color: "#7AC141" },
+              };
+              RazorpayCheckout.open(options)
+                .then((data) => {
+                  alert(`Success`);
+                  navigation.navigate("BookCallDateTime");
+                })
+                .catch((error) => {
+                  alert(`Error ${error.description}`);
+                });
             }}
           >
             <Text style={styler.bookNow}>BOOK NOW</Text>

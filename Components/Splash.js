@@ -7,27 +7,29 @@ require("firebase/firestore");
 
 const Splash = ({ navigation }) => {
   setTimeout(function () {
-    if (firebase.auth().currentUser !== null) {
-      var user = firebase.auth().currentUser.uid;
-      firebase
-        .firestore()
-        .collection("users")
-        .doc(user)
-        .get()
-        .then((documentSnapshot) => {
-          if (!documentSnapshot.exists) {
-            navigation.navigate("Register2");
-          } else {
-            if (documentSnapshot.data()["isListener"]) {
-              navigation.navigate("ListenerDB");
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        var user = firebase.auth().currentUser.uid;
+        firebase
+          .firestore()
+          .collection("users")
+          .doc(user)
+          .get()
+          .then((documentSnapshot) => {
+            if (!documentSnapshot.exists) {
+              navigation.navigate("Register2");
             } else {
-              navigation.navigate("Register3");
+              if (documentSnapshot.data()["isListener"]) {
+                navigation.navigate("ListenerDB");
+              } else {
+                navigation.navigate("Register3");
+              }
             }
-          }
-        });
-    } else {
-      navigation.navigate("Register1");
-    }
+          });
+      } else {
+        navigation.navigate("Register1");
+      }
+    });
   }, 4000);
 
   return (

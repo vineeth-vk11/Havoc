@@ -14,7 +14,7 @@ import {
 import { Icon } from "react-native-elements";
 import { Button } from "react-native-elements";
 
-// import RazorpayCheckout from "react-native-razorpay";
+import RazorpayCheckout from "react-native-razorpay";
 
 import firebase from "firebase";
 require("firebase/firestore");
@@ -40,22 +40,38 @@ const TherapyProduct = ({ navigation, route }) => {
         {
           text: "OK",
           onPress: () => {
-            var currentUser = firebase.auth().currentUser.uid;
-            var date = Moment(new Date()).format("MM/DD/YYYY");
-            firebase
-              .firestore()
-              .collection("users")
-              .doc(currentUser)
-              .collection("TherapyBookings")
-              .add({
-                therapyName: name,
-                amountPaid: cost,
-                date: date,
+            var options = {
+              description: "Therapy Booking",
+              image: require("../assets/logoTB.png"),
+              currency: "INR",
+              key: "rzp_live_qn0G40omXlC5v1",
+              amount: "50000",
+              name: "Havoc Therapy",
+              theme: { color: "#7AC141" },
+            };
+            RazorpayCheckout.open(options)
+              .then((data) => {
+                alert(`Success`);
+                var currentUser = firebase.auth().currentUser.uid;
+                var date = Moment(new Date()).format("DD/MM/YYYY");
+                firebase
+                  .firestore()
+                  .collection("users")
+                  .doc(currentUser)
+                  .collection("TherapyBookings")
+                  .add({
+                    therapyName: name,
+                    amountPaid: cost,
+                    date: date,
+                  })
+                  .then(() => {
+                    navigation.navigate("TherapyBooking", {
+                      cost: cost,
+                    });
+                  });
               })
-              .then(() => {
-                navigation.navigate("TherapyBooking", {
-                  cost: cost,
-                });
+              .catch((error) => {
+                alert(`Error ${error.description}`);
               });
           },
         },
