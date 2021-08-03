@@ -58,7 +58,7 @@ const BookCallDateTime = ({ navigation }) => {
   }, [minimumDate, minimumMonth, minimumYear, loading]);
 
   const createAlert = (message) =>
-    Alert.alert("Missong Data", message, [{ text: "OK", onPress: () => {} }], {
+    Alert.alert("Missong Data", message, [{ text: "OK", onPress: () => { } }], {
       cancelable: false,
     });
 
@@ -94,7 +94,7 @@ const BookCallDateTime = ({ navigation }) => {
   const phoneInput = React.useRef(null);
 
   if (loading) {
-    return <ActivityIndicator />;
+    return <ActivityIndicator style={{ flex: 1, alignContent: "center" }} />;
   }
 
   return (

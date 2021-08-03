@@ -61,7 +61,7 @@ const MyRequests = ({ navigation }) => {
   }, []);
 
   if (loading) {
-    return <ActivityIndicator />;
+    return <ActivityIndicator style={{ flex: 1, alignContent: "center" }} />;
   }
 
   return (

@@ -88,8 +88,8 @@ const list = [
   },
 ];
 
-const screenWidth= Dimensions.get('window').width;
-const screenHeight=Dimensions.get('window').height;
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 const PickTopic = ({ navigation }) => {
   const [search, setsearch] = useState("");
@@ -173,15 +173,15 @@ const PickTopic = ({ navigation }) => {
 
   const [list, setList] = useState(originalList)
 
-  const searchFilterFunction =(txt)=>{
+  const searchFilterFunction = (txt) => {
     setsearch(txt);
-    const newData=originalList.filter(item=>{
-      const itemData=item.name;
-      return itemData.indexOf(txt)>-1;
+    const newData = originalList.filter(item => {
+      const itemData = item.name;
+      return itemData.indexOf(txt) > -1;
     });
-    if(newData.length==originalList.length){
+    if (newData.length == originalList.length) {
       setList(originalList);
-    }else{
+    } else {
       setList(newData);
     }
   }
@@ -213,16 +213,16 @@ const PickTopic = ({ navigation }) => {
   });
 
   if (loading) {
-    return <ActivityIndicator />;
+    return <ActivityIndicator style={{ flex: 1, alignContent: "center" }} />;
   }
 
   return (
     <ImageBackground
-    source={require("../assets/ss.png")}
-    style={styler.image}
-  >
-    <SafeAreaView style={styler.screen}>
-      <ScrollView>
+      source={require("../assets/ss.png")}
+      style={styler.image}
+    >
+      <SafeAreaView style={styler.screen}>
+        <ScrollView>
 
           <View style={styler.head}>
             <View style={{ flex: 0.35, alignItems: "flex-start" }}>
@@ -232,18 +232,18 @@ const PickTopic = ({ navigation }) => {
                 }}
               >
                 <Icon
-                  style={{ marginLeft: 0.032*screenWidth }}
+                  style={{ marginLeft: 0.032 * screenWidth }}
                   name="arrow-back"
                   type="ionicon"
                   color="#000000"
-                  size={0.040*screenHeight}
+                  size={0.040 * screenHeight}
                 />
               </TouchableOpacity>
             </View>
             <View style={{ flex: 0.65 }}>
               <Text
                 style={{
-                  fontSize: 0.033*screenHeight,
+                  fontSize: 0.033 * screenHeight,
                   fontWeight: "bold",
                   alignItems: "flex-start",
                 }}
@@ -252,19 +252,19 @@ const PickTopic = ({ navigation }) => {
               </Text>
             </View>
           </View>
-          <View style={{ padding: 0.015*screenHeight, marginTop: 0.015*screenHeight }}>
+          <View style={{ padding: 0.015 * screenHeight, marginTop: 0.015 * screenHeight }}>
             <SearchBar
               containerStyle={{
                 backgroundColor: "white",
                 borderWidth: 1,
-                borderRadius: 0.02*screenHeight,
+                borderRadius: 0.02 * screenHeight,
                 borderColor: "#7AC141",
                 borderTopWidth: 1,
                 borderTopColor: "#7AC141",
                 borderBottomColor: "#7AC141",
-                height: 0.06*screenHeight,
+                height: 0.06 * screenHeight,
               }}
-              inputContainerStyle={{ backgroundColor: "white", height: 0.04*screenHeight }}
+              inputContainerStyle={{ backgroundColor: "white", height: 0.04 * screenHeight }}
               placeholder="Enter topic name"
               onChangeText={searchFilterFunction}
               value={search}
@@ -294,33 +294,33 @@ const PickTopic = ({ navigation }) => {
                   key={i}
                   style={{
                     padding: 3,
-                    paddingRight: 0.01*screenHeight,
-                    paddingLeft: 0.01*screenHeight,
-                    marginLeft: 0.011*screenHeight,
-                    marginRight: 0.011*screenHeight,
+                    paddingRight: 0.01 * screenHeight,
+                    paddingLeft: 0.01 * screenHeight,
+                    marginLeft: 0.011 * screenHeight,
+                    marginRight: 0.011 * screenHeight,
                   }}
                 >
                   <ListItem
                     key={i}
                     containerStyle={{
                       backgroundColor: "#F8F8F8",
-                      height: 0.08*screenHeight,
-                      borderRadius: 0.01*screenHeight,
-                      elevation: 0.01*screenHeight,
+                      height: 0.08 * screenHeight,
+                      borderRadius: 0.01 * screenHeight,
+                      elevation: 0.01 * screenHeight,
                     }}
                   >
                     <ListItem.Content>
                       <ListItem.Title>{l.name}</ListItem.Title>
                       <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
                     </ListItem.Content>
-                    <ListItem.Chevron size={0.04*screenHeight} />
+                    <ListItem.Chevron size={0.04 * screenHeight} />
                   </ListItem>
                 </View>
               </TouchableOpacity>
             ))}
           </View>
-      </ScrollView>
-    </SafeAreaView>
+        </ScrollView>
+      </SafeAreaView>
     </ImageBackground>
 
   );
@@ -332,7 +332,7 @@ const styler = StyleSheet.create({
   head: {
     flex: 0.15,
     flexDirection: "row",
-    marginTop: 0.025*screenHeight,
+    marginTop: 0.025 * screenHeight,
   },
   image: {
     flex: 1,
@@ -341,6 +341,6 @@ const styler = StyleSheet.create({
   },
   screen: {
     flex: 1,
-    marginTop: 0.035*screenHeight,
+    marginTop: 0.035 * screenHeight,
   },
 });

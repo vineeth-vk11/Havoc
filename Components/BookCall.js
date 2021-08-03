@@ -59,7 +59,7 @@ const BookCall = ({ navigation }) => {
         <View style={styler.meditationView}>
           <View style={styler.callView}>
             <Text style={{ fontSize: 22, marginLeft: 16 }}>Call</Text>
-            <Text style={{ fontSize: 22, marginRight: 16 }}>₹ 250</Text>
+            <Text style={{ fontSize: 22, marginRight: 16 }}>₹ 500</Text>
           </View>
           <View style={{ margin: 16, textAlign: "center" }}>
             <Text style={{ fontSize: 20, textAlign: "center" }}>
@@ -94,7 +94,7 @@ const BookCall = ({ navigation }) => {
                 image: require("../assets/logoTB.png"),
                 currency: "INR",
                 key: "rzp_live_qn0G40omXlC5v1",
-                amount: "25000",
+                amount: "50000",
                 name: "Havoc Therapy",
                 theme: { color: "#7AC141" },
               };

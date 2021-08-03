@@ -113,7 +113,7 @@ const MatchingListener = ({ navigation, route }) => {
           <View style={styler.bottomNavigationView1}>
             <View>
               <Text style={{ fontSize: 16, marginTop: 16 }}>
-                Are you sure you want to eixt ?
+                Are you sure you want to exit ?
               </Text>
             </View>
 

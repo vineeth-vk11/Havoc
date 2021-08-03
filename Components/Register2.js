@@ -34,6 +34,8 @@ const Register2 = ({ navigation }) => {
   var radio_props = [
     { label: "Male", value: 0 },
     { label: "Female", value: 1 },
+    { label: "Prefer not to say", value: 2 },
+
   ];
   const [value, setvalue] = useState();
 
@@ -42,7 +44,7 @@ const Register2 = ({ navigation }) => {
   const [gender, setGender] = useState("");
 
   const createAlert = (message) =>
-    Alert.alert("Enter data", message, [{ text: "OK", onPress: () => {} }], {
+    Alert.alert("Enter data", message, [{ text: "OK", onPress: () => { } }], {
       cancelable: false,
     });
 
@@ -108,8 +110,11 @@ const Register2 = ({ navigation }) => {
                         onPress={(value) => {
                           if (value === 0) {
                             setGender("Male");
-                          } else {
+                          } else if (value == 1) {
                             setGender("Female");
+                          }
+                          else {
+                            setGender("Prefer not to say")
                           }
                           setvalue(value);
                         }}
@@ -128,8 +133,11 @@ const Register2 = ({ navigation }) => {
                         onPress={(value) => {
                           if (value === 0) {
                             setGender("Male");
-                          } else {
+                          } else if (value == 1) {
                             setGender("Female");
+                          }
+                          else {
+                            setGender("Prefer not to say")
                           }
                           setvalue(value);
                         }}
