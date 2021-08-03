@@ -54,7 +54,7 @@ const DedicatedChats = ({ navigation }) => {
   }, []);
 
   if (loading) {
-    return <ActivityIndicator />;
+    return <ActivityIndicator style={{ flex: 1, alignContent: "center" }} />;
   }
 
   const renderList = () => {

@@ -16,7 +16,7 @@ require("firebase/database");
 require("firebase/firestore");
 
 import React, { useState, useCallback, useEffect } from "react";
-import { GiftedChat } from "react-native-gifted-chat";
+import { GiftedChat, MessageText } from "react-native-gifted-chat";
 import { Bubble } from "react-native-gifted-chat";
 
 import uuid from "react-native-uuid";
@@ -237,13 +237,13 @@ function MainChat({ navigation, route }) {
           <View style={{ flex: 0.8, alignItems: "center" }}>
             <Text
               style={{
-                fontSize: 24,
+                fontSize: 18,
                 fontWeight: "bold",
-                textAlign: "left",
+                textAlign: "center",
                 marginLeft: "30%",
               }}
             >
-              Chat
+              Chat with {listenerName}
             </Text>
           </View>
           <View
@@ -274,13 +274,13 @@ function MainChat({ navigation, route }) {
           <View style={{ flex: 0.8, alignItems: "center" }}>
             <Text
               style={{
-                fontSize: 24,
+                fontSize: 18,
                 fontWeight: "bold",
                 textAlign: "left",
                 marginLeft: "30%",
               }}
             >
-              Chat
+              Chat with {listenerName}
             </Text>
           </View>
           <View
@@ -316,11 +316,22 @@ function MainChat({ navigation, route }) {
           style={{ flex: 0.85 }}
           messages={messages}
           renderAvatar={() => null}
+          renderMessageText={({ currentMessage, ...args }) => {
+            return (
+              <MessageText
+                currentMessage={currentMessage}
+                customTextStyle={{ fontSize: 18, lineHeight: 24 }}
+                {...args}
+              />
+            );
+          }}
+
           onSend={(messages) => onSend(messages)}
           user={{
             _id: currentUser,
           }}
         />
+
         <BottomSheet
           visible={visible}
           onBackButtonPress={toggleBottomNavigationView}

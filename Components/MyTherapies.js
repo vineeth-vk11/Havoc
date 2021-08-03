@@ -58,7 +58,7 @@ const MyTherapies = ({ navigation }) => {
   }, []);
 
   if (loading) {
-    return <ActivityIndicator />;
+    return <ActivityIndicator style={{ flex: 1, alignContent: "center" }} />;
   }
 
   return (
@@ -104,7 +104,7 @@ const MyTherapies = ({ navigation }) => {
           <FlatList
             data={list.sort((a, b) => a.date.localeCompare(b.date)).reverse()}
             renderItem={({ item }) => (
-              <TouchableOpacity onPress={() => {}}>
+              <TouchableOpacity onPress={() => { }}>
                 <View
                   style={{
                     padding: 0.01 * screenHeight,

@@ -51,7 +51,7 @@ const Register1 = ({ navigation }) => {
   const attemptInvisibleVerification = true;
 
   const createAlert = (title, message) =>
-    Alert.alert(title, message, [{ text: "OK", onPress: () => {} }], {
+    Alert.alert(title, message, [{ text: "OK", onPress: () => { } }], {
       cancelable: false,
     });
 
@@ -118,6 +118,25 @@ const Register1 = ({ navigation }) => {
             }}
           >
             <Text style={styler.sendOtp}>Get OTP</Text>
+          </TouchableOpacity>
+          <View style={{ flexDirection: "row", marginTop: 10 }}>
+            <View style={styler.lineStyle} />
+            <View style={styler.lineStylew} />
+            <Text>OR</Text>
+            <View style={styler.lineStyle} />
+          </View>
+          <TouchableOpacity>
+            <TouchableOpacity>
+              <View style={styler.continueWithEmail}>
+                <Image
+                  source={require("../assets/Images/icons8-google-48.png")}
+                  style={{ width: 40, height: 40, marginLeft: 10 }}
+                />
+                <View style={styler.textView}>
+                  <Text style={styler.textSignIn}>Sign In</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
           </TouchableOpacity>
         </SafeAreaView>
       </TouchableWithoutFeedback>

@@ -19,6 +19,54 @@ const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 const ListenerDB = ({ navigation }) => {
+
+  const [age, setAge] = useState();
+  const [topics, setTopics] = useState([]);
+  const [listenerName, setListenerName] = useState();
+
+  const [number, setNumber] = useState(0);
+
+  useEffect(() => {
+    if (firebase.auth().currentUser) {
+      var currentUser = firebase.auth().currentUser.uid;
+      const db = firebase.firestore();
+
+      db.collection("Listeners")
+        .doc(currentUser)
+        .get()
+        .then((documentSnapshot) => {
+          if (documentSnapshot.exists) {
+            var data = documentSnapshot.data();
+
+            setAge(data["age"]);
+            setTopics(data["topics"]);
+            setListenerName(data["name"]);
+
+            db.collection("ChatRequests").onSnapshot((querySnapshot) => {
+              const requestsList = [];
+
+              querySnapshot.forEach((documentSnapshot) => {
+                var minAge = documentSnapshot.data()["minAge"];
+                var maxAge = documentSnapshot.data()["maxAge"];
+                var topic = documentSnapshot.data()["topic"];
+
+                if (minAge < Number(age) < maxAge) {
+                  if (topics.includes(topic)) {
+                    requestsList.push({
+                      ...documentSnapshot.data(),
+                      key: documentSnapshot.id,
+                    });
+                  }
+                }
+              });
+
+              setNumber(requestsList.length);
+            });
+          }
+        });
+    }
+  }, []);
+
   return (
     <SafeAreaView style={styler.screen}>
       <ImageBackground
@@ -71,6 +119,9 @@ const ListenerDB = ({ navigation }) => {
               </Text>
             </View>
           </TouchableOpacity>
+          <View style={styler.activeUser}>
+            <Text style={{ color: "#ffffff" }}>{number}</Text>
+          </View>
         </View>
         <View style={styler.talkingNow}>
           <Text style={styler.tnText}>Talking Now : 180</Text>
