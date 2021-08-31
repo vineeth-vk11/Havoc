@@ -1,21 +1,20 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
   SafeAreaView,
-  Image,
   StyleSheet,
   TouchableOpacity,
-  TextInput,
-  ScrollView,
   ActivityIndicator,
   ImageBackground,
   Dimensions,
 } from "react-native";
+
 import { ListItem, Avatar, Icon } from "react-native-elements";
-import firebase from "firebase";
 import { FlatList } from "react-native-gesture-handler";
-require("firebase/firestore");
+
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -29,26 +28,26 @@ const DedicatedChats = ({ navigation }) => {
   if (firebase.auth().currentUser) {
     currentUser = firebase.auth().currentUser.uid;
   }
-  const db = firebase.firestore();
 
   useEffect(() => {
-    const dedicatedChats = db
-      .collection("users")
-      .doc(currentUser)
-      .collection("DedicatedChats")
-      .onSnapshot((querySnapshot) => {
-        const dedicatedChatList = [];
+    const dedicatedChats =
+      firestore()
+        .collection("users")
+        .doc(currentUser)
+        .collection("DedicatedChats")
+        .onSnapshot((querySnapshot) => {
+          const dedicatedChatList = [];
 
-        querySnapshot.forEach((documentSnapshot) => {
-          dedicatedChatList.push({
-            ...documentSnapshot.data(),
-            key: documentSnapshot.id,
+          querySnapshot.forEach((documentSnapshot) => {
+            dedicatedChatList.push({
+              ...documentSnapshot.data(),
+              key: documentSnapshot.id,
+            });
           });
-        });
 
-        setList(dedicatedChatList);
-        setLoading(false);
-      });
+          setList(dedicatedChatList);
+          setLoading(false);
+        });
 
     return () => dedicatedChats();
   }, []);

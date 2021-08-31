@@ -11,8 +11,8 @@ import {
 import { Icon } from "react-native-elements";
 import LottieView from "lottie-react-native";
 
-import firebase from "firebase";
-require("firebase/firestore");
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 import { BottomSheet } from "react-native-btr";
 
@@ -34,29 +34,29 @@ const MatchingListener = ({ navigation, route }) => {
   var alreadyEntered = false;
 
   useEffect(() => {
-    const chatStatus = firebase
-      .firestore()
-      .collection("Chats")
-      .doc(chatId)
-      .onSnapshot((documentSnapshot) => {
-        var data = documentSnapshot.data();
-        var ListenerId = data["listener"];
+    const chatStatus =
+      firestore()
+        .collection("Chats")
+        .doc(chatId)
+        .onSnapshot((documentSnapshot) => {
+          var data = documentSnapshot.data();
+          var ListenerId = data["listener"];
 
-        if (ListenerId !== "waiting" && alreadyEntered === false) {
-          setListenerId(ListenerId);
+          if (ListenerId !== "waiting" && alreadyEntered === false) {
+            setListenerId(ListenerId);
 
-          navigation.navigate("JoinTheChat", {
-            chatId: chatId,
-            feeling: feeling,
-            onMind: onMind,
-            listenerId: ListenerId,
-            type: "seeker",
-            topic: topic,
-          });
+            navigation.navigate("JoinTheChat", {
+              chatId: chatId,
+              feeling: feeling,
+              onMind: onMind,
+              listenerId: ListenerId,
+              type: "seeker",
+              topic: topic,
+            });
 
-          alreadyEntered = true;
-        }
-      });
+            alreadyEntered = true;
+          }
+        });
 
     return () => chatStatus();
   }, []);
@@ -125,8 +125,7 @@ const MatchingListener = ({ navigation, route }) => {
 
                     var currentUser = firebase.auth().currentUser.uid;
 
-                    firebase
-                      .firestore()
+                    firestore()
                       .collection("ChatRequests")
                       .doc(chatId)
                       .delete()

@@ -13,8 +13,8 @@ import {
 
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
-import firebase from "firebase";
-require("firebase/firestore");
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 import { Dimensions } from "react-native";
 import { ScreenHeight } from "react-native-elements/dist/helpers";
@@ -22,18 +22,44 @@ import { ScreenHeight } from "react-native-elements/dist/helpers";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-const EnterOTP = ({
-  route: {
-    params: { verificationId },
-  },
-  navigation,
-}) => {
-  const [verificationCode, setVerificationCode] = useState();
+const EnterOTP = ({ navigation, route }) => {
+  const { confirm } = route.params
+  const [code, setCode] = useState('');
 
   const createAlert = (message) =>
-    Alert.alert("Wrong OTP", message, [{ text: "OK", onPress: () => {} }], {
+    Alert.alert("Wrong OTP", message, [{ text: "OK", onPress: () => { } }], {
       cancelable: false,
     });
+
+  async function confirmCode() {
+    try {
+
+      await confirm.confirm(code);
+
+      if (firebase.auth().currentUser) {
+        var user = firebase.auth().currentUser.uid;
+
+        firestore()
+          .collection("users")
+          .doc(user)
+          .get()
+          .then((documentSnapshot) => {
+            if (!documentSnapshot.exists) {
+              navigation.navigate("Register2");
+            } else {
+              if (documentSnapshot.data()["isListener"]) {
+                navigation.navigate("ListenerDB");
+              } else {
+                navigation.navigate("Register3");
+              }
+            }
+          });
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <ImageBackground
@@ -58,45 +84,16 @@ const EnterOTP = ({
               }}
               keyboardType="number-pad"
               style={styler.name}
-              onChangeText={(text) => setVerificationCode(text)}
-              value={verificationCode}
+              onChangeText={(text) => setCode(text)}
+              value={code}
             />
           </View>
         </TouchableWithoutFeedback>
 
         <View style={styler.getStartedView}>
           <TouchableOpacity
-            onPress={async () => {
-              try {
-                const credential = firebase.auth.PhoneAuthProvider.credential(
-                  verificationId,
-                  verificationCode
-                );
-                await firebase.auth().signInWithCredential(credential);
-
-                if (firebase.auth().currentUser) {
-                  var user = firebase.auth().currentUser.uid;
-
-                  firebase
-                    .firestore()
-                    .collection("users")
-                    .doc(user)
-                    .get()
-                    .then((documentSnapshot) => {
-                      if (!documentSnapshot.exists) {
-                        navigation.navigate("Register2");
-                      } else {
-                        if (documentSnapshot.data()["isListener"]) {
-                          navigation.navigate("ListenerDB");
-                        } else {
-                          navigation.navigate("Register3");
-                        }
-                      }
-                    });
-                }
-              } catch (err) {
-                createAlert("Authentication Failed");
-              }
+            onPress={() => {
+              confirmCode()
             }}
           >
             <Text style={styler.getStarted}>VERIFY</Text>

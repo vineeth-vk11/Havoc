@@ -1,4 +1,4 @@
-package com.havoc;
+package com.wehearyou;
 import android.content.res.Configuration;
 import android.content.Intent;
 

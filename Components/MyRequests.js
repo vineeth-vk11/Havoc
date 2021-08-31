@@ -11,9 +11,10 @@ import {
 } from "react-native";
 import { ListItem, Avatar, Icon } from "react-native-elements";
 
-import firebase from "firebase";
 import { FlatList } from "react-native-gesture-handler";
-require("firebase/firestore");
+
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -29,9 +30,9 @@ const MyRequests = ({ navigation }) => {
   useEffect(() => {
     if (firebase.auth().currentUser) {
       var currentUser = firebase.auth().currentUser.uid;
-      const db = firebase.firestore();
 
-      db.collection("Listeners")
+      firestore()
+        .collection("Listeners")
         .doc(currentUser)
         .get()
         .then((documentSnapshot) => {
@@ -42,19 +43,21 @@ const MyRequests = ({ navigation }) => {
             setTopics(data["topics"]);
             setListenerName(data["name"]);
 
-            db.collection("ChatRequests").onSnapshot((querySnapshot) => {
-              const requestsList = [];
+            firestore()
+              .collection("ChatRequests")
+              .onSnapshot((querySnapshot) => {
+                const requestsList = [];
 
-              querySnapshot.forEach((documentSnapshot) => {
-                requestsList.push({
-                  ...documentSnapshot.data(),
-                  key: documentSnapshot.id,
+                querySnapshot.forEach((documentSnapshot) => {
+                  requestsList.push({
+                    ...documentSnapshot.data(),
+                    key: documentSnapshot.id,
+                  });
                 });
-              });
 
-              setList(requestsList);
-              setLoading(false);
-            });
+                setList(requestsList);
+                setLoading(false);
+              });
           }
         });
     }
@@ -128,18 +131,19 @@ const MyRequests = ({ navigation }) => {
                   <TouchableOpacity
                     onPress={() => {
                       var currentUser = firebase.auth().currentUser.uid;
-                      const db = firebase.firestore();
 
                       var chatId = item.key;
 
-                      db.collection("Chats")
+                      firestore()
+                        .collection("Chats")
                         .doc(chatId)
                         .update({
                           listener: currentUser,
                           listenerName: listenerName,
                         })
                         .then(() => {
-                          db.collection("ChatRequests")
+                          firestore()
+                            .collection("ChatRequests")
                             .doc(chatId)
                             .delete()
                             .then(() => {

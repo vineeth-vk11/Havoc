@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
   TouchableOpacity,
   ScrollView,
   Dimensions,
@@ -65,7 +64,7 @@ const Quiz1 = ({ navigation, route }) => {
     Alert.alert(
       "No Option Selected",
       "Please select an option continue",
-      [{ text: "OK", onPress: () => {} }],
+      [{ text: "OK", onPress: () => { } }],
       {
         cancelable: false,
       }

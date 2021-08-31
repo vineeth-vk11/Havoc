@@ -3,22 +3,20 @@ import {
   View,
   Text,
   SafeAreaView,
-  Image,
   StyleSheet,
   TouchableOpacity,
-  TextInput,
-  ScrollView,
   ActivityIndicator,
   ImageBackground,
   Dimensions,
 } from "react-native";
+
 import { ListItem, Avatar, Icon } from "react-native-elements";
-import firebase from "firebase";
 import { FlatList } from "react-native-gesture-handler";
 
 import Moment from "moment";
 
-require("firebase/firestore");
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -32,29 +30,29 @@ const MyJournal = ({ navigation }) => {
   if (firebase.auth().currentUser) {
     currentUser = firebase.auth().currentUser.uid;
   }
-  const db = firebase.firestore();
 
   useEffect(() => {
-    const journal = db
-      .collection("users")
-      .doc(currentUser)
-      .collection("Journal")
-      .onSnapshot((querySnapshot) => {
-        const journalList = [];
+    const journal =
+      firestore()
+        .collection("users")
+        .doc(currentUser)
+        .collection("Journal")
+        .onSnapshot((querySnapshot) => {
+          const journalList = [];
 
-        querySnapshot.forEach((documentSnapshot) => {
-          journalList.push({
-            ...documentSnapshot.data(),
-            key: documentSnapshot.id,
-            dateF: Moment(documentSnapshot.data()["date"], "DD/MM/YYYY").format(
-              "MMM Do YY"
-            ),
+          querySnapshot.forEach((documentSnapshot) => {
+            journalList.push({
+              ...documentSnapshot.data(),
+              key: documentSnapshot.id,
+              dateF: Moment(documentSnapshot.data()["date"], "DD/MM/YYYY").format(
+                "MMM Do YY"
+              ),
+            });
           });
-        });
 
-        setList(journalList);
-        setLoading(false);
-      });
+          setList(journalList);
+          setLoading(false);
+        });
 
     return () => journal();
   }, []);

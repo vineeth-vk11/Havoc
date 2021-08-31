@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -12,12 +12,10 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { ListItem, Icon } from "react-native-elements";
-import { ScrollView } from "react-native-gesture-handler";
 import { FlatList } from "react-native-gesture-handler";
 
-import firebase from "firebase";
-import { set } from "react-native-reanimated";
-require("firebase/auth");
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 const list = [
   {
@@ -73,8 +71,7 @@ const Profile = ({ navigation }) => {
   useEffect(() => {
     if (loading) {
       var currentUser = firebase.auth().currentUser.uid;
-      firebase
-        .firestore()
+      firestore()
         .collection("users")
         .doc(currentUser)
         .get()

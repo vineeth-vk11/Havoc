@@ -3,19 +3,17 @@ import {
   View,
   Text,
   SafeAreaView,
-  Image,
   StyleSheet,
   TouchableOpacity,
-  TextInput,
-  ScrollView,
   ImageBackground,
 } from "react-native";
-import { ListItem, Avatar, Icon } from "react-native-elements";
+import { ListItem, Icon } from "react-native-elements";
 
-import firebase from "firebase";
 import { ActivityIndicator } from "react-native-paper";
 import { FlatList } from "react-native-gesture-handler";
-require("firebase/firestore");
+
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 import { Dimensions } from "react-native";
 import { ScreenHeight } from "react-native-elements/dist/helpers";
@@ -32,27 +30,27 @@ const CallHistory = ({ navigation }) => {
   useEffect(() => {
     var currentUser = firebase.auth().currentUser.uid;
 
-    const callHistory = firebase
-      .firestore()
-      .collection("users")
-      .doc(currentUser)
-      .collection("callBookings")
-      .onSnapshot((querySnapshot) => {
-        const newList = [];
+    const callHistory =
+      firestore()
+        .collection("users")
+        .doc(currentUser)
+        .collection("callBookings")
+        .onSnapshot((querySnapshot) => {
+          const newList = [];
 
-        querySnapshot.forEach((documentSnapshot) => {
-          newList.push({
-            ...documentSnapshot.data(),
-            key: documentSnapshot.id,
-            dateF: Moment(documentSnapshot.data()["date"], "DD/MM/YYYY").format(
-              "MMM Do YY"
-            ),
+          querySnapshot.forEach((documentSnapshot) => {
+            newList.push({
+              ...documentSnapshot.data(),
+              key: documentSnapshot.id,
+              dateF: Moment(documentSnapshot.data()["date"], "DD/MM/YYYY").format(
+                "MMM Do YY"
+              ),
+            });
           });
-        });
 
-        setList(newList);
-        setLoading(false);
-      });
+          setList(newList);
+          setLoading(false);
+        });
 
     return () => callHistory();
   }, []);

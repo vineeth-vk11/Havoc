@@ -11,9 +11,8 @@ import {
 } from "react-native";
 import { Icon } from "react-native-elements";
 
-import firebase from "firebase";
-import { ListItem } from "react-native-elements/dist/list/ListItem";
-require("firebase/firestore");
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -29,9 +28,9 @@ const ListenerDB = ({ navigation }) => {
   useEffect(() => {
     if (firebase.auth().currentUser) {
       var currentUser = firebase.auth().currentUser.uid;
-      const db = firebase.firestore();
 
-      db.collection("Listeners")
+      firestore()
+        .collection("Listeners")
         .doc(currentUser)
         .get()
         .then((documentSnapshot) => {
@@ -42,26 +41,27 @@ const ListenerDB = ({ navigation }) => {
             setTopics(data["topics"]);
             setListenerName(data["name"]);
 
-            db.collection("ChatRequests").onSnapshot((querySnapshot) => {
-              const requestsList = [];
+            firestore()
+              .collection("ChatRequests").onSnapshot((querySnapshot) => {
+                const requestsList = [];
 
-              querySnapshot.forEach((documentSnapshot) => {
-                var minAge = documentSnapshot.data()["minAge"];
-                var maxAge = documentSnapshot.data()["maxAge"];
-                var topic = documentSnapshot.data()["topic"];
+                querySnapshot.forEach((documentSnapshot) => {
+                  var minAge = documentSnapshot.data()["minAge"];
+                  var maxAge = documentSnapshot.data()["maxAge"];
+                  var topic = documentSnapshot.data()["topic"];
 
-                if (minAge < Number(age) < maxAge) {
-                  if (topics.includes(topic)) {
-                    requestsList.push({
-                      ...documentSnapshot.data(),
-                      key: documentSnapshot.id,
-                    });
+                  if (minAge < Number(age) < maxAge) {
+                    if (topics.includes(topic)) {
+                      requestsList.push({
+                        ...documentSnapshot.data(),
+                        key: documentSnapshot.id,
+                      });
+                    }
                   }
-                }
-              });
+                });
 
-              setNumber(requestsList.length);
-            });
+                setNumber(requestsList.length);
+              });
           }
         });
     }

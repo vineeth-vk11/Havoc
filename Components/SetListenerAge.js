@@ -3,11 +3,8 @@ import {
   View,
   Text,
   SafeAreaView,
-  Image,
   StyleSheet,
   TouchableOpacity,
-  TextInput,
-  ScrollView,
   ImageBackground,
   Dimensions,
 } from "react-native";
@@ -15,10 +12,10 @@ import { Icon } from "react-native-elements";
 
 import RadioButtonRN from "radio-buttons-react-native";
 
-import firebase from "firebase";
-import { min } from "moment";
 import { ActivityIndicator } from "react-native-paper";
-require("firebase/firestore");
+
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 import AnimatedLoader from "react-native-animated-loader";
 
@@ -45,8 +42,8 @@ const SetListenerAge = ({ navigation }) => {
   useEffect(() => {
     if (loading) {
       var currentUser = firebase.auth().currentUser.uid;
-      firebase
-        .firestore()
+
+      firestore()
         .collection("users")
         .doc(currentUser)
         .get()
@@ -152,8 +149,7 @@ const SetListenerAge = ({ navigation }) => {
 
                   var user = firebase.auth().currentUser.uid;
 
-                  firebase
-                    .firestore()
+                  firestore()
                     .collection("users")
                     .doc(user)
                     .set(

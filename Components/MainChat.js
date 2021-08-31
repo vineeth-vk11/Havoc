@@ -1,23 +1,19 @@
-import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
-  Modal,
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
 
-import { ListItem, Avatar, Icon } from "react-native-elements";
+import { Icon } from "react-native-elements";
 
-import firebase from "firebase";
-require("firebase/database");
-require("firebase/firestore");
+import database from '@react-native-firebase/database';
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 import React, { useState, useCallback, useEffect } from "react";
 import { GiftedChat, MessageText } from "react-native-gifted-chat";
-import { Bubble } from "react-native-gifted-chat";
 
 import uuid from "react-native-uuid";
 
@@ -61,13 +57,13 @@ function MainChat({ navigation, route }) {
       var message = "I am feeling " + feeling + ". " + onMind;
 
       if (!initialMessage && type === "seeker") {
-        firebase.database().ref(`/Chats/${currentUser}/${chatId}`).push({
+        database().ref(`/Chats/${currentUser}/${chatId}`).push({
           message: message,
           receivedUser: listenerId,
           sentUser: currentUser,
         });
 
-        firebase.database().ref(`/Chats/${listenerId}/${chatId}`).push({
+        database().ref(`/Chats/${listenerId}/${chatId}`).push({
           message: message,
           receivedUser: listenerId,
           sentUser: currentUser,
@@ -76,8 +72,7 @@ function MainChat({ navigation, route }) {
         setInititalMessage(true);
       }
 
-      firebase
-        .database()
+      database()
         .ref(`/Chats/${currentUser}/${chatId}`)
         .on(`value`, (snapShot) => {
           const messageList = [];
@@ -97,8 +92,7 @@ function MainChat({ navigation, route }) {
           setMessages(messageList.reverse());
         });
 
-      firebase
-        .firestore()
+      firestore()
         .collection("Chats")
         .doc(chatId)
         .onSnapshot((documentSnapshot) => {
@@ -112,8 +106,7 @@ function MainChat({ navigation, route }) {
           if (paymentActivated && type === "seeker") {
             var currentUser = firebase.auth().currentUser.uid;
 
-            firebase
-              .firestore()
+            firestore()
               .collection("users")
               .doc(currentUser)
               .collection("Journal")
@@ -135,8 +128,7 @@ function MainChat({ navigation, route }) {
           if (isClosedByListener && type === "seeker") {
             var currentUser = firebase.auth().currentUser.uid;
 
-            firebase
-              .firestore()
+            firestore()
               .collection("users")
               .doc(currentUser)
               .collection("Journal")
@@ -158,8 +150,7 @@ function MainChat({ navigation, route }) {
           if (isAddedToDedicatedChats && type === "seeker") {
             var currentUser = firebase.auth().currentUser.uid;
 
-            firebase
-              .firestore()
+            firestore()
               .collection("users")
               .doc(currentUser)
               .collection("DedicatedChats")
@@ -175,8 +166,7 @@ function MainChat({ navigation, route }) {
                 isClosedByListener: false,
               })
               .then(() => {
-                firebase
-                  .firestore()
+                firestore()
                   .collection("users")
                   .doc(currentUser)
                   .collection("Journal")
@@ -194,8 +184,7 @@ function MainChat({ navigation, route }) {
           }
 
           if (isClosedBySeeker && type === "listener") {
-            firebase
-              .firestore()
+            firestore()
               .collection("users")
               .doc(currentUser)
               .collection("Journal")
@@ -217,13 +206,13 @@ function MainChat({ navigation, route }) {
   const onSend = useCallback((messages = []) => {
     var currentUser = firebase.auth().currentUser.uid;
 
-    firebase.database().ref(`/Chats/${currentUser}/${chatId}`).push({
+    database().ref(`/Chats/${currentUser}/${chatId}`).push({
       message: messages[0]["text"],
       receivedUser: listenerId,
       sentUser: currentUser,
     });
 
-    firebase.database().ref(`/Chats/${listenerId}/${chatId}`).push({
+    database().ref(`/Chats/${listenerId}/${chatId}`).push({
       message: messages[0]["text"],
       receivedUser: listenerId,
       sentUser: currentUser,
@@ -344,8 +333,7 @@ function MainChat({ navigation, route }) {
 
                 var currentUser = firebase.auth().currentUser.uid;
 
-                firebase
-                  .firestore()
+                firestore()
                   .collection("users")
                   .doc(currentUser)
                   .collection("Journal")
@@ -357,8 +345,7 @@ function MainChat({ navigation, route }) {
                     chatId: chatId,
                   })
                   .then(() => {
-                    firebase
-                      .firestore()
+                    firestore()
                       .collection("Chats")
                       .doc(chatId)
                       .update({
@@ -379,8 +366,7 @@ function MainChat({ navigation, route }) {
 
                 var currentUser = firebase.auth().currentUser.uid;
 
-                firebase
-                  .firestore()
+                firestore()
                   .collection("users")
                   .doc(currentUser)
                   .collection("DedicatedChats")
@@ -396,8 +382,7 @@ function MainChat({ navigation, route }) {
                     isClosedByListener: false,
                   })
                   .then(() => {
-                    firebase
-                      .firestore()
+                    firestore()
                       .collection("users")
                       .doc(currentUser)
                       .collection("Journal")
@@ -409,8 +394,7 @@ function MainChat({ navigation, route }) {
                         chatId: chatId,
                       })
                       .then(() => {
-                        firebase
-                          .firestore()
+                        firestore()
                           .collection("Chats")
                           .doc(chatId)
                           .update({
@@ -432,8 +416,7 @@ function MainChat({ navigation, route }) {
 
                 var currentUser = firebase.auth().currentUser.uid;
 
-                firebase
-                  .firestore()
+                firestore()
                   .collection("users")
                   .doc(currentUser)
                   .collection("Journal")
@@ -445,8 +428,7 @@ function MainChat({ navigation, route }) {
                     chatId: chatId,
                   })
                   .then(() => {
-                    firebase
-                      .firestore()
+                    firestore()
                       .collection("Chats")
                       .doc(chatId)
                       .update({
@@ -467,8 +449,7 @@ function MainChat({ navigation, route }) {
 
                 var currentUser = firebase.auth().currentUser.uid;
 
-                firebase
-                  .firestore()
+                firestore()
                   .collection("users")
                   .doc(currentUser)
                   .collection("Journal")
@@ -480,8 +461,7 @@ function MainChat({ navigation, route }) {
                     chatId: chatId,
                   })
                   .then(() => {
-                    firebase
-                      .firestore()
+                    firestore()
                       .collection("Chats")
                       .doc(chatId)
                       .update({
@@ -518,8 +498,7 @@ function MainChat({ navigation, route }) {
                   onPress={() => {
                     var currentUser = firebase.auth().currentUser.uid;
 
-                    firebase
-                      .firestore()
+                    firestore()
                       .collection("users")
                       .doc(currentUser)
                       .collection("Journal")
@@ -531,8 +510,7 @@ function MainChat({ navigation, route }) {
                         chatId: chatId,
                       })
                       .then(() => {
-                        firebase
-                          .firestore()
+                        firestore()
                           .collection("Chats")
                           .doc(chatId)
                           .update({

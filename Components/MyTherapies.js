@@ -5,21 +5,20 @@ import {
   SafeAreaView,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
   Dimensions,
   ImageBackground,
 } from "react-native";
 import { Icon } from "react-native-elements";
-import { SearchBar } from "react-native-elements";
 import { ListItem } from "react-native-elements";
 
 import { FlatList } from "react-native-gesture-handler";
 
 import Moment from "moment";
 
-import firebase from "firebase";
 import { ActivityIndicator } from "react-native";
-require("firebase/firestore");
+
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -32,27 +31,27 @@ const MyTherapies = ({ navigation }) => {
   useEffect(() => {
     var currentUser = firebase.auth().currentUser.uid;
 
-    const journal = firebase
-      .firestore()
-      .collection("users")
-      .doc(currentUser)
-      .collection("TherapyBookings")
-      .onSnapshot((querySnapshot) => {
-        const therapyList = [];
+    const journal =
+      firestore()
+        .collection("users")
+        .doc(currentUser)
+        .collection("TherapyBookings")
+        .onSnapshot((querySnapshot) => {
+          const therapyList = [];
 
-        querySnapshot.forEach((documentSnapshot) => {
-          therapyList.push({
-            ...documentSnapshot.data(),
-            key: documentSnapshot.id,
-            dateF: Moment(documentSnapshot.data()["date"], "DD/MM/YYYY").format(
-              "MMM Do YY"
-            ),
+          querySnapshot.forEach((documentSnapshot) => {
+            therapyList.push({
+              ...documentSnapshot.data(),
+              key: documentSnapshot.id,
+              dateF: Moment(documentSnapshot.data()["date"], "DD/MM/YYYY").format(
+                "MMM Do YY"
+              ),
+            });
           });
-        });
 
-        setList(therapyList);
-        setLoading(false);
-      });
+          setList(therapyList);
+          setLoading(false);
+        });
 
     return () => journal();
   }, []);

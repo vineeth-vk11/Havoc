@@ -11,8 +11,8 @@ import {
 import { BackgroundImage } from "react-native-elements/dist/config";
 import { TextInput } from "react-native-paper";
 
-import firebase from "firebase";
-require("firebase/firestore");
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -54,8 +54,7 @@ const GiveFeedback = ({ navigation, route }) => {
             <View style={styler.footView}>
               <TouchableOpacity
                 onPress={() => {
-                  firebase
-                    .firestore()
+                  firestore()
                     .collection("DedicatedChatExitFeedbacks")
                     .add({
                       feedback: feedback,

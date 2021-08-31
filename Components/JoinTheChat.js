@@ -6,16 +6,12 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
-  TextInput,
-  ScrollView,
   ImageBackground,
   Dimensions,
 } from "react-native";
-import { Icon } from "react-native-elements";
-import { Button } from "react-native-elements";
 
-import firebase from "firebase";
-require("firebase/firestore");
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -26,8 +22,7 @@ const JoinTheChat = ({ navigation, route }) => {
   const [listenerBio, setListenerBio] = useState();
 
   useEffect(() => {
-    firebase
-      .firestore()
+    firestore()
       .collection("Listeners")
       .doc(listenerId)
       .get()

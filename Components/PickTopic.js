@@ -9,84 +9,14 @@ import {
   ImageBackground,
   Dimensions
 } from "react-native";
-import firebase from "firebase";
-require("firebase/firestore");
+
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
+
 import { Icon } from "react-native-elements";
 import { SearchBar } from "react-native-elements";
 import { ListItem } from "react-native-elements";
 import { ActivityIndicator } from "react-native-paper";
-const list = [
-  {
-    key: "1",
-    name: "Work and Productivity",
-    subtitle: "66 Talking",
-  },
-  {
-    key: "2",
-    name: "Academic Pressure",
-    subtitle: "53 Talking",
-  },
-  {
-    key: "3",
-    name: "Relationships",
-    subtitle: "72 Talking",
-  },
-  {
-    key: "4",
-    name: "LGBTQ & Identity",
-    subtitle: "32 Talking",
-  },
-  {
-    key: "5",
-    name: "I just want to talk",
-    subtitle: "96 Talking",
-  },
-  {
-    key: "6",
-    name: "COVID 19",
-    subtitle: "49 Talking",
-  },
-  {
-    key: "7",
-    name: "Health Issues",
-    subtitle: "43 Talking",
-  },
-  {
-    key: "8",
-    name: "Parenting",
-    subtitle: "34 Talking",
-  },
-  {
-    key: "9",
-    name: "Bullying",
-    subtitle: "24 Talking",
-  },
-  {
-    key: "10",
-    name: "Loneliness",
-    subtitle: "25 Talking",
-  },
-  {
-    key: "11",
-    name: "Motivation and Confidence",
-    subtitle: "36 Talking",
-  },
-  {
-    key: "12",
-    name: "Overthinking",
-    subtitle: "21 Talking",
-  },
-  {
-    key: "13",
-    name: "Sleep",
-    subtitle: "15 Talking",
-  },
-  {
-    key: "14",
-    name: "Low Energy",
-    subtitle: "12 Talking",
-  },
-];
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -191,24 +121,24 @@ const PickTopic = ({ navigation }) => {
   useEffect(() => {
     if (firebase.auth().currentUser) {
       var user = firebase.auth().currentUser.uid;
-      const userInfo = firebase
-        .firestore()
-        .collection("users")
-        .doc(user)
-        .get()
-        .then((documentSnapshot) => {
-          var data = documentSnapshot.data();
-          if (documentSnapshot.get("minAge")) {
-            setAgeGroupExists(true);
-            setMaxAge(data["maxAge"]);
-            setMinAge(data["minAge"]);
-            setName(data["name"]);
-          } else {
-            setAgeGroupExists(false);
-            setName(data["name"]);
-          }
-          setLoading(false);
-        });
+      const userInfo =
+        firestore()
+          .collection("users")
+          .doc(user)
+          .get()
+          .then((documentSnapshot) => {
+            var data = documentSnapshot.data();
+            if (documentSnapshot.get("minAge")) {
+              setAgeGroupExists(true);
+              setMaxAge(data["maxAge"]);
+              setMinAge(data["minAge"]);
+              setName(data["name"]);
+            } else {
+              setAgeGroupExists(false);
+              setName(data["name"]);
+            }
+            setLoading(false);
+          });
     }
   });
 

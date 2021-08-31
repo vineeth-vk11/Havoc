@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { ImageBackground, Keyboard, Touchable } from "react-native";
+import React, { useState, useEffect } from "react";
+import { ImageBackground, Keyboard } from "react-native";
 import {
   View,
   Text,
@@ -8,55 +8,98 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  LogBox,
   Alert,
 } from "react-native";
-import { Icon } from "react-native-elements";
-import { SocialIcon } from "react-native-elements";
-import {
-  ActivityIndicator,
-  TextInput,
-  TouchableRipple,
-} from "react-native-paper";
-import { showMessage, hideMessage } from "react-native-flash-message";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-
-import {
-  FirebaseRecaptchaVerifierModal,
-  FirebaseRecaptchaBanner,
-} from "expo-firebase-recaptcha";
-import { BackgroundImage } from "react-native-elements/dist/config";
-
-import firebase from "firebase";
-require("firebase/firestore");
 
 import { Dimensions } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
 import { ScreenHeight } from "react-native-elements/dist/helpers";
 
 import PhoneInput from "react-native-phone-number-input";
+
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
+import { appleAuth, AppleButton } from '@invertase/react-native-apple-authentication';
+
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const Register1 = ({ navigation }) => {
-  const recaptchaVerifier = React.useRef(null);
-  const [phoneNumber, setPhoneNumber] = useState();
-  const [verificationId, setVerificationId] = useState();
-  const firebaseConfig = firebase.apps.length
-    ? firebase.app().options
-    : undefined;
-
-  const attemptInvisibleVerification = true;
 
   const createAlert = (title, message) =>
     Alert.alert(title, message, [{ text: "OK", onPress: () => { } }], {
       cancelable: false,
     });
 
-  const [value, setValue] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const phoneInput = React.useRef(null);
+
+  const [confirm, setConfirm] = useState(null);
+
+  async function signInWithPhoneNumber() {
+    const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+    navigation.navigate("EnterOTP", {
+      confirm: confirmation
+    })
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber;
+  }, []);
+
+  function onAuthStateChanged(user) {
+    if (user) {
+      var userId = firebase.auth().currentUser.uid;
+      firestore()
+        .collection("users")
+        .doc(userId)
+        .get()
+        .then((documentSnapshot) => {
+          if (!documentSnapshot.exists) {
+            navigation.navigate("Register2");
+          } else {
+            if (documentSnapshot.data()["isListener"]) {
+              navigation.navigate("ListenerDB");
+            } else {
+              navigation.navigate("Register3");
+            }
+          }
+        });
+    }
+  }
+
+  GoogleSignin.configure({
+    webClientId: '349911897247-uhc0dvc7hrvatbq9ts5d9hr2s6insdl4.apps.googleusercontent.com',
+  });
+
+  async function onGoogleButtonPress() {
+    const { idToken } = await GoogleSignin.signIn();
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    return auth().signInWithCredential(googleCredential);
+  }
+
+  async function onAppleButtonPress() {
+    // Start the sign-in request
+    const appleAuthRequestResponse = await appleAuth.performRequest({
+      requestedOperation: appleAuth.Operation.LOGIN,
+      requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+    });
+
+    // Ensure Apple returned a user identityToken
+    if (!appleAuthRequestResponse.identityToken) {
+      throw 'Apple Sign-In failed - no identify token returned';
+    }
+
+    // Create a Firebase credential from the response
+    const { identityToken, nonce } = appleAuthRequestResponse;
+    const appleCredential = auth.AppleAuthProvider.credential(identityToken, nonce);
+
+    // Sign the user in with the credential
+    return auth().signInWithCredential(appleCredential);
+  }
 
   return (
     <ImageBackground
@@ -69,21 +112,16 @@ const Register1 = ({ navigation }) => {
         }}
       >
         <SafeAreaView style={styler.screen}>
-          <FirebaseRecaptchaVerifierModal
-            ref={recaptchaVerifier}
-            firebaseConfig={firebaseConfig}
-            attemptInvisibleVerification={attemptInvisibleVerification}
-          />
           <View style={styler.havoc}>
             <Image source={require("../assets/logoTB.png")} />
           </View>
 
           <PhoneInput
             ref={phoneInput}
-            defaultValue={value}
+            defaultValue={phoneNumber}
             defaultCode="IN"
             onChangeFormattedText={(text) => {
-              setValue(text);
+              setPhoneNumber(text);
             }}
             withDarkTheme
             withShadow
@@ -91,30 +129,8 @@ const Register1 = ({ navigation }) => {
             layout="second"
           />
           <TouchableOpacity
-            onPress={async () => {
-              try {
-                const phoneProvider = new firebase.auth.PhoneAuthProvider();
-                const verificationId = await phoneProvider.verifyPhoneNumber(
-                  value,
-                  recaptchaVerifier.current
-                );
-                setVerificationId(verificationId);
-                navigation.navigate("EnterOTP", {
-                  verificationId: verificationId,
-                });
-              } catch (err) {
-                if (err.message === "TOO_SHORT") {
-                  createAlert(
-                    "Wrong phone number",
-                    "Phone number entered is short. Please include your country code and try again."
-                  );
-                } else {
-                  createAlert(
-                    "Failed",
-                    "Please check your mobile number and try again"
-                  );
-                }
-              }
+            onPress={() => {
+              signInWithPhoneNumber()
             }}
           >
             <Text style={styler.sendOtp}>Get OTP</Text>
@@ -126,10 +142,28 @@ const Register1 = ({ navigation }) => {
             <View style={styler.lineStyle} />
           </View>
           <TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => {
+              onGoogleButtonPress()
+            }}>
               <View style={styler.continueWithEmail}>
                 <Image
                   source={require("../assets/Images/icons8-google-48.png")}
+                  style={{ width: 40, height: 40, marginLeft: 10 }}
+                />
+                <View style={styler.textView}>
+                  <Text style={styler.textSignIn}>Sign In</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          </TouchableOpacity>
+
+          <TouchableOpacity>
+            <TouchableOpacity onPress={() => {
+              onAppleButtonPress()
+            }}>
+              <View style={styler.continueWithEmail}>
+                <Image
+                  source={require("../assets/Images/icons8-apple-logo-48.png")}
                   style={{ width: 40, height: 40, marginLeft: 10 }}
                 />
                 <View style={styler.textView}>

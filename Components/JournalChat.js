@@ -1,28 +1,21 @@
-import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
-  Modal,
   TouchableOpacity,
   ImageBackground,
   Dimensions,
 } from "react-native";
 
-import { ListItem, Avatar, Icon } from "react-native-elements";
+import { Icon } from "react-native-elements";
 
-import firebase from "firebase";
-require("firebase/database");
-require("firebase/firestore");
+import firebase from '@react-native-firebase/app';
+import database from '@react-native-firebase/database';
 
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { GiftedChat } from "react-native-gifted-chat";
-import { Bubble } from "react-native-gifted-chat";
 
 import uuid from "react-native-uuid";
-
-import { BottomSheet } from "react-native-btr";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -37,8 +30,7 @@ function JournalChat({ navigation, route }) {
   useEffect(() => {
     if (firebase.auth().currentUser) {
       var currentUser = firebase.auth().currentUser.uid;
-      firebase
-        .database()
+      database()
         .ref(`/Chats/${currentUser}/${chatId}`)
         .on(`value`, (snapShot) => {
           const messageList = [];
