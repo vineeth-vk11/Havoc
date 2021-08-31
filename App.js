@@ -1,10 +1,7 @@
-import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import React, { useEffect } from "react";
 import Register1 from "./Components/Register1";
 import Register2 from "./Components/Register2";
 import Register3 from "./Components/Register3";
-import SelectTopic from "./Components/SelectTopic";
 import PickTopic from "./Components/PickTopic";
 import AgeOfListner from "./Components/AgeOfListner";
 import SetListnerAge from "./Components/SetListenerAge";
@@ -24,7 +21,6 @@ import MyTherapies from "./Components/MyTherapies";
 import BookCall from "./Components/BookCall";
 import Booking from "./Components/Booking";
 import JoinTheChat from "./Components/JoinTheChat";
-import Chat from "./Components/Chat";
 import BookCallDateTime from "./Components/BookCallDateTime";
 import BookCallConfirmation from "./Components/BookCallConfirmation";
 import DedicatedChats from "./Components/DedicatedChats";
@@ -47,9 +43,12 @@ import ReportSeeker from "./Components/ReportSeeker";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import * as firebase from "firebase";
 import { LogBox } from "react-native";
 import HowYouFeel from "./Components/HowYouFeel";
+
+import messaging from '@react-native-firebase/messaging';
+
+import firebase from '@react-native-firebase/app';
 
 LogBox.ignoreLogs(["Setting a timer"]);
 // Initialize Firebase
@@ -81,6 +80,32 @@ const MyTheme = {
 };
 
 function App() {
+
+  async function requestUserPermission() {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+    if (enabled) {
+      console.log('Authorization status:', authStatus);
+    }
+  }
+
+  requestUserPermission()
+
+  useEffect(() => {
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      Alert.alert('A new request arrived!', JSON.stringify(remoteMessage));
+    });
+
+    return unsubscribe;
+  }, []);
+
+  messaging().setBackgroundMessageHandler(async remoteMessage => {
+    console.log('Message handled in the background!', remoteMessage);
+  });
+
   return (
     <NavigationContainer theme={MyTheme}>
       <Stack.Navigator
@@ -116,7 +141,6 @@ function App() {
         />
         <Stack.Screen name="Booking" component={Booking} />
         <Stack.Screen name="JoinTheChat" component={JoinTheChat} />
-        <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="BookCallDateTime" component={BookCallDateTime} />
         <Stack.Screen name="DedicatedChats" component={DedicatedChats} />
         <Stack.Screen name="JournalChat" component={JournalChat} />

@@ -2,16 +2,15 @@ import React from "react";
 import { ImageBackground } from "react-native";
 import { SafeAreaView, Image, StyleSheet } from "react-native";
 
-import firebase from "firebase";
-require("firebase/firestore");
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 const Splash = ({ navigation }) => {
   setTimeout(function () {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         var user = firebase.auth().currentUser.uid;
-        firebase
-          .firestore()
+        firestore()
           .collection("users")
           .doc(user)
           .get()

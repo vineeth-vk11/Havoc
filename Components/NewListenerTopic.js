@@ -12,9 +12,10 @@ import {
   SafeAreaView,
 } from "react-native";
 import { CheckBox } from "react-native-elements";
-import { cos, set } from "react-native-reanimated";
 
 import { Icon } from "react-native-elements";
+
+import messaging from '@react-native-firebase/messaging';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -52,7 +53,7 @@ const NewListenerTopic = ({ navigation, route }) => {
     Alert.alert(
       "No Topic Selected",
       "Please select atleast one topic to continue",
-      [{ text: "OK", onPress: () => {} }],
+      [{ text: "OK", onPress: () => { } }],
       {
         cancelable: false,
       }
@@ -98,71 +99,20 @@ const NewListenerTopic = ({ navigation, route }) => {
 
           <View style={styler.checkBoxView}>
             <CheckBox
-              checked={all}
-              key={"All"}
-              onPress={() => {
-                setAll(!all);
-                if (all === false) {
-                  list.push("Work and Productivity");
-                  list.push("Academic Pressure");
-                  list.push("Relationships");
-                  list.push("LGBTQ & Identity");
-                  list.push("I just want to talk");
-                  list.push("Covid 19");
-                  list.push("Health Issues");
-                  list.push("Parenting");
-                  list.push("Bullying");
-                  list.push("Lonliness");
-                  list.push("Motivation and Confidence");
-                  list.push("Overthinking");
-                  list.push("Sleep");
-
-                  setWork(true);
-                  setAcademic(true);
-                  setRelationship(true);
-                  setLgbtq(true);
-                  setTalk(true);
-                  setCovid(true);
-                  setHealth(true);
-                  setParenting(true);
-                  setBullying(true);
-                  setLonliness(true);
-                  setMotivation(true);
-                  setOverthinking(true);
-                  setSleep(true);
-                } else {
-                  list.length = 0;
-
-                  setWork(false);
-                  setAcademic(false);
-                  setRelationship(false);
-                  setLgbtq(false);
-                  setTalk(false);
-                  setCovid(false);
-                  setHealth(false);
-                  setParenting(false);
-                  setBullying(false);
-                  setLonliness(false);
-                  setMotivation(false);
-                  setOverthinking(false);
-                  setSleep(false);
-                }
-              }}
-              title={"Select All"}
-              containerStyle={{
-                backgroundColor: "transparent",
-                borderColor: "transparent",
-              }}
-            />
-            <CheckBox
               checked={work}
               key={"Work and Productivity"}
               onPress={() => {
                 setWork(!work);
                 if (work === false) {
                   list.push("Work and Productivity");
+                  messaging()
+                    .subscribeToTopic('WorkAndProductivity')
+                    .then(() => console.log('Subscribed to work!'))
                 } else {
                   removeItemOnce(list, "Work and Productivity");
+                  messaging()
+                    .unsubscribeFromTopic('WorkAndProductivity')
+                    .then(() => console.log('Unsubscribed to work!'))
                 }
               }}
               title={"Work and Productivity"}
@@ -178,8 +128,14 @@ const NewListenerTopic = ({ navigation, route }) => {
                 setAcademic(!academic);
                 if (academic === false) {
                   list.push("Academic Pressure");
+                  messaging()
+                    .subscribeToTopic('AcademicPressure')
+                    .then(() => console.log('Subscribed to academics'))
                 } else {
                   removeItemOnce(list, "Academic Pressure");
+                  messaging()
+                    .unsubscribeFromTopic('AcademicPressure')
+                    .then(() => console.log('Unsubscribed to academics'))
                 }
               }}
               title={"Academic Pressure"}
@@ -195,8 +151,14 @@ const NewListenerTopic = ({ navigation, route }) => {
                 setRelationship(!relationship);
                 if (relationship === false) {
                   list.push("Relationships");
+                  messaging()
+                    .subscribeToTopic('RelationShips')
+                    .then(() => console.log('Subscribed to relationships'))
                 } else {
                   removeItemOnce(list, "Relationships");
+                  messaging()
+                    .unsubscribeFromTopic('RelationShips')
+                    .then(() => console.log('Unsubscribed to relationships'))
                 }
               }}
               title={"Relationships"}
@@ -212,8 +174,14 @@ const NewListenerTopic = ({ navigation, route }) => {
                 setLgbtq(!lgbtq);
                 if (lgbtq === false) {
                   list.push("LGBTQ & Identity");
+                  messaging()
+                    .subscribeToTopic('LGBTQ')
+                    .then(() => console.log('Subscribed to lgbtq'))
                 } else {
                   removeItemOnce(list, "LGBTQ & Identity");
+                  messaging()
+                    .unsubscribeFromTopic('LGBTQ')
+                    .then(() => console.log('Unsubscribed to lgbtq'))
                 }
               }}
               title={"LGBTQ & Identity"}
@@ -229,8 +197,14 @@ const NewListenerTopic = ({ navigation, route }) => {
                 setTalk(!talk);
                 if (talk === false) {
                   list.push("I just want to talk");
+                  messaging()
+                    .subscribeToTopic('IJustWantToTalk')
+                    .then(() => console.log('Subscribed to talk'))
                 } else {
                   removeItemOnce(list, "I just want to talk");
+                  messaging()
+                    .unsubscribeFromTopic('IJustWantToTalk')
+                    .then(() => console.log('Unsubscribed to talk'))
                 }
               }}
               title={"I just want to talk"}
@@ -246,8 +220,14 @@ const NewListenerTopic = ({ navigation, route }) => {
                 setCovid(!covid);
                 if (covid === false) {
                   list.push("Covid 19");
+                  messaging()
+                    .subscribeToTopic('COVID19')
+                    .then(() => console.log('Subscribed to covid'))
                 } else {
                   removeItemOnce(list, "Covid 19");
+                  messaging()
+                    .unsubscribeFromTopic('COVID19')
+                    .then(() => console.log('Unsubscribed to covid'))
                 }
               }}
               title={"Covid 19"}
@@ -263,8 +243,14 @@ const NewListenerTopic = ({ navigation, route }) => {
                 setHealth(!health);
                 if (health === false) {
                   list.push("Health Issues");
+                  messaging()
+                    .subscribeToTopic('HealthIssues')
+                    .then(() => console.log('Subscribed to health issues'))
                 } else {
                   removeItemOnce(list, "Health Issues");
+                  messaging()
+                    .unsubscribeFromTopic('HealthIssues')
+                    .then(() => console.log('Unsubscribed to health issues'))
                 }
               }}
               title={"Health Issues"}
@@ -280,8 +266,14 @@ const NewListenerTopic = ({ navigation, route }) => {
                 setParenting(!parenting);
                 if (parenting === false) {
                   list.push("Parenting");
+                  messaging()
+                    .subscribeToTopic('Parenting')
+                    .then(() => console.log('Subscribed to parenting'))
                 } else {
                   removeItemOnce(list, "Parenting");
+                  messaging()
+                    .unsubscribeFromTopic('Parenting')
+                    .then(() => console.log('Unsubscribed to parenting'))
                 }
               }}
               title={"Parenting"}
@@ -297,8 +289,14 @@ const NewListenerTopic = ({ navigation, route }) => {
                 setBullying(!bullying);
                 if (bullying === false) {
                   list.push("Bullying");
+                  messaging()
+                    .subscribeToTopic('Bullying')
+                    .then(() => console.log('Subscribed to bullying'))
                 } else {
                   removeItemOnce(list, "Bullying");
+                  messaging()
+                    .unsubscribeFromTopic('Bullying')
+                    .then(() => console.log('Unsubscribed to bullying'))
                 }
               }}
               title={"Bullying"}
@@ -314,8 +312,14 @@ const NewListenerTopic = ({ navigation, route }) => {
                 setLonliness(!lonliness);
                 if (lonliness === false) {
                   list.push("Lonliness");
+                  messaging()
+                    .subscribeToTopic('Loneliness')
+                    .then(() => console.log('Subscribed to loneliness'))
                 } else {
                   removeItemOnce(list, "Lonliness");
+                  messaging()
+                    .unsubscribeFromTopic('Loneliness')
+                    .then(() => console.log('Unsubscribed to loneliness'))
                 }
               }}
               title={"Lonliness"}
@@ -331,8 +335,14 @@ const NewListenerTopic = ({ navigation, route }) => {
                 setMotivation(!motivation);
                 if (motivation === false) {
                   list.push("Motivation and Confidence");
+                  messaging()
+                    .subscribeToTopic('MotivationAndConfidence')
+                    .then(() => console.log('Subscribed to motivation'))
                 } else {
                   removeItemOnce(list, "Motivation and Confidence");
+                  messaging()
+                    .unsubscribeFromTopic('MotivationAndConfidence')
+                    .then(() => console.log('Unsubscribed to motivation'))
                 }
               }}
               title={"Motivation and Confidence"}
@@ -348,8 +358,14 @@ const NewListenerTopic = ({ navigation, route }) => {
                 setOverthinking(!overthinking);
                 if (overthinking === false) {
                   list.push("Overthinking");
+                  messaging()
+                    .subscribeToTopic('Overthinking')
+                    .then(() => console.log('Subscribed to overthinking'))
                 } else {
                   removeItemOnce(list, "Overthinking");
+                  messaging()
+                    .unsubscribeFromTopic('Overthinking')
+                    .then(() => console.log('Unsubscribed to overthinking'))
                 }
               }}
               title={"Overthinking"}
@@ -365,8 +381,14 @@ const NewListenerTopic = ({ navigation, route }) => {
                 setSleep(!sleep);
                 if (sleep === false) {
                   list.push("Sleep");
+                  messaging()
+                    .subscribeToTopic('Sleep')
+                    .then(() => console.log('Subscribed to sleep'))
                 } else {
                   removeItemOnce(list, "Sleep");
+                  messaging()
+                    .unsubscribeFromTopic('Sleep')
+                    .then(() => console.log('Unsubscribed to sleep'))
                 }
               }}
               title={"Sleep"}

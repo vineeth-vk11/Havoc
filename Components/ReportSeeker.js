@@ -6,17 +6,14 @@ import {
   Dimensions,
   KeyboardAvoidingView,
   ScrollView,
-  TouchableNativeFeedback,
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
 import { TextInput } from "react-native-paper";
 
-import { Icon } from "react-native-elements";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import firebase from "firebase";
-require("firebase/firestore");
+import firebase from '@react-native-firebase/app';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -62,8 +59,7 @@ const ReportSeeker = ({ navigation, route }) => {
             <TouchableOpacity
               onPress={() => {
                 var currentUser = firebase.auth().currentUser.uid;
-                firebase
-                  .firestore()
+                firestore()
                   .collection("Seeker Reports")
                   .add({
                     report: report,

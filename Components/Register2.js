@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { ImageBackground, ScrollView } from "react-native";
-import { KeyboardAvoidingView } from "react-native";
 import {
   View,
   Text,
@@ -18,8 +17,8 @@ import RadioForm, {
   RadioButtonLabel,
 } from "react-native-simple-radio-button";
 
-import firebase from "firebase";
-require("firebase/firestore");
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 import { Dimensions } from "react-native";
 import { ScreenHeight } from "react-native-elements/dist/helpers";
@@ -160,8 +159,7 @@ const Register2 = ({ navigation }) => {
                     if (firebase.auth().currentUser) {
                       var user = firebase.auth().currentUser.uid;
 
-                      firebase
-                        .firestore()
+                      firestore()
                         .collection("users")
                         .doc(user)
                         .set({

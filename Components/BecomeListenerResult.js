@@ -1,9 +1,6 @@
 import React from "react";
 import { ImageBackground } from "react-native";
-import { SafeAreaView, Image, StyleSheet, Text } from "react-native";
-
-import firebase from "firebase";
-require("firebase/firestore");
+import { SafeAreaView, StyleSheet, Text } from "react-native";
 
 import { Icon } from "react-native-elements";
 

@@ -1,29 +1,23 @@
-import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
-  Modal,
   TouchableOpacity,
   ImageBackground,
   Alert,
   Dimensions,
 } from "react-native";
 
-import { ListItem, Avatar, Icon } from "react-native-elements";
+import { Icon } from "react-native-elements";
 
-import firebase from "firebase";
-require("firebase/database");
-require("firebase/firestore");
+import database from '@react-native-firebase/database';
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 import React, { useState, useCallback, useEffect } from "react";
 import { GiftedChat } from "react-native-gifted-chat";
-import { Bubble } from "react-native-gifted-chat";
 
 import uuid from "react-native-uuid";
-
-import { BottomSheet } from "react-native-btr";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -38,8 +32,8 @@ function DedicatedChatting({ navigation, route }) {
   useEffect(() => {
     if (firebase.auth().currentUser) {
       var currentUser = firebase.auth().currentUser.uid;
-      firebase
-        .database()
+
+      database()
         .ref(`/Chats/${currentUser}/${chatId}`)
         .on(`value`, (snapShot) => {
           const messageList = [];
@@ -59,8 +53,7 @@ function DedicatedChatting({ navigation, route }) {
           setMessages(messageList.reverse());
         });
 
-      firebase
-        .firestore()
+      firestore()
         .collection("users")
         .doc(currentUser)
         .collection("DedicatedChats")
@@ -83,13 +76,13 @@ function DedicatedChatting({ navigation, route }) {
   const onSend = useCallback((messages = []) => {
     var currentUser = firebase.auth().currentUser.uid;
 
-    firebase.database().ref(`/Chats/${currentUser}/${chatId}`).push({
+    database().ref(`/Chats/${currentUser}/${chatId}`).push({
       message: messages[0]["text"],
       receivedUser: listenerId,
       sentUser: currentUser,
     });
 
-    firebase.database().ref(`/Chats/${listenerId}/${chatId}`).push({
+    database().ref(`/Chats/${listenerId}/${chatId}`).push({
       message: messages[0]["text"],
       receivedUser: listenerId,
       sentUser: currentUser,
@@ -101,21 +94,21 @@ function DedicatedChatting({ navigation, route }) {
       "Close Chat",
       "Are you sure you want to close this chat ?",
       [
-        { text: "No", onPress: () => {} },
+        { text: "No", onPress: () => { } },
         {
           text: "Yes",
           onPress: () => {
             var currentUser = firebase.auth().currentUser.uid;
-            firebase
-              .firestore()
+
+            firestore()
               .collection("users")
               .doc(currentUser)
               .collection("DedicatedChats")
               .doc(listenerId)
               .delete()
               .then(() => {
-                firebase
-                  .firestore()
+
+                firestore()
                   .collection("users")
                   .doc(listenerId)
                   .collection("DedicatedChats")

@@ -6,24 +6,15 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
-  TextInput,
-  ScrollView,
   Dimensions,
   ImageBackground,
   Alert,
 } from "react-native";
-import { Icon } from "react-native-elements";
-import { set } from "react-native-reanimated";
-import RadioForm, {
-  RadioButton,
-  RadioButtonInput,
-  RadioButtonLabel,
-} from "react-native-simple-radio-button";
 
 import RadioButtonRN from "radio-buttons-react-native";
 
-import firebase from "firebase";
-require("firebase/firestore");
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 var radio_props = [
   {
@@ -59,7 +50,7 @@ const Leaving = ({ navigation }) => {
     Alert.alert(
       "Select Option",
       "Please select an option",
-      [{ text: "OK", onPress: () => {} }],
+      [{ text: "OK", onPress: () => { } }],
       { cancelable: false }
     );
 
@@ -126,16 +117,14 @@ const Leaving = ({ navigation }) => {
               } else {
                 var currentUser = firebase.auth().currentUser.uid;
 
-                firebase
-                  .firestore()
+                firestore()
                   .collection("MatchingExitFeedback")
                   .add({
                     user: currentUser,
                     reason: option,
                   })
                   .then(() => {
-                    firebase
-                      .firestore()
+                    firestore()
                       .collection("users")
                       .doc(currentUser)
                       .get()

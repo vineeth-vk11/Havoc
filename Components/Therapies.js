@@ -12,9 +12,10 @@ import {
 import { Icon } from "react-native-elements";
 import { SearchBar } from "react-native-elements";
 import { ListItem } from "react-native-elements";
-import firebase from "firebase";
 import { FlatList } from "react-native-gesture-handler";
-require("firebase/firestore");
+
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -24,21 +25,22 @@ const Therapies = ({ navigation }) => {
 
   const [loading, setLoading] = useState(true);
 
-  const db = firebase.firestore();
-
   const [list, setList] = useState([]);
   const [therapiesList, settherapiesList] = useState([]);
   useEffect(() => {
-    const therapies = db.collection("Therapies").onSnapshot((querySnapshot) => {
-      querySnapshot.forEach((documentSnapshot) => {
-        therapiesList.push({
-          ...documentSnapshot.data(),
-          key: documentSnapshot.id,
+    const therapies =
+      firestore()
+        .collection("Therapies")
+        .onSnapshot((querySnapshot) => {
+          querySnapshot.forEach((documentSnapshot) => {
+            therapiesList.push({
+              ...documentSnapshot.data(),
+              key: documentSnapshot.id,
+            });
+          });
+          setList(therapiesList);
+          setLoading(false);
         });
-      });
-      setList(therapiesList);
-      setLoading(false);
-    });
 
     return () => therapies();
   }, []);

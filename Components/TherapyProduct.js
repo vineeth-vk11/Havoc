@@ -6,18 +6,16 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
-  TextInput,
   ScrollView,
   ImageBackground,
   Alert,
 } from "react-native";
 import { Icon } from "react-native-elements";
-import { Button } from "react-native-elements";
 
 import RazorpayCheckout from "react-native-razorpay";
 
-import firebase from "firebase";
-require("firebase/firestore");
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 import Moment from "moment";
 
@@ -54,8 +52,7 @@ const TherapyProduct = ({ navigation, route }) => {
                 alert(`Success`);
                 var currentUser = firebase.auth().currentUser.uid;
                 var date = Moment(new Date()).format("DD/MM/YYYY");
-                firebase
-                  .firestore()
+                firestore()
                   .collection("users")
                   .doc(currentUser)
                   .collection("TherapyBookings")
@@ -77,7 +74,7 @@ const TherapyProduct = ({ navigation, route }) => {
         },
         {
           text: "Cancel",
-          onPress: () => {},
+          onPress: () => { },
         },
       ],
       { cancelable: false }

@@ -5,18 +5,10 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
-  ScrollView,
-  KeyboardAvoidingView,
   ImageBackground,
   Alert,
   Dimensions,
 } from "react-native";
-import RadioForm, {
-  RadioButton,
-  RadioButtonInput,
-  RadioButtonLabel,
-} from "react-native-simple-radio-button";
-import { Rating, AirbnbRating } from "react-native-elements";
 import Stars from "react-native-stars";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -24,8 +16,8 @@ import RadioButtonRN from "radio-buttons-react-native";
 
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-import firebase from "firebase";
-require("firebase/firestore");
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 var radio_props = [
   { label: "Yes", value: 0 },
@@ -48,7 +40,7 @@ const Review = ({ navigation, route }) => {
   console.log(listener);
 
   const createAlert = (message) =>
-    Alert.alert("Enter Data", message, [{ text: "OK", onPress: () => {} }], {
+    Alert.alert("Enter Data", message, [{ text: "OK", onPress: () => { } }], {
       cancelable: false,
     });
 
@@ -61,8 +53,7 @@ const Review = ({ navigation, route }) => {
     } else {
       var currentUser = firebase.auth().currentUser.uid;
 
-      firebase
-        .firestore()
+      firestore()
         .collection("SeekerFeedback")
         .add({
           experience: review,
@@ -75,8 +66,7 @@ const Review = ({ navigation, route }) => {
           if (type === "payment") {
             navigation.navigate("BookCall");
           } else {
-            firebase
-              .firestore()
+            firestore()
               .collection("users")
               .doc(currentUser)
               .get()

@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView,
-  SafeAreaView,
   ImageBackground,
   Dimensions,
   Alert,
@@ -15,17 +14,17 @@ import { TextInput } from "react-native-paper";
 
 import { Icon } from "react-native-elements";
 
-import firebase from "firebase";
-require("firebase/firestore");
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 import uuid from "react-native-uuid";
-import { min } from "react-native-reanimated";
 
 import Moment from "moment";
 
 import RadioButtonRN from "radio-buttons-react-native";
 
 import AnimatedLoader from "react-native-animated-loader";
+
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -45,6 +44,52 @@ const HowYouFeel = ({ navigation, route }) => {
 
   const [disabled, setDisabled] = useState(false);
 
+  getTopicName = (topic) => {
+
+    if (topic === "Work and Productivity") {
+      return "WorkAndProductivity"
+    }
+    else if (topic === "Academic Pressure") {
+      return "AcademicPressure"
+    }
+    else if (topic === "Relationships") {
+      return "RelationShips"
+    }
+    else if (topic === "LGBTQ & Identity") {
+      return "LGBTQ"
+    }
+    else if (topic === "I just want to talk") {
+      return "IJustWantToTalk"
+    }
+    else if (topic === "COVID 19") {
+      return "COVID19"
+    }
+    else if (topic === "Health Issues") {
+      return "HealthIssues"
+    }
+    else if (topic === "Parenting") {
+      return "Parenting"
+    }
+    else if (topic === "Bullying") {
+      return "Bullying"
+    }
+    else if (topic === "Loneliness") {
+      return "Loneliness"
+    }
+    else if (topic === "Motivation and Confidence") {
+      return "MotivationAndConfidence"
+    }
+    else if (topic === "Overthinking") {
+      return "Overthinking"
+    }
+    else if (topic === "Sleep") {
+      return "Sleep"
+    }
+    else if (topic === "Low Energy") {
+      return "LowEnergy"
+    }
+  }
+
   sendRequest = () => {
     if (firebase.auth().currentUser) {
       setDisabled(true);
@@ -54,8 +99,7 @@ const HowYouFeel = ({ navigation, route }) => {
 
       var date = Moment(new Date()).format("DD/MM/YYYY");
 
-      firebase
-        .firestore()
+      firestore()
         .collection("Chats")
         .doc(id)
         .set({
@@ -76,8 +120,18 @@ const HowYouFeel = ({ navigation, route }) => {
           userName: userName,
         })
         .then(() => {
-          firebase
-            .firestore()
+
+          var topicId = getTopicName(topic)
+          var link = `http://3.6.88.251:8080/sendMessage?topic=${topicId}`
+          fetch(link, {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+            },
+          });
+
+          firestore()
             .collection("ChatRequests")
             .doc(id)
             .set({
@@ -104,7 +158,7 @@ const HowYouFeel = ({ navigation, route }) => {
     Alert.alert(
       "No Option Selected",
       "Please select your current feeling to continue",
-      [{ text: "OK", onPress: () => {} }],
+      [{ text: "OK", onPress: () => { } }],
       {
         cancelable: false,
       }

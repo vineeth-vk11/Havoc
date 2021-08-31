@@ -3,21 +3,12 @@ import {
   View,
   Text,
   SafeAreaView,
-  Image,
   StyleSheet,
   TouchableOpacity,
-  TextInput,
-  ScrollView,
   ImageBackground,
   Dimensions,
 } from "react-native";
 import { Icon } from "react-native-elements";
-import { Button } from "react-native-elements";
-
-import firebase from "firebase";
-require("firebase/firestore");
-
-import uuid from "react-native-uuid";
 
 import RazorpayCheckout from "react-native-razorpay";
 

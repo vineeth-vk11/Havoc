@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
   TouchableOpacity,
   ScrollView,
   Dimensions,
@@ -18,8 +17,8 @@ import { Icon } from "react-native-elements";
 
 import RadioButtonRN from "radio-buttons-react-native";
 
-import firebase from "firebase";
-require("firebase/firestore");
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -75,7 +74,7 @@ const Quiz4 = ({ navigation, route }) => {
     Alert.alert(
       "No Option Selected",
       "Please select an option continue",
-      [{ text: "OK", onPress: () => {} }],
+      [{ text: "OK", onPress: () => { } }],
       {
         cancelable: false,
       }
@@ -193,8 +192,7 @@ const Quiz4 = ({ navigation, route }) => {
                   if (getOccurrence(answersList, true) > 2) {
                     var currentUser = firebase.auth().currentUser.uid;
 
-                    firebase
-                      .firestore()
+                    firestore()
                       .collection("users")
                       .doc(currentUser)
                       .get()
@@ -202,8 +200,7 @@ const Quiz4 = ({ navigation, route }) => {
                         var age = documentSnapshot.data()["age"];
                         var gender = documentSnapshot.data()["gender"];
 
-                        firebase
-                          .firestore()
+                        firestore()
                           .collection("Listeners")
                           .doc(currentUser)
                           .set({
@@ -219,8 +216,7 @@ const Quiz4 = ({ navigation, route }) => {
                             sessions: 0,
                           })
                           .then(() => {
-                            firebase
-                              .firestore()
+                            firestore()
                               .collection("users")
                               .doc(currentUser)
                               .update({

@@ -3,19 +3,16 @@ import {
   View,
   Text,
   SafeAreaView,
-  Image,
   StyleSheet,
   TouchableOpacity,
-  TextInput,
-  ScrollView,
   ImageBackground,
   Dimensions,
   Alert,
 } from "react-native";
 import { Icon } from "react-native-elements";
 
-import firebase from "firebase";
-require("firebase/firestore");
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 import RadioButtonRN from "radio-buttons-react-native";
 
@@ -41,7 +38,7 @@ const AgeOfListner = ({ navigation, route }) => {
     Alert.alert(
       "No Option Selected",
       "Please select an age group to continue",
-      [{ text: "OK", onPress: () => {} }],
+      [{ text: "OK", onPress: () => { } }],
       {
         cancelable: false,
       }
@@ -114,8 +111,7 @@ const AgeOfListner = ({ navigation, route }) => {
                 if (firebase.auth().currentUser) {
                   var user = firebase.auth().currentUser.uid;
 
-                  firebase
-                    .firestore()
+                  firestore()
                     .collection("users")
                     .doc(user)
                     .set(

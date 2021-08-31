@@ -4,11 +4,8 @@ import {
   View,
   Text,
   SafeAreaView,
-  Image,
   StyleSheet,
   TouchableOpacity,
-  TextInput,
-  ScrollView,
   Dimensions,
   Alert,
   TouchableWithoutFeedback,
@@ -19,9 +16,9 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import Moment from "moment";
 
-import firebase from "firebase";
+import firebase from '@react-native-firebase/app';
+
 import { ActivityIndicator } from "react-native-paper";
-require("firebase/firestore");
 
 import PhoneInput from "react-native-phone-number-input";
 
@@ -240,8 +237,7 @@ const BookCallDateTime = ({ navigation }) => {
                   } else {
                     var currentUser = firebase.auth().currentUser.uid;
 
-                    firebase
-                      .firestore()
+                    firestore()
                       .collection("users")
                       .doc(currentUser)
                       .collection("callBookings")
@@ -252,8 +248,7 @@ const BookCallDateTime = ({ navigation }) => {
                         user: currentUser,
                       })
                       .then(() => {
-                        firebase
-                          .firestore()
+                        firestore()
                           .collection("callBookings")
                           .add({
                             date: date,
